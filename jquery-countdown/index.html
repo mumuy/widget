@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>countdown</title>
+		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<style type="text/css">
+			.countdown{
+				margin-bottom:15px;
+			}
+		</style>
+		<script type="text/javascript" src="../public/jquery.min.js"></script>
+		<script type="text/javascript" src="../code/jquery.countdown.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="countdown">
+				<p>#例子1# 12:30:50到12:30:30</p>
+				<p id="time1">12:30:50</p>
+			</div>
+			<div class="code">
+				<p>$('#time1').countdown({'endtime':'12:30:30'});</p>
+			</div>
+			<div class="countdown">
+				<p>#例子2# 60到5</p>
+				<p id="time2">60</p>
+			</div>
+			<div class="code">
+				<p>$('#time2').countdown({'endtime':5});</p>
+			</div>
+			<script>
+				$('#time1').countdown({'endtime':'12:30:30'});
+				$('#time2').countdown({'endtime':5});
+			</script>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>$(selector).countdown(options,callback(api));</p>
+				</div>
+				<h2> options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th style="width:150">参数</th>
+							<th style="width:80">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>format</td>
+							<td>'hh:mm:ss'</td>
+							<td>输出的时间格式，年(y)、月(M)、日(d)、小时(h)、分(m)、秒(s)、毫秒(S)、季度(q)</td>
+						</tr>
+						<tr>
+							<td>starttime</td>
+							<td>''</td>
+							<td>开始时间</td>
+						</tr>
+						<tr>
+							<td>endtime</td>
+							<td>''</td>
+							<td>结束时间</td>
+						</tr>
+						<tr>
+							<td>duration</td>
+							<td>1000</td>
+							<td>计数的时间间隔（单位：毫秒）</td>
+						</tr>
+						<tr>
+							<td>countEach(timestamp)</td>
+							<td>function(){}</td>
+							<td>每计时单位执行</td>
+						</tr>
+						<tr>
+							<td>endEach(timestamp)</td>
+							<td>function(){}</td>
+							<td>倒计时结束执行</td>
+						</tr>
+					</tbody>
+				</table>
+				<h2> callback(api)参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th style="width:200">方法</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>reset()</td>
+							<td>重置</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
