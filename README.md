@@ -1,5 +1,4 @@
-# widget
-web组件
+# web组件
 
 演示分支：gh-pages
 
