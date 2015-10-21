@@ -13,47 +13,62 @@
             parameter = parameter || {};
             getApi = getApi||function(){};
         }
-		var defaults = {
-			'format': 'hh:mm:ss',					//格式
-			'starttime': '',						//开始时间
-			'endtime': '',							//结束时间
-			'time': '1000',							//多久倒计时一次 单位：ms
-			'countEach': function (timestamp) {		//每单位时间出发事件
-			},
-			'countEnd':function (timestamp) {		//倒计时结束回调事件
-			}
-		};
-		var options = $.extend({}, defaults, parameter);
 		return this.each(function (i) {
 			var $this = $(this);
+			var defaults = {
+				'format': 'hh:mm:ss',					//格式
+				'starttime': $this.text(),				//开始时间
+				'endtime': '',							//结束时间
+				'time': '1000',							//多久倒计时一次 单位：ms
+				'disableBtnCls':'disable',
+				'countEach': function (timestamp) {		//每单位时间出发事件
+					$this.text(timeFormat(options.format,_end));
+				},
+				'countEnd':function (timestamp) {		//倒计时结束回调事件
+					$this.text(timeFormat(options.format,_start));
+				}
+			};
+			var options = $.extend({}, defaults, parameter);
 			var _api = {};              //对外的函数接口
 			var _hander = null;
-			options.starttime = parameter.starttime||$this.text();
-			_api.reset=function(){
+			var _start,_end;
+			var count = function(){
 				if(_hander){
 					clearInterval(_hander);
 				}
-				if(isNaN(options.starttime)){
-					var start = getTimestamp(options.starttime);
-					var end = getTimestamp(options.endtime);							
-				}else{
-					options.format = parameter.format||'s';
-					var start = options.starttime*1e3;
-					var end = options.endtime*1e3;
-				}
-				$this.text(timeFormat(options.format,start));
+				options.countEach(_start);
+				console.log($this,options.disableBtnCls);
+				$this.addClass(options.disableBtnCls);
 				_hander = setInterval(function(){
-					start -= options.time;
-					if(start<=end){
+					_start -= options.time;
+					if(_start<=_end){
 						clearInterval(_hander);
-						$this.text(timeFormat(options.format,end));
-						options.countEnd(end);
+						options.countEnd(_end);
+						$this.removeClass(options.disableBtnCls);
 					}else{
-						$this.text(timeFormat(options.format,start));
-						options.countEach(start);
+						options.countEach(_start);
 					}
 				},options.time);
 			};
+			_api.reset = function(){
+				if(isNaN(options.starttime)){
+					_start = getTimestamp(options.starttime);
+					_end = getTimestamp(options.endtime);							
+				}else{
+					options.format = parameter.format||'s';
+					_start = options.starttime*1e3;
+					_end = options.endtime*1e3;
+				}
+				count();
+			};
+			_api.setStarttime = function(start){
+				_start = start;
+				count();
+			};
+			_api.setEndtime = function(end){
+				_end = end;
+				count();
+			}
 			//初始化  
             _api.reset();
             getApi(_api);

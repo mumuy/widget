@@ -219,6 +219,7 @@
                 _distance = [];
                 _inner = 0;
                 if(options.direction=='x'){
+                    $lists.css('width','');
                     $items.css('width','');
                     _outer = $outer.width();
                     $items.each(function(i){
