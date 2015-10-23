@@ -19,13 +19,13 @@
 					'format': 'hh:mm:ss',					//格式
 					'starttime': $this.text(),				//开始时间
 					'endtime': '',							//结束时间
-					'time': 1000,							//多久倒计时一次 单位：ms
+					'duration': 1000,							//多久倒计时一次 单位：ms
 					'disableBtnCls':'disable',
-					'auto':true,
-					'countEach': function (time) {		//每单位时间出发事件
+					'auto':true,							//是否默认自动计数
+					'countEach': function (time) {			//每单位时间出发事件
 						$this.text(time);
 					},
-					'countEnd':function (time) {		//倒计时结束回调事件
+					'countEnd':function (time) {			//倒计时结束回调事件
 						$this.text(time);
 					}
 				};
@@ -41,7 +41,7 @@
 					options.countEach(isTimestamp?timeFormat(options.format,_start):_start/1e3);
 					$this.addClass(options.disableBtnCls);
 					_hander = setInterval(function(){
-						_start -= options.time;
+						_start -= options.duration;
 						if(_start<=_end){
 							clearInterval(_hander);
 							options.countEnd(isTimestamp?timeFormat(options.format,_end):_end/1e3);
@@ -49,7 +49,7 @@
 						}else{
 							options.countEach(isTimestamp?timeFormat(options.format,_start):_start/1e3);
 						}
-					},options.time);
+					},options.duration);
 				};
 				_api.reset = function(){
 					if(isTimestamp){
