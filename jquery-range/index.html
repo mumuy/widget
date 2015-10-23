@@ -42,15 +42,15 @@
 			<div class="code">
 				<p>移动结束显示</p>
 				<p>
-				$('#range1').range({<br/>
-					min:0,<br/>
-					max:50,<br/>
-					value:40,<br/>
-					step:5,<br/>
-					change:function(status){<br/>
-						$('#input1').val(status.value);<br/>
-					}<br/>
-				});
+<pre>$('#range1').range({
+	min:0,
+	max:50,
+	value:40,
+	step:5,
+	change:function(status){
+		$('#input1').val(status.value);
+	}
+});</pre>
 				</p>
 			</div>
 			<script type="text/javascript">
@@ -71,15 +71,15 @@
 			<div class="code">
 				<p>移动过程中显示</p>
 				<p>
-				$('#range2').range({<br/>
-					min:10,<br/>
-					max:62,<br/>
-					value:40,<br/>
-					step:5,<br/>
-					slide:function(status){<br/>
-						$('#input2').val(status.value);<br/>
-					}<br/>
-				});
+<pre>$('#range2').range({
+	min:10,
+	max:62,
+	value:40,
+	step:5,
+	slide:function(status){
+		$('#input2').val(status.value);
+	}
+});</pre>
 				</p>
 			</div>
 			<script type="text/javascript">
