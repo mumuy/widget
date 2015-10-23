@@ -3,7 +3,7 @@
     BY:le
 */
 (function($){
-    $.fn.imagezoom = function(parameter,getApi) {
+    $.fn.imagezoom = function(parameter) {
         parameter = parameter || {};
         var defaults = {
             width: null,        //图片外层宽度
@@ -19,7 +19,6 @@
         var $window = $(window);
         return this.each(function(index) {
             var $this = $(this).css("overflow", "hidden");
-            var _api = {};
             var _duration = options.duration;
             var _hoverRatio = options.hoverRatio;
             var _outer_width = parameter.width||$this.width();
