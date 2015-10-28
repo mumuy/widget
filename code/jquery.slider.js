@@ -315,14 +315,12 @@
                 }
             };
             //滚动轴
-            function scroll(e){
-                e = e||window.event;
-                stopBubble(e);
-                stopDefault(e);                
+            function scroll(e){              
                 if(!$list1.is(':animated')){ //防止滚动太快动画没完成
                     var delta = -e.wheelDelta/120||e.detail/3;
                     delta>0?_api.next(e):_api.prev(e);                      
-                }               
+                }
+                return false;         
             }       
             //触摸开始
             function touchStart(e) {
@@ -604,20 +602,4 @@
             return $.easing.bounceout(x, t*2-d, 0, c, d) * .5 + c*.5 + b;
         }
     });
-    //工具函数
-    function stopBubble(e){
-        if (e && e.stopPropagation) {
-            e.stopPropagation();
-        }else if (window.event) {
-            window.event.cancelBubble = true;
-        }
-    }
-    function stopDefault(e) { 
-        if ( e && e.preventDefault ){
-            e.preventDefault();
-        }else{
-             window.event.returnValue = false; 
-        }
-        return false; 
-    }
 })(jQuery);
