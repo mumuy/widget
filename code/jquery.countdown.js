@@ -19,7 +19,7 @@
 					'format': 'hh:mm:ss',					//格式
 					'starttime': $this.text(),				//开始时间
 					'endtime': '',							//结束时间
-					'duration': 1000,							//多久倒计时一次 单位：ms
+					'interval': 1000,							//多久倒计时一次 单位：ms
 					'disableBtnCls':'disable',
 					'auto':true,							//是否默认自动计数
 					'countEach': function (time) {			//每单位时间出发事件
@@ -49,7 +49,7 @@
 						}else{
 							options.countEach(isTimestamp?timeFormat(options.format,_start):_start/1e3);
 						}
-					},options.duration);
+					},options.interval);
 				};
 				_api.reset = function(){
 					if(isTimestamp){
