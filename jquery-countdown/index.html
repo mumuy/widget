@@ -52,7 +52,7 @@
 						<tr>
 							<td>format</td>
 							<td>'hh:mm:ss'</td>
-							<td>输出的时间格式，年(y)、月(M)、日(d)、小时(h)、分(m)、秒(s)、毫秒(S)、季度(q)</td>
+							<td>格式化输出的时间格式，年(y)、月(M)、日(d)、小时(h)、分(m)、秒(s)、毫秒(S)、季度(q)</td>
 						</tr>
 						<tr>
 							<td>starttime</td>
@@ -80,14 +80,14 @@
 							<td>是否默认开启计数</td>
 						</tr>
 						<tr>
-							<td>countEach(timestamp)</td>
-							<td>function(){}</td>
-							<td>每计时单位执行</td>
+							<td>countEach(time)</td>
+							<td>[时间格式化输出]</td>
+							<td>每计时单位执行,其中time包含时间信息：year年、quarter季度、month月、day日、hour小时、minute分钟、second秒、microsecond毫秒、format格式化输出</td>
 						</tr>
 						<tr>
-							<td>endEach(timestamp)</td>
-							<td>function(){}</td>
-							<td>倒计时结束执行</td>
+							<td>endEnd(time)</td>
+							<td>[时间格式化输出]</td>
+							<td>计时结束后执行,其中time包含时间信息：year年、quarter季度、month月、day日、hour小时、minute分钟、second秒、microsecond毫秒、format格式化输出</td>
 						</tr>
 					</tbody>
 				</table>
