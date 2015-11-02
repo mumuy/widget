@@ -61,7 +61,7 @@
 					options.countEach(getTime(_start));
 					$this.addClass(options.disableBtnCls);
 					_hander = setInterval(function(){
-						_start -= options.duration;
+						_start -= options.interval;
 						if(_start<=_end){
 							clearInterval(_hander);
 							options.countEnd(getTime(_end));
