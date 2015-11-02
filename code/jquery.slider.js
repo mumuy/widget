@@ -339,10 +339,7 @@
             //触碰移动
             function touchMove(e) {
                 e.stopPropagation();
-                var current = {  //iphone bug，touchstart和touchmove同一个对象
-                    pageX:e.originalEvent.changedTouches[0].pageX,
-                    pageY:e.originalEvent.changedTouches[0].pageY
-                };
+                var current = e.originalEvent.changedTouches[0];
                 var delta = {
                     'x': current.pageX - _start.pageX,
                     'y':current.pageY - _start.pageY
@@ -482,7 +479,10 @@
                 (function(){  //导航在内容内部的触碰纠正
                     var _s = 0;
                     function touchS(e){
-                        _s = e.originalEvent.changedTouches[0];
+                        _s = {
+                            'pageX':e.originalEvent.changedTouches[0].pageX,
+                            'pageY':e.originalEvent.changedTouches[0].pageY,
+                        };
                     }
                     function touchE(e){
                         var current = e.originalEvent.changedTouches[0];
