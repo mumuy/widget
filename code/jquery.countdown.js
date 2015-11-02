@@ -19,41 +19,61 @@
 					'format': 'hh:mm:ss',					//格式
 					'starttime': $this.text(),				//开始时间
 					'endtime': '',							//结束时间
-					'time': 1000,							//多久倒计时一次 单位：ms
+					'interval': 1000,							//多久倒计时一次 单位：ms
 					'disableBtnCls':'disable',
-					'auto':true,
-					'countEach': function (time) {		//每单位时间出发事件
-						$this.text(time);
+					'auto':true,							//是否默认自动计数
+					'countEach': function (time) {			//每单位时间出发事件,传入一个对象，包含时间信息(month)和时间格式化输出(format)
+						$this.text(time['format']);
 					},
-					'countEnd':function (time) {		//倒计时结束回调事件
-						$this.text(time);
+					'countEnd':function (time) {			//倒计时结束回调事件
+						$this.text(time['format']);
 					}
 				};
 				var options = $.extend({}, defaults, parameter);
 				var _api = {};              //对外的函数接口
 				var _hander = null;
 				var _start=0,_end=0;
-				var isTimestamp = isNaN(options.starttime);//是否为秒计数模式
+				var isTimestamp = isNaN(options.starttime)||isNaN(options.endtime);//是否为秒计数模式
+				var getTime = function(timestamp){
+					if(isTimestamp){
+						var date = new Date(timestamp);
+						var format = timeFormat(options.format,timestamp);
+					}else{
+						var date = new Date();
+						var format = timestamp/1e3;
+					}
+					return {
+						'year':date.getFullYear(),
+						'month':date.getMonth()+1,
+						'day':date.getDate(),
+						'hour':date.getHours(),
+						'minute':date.getMinutes(),
+						'second':date.getSeconds(),
+						'quarter':Math.floor((date.getMonth()+3)/3),
+						'microsecond':date.getMilliseconds(),
+						'format':format
+					}
+				}
 				var count = function(){
 					if(_hander){
 						clearInterval(_hander);
 					}
-					options.countEach(isTimestamp?timeFormat(options.format,_start):_start/1e3);
+					options.countEach(getTime(_start));
 					$this.addClass(options.disableBtnCls);
 					_hander = setInterval(function(){
-						_start -= options.time;
+						_start -= options.duration;
 						if(_start<=_end){
 							clearInterval(_hander);
-							options.countEnd(isTimestamp?timeFormat(options.format,_end):_end/1e3);
+							options.countEnd(getTime(_end));
 							$this.removeClass(options.disableBtnCls);
 						}else{
-							options.countEach(isTimestamp?timeFormat(options.format,_start):_start/1e3);
+							options.countEach(getTime(_start));
 						}
-					},options.time);
+					},options.interval);
 				};
 				_api.reset = function(){
 					if(isTimestamp){
-						_start = getTimestamp(options.starttime);
+						_start = options.starttime?getTimestamp(options.starttime):(+new Date());
 						_end = getTimestamp(options.endtime);							
 					}else{
 						_start = options.starttime*1e3;

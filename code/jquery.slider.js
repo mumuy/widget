@@ -2,7 +2,7 @@
     轮播 v1.12
     BY:le
 */
-(function($) {
+(function($){
     $.fn.slider = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -41,7 +41,7 @@
             /* 对外事件接口 */
             beforeEvent: function() {    //移动前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination方向(prev向前,next向后,数字为相应的索引);
             },
-            afterEvent: function() {     //移动后执行;传入一个对象,包含：index事件发生前索引,count帧长度,destination方向(prev向前,next向后,数字为相应的索引);
+            afterEvent: function() {     //移动后执行;传入一个对象,包含：index事件发生前索引,count帧长度
             }
         };
         var options = $.extend({}, defaults, parameter);
@@ -315,21 +315,22 @@
                 }
             };
             //滚动轴
-            function scroll(e){
-                e = e||window.event;
-                stopBubble(e);
-                stopDefault(e);                
+            function scroll(e){              
                 if(!$list1.is(':animated')){ //防止滚动太快动画没完成
                     var delta = -e.wheelDelta/120||e.detail/3;
                     delta>0?_api.next(e):_api.prev(e);                      
-                }               
+                }
+                return false;         
             }       
             //触摸开始
             function touchStart(e) {
-				_touch_direction = null;
+                _touch_direction = null;
                 _startTime = new Date();
                 _api.stop();
-                _start = e.originalEvent.changedTouches[0];
+                _start = {  //iphone bug，touchstart和touchmove同一个对象
+                    pageX:e.originalEvent.changedTouches[0].pageX,
+                    pageY:e.originalEvent.changedTouches[0].pageY
+                };
                 _position[0] = $list1.position()[_param];
                 if (options.inEndEffect == "cycle") {   
                     _position[1] = $list2.position()[_param];
@@ -338,14 +339,19 @@
             //触碰移动
             function touchMove(e) {
                 e.stopPropagation();
-                var current = e.originalEvent.changedTouches[0];
-                var d_x = current.pageX - _start.pageX;
-                var d_y = current.pageY - _start.pageY;
-                _move = options.direction=="x"?d_x:d_y;//移动距离触发点的距离
-                if(!_touch_direction){                //根据第一次移动向量判断方向
-                    _touch_direction = Math.abs(d_y) < Math.abs(d_x)?'x':'y';
+                var current = {  //iphone bug，touchstart和touchmove同一个对象
+                    pageX:e.originalEvent.changedTouches[0].pageX,
+                    pageY:e.originalEvent.changedTouches[0].pageY
+                };
+                var delta = {
+                    'x': current.pageX - _start.pageX,
+                    'y':current.pageY - _start.pageY
                 }
-                var direction = Math.abs(d_y) < Math.abs(d_x)?'x':'y';
+                _move = delta[options.direction];  //移动距离触发点的距离
+                if(!_touch_direction){                //根据第一次移动向量判断方向
+                    _touch_direction = Math.abs(delta.y) < Math.abs(delta.x)?'x':'y';
+                }
+                var direction = Math.abs(delta.y) < Math.abs(delta.x)?'x':'y';
                 if(direction==_touch_direction&&_inner>=_outer){    //过滤非移动方向上的量,防止抖动;内容小于外框时不移动
                     if (options.direction=='x'&&_touch_direction=='x'||options.direction=='y') {  //chrome移动版下，默认事件与自定义事件的冲突
                         e.preventDefault();
@@ -420,9 +426,9 @@
             }
             //键盘处理
             function keyboard(e){
-				if(options.direction=='y'){
-					e.which -= 1;
-				}
+                if(options.direction=='y'){
+                    e.which -= 1;
+                }
                 switch (e.which) {
                     case 37:
                         _api.prev(e);
@@ -446,7 +452,7 @@
             //事件绑定-向前向后导航
             if(options.pointerType === "click"){
                 $prev.on("click",_api.prev);
-                $next.on("click",_api.next);        
+                $next.on("click",_api.next);         
             }else{
                 $prev.on({
                     'mouseenter':function(){
@@ -473,32 +479,38 @@
             }
             //手势操作
             if(options.touchable){
-				(function(){  //导航在内容内部的触碰纠正
-					var _s = 0;
-					function touchS(e){
-						_s = e.originalEvent.changedTouches[0];
-					}
-					function touchE(e){
-						var current = e.originalEvent.changedTouches[0];
-						var d_x = Math.abs(current.pageX - _s.pageX);
-						var d_y = Math.abs(current.pageY - _s.pageY);
-						if(d_x<5&d_y<5){
-							e.stopPropagation();
-						}
-					}
-					$prev.on({
-						'touchstart':touchS,
-						'touchend':touchE
-					});
-					$next.on({
-						'touchstart':touchS,
-						'touchend':touchE
-					});                        
-				})();
+                (function(){  //导航在内容内部的触碰纠正
+                    var _s = 0;
+                    function touchS(e){
+                        _s = {
+                            'pageX':e.originalEvent.changedTouches[0].pageX,
+                            'pageY':e.originalEvent.changedTouches[0].pageY,
+                        };
+                    }
+                    function touchE(e){
+                        var current = {
+                            'pageX':e.originalEvent.changedTouches[0].pageX,
+                            'pageY':e.originalEvent.changedTouches[0].pageY,
+                        };
+                        var d_x = Math.abs(current.pageX - _s.pageX);
+                        var d_y = Math.abs(current.pageY - _s.pageY);
+                        if(d_x<5&d_y<5){
+                            e.stopPropagation();
+                        }
+                    }
+                    $prev.on({
+                        'touchstart':touchS,
+                        'touchend':touchE
+                    });
+                    $next.on({
+                        'touchstart':touchS,
+                        'touchend':touchE
+                    });                        
+                })();
                 $this.on({
-                    "touchstart":touchStart,
-                    "touchmove":touchMove,
-                    "touchend":touchEnd
+                    'touchstart':touchStart,
+                    'touchmove':touchMove,
+                    'touchend':touchEnd
                 });
             }
             $window.resize(_api.resize); //当窗体大小改变时，重新计算相关参数
@@ -596,20 +608,4 @@
             return $.easing.bounceout(x, t*2-d, 0, c, d) * .5 + c*.5 + b;
         }
     });
-    //工具函数
-    function stopBubble(e){
-        if (e && e.stopPropagation) {
-            e.stopPropagation();
-        }else if (window.event) {
-            window.event.cancelBubble = true;
-        }
-    }
-    function stopDefault(e) { 
-        if ( e && e.preventDefault ){
-            e.preventDefault();
-        }else{
-             window.event.returnValue = false; 
-        }
-        return false; 
-    }
 })(jQuery);
