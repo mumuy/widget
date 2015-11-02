@@ -339,7 +339,10 @@
             //触碰移动
             function touchMove(e) {
                 e.stopPropagation();
-                var current = e.originalEvent.changedTouches[0];
+                var current = {  //iphone bug，touchstart和touchmove同一个对象
+                    pageX:e.originalEvent.changedTouches[0].pageX,
+                    pageY:e.originalEvent.changedTouches[0].pageY
+                };
                 var delta = {
                     'x': current.pageX - _start.pageX,
                     'y':current.pageY - _start.pageY
