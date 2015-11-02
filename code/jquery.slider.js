@@ -488,7 +488,10 @@
                         };
                     }
                     function touchE(e){
-                        var current = e.originalEvent.changedTouches[0];
+                        var current = {
+                            'pageX':e.originalEvent.changedTouches[0].pageX,
+                            'pageY':e.originalEvent.changedTouches[0].pageY,
+                        };
                         var d_x = Math.abs(current.pageX - _s.pageX);
                         var d_y = Math.abs(current.pageY - _s.pageY);
                         if(d_x<5&d_y<5){
