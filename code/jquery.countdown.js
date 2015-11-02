@@ -18,8 +18,8 @@
 				var defaults = {
 					'format': 'hh:mm:ss',					//格式
 					'starttime': $this.text(),				//开始时间
-					'endtime': 0,							//结束时间
-					'duration': 1000,						//多久倒计时一次 单位：ms
+					'endtime': '',							//结束时间
+					'interval': 1000,							//多久倒计时一次 单位：ms
 					'disableBtnCls':'disable',
 					'auto':true,							//是否默认自动计数
 					'countEach': function (time) {			//每单位时间出发事件,传入一个对象，包含时间信息(month)和时间格式化输出(format)
@@ -69,7 +69,7 @@
 						}else{
 							options.countEach(getTime(_start));
 						}
-					},options.duration);
+					},options.interval);
 				};
 				_api.reset = function(){
 					if(isTimestamp){
