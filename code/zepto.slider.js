@@ -210,8 +210,8 @@
             /****** 私有方法 ******/
             //触摸开始
             function touchStart(e) {
+                _touch_direction = null;
                 _startTime = new Date();
-                stopBubble(e);
                 _api.stop();
                 _start = {
                     pageX:e.changedTouches[0].pageX,
@@ -224,9 +224,9 @@
             }
             //触碰移动
             function touchMove(e) {
-                stopBubble(e);
+                e.stopPropagation();
                 if(options.isStopDefault){
-                    stopDefault(e);
+                    e.preventDefault();
                 }
                 var current = {
                     pageX:e.changedTouches[0].pageX,
@@ -244,7 +244,7 @@
                 var steps = Math.ceil(Math.abs(move / _distance));  //移动中跳过的帧数
                 if(direction==_touch_direction){    //过滤非移动方向上的量,防止抖动
                     if (options.direction=='x'&&_touch_direction=='x'||options.direction=='y') {  //chrome移动版下，默认事件与自定义事件的冲突
-                        stopDefault(e);
+                        e.preventDefault();
                         if (options.inEndEffect == "cycle") {
                             if (move > 0) {  //手指向右滑
                                 if (_index - steps < 0) {   //是否置换
@@ -277,8 +277,6 @@
             //触碰结束
             function touchEnd(e) {
                 var endTime = new Date();
-                _touch_direction = null;
-                stopBubble(e);
                 if (options.auto) {
                     _api.start();
                 }
@@ -350,8 +348,7 @@
                     });
                 }
             }
-            //执行默认行为
-            slide(false);   //默认选中状态
+            //事件绑定
             if (options.auto) {
                 _api.start();
                 $this.bind({
@@ -367,11 +364,9 @@
                     $(this).removeClass("hover");
                 }
             });
-            //事件绑定
             (function(){  //导航在内容内部的触碰纠正
                 var _s = 0;
                 function touchS(e){
-                    console.log(e);
                     _s = {
                         'pageX':e.changedTouches[0].pageX,
                         'pageY':e.changedTouches[0].pageY,
@@ -397,36 +392,16 @@
                     'touchend':touchE
                 });
             })();
-            $prev.on({
-                'click':_api.prev
-            });
-            $next.on({
-                'click':_api.next
-            });
-            if($this[0].addEventListener&&options.touchable){
-                $this[0].addEventListener("touchstart", touchStart,false);
-                $this[0].addEventListener("touchmove", touchMove,false);
-                $this[0].addEventListener("touchend", touchEnd,false);
-            }
+            $prev.click(_api.prev);
+            $next.click(_api.next);
+            $this.on('touchstart',touchStart);
+            $this.on('touchmove',touchMove);
+            $this.on('touchend',touchEnd);
             window.onresize = _api.resize;
+            //执行默认行为
+            slide(false);
             _api.resize();
             getApi(_api);
         });
     };
-    //工具函数
-    function stopBubble(e){
-        if (e && e.stopPropagation) {
-            e.stopPropagation();
-        }else if (window.event) {
-            window.event.cancelBubble = true;
-        }
-    }
-    function stopDefault(e) {
-        if ( e && e.preventDefault ){
-            e.preventDefault();
-        }else{
-            window.event.returnValue = false;
-        }
-        return false;
-    }
 })(Zepto);
