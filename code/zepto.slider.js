@@ -105,7 +105,7 @@
             }
             var $lists = $this.find("." + options.contentCls);
             /****** 共有方法 ******/
-                //返回上一帧
+            //返回上一帧
             _api.prev = function() {
                 var status = {
                     index: _index,
