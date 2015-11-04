@@ -30,6 +30,7 @@
             activeIndex: 0,             //默认选中帧的索引
             pointerType: 'click',       //左右箭头的触发事件
             auto: false,                //是否自动播放
+            immediately: true,          //悬浮是否立即停止
             animate: true,              //是否使用动画滑动
             delay: 3000,                //自动播放时停顿的时间间隔
             duration: 500,              //轮播的动画时长
@@ -68,7 +69,8 @@
             var _touch_direction = null;//手势移动方向
             var _move = 0;              //移动向量(正负方向)
             var _hander = null;         //自动播放的函数句柄
-            var _param = options.direction=='x'?'left':'top';   //移动控制参数,方向为x控制left,方向为y控制top 
+            var _time = {};             //记录动画断点
+            var _param = options.direction=='x'?'left':'top';   //移动控制参数,方向为x控制left,方向为y控制top
             var $outer = $list1.css('position','absolute').parent();
             if($outer.css('position')=='static'){
                 $outer.css('position','relative');
@@ -98,7 +100,8 @@
                     };
                     if(options.beforeEvent(status) !== false){
                         _index = index;
-                        slide(options.animate);                        
+                        _time['start'] = + new Date();
+                        slide(options.animate,defaults.duration);                      
                     }
                 });
             }
@@ -114,6 +117,7 @@
                 if ($lists.is(':animated')) { //如正在动画中则不进行下一步
                     return false;
                 }
+                _time['start'] = + new Date();
                 if (options.beforeEvent(status) !== false) {
                     var step = options.step;
                     if(step=='auto'){
@@ -155,6 +159,7 @@
                 if ($lists.is(':animated')) { //如正在动画中则不进行下一步
                     return false;
                 }
+                _time['start'] = + new Date();
                 if (options.beforeEvent(status) !== false) {
                     var step = options.step;
                     if(step=='auto'){
@@ -185,13 +190,25 @@
             //开始播放
             _api.start = function(){
                 options.auto = true;
-                _api.next();
+                var time = + new Date();
+                var duration = Math.max(options.duration-_time['execute'],0);
+                if(options.immediately&&duration){
+                    _time['start'] = time - _time['execute']; //时间镜像起点
+                    slide(options.animate,duration);
+                }else{
+                    _hander = setTimeout(_api.next,options.delay);
+                }
             };
             //停止播放
             _api.stop = function(){
                 options.auto = false;
                 if (_hander) {
                     clearTimeout(_hander);
+                }
+                if(options.immediately&&_time['start']){
+                    $lists.stop();
+                    var time = + new Date();
+                    _time['execute'] = time - _time['start']; //已执行动画时长
                 }
             };
             //设置当前帧
@@ -257,6 +274,7 @@
                 if(_inner>=_outer){ //只有在内层超过外层时移动
                     var duration = isAnimate !=false ? (s_duration||options.duration):0; //判断滑块是否需要移动动画
                     var params = {};
+                    $lists.stop();
                     switch(options.inEndEffect){
                         case "switch":
                             _index %= _size;    //索引范围检测
@@ -271,7 +289,7 @@
                                 index: _index,
                                 count: _size
                             };
-                            $list1.stop().animate(params,{easing:options.easing, duration: duration, complete:function() {
+                            $list1.animate(params,{easing:options.easing, duration: duration, complete:function() {
                                 callback(status);
                             }});
                         break;
@@ -283,14 +301,14 @@
                                 index: _index%_size,
                                 count: _size
                             };
-                            $list1.stop().animate(params,{easing:options.easing, duration: duration, complete:function() {
+                            $list1.animate(params,{easing:options.easing, duration: duration, complete:function() {
                                 num++;
                                 if(num==2){
                                     callback(status);
                                 }
                             }});
                             params = _param=="left"?{'left':_distance[_size]-_distance[_index]}:{'top':_distance[_size]-_distance[_index]};
-                            $list2.stop().animate(params,{easing:options.easing, duration: duration, complete:function(){
+                            $list2.animate(params,{easing:options.easing, duration: duration, complete:function(){
                                 num++;
                                 if (_index >= _size) {
                                     _index %= _size;
@@ -317,7 +335,7 @@
                                 index: _index,
                                 count: _size
                             }; 
-                            $list1.stop().animate(params,{easing:options.easing, duration: duration, complete:function() {
+                            $list1.animate(params,{easing:options.easing, duration: duration, complete:function() {
                                 callback(status);
                             }});
                     }
@@ -327,6 +345,9 @@
             function callback(status){
                 options.afterEvent(status);
                 if(options.auto){
+                    if(_hander){
+                        clearTimeout(_hander);
+                    }
                     _hander = setTimeout(_api.next,options.delay);
                 }
             }
