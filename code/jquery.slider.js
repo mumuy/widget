@@ -13,27 +13,27 @@
         }
         var defaults = {
             /* 节点绑定 */
-            contentCls: "content",      //轮播内容列表的class
-            navCls: "nav",              //轮播导航列表的class
-            prevBtnCls: "prev",         //向前一步的class
-            nextBtnCls: "next",         //向后一步的class
+            contentCls: 'content',      //轮播内容列表的class
+            navCls: 'nav',              //轮播导航列表的class
+            prevBtnCls: 'prev',         //向前一步的class
+            nextBtnCls: 'next',         //向后一步的class
             /* 动画相关 */
-            activeTriggerCls: "active", //导航选中时的class
-            disableBtnCls: "disable",   //按键不可用时的class
-            hoverCls: "hover",          //当鼠标移至相应区域时获得的class
+            activeTriggerCls: 'active', //导航选中时的class
+            disableBtnCls: 'disable',   //按键不可用时的class
+            hoverCls: 'hover',          //当鼠标移至相应区域时获得的class
             step: 1,                    //移动帧数,'auto'自动移动至下个没有显示完整的帧
-            direction: "x",             //轮播的方向
-            inEndEffect: "switch",      //"switch"表示来回切换,"cycle"表示循环,"none"表示无效果
+            direction: 'x',             //轮播的方向
+            inEndEffect: 'switch',      //"switch"表示来回切换,"cycle"表示循环,"none"表示无效果
             hasTriggers: true,          //是否含有导航触发点
-            triggerCondition:"*",       //触发点的条件(有时需排除一些节点)
-            triggerType: "mouse",       //导航触发事件:"mouse"表鼠标移入时触发,"click"表示鼠标点击时触发
+            triggerCondition:'*',       //触发点的条件(有时需排除一些节点)
+            triggerType: 'mouse',       //导航触发事件:"mouse"表鼠标移入时触发,"click"表示鼠标点击时触发
             activeIndex: 0,             //默认选中帧的索引
-            pointerType: "click",       //左右箭头的触发事件
+            pointerType: 'click',       //左右箭头的触发事件
             auto: false,                //是否自动播放
             animate: true,              //是否使用动画滑动
             delay: 3000,                //自动播放时停顿的时间间隔
             duration: 500,              //轮播的动画时长
-            easing:"easeIn",            //切换时的动画效果
+            easing:'linear',            //切换时的动画效果
             keyboardAble:false,         //是否允许键盘按键控制
             touchable: true,            //是否允许触碰
             sensitivity: 0.4,           //触摸屏的敏感度,滑动当前帧的百分比移动该帧，该值越小越敏感
@@ -163,14 +163,14 @@
                     }else{
                         var lastindex = _size - _index - 1;
                         switch (options.inEndEffect) {
-                            case "switch":
+                            case 'switch':
                                 if (_distance[_size]-_distance[_index]>_outer) {
                                     _index += Math.min(step,lastindex);
                                 } else {
                                     _index = 0;
                                 }
                                 break;
-                            case "cycle":
+                            case 'cycle':
                                 _index += step; //索引值计算
                                 break;
                             default:
@@ -184,13 +184,14 @@
             };
             //开始播放
             _api.start = function(){
-                _api.stop();
-                _hander = setInterval(_api.next, options.delay);
+                options.auto = true;
+                _api.next();
             };
             //停止播放
             _api.stop = function(){
+                options.auto = false;
                 if (_hander) {
-                    clearInterval(_hander);
+                    clearTimeout(_hander);
                 }
             };
             //设置当前帧
@@ -266,30 +267,38 @@
                                 params = _param=="left"?{'left': - _distance[_index]}:{'top': - _distance[_index]};
                             }
                             $nav_list.removeClass(options.activeTriggerCls).eq(_index).addClass(options.activeTriggerCls);   //导航选中
+                            var status = {
+                                index: _index,
+                                count: _size
+                            };
                             $list1.stop().animate(params,{easing:options.easing, duration: duration, complete:function() {
-                                var status = {
-                                    index: _index,
-                                    count: _size
-                                };
-                                options.afterEvent(status);
+                                callback(status);
                             }});
                         break;
                         case "cycle":
                             $nav_list.removeClass(options.activeTriggerCls).eq(_index % _size).addClass(options.activeTriggerCls);   //导航选中
                             params = _param=="left"?{'left': - _distance[_index]}:{'top': - _distance[_index]};
+                            var num = 0;
+                            var status = {
+                                index: _index%_size,
+                                count: _size
+                            };
                             $list1.stop().animate(params,{easing:options.easing, duration: duration, complete:function() {
-                                var status = {
-                                    index: _index%_size,
-                                    count: _size
-                                };          
-                                options.afterEvent(status);
+                                num++;
+                                if(num==2){
+                                    callback(status);
+                                }
                             }});
                             params = _param=="left"?{'left':_distance[_size]-_distance[_index]}:{'top':_distance[_size]-_distance[_index]};
                             $list2.stop().animate(params,{easing:options.easing, duration: duration, complete:function(){
+                                num++;
                                 if (_index >= _size) {
                                     _index %= _size;
                                     $list1.css(_param, _distance[_size]-_distance[_index]+ 'px');
                                     $list1 = [$list2, $list2 = $list1][0]; //两列表身份互换
+                                }
+                                if(num==2){
+                                    callback(status);
                                 }
                             }});
                         break;
@@ -304,19 +313,26 @@
                             }else{
                                 params = _param=="left"?{'left': - _distance[_index]}:{'top': - _distance[_index]};
                             }
+                            var status = {
+                                index: _index,
+                                count: _size
+                            }; 
                             $list1.stop().animate(params,{easing:options.easing, duration: duration, complete:function() {
-                                var status = {
-                                    index: _index,
-                                    count: _size
-                                };          
-                                options.afterEvent(status);
+                                callback(status);
                             }});
                     }
                 }
             };
+            //移动后回调
+            function callback(status){
+                options.afterEvent(status);
+                if(options.auto){
+                    _hander = setTimeout(_api.next,options.delay);
+                }
+            }
             //滚动轴
             function scroll(e){              
-                if(!$list1.is(':animated')){ //防止滚动太快动画没完成
+                if(!$lists.is(':animated')){ //防止滚动太快动画没完成
                     var delta = -e.wheelDelta/120||e.detail/3;
                     delta>0?_api.next(e):_api.prev(e);                      
                 }
@@ -440,7 +456,6 @@
             }
             //是否自动播放
             if (options.auto) {
-                _api.start();
                 $this.hover(_api.stop, _api.start);
             }
             //鼠标悬停
