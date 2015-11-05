@@ -24,9 +24,6 @@
 				line-height:110px;
 				cursor:pointer;
 			}
-			.slider4 .disable{
-				background:#fff;
-			}
 			.slider .prev{
 				left:0;
 			}
@@ -76,6 +73,9 @@
 				height: 120px;
 				margin: 0 30px;
 				overflow: hidden;
+			}
+			.slider4 .disable{
+				background:#fff;
 			}
 		</style>
 		<script type="text/javascript" src="../public/jquery.min.js"></script>
@@ -219,6 +219,31 @@
 			</div>
 			<script type="text/javascript">
 				$(".slider6").slider({hasTriggers:false,duration:1000,step:'auto'});
+			</script>
+			<div class="slider style2 slider7">
+				<div class="container">
+					<ul class="content">
+						<li>新闻内容1</li>
+						<li>新闻内容2</li>
+						<li>新闻内容3</li>
+						<li>新闻内容4</li>
+						<li>新闻内容5</li>
+						<li>新闻内容6</li>
+						<li>新闻内容7</li>
+						<li>新闻内容8</li>
+						<li>新闻内容9</li>
+						<li>新闻内容10</li>
+						<li>新闻内容11</li>
+						<li>新闻内容12</li>
+					</ul>
+				</div>
+			</div>
+			<div class="code">
+				<p>跑马灯效果</p>
+				<p>$(".slider7").slider({inEndEffect:"none",pointerType:"mouse",scrollable:true,hasTriggers:false,duration:1000});</p>
+			</div>
+			<script type="text/javascript">
+				$(".slider7").slider({inEndEffect:'cycle',hasTriggers:false,duration:3000,delay:0,direction:'y',auto:true,immediately:true});
 			</script>
 			<div class="example">
 				<div class="call">
