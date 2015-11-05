@@ -103,7 +103,7 @@
 				<p>$(".slider1").slider({inEndEffect:"cycle",step:2,auto:true,duration:300,delay:5000});</p>
 			</div>
 			<script type="text/javascript">
-				$(".slider1").slider({inEndEffect:"cycle",step:2,auto:true,duration:300,delay:5000});
+				$(".slider1").slider({inEndEffect:"cycle",step:2,auto:true,duration:5000,duration:300,delay:5000});
 			</script>
 			<div class="slider style2 slider2">
 				<span class="prev">&lt;</span>
@@ -324,6 +324,11 @@
 							<td>delay</td>
 							<td>3000</td>
 							<td>自动播放时停顿的时间间隔</td>
+						</tr>
+						<tr>
+							<td>immediately</td>
+							<td>false</td>
+							<td>悬浮是否立即停止</td>
 						</tr>
 						<tr>
 							<td>duration</td>

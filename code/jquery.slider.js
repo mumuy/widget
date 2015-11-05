@@ -30,7 +30,7 @@
             activeIndex: 0,             //默认选中帧的索引
             pointerType: 'click',       //左右箭头的触发事件
             auto: false,                //是否自动播放
-            immediately: true,          //悬浮是否立即停止
+            immediately: false,         //悬浮是否立即停止
             animate: true,              //是否使用动画滑动
             delay: 3000,                //自动播放时停顿的时间间隔
             duration: 500,              //轮播的动画时长
