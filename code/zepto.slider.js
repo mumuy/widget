@@ -1,7 +1,7 @@
-/*
-    zepto.slider.js 1.0
-    http://passer-by.com
-*/
+/**
+ * zepto.slider.js 1.0
+ * http://passer-by.com
+ */
 ;(function($, window, document, undefined) {
     $.fn.slider = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载

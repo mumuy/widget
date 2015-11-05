@@ -1,7 +1,7 @@
-/*
-    jquery.scrollbar.js 1.0
-    http://passer-by.com
-*/
+/**
+ * jquery.scrollbar.js 1.0
+ * http://passer-by.com
+ */
 ;(function($, window, document, undefined) {
 	$.fn.scrollbar = function(parameter,getApi){
         if(typeof parameter == 'function'){ //重载

@@ -1,7 +1,7 @@
-/*
-    jquery.tabs.js 1.0
-    http://passer-by.com
-*/
+/**
+ * jquery.tabs.js 1.0
+ * http://passer-by.com
+ */
 ;(function($, window, document, undefined) {
     $.fn.tabs = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载

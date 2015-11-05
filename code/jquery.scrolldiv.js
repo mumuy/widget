@@ -1,7 +1,7 @@
-/*
-    jquery.scrolldiv.js 1.0
-    http://passer-by.com
-*/
+/**
+ * jquery.scrolldiv.js 1.0
+ * http://passer-by.com
+ */
 ;(function($, window, document, undefined) {
     $.fn.scrolldiv = function(parameter) {
         parameter = parameter || {};

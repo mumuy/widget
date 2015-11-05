@@ -1,7 +1,7 @@
-/*
-    zepto.select.js 1.0
-    http://passer-by.com
-*/
+/**
+ * zepto.select.js 1.0
+ * http://passer-by.com
+ */
 ;(function($, window, document, undefined) {
     $.fn.select = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载

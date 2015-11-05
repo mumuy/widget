@@ -1,7 +1,7 @@
-/*
-    jquery.range.js 1.0
-    http://passer-by.com
-*/
+/**
+ * jquery.range.js 1.0
+ * http://passer-by.com
+ */
 ;(function($, window, document, undefined) {
     $.fn.range = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载

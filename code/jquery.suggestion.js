@@ -1,7 +1,7 @@
-/*
-    jquery.suggestion.js 1.0
-    http://passer-by.com
-*/
+/**
+ * jquery.suggestion.js 1.0
+ * http://passer-by.com
+ */
 ;(function($, window, document, undefined) {
     $.fn.suggestion = function(parameter) {
         parameter = parameter || {};

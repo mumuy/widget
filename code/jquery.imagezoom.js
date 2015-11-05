@@ -1,8 +1,8 @@
-/*
-    图片缩放居中 v1.3
-    BY:le
-*/
-(function($){
+/**
+ * jquery.imagezoom.js 1.0
+ * http://passer-by.com
+ */
+;(function($, window, document, undefined) {
     $.fn.imagezoom = function(parameter) {
         parameter = parameter || {};
         var defaults = {
@@ -99,4 +99,4 @@
             });
         });
     };
-})(jQuery);
+})(jQuery, window, document);

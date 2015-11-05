@@ -1,7 +1,7 @@
-/*
-    jquery.countdown.js 1.0
-    http://passer-by.com
-*/
+/**
+ * jquery.countdown.js 1.0
+ * http://passer-by.com
+ */
 ;(function($, window, document, undefined) {
 	$.fn.countdown = function (parameter,getApi) {
 		if(typeof parameter == 'function'){ //重载

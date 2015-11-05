@@ -1,7 +1,7 @@
-/*
-    jquery.slidebar.js 1.0
-    http://passer-by.com
-*/
+/**
+ * jquery.sliderbar.js 1.0
+ * http://passer-by.com
+ */
 ;(function($, window, document, undefined) {
     $.fn.slidebar = function(parameter) {
         parameter = parameter || {};

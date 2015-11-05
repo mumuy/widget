@@ -1,7 +1,7 @@
-/*
-    jquery.headroom.js 1.0
-    http://passer-by.com
-*/
+/**
+ * jquery.headroom.js 1.0
+ * http://passer-by.com
+ */
 ;(function($, window, document, undefined) {
     $.fn.headroom = function(parameter){
         parameter = parameter || {};

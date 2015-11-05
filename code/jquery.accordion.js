@@ -1,7 +1,7 @@
-/*
-    jquery.accordion.js 1.0
-    http://passer-by.com
-*/
+/**
+ * jquery.accordion.js 1.0
+ * http://passer-by.com
+ */
 ;(function($, window, document, undefined) {
     $.fn.accordion = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
