@@ -1,8 +1,8 @@
 /*
-    轮播 v1.12
-    BY:le
+    jquery.slider.js 1.0
+    http://passer-by.com
 */
-(function($){
+;(function($, window, document, undefined) {
     $.fn.slider = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -644,4 +644,4 @@
             return $.easing.bounceout(x, t*2-d, 0, c, d) * .5 + c*.5 + b;
         }
     });
-})(jQuery);
+})(jQuery, window, document);

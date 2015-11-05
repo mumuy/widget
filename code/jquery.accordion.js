@@ -1,8 +1,8 @@
 /*
-    手风琴 v1.0
-    BY:le
+    jquery.accordion.js 1.0
+    http://passer-by.com
 */
-(function($) {
+;(function($, window, document, undefined) {
     $.fn.accordion = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             parameter = {};
@@ -74,4 +74,4 @@
 			getApi(_api);
         });
     };
-})(jQuery);
+})(jQuery, window, document);

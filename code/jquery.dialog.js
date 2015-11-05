@@ -1,5 +1,8 @@
-/* v1.0 */
-(function($) {
+/*
+    jquery.dialog.js 1.0
+    http://passer-by.com
+*/
+;(function($, window, document, undefined) {
 	$.fn.dialog = function(parameter,getApi) {
 		if(typeof parameter == 'function'){ //重载
 			getApi = parameter;
@@ -111,4 +114,4 @@
 			getApi(_api);
 		});
 	}
-})(jQuery);
+})(jQuery, window, document);

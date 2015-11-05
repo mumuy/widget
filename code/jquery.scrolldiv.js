@@ -1,8 +1,8 @@
 /*
-    多栏同步滚动 v1.1
-    BY:le
+    jquery.scrolldiv.js 1.0
+    http://passer-by.com
 */
-(function($) {
+;(function($, window, document, undefined) {
     $.fn.scrolldiv = function(parameter) {
         parameter = parameter || {};
         var defaults = {
@@ -83,4 +83,4 @@
         }
         return false;
     }
-})(jQuery);
+})(jQuery, window, document);

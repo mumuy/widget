@@ -1,8 +1,8 @@
 /*
-    浮动菜单
-    BY:le
+    jquery.headroom.js 1.0
+    http://passer-by.com
 */
-(function($){
+;(function($, window, document, undefined) {
     $.fn.headroom = function(parameter){
         parameter = parameter || {};
         var defaults = {
@@ -62,4 +62,4 @@
             scroll();
         });
     }
-})(jQuery);
+})(jQuery, window, document);

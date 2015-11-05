@@ -1,9 +1,8 @@
 /*
- *  v1.0 (基于jquery.slider.js 1.5版本开发)
- *  使用方法 $(selector).slider();
- *
- */
-(function($) {
+    zepto.slider.js 1.0
+    http://passer-by.com
+*/
+;(function($, window, document, undefined) {
     $.fn.slider = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -404,4 +403,4 @@
             getApi(_api);
         });
     };
-})(Zepto);
+})(Zepto, window, document);

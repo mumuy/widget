@@ -1,8 +1,8 @@
 /*
-    滚动条 v1.2
-    BY:le
+    jquery.scrollbar.js 1.0
+    http://passer-by.com
 */
-(function($){
+;(function($, window, document, undefined) {
 	$.fn.scrollbar = function(parameter,getApi){
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -222,4 +222,4 @@
 			obj.attr("unselectable", "on").attr("onselectstart", "return false;").css("-moz-user-select", "none").css("-webkit-user-select", "none"); 
 		} 
 	} 
-})(jQuery);
+})(jQuery, window, document);

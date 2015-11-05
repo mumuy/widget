@@ -1,8 +1,8 @@
 /*
-    输入范围 v1.0
-    BY:le
+    zepto.range.js 1.0
+    http://passer-by.com
 */
-(function($) {
+;(function($, window, document, undefined) {
     $.fn.range = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
         	getApi = parameter; 
@@ -190,4 +190,4 @@
 			} 
 		} 
     };
-})(Zepto);
+})(Zepto, window, document);
