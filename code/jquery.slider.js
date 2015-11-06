@@ -49,14 +49,12 @@
                     for(steps=1;_distance[_index+_size]-_distance[_index+_size-steps-1]<=_outer;steps++);
                 }
                 switch (options.inEndEffect) {
-                    case "switch":
+                    case 'none':
                         if (_index) {
-                            _index -= Math.min(steps,_index);
-                        } else {
-                            _index = _size - 1;
+                            _index = Math.max(_index-steps,0);
                         }
                         break;
-                    case "cycle":
+                    case 'cycle':
                         if (_index - steps < 0) {
                             $list2.css(_param,- _distance[_size]-_distance[_index] + 'px');
                             $list1 = [$list2, $list2 = $list1][0]; //两列表身份互换
@@ -67,7 +65,9 @@
                         break;
                     default:
                         if (_index) {
-                            _index -= Math.min(steps,_index);
+                            _index = Math.max(_index-steps,0);
+                        } else {
+                            _index = _size - 1;
                         }
                 }
                 slide(options.animate);
@@ -91,13 +91,10 @@
                     for(var i=_index;i<2*_size&&_distance[i+1]-_distance[_index]<=_outer;i++);
                     _index = i;
                 }else{              //固定步数
-                    var lastindex = _size - _index - 1;
                     switch (options.inEndEffect) {
-                        case 'switch':
+                        case 'none':
                             if (_distance[_size]-_distance[_index]>_outer) {
-                                _index += Math.min(steps,lastindex);
-                            } else {
-                                _index = 0;
+                                _index = Math.min(_index + steps,_size - 1);
                             }
                             break;
                         case 'cycle':
@@ -105,7 +102,9 @@
                             break;
                         default:
                             if (_distance[_size]-_distance[_index]>_outer) {
-                                _index += Math.min(steps,lastindex);
+                                _index = Math.min(_index + steps,_size - 1);
+                            } else {
+                                _index = 0;
                             }
                     }
                 }
@@ -203,18 +202,7 @@
                 var params = {};
                 $lists.stop();
                 switch(options.inEndEffect){
-                    case "switch":
-                        _index %= _size;    //索引范围检测
-                        if(_distance[_size]-_distance[_index]<_outer){
-                            params[_param] = _outer-_inner;
-                        }else{
-                            params[_param] = - _distance[_index];
-                        }
-                        $list1.animate(params,{easing:options.easing, duration: duration, complete:function() {
-                            callback();
-                        }});
-                    break;
-                    case "cycle":
+                    case 'cycle':
                         params[_param] = - _distance[_index];
                         var num = 0;
                         $list1.animate(params,{easing:options.easing, duration: duration, complete:function() {
@@ -236,8 +224,12 @@
                             }
                         }});
                     break;
+                    case 'none':
+                        _index = Math.min(_index,_size-1);    //索引范围检测
+                        $prev.toggleClass(options.disableBtnCls,_index==0);
+                        $next.toggleClass(options.disableBtnCls,_index==_size-1);
                     default:
-                        _index = Math.min(_index,_size-1);    //索引范围检测                      
+                        _index %= _size;               
                         if(_distance[_size]-_distance[_index]<_outer){
                             params[_param] = _outer-_inner;
                         }else{
@@ -246,8 +238,6 @@
                         $list1.animate(params,{easing:options.easing, duration: duration, complete:function() {
                             callback();
                         }});
-                        $prev.toggleClass(options.disableBtnCls,_index==0);
-                        $next.toggleClass(options.disableBtnCls,_index==_size-1);  
                 }
                 $nav_list.removeClass(options.activeTriggerCls).eq(_index% _size).addClass(options.activeTriggerCls);   //导航选中
             }
@@ -278,8 +268,8 @@
             _.stop();
             _start = {  //iphone bug，touchstart和touchmove同一个对象
                 time:new Date(),
-                pageX:e.originalEvent.changedTouches[0].pageX,
-                pageY:e.originalEvent.changedTouches[0].pageY
+                pageX: e.originalEvent.changedTouches[0].pageX,
+                pageY: e.originalEvent.changedTouches[0].pageY
             };
             _position[0] = $list1.position()[_param];
             if (options.inEndEffect == "cycle") {   
@@ -290,19 +280,17 @@
         var touchMove = function(e) {
             e.stopPropagation();
             var current = {  //iphone bug，touchstart和touchmove同一个对象
-                pageX:e.originalEvent.changedTouches[0].pageX,
-                pageY:e.originalEvent.changedTouches[0].pageY
+                pageX: e.originalEvent.changedTouches[0].pageX,
+                pageY: e.originalEvent.changedTouches[0].pageY
             };
             var delta = {
                 'x': current.pageX - _start.pageX,
-                'y':current.pageY - _start.pageY
+                'y': current.pageY - _start.pageY
             }
             _move = delta[options.direction];  //移动距离触发点的距离
-            if(!_touch_direction){                //根据第一次移动向量判断方向
-                _touch_direction = Math.abs(delta.y) < Math.abs(delta.x)?'x':'y';
-            }
             var direction = Math.abs(delta.y) < Math.abs(delta.x)?'x':'y';
-            if(direction==_touch_direction&&_inner>=_outer){    //过滤非移动方向上的量,防止抖动;内容小于外框时不移动
+            _touch_direction = _touch_direction||direction; //根据第一次移动向量判断方向
+            if(direction==_touch_direction&&_inner>=_outer){ //过滤非移动方向上的量,防止抖动;内容小于外框时不移动
                 if (options.direction=='x'&&_touch_direction=='x'||options.direction=='y') {  //chrome移动版下，默认事件与自定义事件的冲突
                     e.preventDefault();
                     //计算
