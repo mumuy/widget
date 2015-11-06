@@ -87,10 +87,10 @@
             _time['start'] = + new Date();
             if (options.beforeEvent(status) !== false) {
                 var steps = options.steps;
-                if(steps=='auto'){
+                if(steps=='auto'){  //自动判定步数
                     for(var i=_index;i<2*_size&&_distance[i+1]-_distance[_index]<=_outer;i++);
                     _index = i;
-                }else{
+                }else{              //固定步数
                     var lastindex = _size - _index - 1;
                     switch (options.inEndEffect) {
                         case 'switch':
@@ -127,9 +127,7 @@
         //停止播放
         this.stop = function(){
             options.auto = false;
-            if (_hander) {
-                clearTimeout(_hander);
-            }
+            _hander&&clearTimeout(_hander);
             if(options.immediately&&_time['start']){
                 $lists.stop();
                 var time = + new Date();
@@ -209,74 +207,60 @@
                         _index %= _size;    //索引范围检测
                         if(_distance[_size]-_distance[_index]<_outer){
                             params[_param] = _outer-_inner;
-                            for(_index=_size;_index&&_distance[_size]-_distance[_index-1]<=_outer;_index--);
                         }else{
                             params[_param] = - _distance[_index];
                         }
-                        $nav_list.removeClass(options.activeTriggerCls).eq(_index).addClass(options.activeTriggerCls);   //导航选中
-                        var status = {
-                            index: _index,
-                            count: _size
-                        };
                         $list1.animate(params,{easing:options.easing, duration: duration, complete:function() {
-                            callback(status);
+                            callback();
                         }});
                     break;
                     case "cycle":
-                        $nav_list.removeClass(options.activeTriggerCls).eq(_index % _size).addClass(options.activeTriggerCls);   //导航选中
                         params[_param] = - _distance[_index];
                         var num = 0;
-                        var status = {
-                            index: _index%_size,
-                            count: _size
-                        };
                         $list1.animate(params,{easing:options.easing, duration: duration, complete:function() {
                             num++;
                             if(num==2){
-                                callback(status);
+                                callback();
                             }
                         }});
                         params[_param] = _distance[_size]-_distance[_index];
                         $list2.animate(params,{easing:options.easing, duration: duration, complete:function(){
-                            num++;
                             if (_index >= _size) {
                                 _index %= _size;
                                 $list1.css(_param, _distance[_size]-_distance[_index]+ 'px');
                                 $list1 = [$list2, $list2 = $list1][0]; //两列表身份互换
                             }
+                            num++;
                             if(num==2){
-                                callback(status);
+                                callback();
                             }
                         }});
                     break;
                     default:
-                        _index = Math.min(_index,_size-1);    //索引范围检测
-                        $nav_list.removeClass(options.activeTriggerCls).eq(_index).addClass(options.activeTriggerCls);   //导航选中
-                        $prev.toggleClass(options.disableBtnCls,_index==0);
-                        $next.toggleClass(options.disableBtnCls,_index==_size-1);                           
+                        _index = Math.min(_index,_size-1);    //索引范围检测                      
                         if(_distance[_size]-_distance[_index]<_outer){
                             params[_param] = _outer-_inner;
-                            for(_index=_size;_index&&_distance[_size]-_distance[_index-1]<=_outer;_index--);
                         }else{
                             params[_param] = - _distance[_index];
                         }
-                        var status = {
-                            index: _index,
-                            count: _size
-                        }; 
                         $list1.animate(params,{easing:options.easing, duration: duration, complete:function() {
-                            callback(status);
+                            callback();
                         }});
+                        $prev.toggleClass(options.disableBtnCls,_index==0);
+                        $next.toggleClass(options.disableBtnCls,_index==_size-1);  
                 }
+                $nav_list.removeClass(options.activeTriggerCls).eq(_index% _size).addClass(options.activeTriggerCls);   //导航选中
             }
         };
         //移动后回调
-        var callback = function(status){
+        var callback = function(){
+            var status = {
+                index: _index,
+                count: _size
+            };
             options.afterEvent(status);
             if(options.auto){
-                if(_hander){
-                    clearTimeout(_hander);
-                }
+                _hander&&clearTimeout(_hander);
                 _hander = setTimeout(_.next,options.delay);
             }
         };
@@ -583,7 +567,7 @@
             var o = $.meta ? $.extend({}, options, $this.data()) : options;  
             var slider = new Slider(this,o);
             callback(slider);
-        });
+        }); 
     };
     //jquery 动画扩展
     $.extend( $.easing,{
