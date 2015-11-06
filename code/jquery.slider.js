@@ -204,23 +204,13 @@
                 switch(options.inEndEffect){
                     case 'cycle':
                         params[_param] = - _distance[_index];
-                        var num = 0;
-                        $list1.animate(params,{easing:options.easing, duration: duration, complete:function() {
-                            num++;
-                            if(num==2){
-                                callback();
-                            }
-                        }});
+                        $list1.animate(params,{easing:options.easing, duration: duration});
                         params[_param] = _distance[_size]-_distance[_index];
                         $list2.animate(params,{easing:options.easing, duration: duration, complete:function(){
                             if (_index >= _size) {
                                 _index %= _size;
                                 $list1.css(_param, _distance[_size]-_distance[_index]+ 'px');
                                 $list1 = [$list2, $list2 = $list1][0]; //两列表身份互换
-                            }
-                            num++;
-                            if(num==2){
-                                callback();
                             }
                         }});
                     break;
@@ -235,12 +225,11 @@
                         }else{
                             params[_param] = - _distance[_index];
                         }
-                        $list1.animate(params,{easing:options.easing, duration: duration, complete:function() {
-                            callback();
-                        }});
+                        $list1.animate(params,{easing:options.easing, duration: duration});
                 }
                 $nav_list.removeClass(options.activeTriggerCls).eq(_index% _size).addClass(options.activeTriggerCls);   //导航选中
             }
+            $lists.promise().then(callback);
         };
         //移动后回调
         var callback = function(){
@@ -489,7 +478,13 @@
                     'touchend':touchEnd
                 });
             }
-            $window.resize(_.resize); //当窗体大小改变时，重新计算相关参数
+            $window.resize(function(){
+                var time = + new Date();
+                if(time-_time['start']>250){ //缓存防治连续变化多次触发
+                    _.resize()
+                }
+                _time['start'] = time;
+            }); //当窗体大小改变时，重新计算相关参数
             //键盘控制
             if(options.keyboardAble){
                 $window.keydown(keyboard);
