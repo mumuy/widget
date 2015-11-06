@@ -372,6 +372,7 @@
             if(options.inEndEffect != "cycle"){
                 _index = Math.min(_size-1,_index);
             }
+            _time['start'] = + new Date();
             slide(true,300);
         };
         //键盘处理
