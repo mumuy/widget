@@ -17,7 +17,7 @@
 			min: 0,					//变化范围的最小值
 			max: 100,				//变化范围的最大值
 			value: 1,				//默认显示的值
-			step: 1,				//每次移动的步长
+			steps: 1,				//每次移动的步长
 			type:'outer',           //outer进度计算以进度条宽为准，inner进度计算需扣除条滑块宽
 			slide: function(){},	//当前值变化时触发的事件，传入对象:event为事件,value为当前值
 			change: function(){}    //当前值变化后触发的事件，传入对象:event为事件,value为当前值
@@ -93,7 +93,7 @@
 					$handle.css({
 						'left':move
 					});
-					_value = Math.round(move/(_length*options.step))*options.step+options.min;
+					_value = Math.round(move/(_length*options.steps))*options.steps+options.min;
 					options.slide({event:e,value:_value});
 				}  
 			};
@@ -126,7 +126,7 @@
 						if(_cursor_position>0&&_cursor_position<_handle_width){   //鼠标在手柄中位置，对值的修正
 							move -=_cursor_position;
 						}	
-						_value = Math.round(move/(_length*options.step))*options.step+options.min;
+						_value = Math.round(move/(_length*options.steps))*options.steps+options.min;
 						_api.setValue();
 						options.slide({event:e,value:_value});
 						options.change({event:e,value:_value});					
@@ -148,7 +148,7 @@
 						$handle.css({
 							'left':move
 						});
-						_value = Math.round(move/(_length*options.step))*options.step+options.min;
+						_value = Math.round(move/(_length*options.steps))*options.steps+options.min;
 						options.slide({event:e,value:_value});
 					}
 				},

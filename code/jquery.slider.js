@@ -21,7 +21,7 @@
             activeTriggerCls: 'active', //导航选中时的class
             disableBtnCls: 'disable',   //按键不可用时的class
             hoverCls: 'hover',          //当鼠标移至相应区域时获得的class
-            step: 1,                    //移动帧数,'auto'自动移动至下个没有显示完整的帧
+            steps: 1,                   //移动帧数,'auto'自动移动至下个没有显示完整的帧
             direction: 'x',             //轮播的方向
             inEndEffect: 'switch',      //"switch"表示来回切换,"cycle"表示循环,"none"表示无效果
             hasTriggers: true,          //是否含有导航触发点
@@ -119,30 +119,30 @@
                 }
                 _time['start'] = + new Date();
                 if (options.beforeEvent(status) !== false) {
-                    var step = options.step;
-                    if(step=='auto'){
-                        for(step=1;_distance[_index+_size]-_distance[_index+_size-step-1]<=_outer;step++);
+                    var steps = options.steps;
+                    if(steps=='auto'){
+                        for(steps=1;_distance[_index+_size]-_distance[_index+_size-steps-1]<=_outer;steps++);
                     }
                     switch (options.inEndEffect) {
                         case "switch":
                             if (_index) {
-                                _index -= Math.min(step,_index);
+                                _index -= Math.min(steps,_index);
                             } else {
                                 _index = _size - 1;
                             }
                             break;
                         case "cycle":
-                            if (_index - step < 0) {
+                            if (_index - steps < 0) {
                                 $list2.css(_param,- _distance[_size]-_distance[_index] + 'px');
                                 $list1 = [$list2, $list2 = $list1][0]; //两列表身份互换
-                                _index += _size - step;
+                                _index += _size - steps;
                             } else {
-                                _index -= step;
+                                _index -= steps;
                             }
                             break;
                         default:
                             if (_index) {
-                                _index -= Math.min(step,_index);
+                                _index -= Math.min(steps,_index);
                             }
                     }
                     slide(options.animate);
@@ -161,8 +161,8 @@
                 }
                 _time['start'] = + new Date();
                 if (options.beforeEvent(status) !== false) {
-                    var step = options.step;
-                    if(step=='auto'){
+                    var steps = options.steps;
+                    if(steps=='auto'){
                         for(var i=_index;i<2*_size&&_distance[i+1]-_distance[_index]<=_outer;i++);
                         _index = i;
                     }else{
@@ -170,17 +170,17 @@
                         switch (options.inEndEffect) {
                             case 'switch':
                                 if (_distance[_size]-_distance[_index]>_outer) {
-                                    _index += Math.min(step,lastindex);
+                                    _index += Math.min(steps,lastindex);
                                 } else {
                                     _index = 0;
                                 }
                                 break;
                             case 'cycle':
-                                _index += step; //索引值计算
+                                _index += steps; //索引值计算
                                 break;
                             default:
                                 if (_distance[_size]-_distance[_index]>_outer) {
-                                    _index += Math.min(step,lastindex);
+                                    _index += Math.min(steps,lastindex);
                                 }
                         }
                     }
@@ -217,8 +217,8 @@
                 slide(isAnimate);
             };  
             //设置移动帧数
-            _api.setStep = function(step){
-                options.step = step;
+            _api.setsteps = function(steps){
+                options.steps = steps;
             };
             //设置动画停顿时间间隔
             _api.setDelay = function(delay){

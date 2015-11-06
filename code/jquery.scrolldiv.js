@@ -7,7 +7,7 @@
         parameter = parameter || {};
         var defaults = {
             list: [],   //栏目列表
-            step: 100  //滚动速度
+            steps: 100  //滚动速度
         }
         var options = $.extend({}, defaults, parameter);
         var $window = $(window);
@@ -28,7 +28,7 @@
                 stopDefault(e);
                 var window_top = $window.scrollTop();
                 var delta = -e.wheelDelta / 120 || e.detail / 3;
-                var move = delta * options.step;
+                var move = delta * options.steps;
                 slide(window_top + move);
                 $document.scrollTop(window_top + move);
             }

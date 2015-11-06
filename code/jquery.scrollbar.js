@@ -15,7 +15,7 @@
 			contentCls: "content",		//内容区的class
 			trackCls: "track",			//滑块的class
 			direction: "y",				//滚动条的方向
-			step:50,					//滚动鼠标中轴的单位
+			steps:50,					//滚动鼠标中轴的单位
 			touchable:true, 			//是否允许触摸操作
 			autoReset:true,				//窗体变化是否重置
 			inEndEffect:false,			//滚轴到底时事件是否冒泡给页面
@@ -92,7 +92,7 @@
 				if($track.css('display')!='none'){
 					e = e||window.event;
 					var delta = -e.wheelDelta/120||e.detail/3;
-					var move = options.direction=="y"?-$content.position().top+delta*options.step:-$content.position().left+delta*options.step;
+					var move = options.direction=="y"?-$content.position().top+delta*options.steps:-$content.position().left+delta*options.steps;
 					if(move>_room){
 						move = _room;
 						if(!options.inEndEffect){
