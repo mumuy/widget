@@ -17,6 +17,7 @@
             _move,                  //移动向量(正负方向)
             _hander,                //自动播放的函数句柄
             _time = {},             //记录动画断点
+            _auto,                  //是否自动播放
             _param;                 //移动控制参数,方向为x控制left,方向为y控制top        
         //对象定义
         var $this = $(element),
@@ -113,7 +114,7 @@
         };
         //开始播放
         this.start = function(){
-            options.auto = true;
+            _auto = true;
             var time = + new Date();
             var duration = Math.max(options.duration-_time['execute'],0);
             if(options.immediately&&duration){
@@ -125,7 +126,7 @@
         };
         //停止播放
         this.stop = function(){
-            options.auto = false;
+            _auto = false;
             _hander&&clearTimeout(_hander);
             if(options.immediately&&_time['start']){
                 $lists.stop();
@@ -238,7 +239,7 @@
                 count: _size
             };
             options.afterEvent(status);
-            if(options.auto){
+            if(_auto){
                 _hander&&clearTimeout(_hander);
                 _hander = setTimeout(_.next,options.delay);
             }
@@ -407,6 +408,7 @@
             //是否自动播放
             if (options.auto) {
                 $this.hover(_.stop, _.start);
+                _.start();
             }
             //鼠标悬停
             $this.hover(function(){
