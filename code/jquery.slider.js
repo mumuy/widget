@@ -11,7 +11,7 @@
             _index,                 //当前选中帧
             _outer,                 //组件的外尺寸
             _inner,                 //组件的内尺寸
-            _start = {},            //触碰起点坐标及时间数据:time起始时间,pageX横坐标,pageY纵坐标
+            _start = {},            //触碰起点坐标:pageX横坐标,pageY纵坐标
             _position = [],         //当前帧坐标
             _touch_direction,       //手势移动方向
             _move,                  //移动向量(正负方向)
@@ -255,8 +255,8 @@
         var touchStart = function(e) {
             _touch_direction = null;
             _.stop();
+            _time['start'] = + new Date();
             _start = {  //iphone bug，touchstart和touchmove同一个对象
-                time:new Date(),
                 pageX: e.originalEvent.changedTouches[0].pageX,
                 pageY: e.originalEvent.changedTouches[0].pageY
             };
@@ -335,13 +335,13 @@
             var isMove = false;                                   //点击或移动判断
             if(_move>0){
                 move = _distance[_index+1]+_position[0];
-                isMove = move/distance>options.sensitivity||endTime-_start['time']<250&&Math.abs(move)>10;
+                isMove = move/distance>options.sensitivity||endTime-_time['start']<250&&Math.abs(move)>10;
                 if(!isMove){
                     _index++;
                 }
             }else{
                 move = -_distance[_index]-_position[0];
-                isMove = move/distance>options.sensitivity||endTime-_start['time']<250&&Math.abs(move)>10;
+                isMove = move/distance>options.sensitivity||endTime-_time['start']<250&&Math.abs(move)>10;
                 if(isMove){
                     _index++;
                 }                    
