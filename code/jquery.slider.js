@@ -451,13 +451,13 @@
                     function touchS(e){
                         _s = {
                             'pageX':e.originalEvent.changedTouches[0].pageX,
-                            'pageY':e.originalEvent.changedTouches[0].pageY,
+                            'pageY':e.originalEvent.changedTouches[0].pageY
                         };
                     }
                     function touchE(e){
                         var current = {
                             'pageX':e.originalEvent.changedTouches[0].pageX,
-                            'pageY':e.originalEvent.changedTouches[0].pageY,
+                            'pageY':e.originalEvent.changedTouches[0].pageY
                         };
                         var d_x = Math.abs(current.pageX - _s.pageX);
                         var d_y = Math.abs(current.pageY - _s.pageY);
