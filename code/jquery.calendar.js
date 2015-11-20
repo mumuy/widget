@@ -136,10 +136,12 @@
                 var $this = $(this);
                 var index = $(this).data('id');
                 var day = _data[index];
-                var className = options.prefix+'-active';
-                $tbody.find('td').removeClass(className);
-                $this.addClass(className);
-                options.select(day);
+                if(!day['disabled']){
+                    var className = options.prefix+'-active';
+                    $tbody.find('td').removeClass(className);
+                    $this.addClass(className);
+                    options.select(day);
+                }
             });
             format();
         });
