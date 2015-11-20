@@ -25,7 +25,7 @@
                 _data,  //日期数据
                 _day;   //日历状态
             /*****  节点修改 *****/
-            $table.append('<thead><tr><td>日</td><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td></tr></thead>');
+            $table.append('<thead><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr></thead>');
             var $tbody = $('<tbody>').appendTo($table);
             /***** 私有方法 *****/
             //获取日期数据
