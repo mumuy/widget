@@ -30,7 +30,7 @@ pre {
 	padding-top:20px;
 	margin-bottom:7px;
 }
-table {
+.example table {
 	width:100%;
 	table-layout:fixed;
 	border-collapse: collapse;
@@ -38,25 +38,25 @@ table {
 	border: 1px solid #cee1ee;
 	border-left: 0;
 }
-thead {
+.example thead {
 	border-bottom: 1px solid #cee1ee;
 	background-color: #e3eef8;
 }
-tr {
+.example tr {
 	line-height: 24px;
 	font-size: 13px;
 }
-tr:nth-child(2n) {
+.example tr:nth-child(2n) {
 	background-color: #f0f5f8;
 }
-tr th, tr td {
+.example tr th,.example tr td {
 	border-left: 1px solid #cee1ee;
 	word-break: break-all;
 	word-wrap: break-word;
 	padding-left: 10px;
 	font-weight: normal;
 }
-tr th {
+.example tr th {
 	color: #555;
 	padding-top: 2px;
 	padding-bottom: 2px;

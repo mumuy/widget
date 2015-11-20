@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>日历-calendar</title>
+		<link rel="shortcut icon" href="/public/img/favicon.png">
+		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<style type="text/css">
+			.calendar{
+				width:350px;
+				margin:0 auto 20px;
+				color:#333;
+			}
+			.calendar table{
+				width:100%;
+				table-layout:fixed;
+				border-collapse: collapse;
+				border-spacing: 0;
+				text-align: center;
+			}
+			.calendar caption{
+				line-height: 30px;
+				text-align: center;
+			}
+			.calendar caption span{
+				margin: 0 10px;
+			}
+			.calendar caption a{
+				color:#666;
+				margin:0 5px;
+				text-decoration: none;
+				font-family: Arial;
+			}
+			.calendar td{
+				height: 30px;
+				line-height: 30px;
+			}
+			.calendar td span{
+				display: block;
+			    width: 30px;
+			    margin: 0 auto;
+			    line-height: 30px;
+			    cursor: pointer;
+			}
+			.calendar .widget-active span{
+				background: #39c;
+				color:#fff;
+				border-radius: 30px;
+			}
+			.calendar .widget-today span{
+				font-weight: bold;
+			}
+			.calendar .widget-disabled span{
+				color:#999;
+			}
+		</style>
+		<script type="text/javascript" src="../public/jquery.min.js"></script>
+		<script type="text/javascript" src="../code/jquery.calendar.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="calendar"></div>
+			<div class="code">
+<pre>
+$('.calendar').calendar({select:function(data){
+	alert('你选择了'+data['year']+'-'+data['month']+'-'+data['day']);
+}});
+</pre>
+			</div>
+			<script type="text/javascript">
+				$('.calendar').calendar({select:function(data){
+					alert('你选择了'+data['year']+'-'+data['month']+'-'+data['day']);
+				}});
+			</script>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>$(selector).calendar(options);</p>
+				</div>
+				<h2> options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th style="width:150">参数</th>
+							<th style="width:80">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>prefix</td>
+							<td>'widget'</td>
+							<td>生成日历的class前缀</td>
+						</tr>
+						<tr>
+							<td>change(day)</td>
+							<td>[空]</td>
+							<td>当前选中月份修改时触发,day为当月第一天,包含月份及年份信息</td>
+						</tr>
+						<tr>
+							<td>select(day)</td>
+							<td>[空]</td>
+							<td>选择日期时触发,day为选择的日期,包含月份及年份信息</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+<html>
