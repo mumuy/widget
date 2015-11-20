@@ -20,6 +20,7 @@
             var $title = $('<span>').appendTo($caption);
             var $nextMonth = $('<a class="'+options.prefix+'-nextMonth" href="javascript:;">&gt;</a>').appendTo($caption);
             var $nextYear = $('<a class="'+options.prefix+'-nextYear" href="javascript:;">&gt;&gt;</a>').appendTo($caption);
+            var $back = $('<a class="'+options.prefix+'-back" href="javascript:;">今天</a>').appendTo($caption);
             var _today, //当天
                 _data,  //日期数据
                 _day;   //日历状态
@@ -131,6 +132,9 @@
             $nextYear.click(function(){
                 _day['year']++;
                 format(_day);
+            });
+            $back.click(function(){
+                format();
             });
             $this.on('click','td',function(){
                 var $this = $(this);
