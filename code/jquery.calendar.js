@@ -118,6 +118,34 @@
             };
             var format = function(data){
                 options.change(_day);
+                for(var i=0;i<data.length;i++){
+                    var d = data[i];
+                    if(d['status'] == 'active'){
+                        d['status'] = '';
+                    }
+                }
+                if(_range.length==2){
+                    var start = _range[0]['code'];
+                    var end = _range[1]['code'];
+                    for(var i=0;i<data.length;i++){
+                        var d = data[i];
+                        if(d['code']>=start&&d['code']<=end){
+                            if(d['status']=='disabled'){
+                                break;
+                            }else{
+                                d['status'] = 'active';
+                                _range[1]=d;
+                            }
+                        }
+                    }
+                }else if(_range.length==1){
+                    for(var i=0;i<data.length;i++){
+                        var d = data[i];
+                        if(d['code']==_range[0]['code']){
+                            d['status'] = 'active';
+                        }
+                    }
+                }
                 var html = '<tr>';
                 for(var i=0,len=data.length;i<len;i++){
                     var day = data[i];
@@ -152,7 +180,7 @@
             });
             $nextMonth.click(function(){
                 _day['month']++;
-                 _data = getData(_day);
+                _data = getData(_day);
                 format(_data);
             });
             $prevYear.click(function(){
@@ -173,43 +201,21 @@
                 var $this = $(this);
                 var index = $(this).data('id');
                 var day = _data[index];
-                if(day['status']!='disabled'){
-                    for(var i=0;i<_data.length;i++){
-                        var d = _data[i];
-                        if(d['status'] == 'active'){
-                            d['status'] = '';
-                        }
-                    }                    
+                if(day['status']!='disabled'){         
                     if(options.isRange){
                         if(_range.length!=1){
                             _range = [day];
-                            day['status'] = 'active';
                             format(_data);
                         }else{
                             _range.push(day);
-                            var start = _range[0]['code'];
-                            var end = _range[1]['code'];
-                            if(start>end){
-                                start = [end,end=start][0];
-                                _range = [_range[1],_range[0]];
-                            }
-                            for(var i=0;i<_data.length;i++){
-                                var d = _data[i];
-                                if(d['code']>=start&&d['code']<=end){
-                                    if(d['status']=='disabled'){
-                                        break;
-                                    }else{
-                                        d['status'] = 'active';
-                                        _range[1] = d;
-                                    }
-                                }
-                            }
+                            _range.sort(function(a,b){
+                                return a['code']>b['code'];
+                            });
                             format(_data);
                             options.select(_range);
                         }
                     }else{
                         _range = [day];
-                        day['status'] = 'active';
                         format(_data);
                         options.select(_range);
                     }
