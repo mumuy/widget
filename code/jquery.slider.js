@@ -152,7 +152,7 @@
                     _distance.push(_inner+_distance[i]);
                 });
                 if(options.inEndEffect=='cycle'){
-                    _inner /=2
+                    _inner /=2;
                 }
                 $lists.css('width',_inner);
             }else{
