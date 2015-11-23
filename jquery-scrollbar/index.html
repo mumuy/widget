@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>滚动条-scrollbar</title>
+		<link rel="shortcut icon" href="/public/img/favicon.png">
+		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<style type="text/css">
+			.s1{
+				position: relative;
+				width:160px;
+				height: 200px;
+				border:1px solid #e2e2e2;
+				margin:0 auto 10px;
+				overflow: hidden;
+			}
+			.s1 .box{
+				width:150px;
+				height:200px;
+			}
+			.s1 .content{
+				width:100%;	
+			}
+			.s1 .content li{
+				height:40px;
+				border-bottom:1px dashed #e2e2e2;
+				line-height:40px;
+				text-index:0.5em;
+			}
+			.s1 .track{
+				position:absolute;
+				top:0;
+				right:0;
+				width:4px;
+				height:100%;
+			}
+			.s1 .track div{
+				width:4px;
+				background:#999;
+			}
+			
+			.s2{
+				position: relative;
+				width:500px;
+				border:1px solid #e2e2e2;
+				margin:0 auto 10px;
+				overflow: hidden;
+			}
+			.s2 .box{
+				width:100%;
+				height:200px;
+			}
+			.s2 .content ul{
+				width: 10000px;
+			}
+			.s2 .content li{
+				float:left;
+				width:250px;
+				height:200px;
+				border-right:1px dashed #e2e2e2;
+				line-height:40px;
+				text-index:0.5em;
+			}
+			.s2 .track{
+				width:100%;
+				height:4px;
+			}
+			.s2 .track div{
+				height:4px;
+				background:#999;
+			}
+		</style>
+		<script type="text/javascript" src="../public/jquery.min.js"></script>
+		<script type="text/javascript" src="../code/jquery.scrollbar.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="scrollbar s1">
+				<div class="box">
+					<ul class="content">
+						<li>这里是内容1</li>
+						<li>这里是内容2</li>
+						<li>这里是内容3</li>
+						<li>这里是内容4</li>
+						<li>这里是内容5</li>
+						<li>这里是内容6</li>
+						<li>这里是内容7</li>
+						<li>这里是内容8</li>
+						<li>这里是内容9</li>
+						<li>这里是内容10</li>
+						<li>这里是内容11</li>
+						<li>这里是内容12</li>
+						<li>这里是内容13</li>
+						<li>这里是内容14</li>
+						<li>这里是内容15</li>
+					</ul>
+				</div>
+				<div class="track"><div></div></div>
+			</div>
+			<div class="code">
+				<p>$(".s1").scrollbar();</p>
+			</div>
+			<script type="text/javascript">
+				$(".s1").scrollbar();
+			</script>
+			<div class="scrollbar s2">
+				<div class="box">
+					<ul class="content">
+						<li>这里是内容1</li>
+						<li>这里是内容2</li>
+						<li>这里是内容3</li>
+						<li>这里是内容4</li>
+						<li>这里是内容5</li>
+						<li>这里是内容6</li>
+						<li>这里是内容7</li>
+						<li>这里是内容8</li>
+						<li>这里是内容9</li>
+						<li>这里是内容10</li>
+						<li>这里是内容11</li>
+						<li>这里是内容12</li>
+						<li>这里是内容13</li>
+						<li>这里是内容14</li>
+						<li>这里是内容15</li>
+					</ul>
+				</div>
+				<div class="track"><div></div></div>
+			</div>
+			<div class="code">
+				<p>$(".s2").scrollbar({direction:'x'});</p>
+			</div>
+			<script type="text/javascript">
+				$(".s2").scrollbar({direction:'x'});
+			</script>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>$(selector).scrollbar(options,callback(api));</p>
+				</div>
+				<h2> options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th width="150">参数</th>
+							<th width="80">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>contentCls</td>
+							<td>content</td>
+							<td>轮播内容列表的class</td>
+						</tr>
+						<tr class="even">
+							<td>trackCls</td>
+							<td>track</td>
+							<td>滑块的class</td>
+						</tr>
+						<tr>
+							<td>direction</td>
+							<td>'y'</td>
+							<td>滚动条的方向</td>
+						</tr>
+						<tr class="even">
+							<td>steps</td>
+							<td>50</td>
+							<td>滚动鼠标中轴的单位</td>
+						</tr>
+						<tr>
+							<td>touchable</td>
+							<td>true</td>
+							<td>是否允许触摸操作</td>
+						</tr>
+						<tr class="even">
+							<td>autoReset</td>
+							<td>true</td>
+							<td>窗体变化是否重置</td>
+						</tr>
+						<tr>
+							<td>inEndEffect</td>
+							<td>false</td>
+							<td>滚轴到底时事件是否冒泡给页面</td>
+						</tr>
+						<tr class="even">
+							<td>slide</td>
+							<td>0</td>
+							<td>默认移动的距离</td>
+						</tr>
+					</tbody>
+				</table>
+				<h2> callback(api)参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th width="200">方法</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>slide(move)</td>
+							<td>滚动到指定位置</td>
+						</tr>
+						<tr class="even">
+							<td>resize()</td>
+							<td>重置滚动条参数</td>
+						</tr>
+						<tr>
+							<td>getRatio()</td>
+							<td>获得滚轴和内容区的转换比</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+<html>

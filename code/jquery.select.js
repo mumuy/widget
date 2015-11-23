@@ -1,8 +1,8 @@
-/*
-    自定义下拉框 v1.0
-    BY:le
-*/
-(function($) {
+/**
+ * jquery.select.js 1.0
+ * http://passer-by.com
+ */
+;(function($, window, document, undefined) {
     $.fn.select = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
 			getApi = parameter; 
@@ -137,4 +137,4 @@
 			getApi(_api);
 		});
     };
-})(jQuery);
+})(jQuery, window, document);

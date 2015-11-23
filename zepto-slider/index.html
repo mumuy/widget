@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>轮播-silder</title>
+		<link rel="shortcut icon" href="/public/img/favicon.png">
+		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<style type="text/css">
+			.slider{
+				position: relative;
+				overflow: hidden;
+				height: 150px;
+				margin:0 auto 10px;
+			}
+			.slider .prev,.slider .next{
+				display: block;
+				position: absolute;
+				width: 20px;
+				height: 118px;
+				background: #ccc;
+				border:1px solid #ccc;
+			}
+			.slider4 .disable{
+				background:#fff;
+			}
+			.slider .prev{
+				left:0;
+			}
+			.slider .next{
+				right:0;
+			}
+			.slider .content li{
+				float: left;
+				width: 160px;
+				height: 120px;
+				background: #ccc;
+			}
+			.slider .nav{
+				margin: 3px 0;
+				text-align:center;
+			}
+			.slider .nav li{
+				display:inline-block;
+				width:24px;
+				height:24px;
+				background: #ccc;
+				margin-right:5px;
+			}
+			.slider .nav li.active{background:#ff0;}
+
+			.style1{
+				width:960px;
+			}
+			.style1 .container{
+				width: 900px;
+				height: 120px;
+				margin: 0 30px;
+				overflow: hidden;
+			}
+			.slider1 .content li{
+				margin-right:10px;
+			}
+		</style>
+		<script type="text/javascript" src="../public/zepto.js"></script>
+		<script type="text/javascript" src="../code/zepto.slider.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="slider style1 slider1">
+				<span class="prev"></span>
+				<span class="next"></span>
+				<div class="container">
+					<ul class="content">
+						<li>1</li>
+						<li>2</li>
+						<li>3</li>
+						<li>4</li>
+						<li>5</li>
+						<li>6</li>
+						<li>7</li>
+						<li>8</li>
+					</ul>
+				</div>
+			</div>
+			<div class="code">
+				<p>$(".slider1").slider({inEndEffect:'cycle',fullScreen:false});</p>
+			</div>
+			<script type="text/javascript">
+				$(".slider1").slider({inEndEffect:'cycle',fullScreen:false});
+			</script>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>$(selector).slider(options,callback(api));</p>
+				</div>
+				<h2> options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th  style="width:150">参数</th>
+							<th  style="width:80">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>contentCls</td>
+							<td>content</td>
+							<td>轮播内容列表的class</td>
+						</tr>
+						<tr>
+							<td>navCls</td>
+							<td>nav</td>
+							<td>轮播导航列表的class</td>
+						</tr>
+						<tr>
+							<td>prevBtnCls</td>
+							<td>prev</td>
+							<td>向前一步的class</td>
+						</tr>
+						<tr>
+							<td>nextBtnCls</td>
+							<td>next</td>
+							<td>向后一步的class</td>
+						</tr>
+						<tr>
+							<td>activeTriggerCls</td>
+							<td>active</td>
+							<td>导航选中时的class</td>
+						</tr>
+						<tr>
+							<td>disableBtnCls</td>
+							<td>disable</td>
+							<td>按键不可用时的class</td>
+						</tr>
+						<tr>
+							<td>step</td>
+							<td>1</td>
+							<td>移动帧数</td>
+						</tr>
+						<tr>
+							<td>view</td>
+							<td>(自动计算)</td>
+							<td>框内可视帧数</td>
+						</tr>
+						<tr>
+							<td>direction</td>
+							<td>'x'</td>
+							<td>轮播的方向</td>
+						</tr>
+						<tr>
+							<td>inEndEffect</td>
+							<td>switch</td>
+							<td>播放到最后一帧时的效果："switch"表示来回切换,"cycle"表示循环,"none"表示无效果</td>
+						</tr>
+						<tr>
+							<td>hasTriggers</td>
+							<td>true</td>
+							<td>是否含有导航触发点</td>
+						</tr>
+						<tr>
+							<td>triggerCondition</td>
+							<td>'*'</td>
+							<td>触发点的条件(有时需排除一些节点)</td>
+						</tr>
+						<tr>
+							<td>triggerType</td>
+							<td>mouse</td>
+							<td>导航触发事件:"mouse"表鼠标移入时触发,"click"表示鼠标点击时触发</td>
+						</tr>
+						<tr>
+							<td>activeIndex</td>
+							<td>0</td>
+							<td>默认选中帧的索引</td>
+						</tr>
+						<tr>
+							<td>auto</td>
+							<td>false</td>
+							<td>是否自动播放</td>
+						</tr>
+						<tr>
+							<td>animate</td>
+							<td>true</td>
+							<td>是否使用动画滑动</td>
+						</tr>
+						<tr>
+							<td>delay</td>
+							<td>3000</td>
+							<td>自动播放时停顿的时间间隔</td>
+						</tr>
+						<tr>
+							<td>duration</td>
+							<td>500</td>
+							<td>轮播的动画时长</td>
+						</tr>
+						<tr>
+							<td>easing</td>
+							<td>'easeIn'</td>
+							<td>切换时的动画效果,可选的动画函数包括:ease、linea、ease-in、ease-out、ease-in-out、cubic-bezier
+							</td>
+						</tr>
+						<tr>
+							<td>touchable</td>
+							<td>true</td>
+							<td>是否允许触碰</td>
+						</tr>
+						<tr>
+							<td>sensitivity</td>
+							<td>0.4</td>
+							<td>触摸屏的敏感度,滑动当前帧的百分比移动该帧，该值越小越敏感</td>
+						</tr>
+						<tr>
+							<td>fullScreen</td>
+							<td>true</td>
+							<td>是否全屏</td>
+						</tr>
+						<tr>
+							<td>isStopDefault</td>
+							<td>false</td>
+							<td>是否取消默认行为</td>
+						</tr>
+						<tr>
+							<td>beforeEvent(status)</td>
+							<td>(无)</td>
+							<td>移动前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination方向(prev向前,next向后,数字为相应的索引);</td>
+						</tr>
+						<tr>
+							<td>afterEvent(status)</td>
+							<td>(无)</td>
+							<td>移动后执行;传入一个对象,包含：index事件发生前索引,count帧长度,destination方向(prev向前,next向后,数字为相应的索引);</td>
+						</tr>
+					</tbody>
+				</table>
+				<h2> callback(api)参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th  style="width:200">方法</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>prev()</td>
+							<td>向前一步</td>
+						</tr>
+						<tr>
+							<td>next()</td>
+							<td>向后一步</td>
+						</tr>
+						<tr>
+							<td>start()</td>
+							<td>开始播放</td>
+						</tr>
+						<tr>
+							<td>stop()</td>
+							<td>停止播放</td>
+						</tr>
+						<tr>
+							<td>setIndex(index,isAnimate)</td>
+							<td>设置当前帧</td>
+						</tr>
+						<tr>
+							<td>resize()</td>
+							<td>重置幻灯片参数</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+<html>

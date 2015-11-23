@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>浮动菜单-headroom</title>
+		<link rel="shortcut icon" href="/public/img/favicon.png">
+		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<style type="text/css">
+			.main{
+				padding-bottom:1500px;
+			}
+			.headroom{
+				margin-bottom: 20px;
+			}
+			.headroom ul{
+				background: #f63;
+				overflow: hidden;
+			}
+			.headroom li{
+				float: left;
+				width:20%;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+			}
+			.headroom li a{
+				text-decoration: none;
+				color:#fff;
+			}
+		</style>
+		<script type="text/javascript" src="../public/jquery.min.js"></script>
+		<script type="text/javascript" src="../code/jquery.headroom.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="headroom">
+				<div class="head">
+					<ul>
+						<li><a href="javascript:;">菜单1</a></li>
+						<li><a href="javascript:;">菜单2</a></li>
+						<li><a href="javascript:;">菜单3</a></li>
+						<li><a href="javascript:;">菜单4</a></li>
+						<li><a href="javascript:;">菜单5</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="code">
+				<p></p>
+				<p>$('.head').headroom({'hiddenTop':400});</p>
+			</div>
+			<script type="text/javascript">
+				$('.head').headroom({'hiddenTop':400});
+			</script>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>$(selector).headroom(options);</p>
+				</div>
+				<h2> options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th style="width:150">参数</th>
+							<th style="width:80">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>fixedTop</td>
+							<td>0</td>
+							<td>浮动距离浏览器视窗顶部的位置</td>
+						</tr>
+						<tr>
+							<td>hiddenTop</td>
+							<td>[自动计算]</td>
+							<td>滚动到哪个位置开始隐藏菜单</td>
+						</tr>
+						<tr>
+							<td>duration</td>
+							<td>500</td>
+							<td>隐藏展示动画的时间间隔</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+<html>

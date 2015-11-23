@@ -1,8 +1,8 @@
-/*
-    搜索提示 v1.0
-    BY:le
-*/
-(function($) {
+/**
+ * jquery.suggestion.js 1.0
+ * http://passer-by.com
+ */
+;(function($, window, document, undefined) {
     $.fn.suggestion = function(parameter) {
         parameter = parameter || {};
         var defaults = {
@@ -180,4 +180,4 @@
             });
         });
     };
-})(jQuery);
+})(jQuery, window, document);

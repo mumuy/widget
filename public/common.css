@@ -1,0 +1,64 @@
+body{
+	font-family: "Microsoft Yahei",Arial,Helvetica;
+}
+.main{
+	width:960px;
+	margin: 50px auto 0;
+}
+.code{
+	border:1px dashed #e2e2e2;
+	padding:10px 5px;
+	margin-bottom:25px;
+}
+pre {
+	font-family: "Microsoft Yahei",Arial,Helvetica;
+	white-space: pre-wrap; /*css-3*/ 
+	white-space: -moz-pre-wrap; /*Mozilla,since1999*/ 
+	white-space: -pre-wrap; /*Opera4-6*/ 
+	white-space: -o-pre-wrap; /*Opera7*/ 
+	word-wrap: break-word; /*InternetExplorer5.5+*/
+}
+.example{
+	padding-top:40px;
+	margin-bottom:90px;
+}
+.example .call{
+	padding:18px 5px;
+	background:#f0f5f8;
+}
+.example h2{
+	padding-top:20px;
+	margin-bottom:7px;
+}
+.example table {
+	width:100%;
+	table-layout:fixed;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 1px solid #cee1ee;
+	border-left: 0;
+}
+.example thead {
+	border-bottom: 1px solid #cee1ee;
+	background-color: #e3eef8;
+}
+.example tr {
+	line-height: 24px;
+	font-size: 13px;
+}
+.example tr:nth-child(2n) {
+	background-color: #f0f5f8;
+}
+.example tr th,.example tr td {
+	border-left: 1px solid #cee1ee;
+	word-break: break-all;
+	word-wrap: break-word;
+	padding-left: 10px;
+	font-weight: normal;
+}
+.example tr th {
+	color: #555;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	text-align: left;
+}

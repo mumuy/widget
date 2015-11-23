@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<title>我的组件库</title>
+		<link rel="shortcut icon" href="/public/img/favicon.png">
+		<link rel="stylesheet" href="public/css/commont.css">
+		<style type="text/css">
+			html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h3,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h3,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;*font-size:100%}legend{color:#000}#yui3-css-stamp.cssreset{display:none}
+			html{
+				height:100%;
+			}
+			body{
+				position: relative;
+				min-height:100%;
+				font-size:14px;
+				font-family: Tahoma, Verdana,"Microsoft Yahei";
+				color:#333;
+			}
+			a{
+				text-decoration: none;
+				color:#333;
+			}
+			header{
+				margin-bottom: 100px;
+			}
+			.container{
+				padding-bottom: 120px;
+			}
+			.main{
+				width:960px;
+				margin:0 auto;
+			}
+			footer{
+				position: absolute;
+			    bottom: 0;
+			    width: 100%;
+			    height: 40px;
+			    line-height: 40px;
+			    z-index: 99;
+			}
+			.mod-head{
+				width: 960px;
+				padding-top: 120px;
+				margin: 0 auto 50px;
+				line-height: 1.2;
+				text-align: center;
+			}
+			.mod-head h1{
+				font-size: 48px;
+			}
+			.mod-head p{
+				font-size: 16px;
+			}
+			.mod-list{
+				text-align: center;
+			}
+			.mod-list li{
+				display: inline-block;
+				margin:0 5px;
+			}
+			.mod-list .btn{
+				display: block;
+				padding: 6px 12px;
+			    background-color: #fff;
+			    border: 1px solid #333;
+			    border-radius: 3px;
+			    color: #333;
+			    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+			}
+			.mod-list .btn:hover{
+				background-color: #333;
+				color:#fff;
+			}
+			.mod-content{
+				width:840px;
+				margin:0 10px 0 auto;
+			}
+			.mod-content ul{
+				overflow: hidden;
+			}
+			.mod-content li{
+				float: left;
+				width: 50%;
+				margin-bottom: 10px;
+				line-height: 20px;
+			}
+			.mod-content a:hover{
+				border-bottom: 1px dotted #666;
+			}
+			.mod-foot{
+				text-align: center;
+				padding:0 30px;
+				color:#999;
+			}
+			.mod-foot a{
+				color:#999;
+			}
+
+			::selection {
+			    color: white;
+			    background-color: #333;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<header>
+				<div class="mod-head">
+					<h1>我的Web组件库</h1>
+					<p>让前端开发快到飞起来～</p>
+				</div>
+				<div class="mod-list">
+					<ul>
+						<li><a class="btn" href="https://github.com/mumuy/widget" target="_blank">查看GitHub</a></li>
+						<li><a class="btn" href="https://github.com/mumuy/widget/zipball/master" target="_blank">下载 .zip</a></li>
+						<li><a class="btn" href="https://github.com/mumuy/widget/tarball/master" target="_blank">下载 .tar.gz</a></li>
+					</ul>
+				</div>
+			</header>
+			<div class="container">
+				<div class="main">
+					<div class="mod-content">
+						<ul>
+							<li>
+								<p><a class="hot" href="/widget/jquery-slider/" target="_blank">轮播</a><p>
+								<p>$(selector).slider(options,callback(api));</p>
+							</li>
+							<li>
+								<p><a href="/widget/jquery-tabs/" target="_blank">标签页</a></p>
+								<p>$(selector).tabs(options,callback(api));</p>
+							</li>
+							<li>
+								<p><a href="/widget/jquery-scrollbar/" target="_blank">滚动条</a></p>
+								<p>$(selector).scrollbar(options,callback(api));</p>
+							</li>
+							<li>
+								<p><a href="/widget/jquery-select/" target="_blank">下拉框</a></p>
+								<p>$(selector).select(options,callback(api));</p>
+							</li>
+							<li>
+								<p><a href="/widget/jquery-range/" target="_blank">滑动条</a></p>
+								<p>$(selector).range(options,callback(api));</p>
+							</li>
+							<li>
+								<p><a href="/widget/jquery-dialog/" target="_blank">对话框</a></p>
+								<p>$(selector).dialog(options,callback(api));</p>
+							</li>
+							<li>
+								<p><a href="/widget/jquery-countdown/" target="_blank">倒计时</a></p>
+								<p>$(selector).countdown(options,callback(api));</p>
+							</li>
+							<li>
+								<p><a href="/widget/jquery-imagezoom/" target="_blank">图片聚焦</a></p>
+								<p>$(selector).imagezoom(options);</p>
+							</li>
+							<li>
+								<p><a href="/widget/jquery-headroom/" target="_blank">浮动菜单</a></p>
+								<p>$(selector).imagezoom(options);</p>
+							</li>
+							<li>
+								<p><a href="/widget/jquery-calendar/" target="_blank">日历</a></p>
+								<p>$(selector).calendar(options);</p>
+							</li>					
+							<li>
+								<p><a href="/widget/jquery-accordion/" target="_blank">手风琴</a></p>
+								<p>$(selector).accordion(options,callback(api));</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<footer>
+				<div class="mod-foot">
+					<p>Copyright &copy; <a href="/">passer-by.com</a></p>
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

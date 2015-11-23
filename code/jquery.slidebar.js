@@ -1,8 +1,8 @@
-/*
-    滚动过程滑入块 v1.0
-    BY:le
-*/
-(function($) {
+/**
+ * jquery.sliderbar.js 1.0
+ * http://passer-by.com
+ */
+;(function($, window, document, undefined) {
     $.fn.slidebar = function(parameter) {
         parameter = parameter || {};
         var defaults = {
@@ -129,4 +129,4 @@
         }
         document.cookie = str;
     }
-})(jQuery);
+})(jQuery, window, document);

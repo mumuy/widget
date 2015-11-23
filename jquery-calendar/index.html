@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>日历-calendar</title>
+		<link rel="shortcut icon" href="/public/img/favicon.png">
+		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<style type="text/css">
+			.calendar{
+				width:350px;
+				margin:0 auto 20px;
+				color:#333;
+			}
+			.calendar table{
+				width:100%;
+				table-layout:fixed;
+				border-collapse: collapse;
+				border-spacing: 0;
+				text-align: center;
+			}
+			.calendar caption{
+				line-height: 30px;
+				text-align: center;
+				border-bottom: 1px solid #ebebeb;
+    			margin-bottom: 5px;
+			}
+			.calendar caption span{
+				margin: 0 10px;
+			}
+			.calendar caption a{
+				color:#666;
+				margin:0 5px;
+				text-decoration: none;
+			}
+			.calendar td,.calendar th{
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+			}
+			.calendar td span{
+				display: block;
+			    width: 30px;
+			    margin: 0 auto;
+			    cursor: pointer;
+			}
+			.calendar .widget-back{
+				float: right;
+			}
+			.calendar .widget-today span{
+				font-weight: bold;
+			}
+			.calendar .widget-disabled span{
+				color:#999;
+			}
+			.calendar .widget-active span{
+				background: #39c;
+				color:#fff;
+				border-radius: 30px;
+			}
+		</style>
+		<script type="text/javascript" src="../public/jquery.min.js"></script>
+		<script type="text/javascript" src="../code/jquery.calendar.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="calendar calendar1"></div>
+			<div class="code">
+				<p>今天到明年元旦可选，选择一个区间</p>
+<pre>
+var year = (new Date()).getFullYear()+1;
+$('.calendar1').calendar({
+	limitRange:[['today',year+'0101']],
+	isRange:true
+});
+</pre>
+			</div>
+			<script type="text/javascript">
+				var year = (new Date()).getFullYear()+1;
+				$('.calendar1').calendar({
+					limitRange:[['today',year+'0101']],
+					isRange:true
+				});
+			</script>
+			<div class="calendar calendar2"></div>
+			<div class="code">
+				<p>选择某一天</p>
+<pre>
+$('.calendar2').calendar({
+	'select':function(range){
+		alert('你选择了'+range[0]['year']+'-'+range[0]['month']+'-'+range[0]['day']);
+	}
+});
+</pre>
+			</div>
+			<script type="text/javascript">
+				$('.calendar2').calendar({
+					'select':function(range){
+						alert('你选择了'+range[0]['year']+'-'+range[0]['month']+'-'+range[0]['day']);
+					}
+				});
+			</script>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>$(selector).calendar(options);</p>
+				</div>
+				<h2> options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th style="width:150">参数</th>
+							<th style="width:80">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>prefix</td>
+							<td>'widget'</td>
+							<td>生成日历的class前缀</td>
+						</tr>
+						<tr>
+							<td>isRange</td>
+							<td>false</td>
+							<td>是否选择范围</td>
+						</tr>
+						<tr>
+							<td>limitRange</td>
+							<td>[]</td>
+							<td>有效选择区域的范围(可以为多区间),如[['20150501','20151001']],'today'表示今天</td>
+						</tr>
+						<tr>
+							<td>change(day)</td>
+							<td>[空]</td>
+							<td>当前选中月份修改时触发,day为当月第一天,包含月份及年份信息</td>
+						</tr>
+						<tr>
+							<td>select([start,end])</td>
+							<td>[空]</td>
+							<td>选择日期时触发,start为开始时间,end为结束时间,包含月份及年份信息</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+<html>

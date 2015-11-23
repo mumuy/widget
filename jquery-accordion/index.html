@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>手风琴-accordion</title>
+		<link rel="shortcut icon" href="/public/img/favicon.png">
+		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<style type="text/css">
+			.accordion{
+				width:400px;
+				margin: 0 auto 10px;
+			}
+			.code {
+				border: 1px dashed #e2e2e2;
+				padding: 10px 5px;
+				margin-bottom: 25px;
+			}
+			.panel,.trigger{
+				margin-bottom:1px;
+			}
+			.panel{
+				height:100px;
+				background:#ccc;
+			}
+			.trigger{
+				height:30px;
+				background:#999;
+			}
+			.active{
+				background:#ff0;
+			}
+		</style>
+		<script type="text/javascript" src="../public/jquery.min.js"></script>
+		<script type="text/javascript" src="../code/jquery.accordion.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="accordion">
+				<div class="panel">panel1</div>
+				<div class="trigger">trigger1</div>
+				<div class="panel">panel2</div>
+				<div class="trigger">trigger2</div>
+				<div class="panel">panel3</div>
+				<div class="trigger">trigger3</div>
+				<div class="panel">panel4</div>
+				<div class="trigger">trigger4</div>
+				<div class="panel">panel5</div>
+				<div class="trigger">trigger5</div>				
+			</div>
+			<div class="code">
+				$('.accordion').accordion({triggerType:'click',animate:true});
+			</div>
+			<script type="text/javascript">
+				$('.accordion').accordion({triggerType:'click',animate:true,duration:300});
+			</script>			
+		</div>
+	</body>
+<html>

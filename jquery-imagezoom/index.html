@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>图片聚焦-imagezoom</title>
+		<link rel="shortcut icon" href="/public/img/favicon.png">
+		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<style type="text/css">			
+			.panel{
+				margin-bottom: 20px;
+			}
+			.zoom{
+				overflow: hidden;
+			}
+			.zoom li{
+				float: left;
+				width:300px;
+				height: 300px;
+				border:1px solid #ebebeb;
+				margin-left: 20px;
+				overflow: hidden;
+			}
+		</style>
+		<script type="text/javascript" src="../public/jquery.min.js"></script>
+		<script type="text/javascript" src="../code/jquery.imagezoom.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="panel">
+				<div class="zoom" id="zoom">
+					<ul>
+						<li>
+							<img src="image/pic1.jpg">
+						</li>
+						<li>
+							<img src="image/pic2.jpg">
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="code">
+				<p>
+<pre>$('#zoom li').imagezoom({
+	'hoverEvent':true
+});</pre>
+				</p>
+			</div>
+			<script type="text/javascript">
+				$('#zoom li').imagezoom({
+					'hoverEvent':true
+				});			
+			</script>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>$(selector).slider(options);</p>
+				</div>
+				<h2> options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th style="width:150">参数</th>
+							<th style="width:80">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>width</td>
+							<td>[计算]</td>
+							<td>图片外层宽度</td>
+						</tr>
+						<tr>
+							<td>height</td>
+							<td>[计算]</td>
+							<td>图片外层高度</td>
+						</tr>
+						<tr>
+							<td>resizeable</td>
+							<td>true</td>
+							<td>窗口大小改变时是否重新调整图片位置</td>
+						</tr>
+						<tr>
+							<td>effect</td>
+							<td>'out'</td>
+							<td>图片居中方式处理</td>
+						</tr>
+						<tr>
+							<td>condition</td>
+							<td>'img'</td>
+							<td>默认筛选条件</td>
+						</tr>
+						<tr>
+							<td>hoverEvent</td>
+							<td>false</td>
+							<td>鼠标悬浮时是否放大</td>
+						</tr>
+						<tr>
+							<td>hoverRatio</td>
+							<td>1.2</td>
+							<td>鼠标悬浮时放大比例</td>
+						</tr>
+						<tr>
+							<td>duration</td>
+							<td>300</td>
+							<td>鼠标悬浮时放大动画时长</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

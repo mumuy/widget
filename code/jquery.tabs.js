@@ -1,8 +1,8 @@
-/*
-    选项卡 v1.3
-    BY:le
-*/
-(function($) {
+/**
+ * jquery.tabs.js 1.0
+ * http://passer-by.com
+ */
+;(function($, window, document, undefined) {
     $.fn.tabs = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -56,4 +56,4 @@
             getApi(_api);
         });
     };
-})(jQuery);
+})(jQuery, window, document);
