@@ -7,6 +7,8 @@
         parameter = parameter || {};
         var defaults = {
             'prefix':'widget',          //生成日历的class前缀
+            'isRange':false,            //是否选择范围
+            'limitRange':[],            //有效选择区域的范围
             'change':function(){},      //当前选中月份修改时触发
             'select':function(){}       //选择日期时触发
         };
@@ -21,9 +23,10 @@
             var $nextMonth = $('<a class="'+options.prefix+'-nextMonth" href="javascript:;">&gt;</a>').appendTo($caption);
             var $nextYear = $('<a class="'+options.prefix+'-nextYear" href="javascript:;">&gt;&gt;</a>').appendTo($caption);
             var $back = $('<a class="'+options.prefix+'-back" href="javascript:;">今天</a>').appendTo($caption);
-            var _today, //当天
-                _data,  //日期数据
-                _day;   //日历状态
+            var _today,         //当天
+                _data,          //日期数据
+                _day,           //日历状态
+                _range = [];    //当前选择范围
             /*****  节点修改 *****/
             $table.append('<thead><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr></thead>');
             var $tbody = $('<tbody>').appendTo($table);
@@ -31,12 +34,14 @@
             //获取日期数据
             var getDateObj = function(year,month,day){
                 var date = arguments.length&&year?new Date(year,month-1,day):new Date();
-                return {
+                var obj = {
                     'year':date.getFullYear(),
                     'month':date.getMonth()+1,
                     'day':date.getDate(),
                     'week':date.getDay()
-                };
+                }
+                obj['code'] = ''+obj['year']+(obj['month']>9?obj['month']:'0'+obj['month'])+(obj['day']>9?obj['day']:'0'+obj['day']);
+                return obj;
             };
             //获取当月天数
             var getMonthDays = function(obj){
@@ -45,7 +50,27 @@
             };
             //获取某天日期信息
             var getDateInfo = function(obj){
-                if(obj['year']==_today['year']&&obj['month']==_today['month']&&obj['day']==_today['day']){
+                if(options.limitRange.length){
+                    obj['status'] = 'disabled';
+                    for(var i=0;i<options.limitRange.length;i++){
+                        var start = options.limitRange[i][0];
+                        var end =  options.limitRange[i][1];
+                        if(start=='today'){
+                            start = _today['code'];
+                        }
+                        if(end=='today'){
+                            end = _today['code'];
+                        }
+                        if(start>end){
+                            start = [end,end=start][0];
+                        }
+                        if(obj['code']>=start&&obj['code']<=end){
+                            obj['status'] = '';
+                            break;
+                        }
+                    }
+                }
+                if(obj['code']==_today['code']){
                     obj['sign'] = 'today';
                 }
                 return obj;
@@ -62,7 +87,9 @@
                 for(var i=_day['week'];i>0;i--){
                     obj = getDateObj(_day['year'],_day['month'],_day['day']-i);
                     var info = getDateInfo(obj);
-                    info['disabled'] = 1;
+                    if(!options.limitRange.length){
+                        info['status'] = 'disabled';
+                    }
                     data.push(info);
                 }
                 //当月日期
@@ -73,8 +100,8 @@
                         'day':_day['day']+i,
                         'week':(_day['week']+i)%7
                     };
+                    obj['code'] = ''+obj['year']+(obj['month']>9?obj['month']:'0'+obj['month'])+(obj['day']>9?obj['day']:'0'+obj['day']);
                     var info = getDateInfo(obj);
-                    info['disabled'] = 0;
                     data.push(info);
                 }
                 //下月日期
@@ -82,26 +109,27 @@
                 for(var i=1;last['week']+i<7;i++){
                     obj = getDateObj(last['year'],last['month'],last['day']+i);
                     var info = getDateInfo(obj);
-                    info['disabled'] = 1;
+                    if(!options.limitRange.length){
+                        info['status'] = 'disabled';
+                    }
                     data.push(info);
                 }
                 return data;        
             };
-            var format = function(date){
-                _data = getData(date);
+            var format = function(data){
                 options.change(_day);
                 var html = '<tr>';
-                for(var i=0,len=_data.length;i<len;i++){
-                    var date = _data[i];
+                for(var i=0,len=data.length;i<len;i++){
+                    var day = data[i];
                     var className = '';
-                    if(date['sign']){
-                        className += options.prefix+'-'+date['sign'];
+                    if(day['sign']){
+                        className += options.prefix+'-'+day['sign'];
                     }
-                    if(date['disabled']){
-                        className += ' '+options.prefix+'-'+'disabled';
+                    if(day['status']){
+                        className += ' '+options.prefix+'-'+day['status'];
                     }
                     html+='<td'+(className?' class="'+className+'"':'')+' data-id="'+i+'">\
-                        '+(date['link']?'<a href="'+date['link']+'">'+date['day']+'</a>':'<span>'+date['day']+'</span>')+'\
+                        '+(day['link']?'<a href="'+day['link']+'">'+day['day']+'</a>':'<span>'+day['day']+'</span>')+'\
                     </td>';
                     if(i%7==6&&i<len-1){
                         html+='</tr><tr>';
@@ -119,35 +147,76 @@
             };
             $prevMonth.click(function(){
                 _day['month']--;
-                format(_day);
+                _data = getData(_day);
+                format(_data);
             });
             $nextMonth.click(function(){
                 _day['month']++;
-                format(_day);
+                 _data = getData(_day);
+                format(_data);
             });
             $prevYear.click(function(){
                 _day['year']--;
-                format(_day);
+                 _data = getData(_day);
+                format(_data);
             });
             $nextYear.click(function(){
                 _day['year']++;
-                format(_day);
+                _data = getData(_day);
+                format(_data);
             });
             $back.click(function(){
-                format();
+                _data = getData();
+                format(_data);
             });
             $this.on('click','td',function(){
                 var $this = $(this);
                 var index = $(this).data('id');
                 var day = _data[index];
-                if(!day['disabled']){
-                    var className = options.prefix+'-active';
-                    $tbody.find('td').removeClass(className);
-                    $this.addClass(className);
-                    options.select(day);
+                if(day['status']!='disabled'){
+                    for(var i=0;i<_data.length;i++){
+                        var d = _data[i];
+                        if(d['status'] == 'active'){
+                            d['status'] = '';
+                        }
+                    }                    
+                    if(options.isRange){
+                        if(_range.length!=1){
+                            _range = [day];
+                            day['status'] = 'active';
+                            format(_data);
+                        }else{
+                            _range.push(day);
+                            var start = _range[0]['code'];
+                            var end = _range[1]['code'];
+                            if(start>end){
+                                start = [end,end=start][0];
+                                _range = [_range[1],_range[0]];
+                            }
+                            for(var i=0;i<_data.length;i++){
+                                var d = _data[i];
+                                if(d['code']>=start&&d['code']<=end){
+                                    if(d['status']=='disabled'){
+                                        break;
+                                    }else{
+                                        d['status'] = 'active';
+                                        _range[1] = d;
+                                    }
+                                }
+                            }
+                            format(_data);
+                            options.select(_range);
+                        }
+                    }else{
+                        _range = [day];
+                        day['status'] = 'active';
+                        format(_data);
+                        options.select(_range);
+                    }
                 }
             });
-            format();
+            _data = getData();
+            format(_data);
         });
     };
 })(jQuery, window, document);
