@@ -482,8 +482,8 @@
             }
             $window.resize(function(){
                 var time = + new Date();
-                if(time-_time['start']>250){ //缓存防治连续变化多次触发
-                    _.resize()
+                if(time-_time['start']>250&&options.delay<250||options.delay>=250){ //缓存防治连续变化多次触发
+                    _.resize();
                 }
                 _time['start'] = time;
             }); //当窗体大小改变时，重新计算相关参数
