@@ -140,23 +140,27 @@
                 _hander = setTimeout(function(){
                     if(isShow){
                         var value = $.trim($this.val());
-                        if(value != _text&&value!=''){ //缓存上次输入
-                            _index = -1;
-                            options.parameter[options.FieldName] = _text = value;
-                            $.ajax({
-                                type:'get',  
-                                async: false,  
-                                url :options.url,
-                                data:options.parameter,
-                                dataType:options.dataFormat,
-                                jsonp:'callback',
-                                jsonpCallback:options.jsonpCallback,
-                                success:success
-                            });          
+                        if(value==''){
+                            hide();
                         }else{
-                            if(hasData){
-                                $suggestion.show();
-                            }
+                            if(value != _text){ //缓存上次输入
+                                _index = -1;
+                                options.parameter[options.FieldName] = _text = value;
+                                $.ajax({
+                                    type:'get',  
+                                    async: false,  
+                                    url :options.url,
+                                    data:options.parameter,
+                                    dataType:options.dataFormat,
+                                    jsonp:'callback',
+                                    jsonpCallback:options.jsonpCallback,
+                                    success:success
+                                });          
+                            }else{
+                                if(hasData){
+                                    $suggestion.show();
+                                }
+                            }                            
                         }
                     }
                 },'500');  
@@ -164,7 +168,7 @@
             //隐藏表单项                 
             var hide = function(){
                 isShow = false;
-                clearTimeout(_hander);
+                _hander&&clearTimeout(_hander);
                 $suggestion.hide(); 
             };
             //事件绑定
