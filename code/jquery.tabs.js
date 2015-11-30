@@ -50,14 +50,32 @@
                 options.delay += 500;
             }
             //上一个
-            var prev = function(){
-                var index = _index?_index-1:_size-1;
-                _api.select(index);
+            var prev = function(e){
+                var i = _index?_index-1:_size-1;
+                var status = {
+                    index: _index,
+                    count: _size,
+                    destination: i,
+                    event:e
+                };
+                if(options.beforeEvent(status)!=false){
+                    _api.select(i);
+                    options.afterEvent(status);
+                }
             };
             //下一个
-            var next = function(){
-                var index = (_index + 1)%_size;
-                _api.select(index);
+            var next = function(e){
+                var i = (_index + 1)%_size;
+                var status = {
+                    index: _index,
+                    count: _size,
+                    destination: i,
+                    event:e
+                };
+                if(options.beforeEvent(status)!=false){
+                    _api.select(i);
+                    options.afterEvent(status);
+                }
             };
             //停止播放
             _api.stop = function(){
@@ -104,12 +122,11 @@
             $triggers.bind(options.triggerType, function(e) { //事件绑定
                 var i = $triggers.index($(this));
                 var status = {
-                    target:$this,
-                    triggers:$triggers,
-                    panels:$panels,
-                    index:i,
+                    index: _index,
+                    count: _size,
+                    destination: i,
                     event:e
-                }
+                };
                 if(options.beforeEvent(status)!=false){
                     _api.select(i);
                     options.afterEvent(status);
