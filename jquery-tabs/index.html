@@ -17,27 +17,52 @@
 			.tabs ul{
 				overflow:hidden;
 			}
-			.tabs .nav{
+			.tabs1 .nav{
 				margin-bottom:10px;
 			}
-			.tabs .nav li{
+			.tabs1 .nav li{
 				float:left;
 				margin:0 10px;
 				border-bottom:1px solid #fff;
 			}
-			.tabs .nav a{
+			.tabs1 .nav a{
 				display:block;
 				line-height:38px;
 			}
-			.tabs .nav .active{
+			.tabs1 .nav .active{
 				border-bottom:1px solid #000;
 			}
-			.tabs .content{
+			.tabs1 .content{
 				height:240px;
-				background:#f4f4f4;
 				color:#666;
 				overflow:hidden;
 			}
+			.tabs1 .content li{
+				height:240px;
+				background:#f4f4f4;
+			}
+			.tabs2 .content{
+				width: 160px;
+				height: 120px;
+				margin:0 auto;
+			}
+			.tabs2 .content li{
+				width: 160px;
+				height: 120px;
+				background: #ccc;
+			}
+			.tabs2 .nav{
+				margin: 3px 0;
+				text-align:center;
+			}
+			.tabs2 .nav li{
+				display:inline-block;
+				width:12px;
+				height:12px;
+				background: #ccc;
+				margin-right:5px;
+			}
+			.tabs2 .nav li.active{background:#ff0;}
 		</style>
 		<script type="text/javascript" src="../public/jquery.min.js"></script>
 		<script type="text/javascript" src="../code/jquery.tabs.js"></script>
@@ -59,10 +84,30 @@
 				</ul>
 			</div>
 			<div class="code">
-				<p>$(".tabs1").tabs();</p>
+				<p>$(".tabs1").tabs({triggerType:'click'});</p>
 			</div>
 			<script type="text/javascript">
-				$(".tabs1").tabs();
+				$(".tabs1").tabs({triggerType:'click'});
+			</script>
+			<div class="tabs tabs2">
+				<ul class="content">
+					<li style="background:#fc0;">幻灯片1</li>
+					<li style="background:#f0c;">幻灯片2</li>
+					<li style="background:#cf0;">幻灯片3</li>
+					<li style="background:#c0f;">幻灯片4</li>
+				</ul>				
+				<ul class="nav">
+					<li><a href="javascript:;"></a></li>
+					<li><a href="javascript:;"></a></li>
+					<li><a href="javascript:;"></a></li>
+					<li><a href="javascript:;"></a></li>
+				</ul>
+			</div>
+			<div class="code">
+				<p>$(".tabs2").tabs({effect:'fade'});</p>
+			</div>
+			<script type="text/javascript">
+				$(".tabs2").tabs({effect:'fade'});
 			</script>
 			<div class="example">
 				<div class="call">
@@ -93,6 +138,11 @@
 							<td>activeCls</td>
 							<td>'active'</td>
 							<td>导航选中时的class</td>
+						</tr>
+						<tr>
+							<td>effect</td>
+							<td>'none'</td>
+							<td>切换的效果:'none'表直接切换,'fade'表淡入淡出效果</td>
 						</tr>
 						<tr>
 							<td>triggerType</td>
