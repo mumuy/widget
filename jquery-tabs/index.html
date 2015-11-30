@@ -12,7 +12,7 @@
 				text-decoration:none;
 			}
 			.tabs{
-				margin-bottom:20px;
+				margin:0 auto 20px;
 			}
 			.tabs ul{
 				overflow:hidden;
@@ -41,10 +41,11 @@
 				height:240px;
 				background:#f4f4f4;
 			}
-			.tabs2 .content{
+			.tabs2{
 				width: 160px;
+			}
+			.tabs2 .content{
 				height: 120px;
-				margin:0 auto;
 			}
 			.tabs2 .content li{
 				width: 160px;
@@ -63,6 +64,37 @@
 				margin-right:5px;
 			}
 			.tabs2 .nav li.active{background:#ff0;}
+			.tabs3 {
+				position: relative;
+				width: 220px;
+			}
+			.tabs3 .content{
+				width: 160px;
+				margin:0 auto;
+				height: 120px;
+			}
+			.tabs3 .content li{
+				width: 160px;
+				height: 120px;
+				background: #ccc;
+			}
+			.tabs3 .prev,.tabs3 .next{
+				display: block;
+				position: absolute;
+				width: 20px;
+				height: 118px;
+				background: #999;
+				border:1px solid #ccc;
+				text-align:center;
+				line-height:110px;
+				cursor:pointer;
+			}
+			.tabs3 .prev{
+				left:0;
+			}
+			.tabs3 .next{
+				right:0;
+			}
 		</style>
 		<script type="text/javascript" src="../public/jquery.min.js"></script>
 		<script type="text/javascript" src="../code/jquery.tabs.js"></script>
@@ -104,10 +136,28 @@
 				</ul>
 			</div>
 			<div class="code">
-				<p>$(".tabs2").tabs({effect:'fade'});</p>
+				<p>淡入淡出</p>
+				<p>$(".tabs2").tabs({effect:'fade');</p>
 			</div>
 			<script type="text/javascript">
 				$(".tabs2").tabs({effect:'fade'});
+			</script>
+			<div class="tabs tabs3">
+				<a class="prev" href="javascript:;">&lt;</a>
+				<a class="next" href="javascript:;">&gt;</a>
+				<ul class="content">
+					<li style="background:#fc0;">幻灯片1</li>
+					<li style="background:#f0c;">幻灯片2</li>
+					<li style="background:#cf0;">幻灯片3</li>
+					<li style="background:#c0f;">幻灯片4</li>
+				</ul>				
+			</div>
+			<div class="code">
+				<p>前后切换，自动播放</p>
+				<p>$(".tabs3").tabs({auto:true,effect:'fade'});</p>
+			</div>
+			<script type="text/javascript">
+				$(".tabs3").tabs({auto:true,effect:'fade'});
 			</script>
 			<div class="example">
 				<div class="call">
@@ -187,6 +237,14 @@
 						<tr>
 							<td>select(value)</td>
 							<td>切换标签页</td>
+						</tr>
+						<tr>
+							<td>stop()</td>
+							<td>停止自动播放</td>
+						</tr>
+						<tr>
+							<td>start()</td>
+							<td>开始自动播放</td>
 						</tr>
 					</tbody>
 				</table>
