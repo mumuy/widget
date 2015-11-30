@@ -10,8 +10,9 @@
             suggestionCls:'suggestion',      //提示框的内容class
             activeCls:'active',              //列表项选中class
             FieldName:'word',                //当前input表单项在请求接口时的字段名
-            dataFormat:'jsonp',
+            dataFormat:'jsonp',              //请求的格式
             parameter:{},                    //其他与接口有关参数
+            jsonpCallback:'',                //自定义回调函数
             get:function(){},                //获得搜索建议:传入一个对象，target表示被建议列表对象,data表示请求到的数据
             select: function(item) {         //选中搜索建议列表项：传入一个对象，target表示当前选中列表项,input表示当前input表单项
                 item.input.val(item.target.text());
@@ -120,31 +121,46 @@
                 }
                 options.select(status);
             };
+            //成功后的回调函数
+            var success = function(data){
+                var status = {
+                    'target':$list,
+                    'data':data
+                };
+                options.get(status);
+                $items = $suggestion.find('li');
+                hasData = $items.length>0;        //根据列表长度判断有没有值
+                if(hasData){
+                    $suggestion.show();
+                }
+            }
             //显示表单项
             var show = function(){
                 isShow = true;
                 _hander = setTimeout(function(){
                     if(isShow){
                         var value = $.trim($this.val());
-                        if(value != _text&&value!=''){ //缓存上次输入
-                            _index = -1;
-                            options.parameter[options.FieldName] = _text = value;
-                            $.get(options.url,options.parameter,function(data){
-                                var status = {
-                                    'target':$list,
-                                    'data':data
-                                };
-                                options.get(status);
-                                $items = $suggestion.find('li');
-                                hasData = $items.length>0;        //根据列表长度判断有没有值
+                        if(value==''){
+                            hide();
+                        }else{
+                            if(value != _text){ //缓存上次输入
+                                _index = -1;
+                                options.parameter[options.FieldName] = _text = value;
+                                $.ajax({
+                                    type:'get',  
+                                    async: false,  
+                                    url :options.url,
+                                    data:options.parameter,
+                                    dataType:options.dataFormat,
+                                    jsonp:'callback',
+                                    jsonpCallback:options.jsonpCallback,
+                                    success:success
+                                });          
+                            }else{
                                 if(hasData){
                                     $suggestion.show();
                                 }
-                            },options.dataFormat);                  
-                        }else{
-                            if(hasData){
-                                $suggestion.show();
-                            }
+                            }                            
                         }
                     }
                 },'500');  
@@ -152,7 +168,7 @@
             //隐藏表单项                 
             var hide = function(){
                 isShow = false;
-                clearTimeout(_hander);
+                _hander&&clearTimeout(_hander);
                 $suggestion.hide(); 
             };
             //事件绑定
@@ -178,6 +194,20 @@
                     'width':_width+'px'
                 });
             });
+            //回调函数
+            if(options.jsonpCallback){
+                var fun = options.jsonpCallback.split('.');
+                var obj = {};
+                for(var i=0;i<fun.length;i++){
+                    if(fun[i]=='window'){
+                        obj=window;
+                    }else if(i<fun.length-1){
+                        obj=obj[fun[i]] = {};
+                    }else{
+                        obj[fun[i]] = success;
+                    }
+                }
+            }
         });
     };
 })(jQuery, window, document);

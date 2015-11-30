@@ -12,31 +12,88 @@
 				text-decoration:none;
 			}
 			.tabs{
-				margin-bottom:20px;
+				margin:0 auto 20px;
 			}
 			.tabs ul{
 				overflow:hidden;
 			}
-			.tabs .nav{
+			.tabs1 .nav{
 				margin-bottom:10px;
 			}
-			.tabs .nav li{
+			.tabs1 .nav li{
 				float:left;
 				margin:0 10px;
 				border-bottom:1px solid #fff;
 			}
-			.tabs .nav a{
+			.tabs1 .nav a{
 				display:block;
 				line-height:38px;
 			}
-			.tabs .nav .active{
+			.tabs1 .nav .active{
 				border-bottom:1px solid #000;
 			}
-			.tabs .content{
+			.tabs1 .content{
 				height:240px;
-				background:#f4f4f4;
 				color:#666;
 				overflow:hidden;
+			}
+			.tabs1 .content li{
+				height:240px;
+				background:#f4f4f4;
+			}
+			.tabs2{
+				width: 160px;
+			}
+			.tabs2 .content{
+				height: 120px;
+			}
+			.tabs2 .content li{
+				width: 160px;
+				height: 120px;
+				background: #ccc;
+			}
+			.tabs2 .nav{
+				margin: 3px 0;
+				text-align:center;
+			}
+			.tabs2 .nav li{
+				display:inline-block;
+				width:12px;
+				height:12px;
+				background: #ccc;
+				margin-right:5px;
+			}
+			.tabs2 .nav li.active{background:#ff0;}
+			.tabs3 {
+				position: relative;
+				width: 220px;
+			}
+			.tabs3 .content{
+				width: 160px;
+				margin:0 auto;
+				height: 120px;
+			}
+			.tabs3 .content li{
+				width: 160px;
+				height: 120px;
+				background: #ccc;
+			}
+			.tabs3 .prev,.tabs3 .next{
+				display: block;
+				position: absolute;
+				width: 20px;
+				height: 118px;
+				background: #999;
+				border:1px solid #ccc;
+				text-align:center;
+				line-height:110px;
+				cursor:pointer;
+			}
+			.tabs3 .prev{
+				left:0;
+			}
+			.tabs3 .next{
+				right:0;
 			}
 		</style>
 		<script type="text/javascript" src="../public/jquery.min.js"></script>
@@ -59,10 +116,48 @@
 				</ul>
 			</div>
 			<div class="code">
-				<p>$(".tabs1").tabs();</p>
+				<p>$(".tabs1").tabs({triggerType:'click'});</p>
 			</div>
 			<script type="text/javascript">
-				$(".tabs1").tabs();
+				$(".tabs1").tabs({triggerType:'click'});
+			</script>
+			<div class="tabs tabs2">
+				<ul class="content">
+					<li style="background:#fc0;">幻灯片1</li>
+					<li style="background:#f0c;">幻灯片2</li>
+					<li style="background:#cf0;">幻灯片3</li>
+					<li style="background:#c0f;">幻灯片4</li>
+				</ul>				
+				<ul class="nav">
+					<li><a href="javascript:;"></a></li>
+					<li><a href="javascript:;"></a></li>
+					<li><a href="javascript:;"></a></li>
+					<li><a href="javascript:;"></a></li>
+				</ul>
+			</div>
+			<div class="code">
+				<p>淡入淡出</p>
+				<p>$(".tabs2").tabs({effect:'fade');</p>
+			</div>
+			<script type="text/javascript">
+				$(".tabs2").tabs({effect:'fade'});
+			</script>
+			<div class="tabs tabs3">
+				<a class="prev" href="javascript:;">&lt;</a>
+				<a class="next" href="javascript:;">&gt;</a>
+				<ul class="content">
+					<li style="background:#fc0;">幻灯片1</li>
+					<li style="background:#f0c;">幻灯片2</li>
+					<li style="background:#cf0;">幻灯片3</li>
+					<li style="background:#c0f;">幻灯片4</li>
+				</ul>				
+			</div>
+			<div class="code">
+				<p>前后切换，自动播放</p>
+				<p>$(".tabs3").tabs({auto:true,effect:'fade'});</p>
+			</div>
+			<script type="text/javascript">
+				$(".tabs3").tabs({auto:true,effect:'fade'});
 			</script>
 			<div class="example">
 				<div class="call">
@@ -90,9 +185,24 @@
 							<td>导航列表的class</td>
 						</tr>
 						<tr>
+							<td>prevBtnCls</td>
+							<td>'prev'</td>
+							<td>向前一步的class</td>
+						</tr>
+						<tr>
+							<td>nextBtnCls</td>
+							<td>'next'</td>
+							<td>向后一步的class</td>
+						</tr>
+						<tr>
 							<td>activeCls</td>
 							<td>'active'</td>
 							<td>导航选中时的class</td>
+						</tr>
+						<tr>
+							<td>effect</td>
+							<td>'none'</td>
+							<td>切换的效果:'none'表直接切换,'fade'表淡入淡出效果</td>
 						</tr>
 						<tr>
 							<td>triggerType</td>
@@ -110,18 +220,28 @@
 							<td>默认选中导航项的索引</td>
 						</tr>
 						<tr>
+							<td>auto</td>
+							<td>false</td>
+							<td>是否自动播放</td>
+						</tr>
+						<tr>
+							<td>delay</td>
+							<td>3000</td>
+							<td>自动播放时停顿的时间间隔</td>
+						</tr>
+						<tr>
 							<td>beforeEvent</td>
 							<td>
-								function(){}
+								[无]
 							</td>
-							<td>切换前执行,返回flase时不移动;传入一个对象,包含：target当前导航项对象,tabs导航列表对象,panels内容列表对象,index当前导航项索引,event事件对象;</td>
+							<td>切换前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象</td>
 						</tr>
 						<tr>
 							<td>afterEvent</td>
 							<td>
-								function(){}
+								[无]
 							</td>
-							<td>切换后执行;传入一个对象,包含：target当前导航项对象,tabs导航列表对象,panels内容列表对象,index当前导航项索引,event事件对象;</td>
+							<td>切换后执行;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象</td>
 						</tr>
 					</tbody>
 				</table>
@@ -137,6 +257,14 @@
 						<tr>
 							<td>select(value)</td>
 							<td>切换标签页</td>
+						</tr>
+						<tr>
+							<td>stop()</td>
+							<td>停止自动播放</td>
+						</tr>
+						<tr>
+							<td>start()</td>
+							<td>开始自动播放</td>
 						</tr>
 					</tbody>
 				</table>
