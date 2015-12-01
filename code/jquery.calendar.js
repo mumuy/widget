@@ -6,11 +6,11 @@
     $.fn.calendar = function(parameter,getApi) {
         parameter = parameter || {};
         var defaults = {
-            'prefix':'widget',          //生成日历的class前缀
-            'isRange':false,            //是否选择范围
-            'limitRange':[],            //有效选择区域的范围
-            'change':function(){},      //当前选中月份修改时触发
-            'select':function(){}       //选择日期时触发
+            prefix:'widget',          //生成日历的class前缀
+            isRange:false,            //是否选择范围
+            limitRange:[],            //有效选择区域的范围
+            change:function(){},      //当前选中月份修改时触发
+            select:function(){}       //选择日期时触发
         };
         var options = $.extend({}, defaults, parameter);
         return this.each(function() {
