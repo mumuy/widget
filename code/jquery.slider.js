@@ -245,7 +245,8 @@
             }
         };
         //滚动轴
-        var scroll = function(e){              
+        var scroll = function(e){
+            e = e||window.event;           
             if(!$lists.is(':animated')){ //防止滚动太快动画没完成
                 var delta = -e.wheelDelta/120||e.detail/3;
                 delta>0?_.next(e):_.prev(e);                      
