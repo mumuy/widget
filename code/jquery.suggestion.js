@@ -153,7 +153,6 @@
                                     data:options.parameter,
                                     dataType:options.dataFormat,
                                     jsonp:'callback',
-                                    jsonpCallback:options.jsonpCallback,
                                     success:success
                                 });          
                             }else{
@@ -194,20 +193,6 @@
                     'width':_width+'px'
                 });
             });
-            //回调函数
-            if(options.jsonpCallback){
-                var fun = options.jsonpCallback.split('.');
-                var obj = {};
-                for(var i=0;i<fun.length;i++){
-                    if(fun[i]=='window'){
-                        obj=window;
-                    }else if(i<fun.length-1){
-                        obj=obj[fun[i]] = {};
-                    }else{
-                        obj[fun[i]] = success;
-                    }
-                }
-            }
         });
     };
 })(jQuery, window, document);
