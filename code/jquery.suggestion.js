@@ -152,7 +152,7 @@
                                     url :options.url,
                                     data:options.parameter,
                                     dataType:options.dataFormat,
-                                    jsonp:'callback',
+                                    jsonp:options.jsonp,
                                     success:success
                                 });          
                             }else{
