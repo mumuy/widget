@@ -138,6 +138,7 @@
         this.resize = function(){
             _distance = [];
             _inner = 0;
+            $items = $lists.children();
             if(options.direction=='x'){
                 $lists.css('width','');
                 $items.css('width','');
@@ -380,7 +381,6 @@
                 $list2 = $list1.clone().insertAfter($list1);
                 $lists = $list1.add($list2);
             }
-            $items = $lists.children();
             //节点添加
             if (options.hasTriggers) {  //是否存在导航
                 if (!$this.find("."+options.navCls).length) {   //使用children找不到

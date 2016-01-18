@@ -186,6 +186,9 @@
                 var $next = $('<table>').appendTo($panel);
                 data = getData({'year':obj['year'],'month':obj['month']+1});
                 formatMonth($next,data);
+                if(_api){
+                    _api.resize();
+                }
                 options.change(obj);
             }
             /***** 初始化 *****/
@@ -229,15 +232,15 @@
                 'activeIndex':1,
                 'afterEvent':function(status){
                     if(status.index!=1){
+                        if(_api){
+                            _api.setIndex(1,false);
+                        }
                         if(status.index==2){
                             _day['month']++;
                             format(_day);
                         }else{
                             _day['month']--;
                             format(_day);
-                        }
-                        if(_api){
-                            _api.setIndex(1,false);
                         }
                     }
                 }
