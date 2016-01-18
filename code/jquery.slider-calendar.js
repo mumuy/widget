@@ -1,5 +1,5 @@
 /**
- * jquery.calendar.js 1.0
+ * jquery.slider-calendar.js 1.0
  * http://passer-by.com
  */
 ;(function($, window, document, undefined) {
@@ -113,10 +113,6 @@
             //格式化月份
             var formatMonth = function($table,data){
                 $table.append('<thead><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr></thead>');
-                // $table.css({
-                //     'float':'left',
-                //     'width':width
-                // });
                 var $tbody = $('<tbody>').appendTo($table);
                 for(var i=0;i<data.length;i++){
                     var d = data[i];
