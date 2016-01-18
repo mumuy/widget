@@ -229,9 +229,7 @@
                         $list1.animate(params,{easing:options.easing, duration: duration});
                 }
                 $nav_list.removeClass(options.activeTriggerCls).eq(_index% _size).addClass(options.activeTriggerCls);   //导航选中
-                if(isAnimate !=false){
-                    $lists.promise().then(callback);
-                }
+                $lists.promise().then(callback);
             }
         };
         //移动后回调

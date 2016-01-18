@@ -228,15 +228,17 @@
                 'hasTriggers':false,
                 'activeIndex':1,
                 'afterEvent':function(status){
-                    if(status.index==2){
-                        _day['month']++;
-                        format(_day);
-                    }else if(status.index==0){
-                        _day['month']--;
-                        format(_day);
-                    }
-                    if(_api){
-                        _api.setIndex(1,false);
+                    if(status.index!=1){
+                        if(status.index==2){
+                            _day['month']++;
+                            format(_day);
+                        }else{
+                            _day['month']--;
+                            format(_day);
+                        }
+                        if(_api){
+                            _api.setIndex(1,false);
+                        }
                     }
                 }
             },function(api){
