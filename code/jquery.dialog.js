@@ -30,6 +30,7 @@
 			//全局变量
 			var $this = $(this);
 			var $children = options.content?$(options.content):$this.html(); //内容区域
+			var $container = $('<div class="'+options.prefix+'-container"></div>');
 			var $overlay = $('.'+options.prefix+'-overlay');
 			var $close = $('<div class="'+options.prefix+'-close"><a href="javascript:;">x</a></div>');
 			var $title = $('<div class="'+options.prefix+'-title">'+options.title+'</div>');
@@ -40,6 +41,7 @@
 			var _isOpen = false; //是否是打开状态
 			//结构修改
 			$body.css('height','100%');
+			$this.appendTo($body).empty();
 			if(options.isModel && $overlay.length==0){
 				$overlay = $('<div class="'+options.prefix+'-overlay"></div>').css({
 					'position': _position,
@@ -50,14 +52,13 @@
 					'width': '100%',
 					'background': options.backgroundColor,
 					'display': 'none'
-				}).appendTo($body);                
+				}).appendTo($this);                
 			}
-			$overlay.after($this);
-			$this.css({
+			$container.css({
 				'display':'none',
 				'position':_position,
 				'z-index': '999'
-			}).empty().append($close).append($title).append($content).append($buttons);
+			}).appendTo($this).append($close).append($title).append($content).append($buttons);
 			for(name in options.buttons){
 				(function(name){
 					$('<button type="button">'+name+'</button>').appendTo($buttons).click(function(){
@@ -66,16 +67,16 @@
 				})(name);
 			}
 			//对话框开启
-			_api.open = function(fun){
+			_api.open = function(callback){
 				if(options.beforeOpen()!=false){
-					(fun || function(){})(); //如果open的时候传入了方法，则在执行时进行预处理
+					(callback || function(){})(); //如果open的时候传入了方法，则在执行时进行预处理
+					$this.show();
 					if(options.isModel){
 						$overlay.css({
-							'display': 'block',
 							'opacity': 0
 						}).stop().fadeTo(200,options.opacity);                    
 					}
-					$this.css("opacity",0).fadeTo(200, 1);
+					$container.css("opacity",0).fadeTo(200, 1);
 					_api.resize();
 					_isOpen = true;
 				}
@@ -83,16 +84,19 @@
 			//对话框关闭
 			_api.close = function(){
 				if(options.isModel){
-					 $overlay.stop().fadeOut(200);
+					$overlay.stop().fadeOut(200,function(){
+						$this.hide();
+					});
+				}else{
+					$this.hide();
 				}
-				$this.hide();
 				_isOpen = false;
 			};
 			//对话框形状自动调整
 			_api.resize = function(){
-				$this.css({
-					"left": ($window.width()-$this.outerWidth())/2 + "px",
-					"top": ($window.height()-$this.outerHeight())/2 + "px"
+				$container.css({
+					"left": ($window.width()-$container.outerWidth())/2 + "px",
+					"top": ($window.height()-$container.outerHeight())/2 + "px"
 				});    
 			};
 			//设置对话框内容

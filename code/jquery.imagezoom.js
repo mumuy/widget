@@ -52,15 +52,9 @@
                             }
                         }               
                     }else if(options.effect=='in'){ //在不放大图片失真的情况下，最大清晰度地展示完整图片
-                        if(_width>_height){
-                            if(_width>_outer_width){
-                                _ratio = Math.max(_outer_width/_width);
-                            }
-                        }else{
-                            if(_height>_outer_height){
-                                _ratio = Math.max(_outer_height/_height);
-                            }
-                        }    
+                        if(_width>_outer_width||_height>_outer_height){
+                            _ratio = Math.min(_outer_width/_width,_outer_height/_height);
+                        } 
                     }
                     zoom(_ratio);
                 };
