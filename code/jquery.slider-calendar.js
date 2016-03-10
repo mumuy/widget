@@ -9,8 +9,8 @@
             prefix:'widget',          //生成日历的class前缀
             isRange:false,            //是否选择范围
             limitRange:[],            //有效选择区域的范围
-            change:function(){},      //当前选中月份修改时触发
-            select:function(){}       //选择日期时触发
+            onChange:function(){},      //当前选中月份修改时触发
+            onSelect:function(){}       //选择日期时触发
         };
         var options = $.extend({}, defaults, parameter);
         return this.each(function() {
@@ -189,7 +189,7 @@
                 if(_api){
                     _api.resize();
                 }
-                options.change(obj);
+                options.onChange(obj);
             }
             /***** 初始化 *****/
             _today = getDateObj();
@@ -213,12 +213,12 @@
                                 return a['code']>b['code'];
                             });
                             format(_day);
-                            options.select(_range);
+                            options.onSelect(_range);
                         }
                     }else{
                         _range = [day];
                         format(_day);
-                        options.select(_range);
+                        options.onSelect(_range);
                     }
                 }
             });
