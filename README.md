@@ -4,4 +4,4 @@
 
 代码发布分支：master
 
-项目地址：http://passer-by.com/widget/
+项目演示(DEMO)地址：http://passer-by.com/widget/
