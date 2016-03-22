@@ -57,6 +57,13 @@
             } 
         }
     };
+    //IE6~9兼容
+    function setTBodyInnerHTML(tbody, html) {
+        var div = document.createElement('div')
+        div.innerHTML = '<table>' + html + '</table>'
+        tbody.parentNode.replaceChild(div.firstChild.firstChild, tbody)
+    }
+    var isIE= navigator.appVersion.indexOf("MSIE")>-1;
 
     var Calendar = function(id,parameter){
         parameter = parameter||{};
@@ -193,7 +200,11 @@
             }
             html+='</tr>';
             $title.innerHTML = _day['year']+'年'+_day['month']+'月';
-            $tbody.innerHTML = html;
+            if(isIE){
+                setTBodyInnerHTML($tbody,html);
+            }else{
+                $tbody.innerHTML = html;
+            }
         };
         /***** 对外方法 *****/
         _self.getData = function(obj){
