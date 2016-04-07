@@ -5,3 +5,5 @@
 代码发布分支：master
 
 项目演示(DEMO)地址：http://passer-by.com/widget/
+
+请尊重原创，保留头部版权
