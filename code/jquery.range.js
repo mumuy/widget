@@ -19,8 +19,8 @@
 			value: 1,				//默认显示的值
 			steps: 1,				//每次移动的步长
 			type:'outer',           //outer进度计算以进度条宽为准，inner进度计算需扣除条滑块宽
-			slide: function(){},	//当前值变化时触发的事件，传入对象:event为事件,value为当前值,obj为当前对象
-			change: function(){}    //当前值变化后触发的事件，传入对象:event为事件,value为当前值,obj为当前对象
+			onSlide: function(){},	//当前值变化时触发的事件，传入对象:event为事件,value为当前值,obj为当前对象
+			onChange: function(){}    //当前值变化后触发的事件，传入对象:event为事件,value为当前值,obj为当前对象
         };
 		var options = $.extend({},defaults,options,parameter);
 		var $window = $(window);
@@ -63,7 +63,7 @@
 				$handle.css({
 					'left':(_value-options.min)*_length
 				});
-				options.slide({event:{},value:_value,obj:$this});
+				options.onSlide({event:{},value:_value,obj:$this});
 			};
 			//重置插件尺寸
 			_api.resize = function(){
@@ -94,7 +94,7 @@
 						'left':move
 					});
 					_value = Math.round(move/(_length*options.steps))*options.steps+options.min;
-					options.slide({event:e,value:_value,obj:$this});
+					options.onSlide({event:e,value:_value,obj:$this});
 				}  
 			};
 			var touchEnd = function(e){
@@ -102,7 +102,7 @@
 					isMouseDown = false;
 					setSelectable($body,true);
 					_api.setValue();			
-					options.change({event:e,value:_value,obj:$this});
+					options.onChange({event:e,value:_value,obj:$this});
 				}
 			}
 			//事件绑定
@@ -128,8 +128,8 @@
 						}	
 						_value = Math.round(move/(_length*options.steps))*options.steps+options.min;
 						_api.setValue();
-						options.slide({event:e,value:_value,obj:$this});
-						options.change({event:e,value:_value,obj:$this});					
+						options.onSlide({event:e,value:_value,obj:$this});
+						options.onChange({event:e,value:_value,obj:$this});					
 					}
 				}
 			});
@@ -149,7 +149,7 @@
 							'left':move
 						});
 						_value = Math.round(move/(_length*options.steps))*options.steps+options.min;
-						options.slide({event:e,value:_value,obj:$this});
+						options.onSlide({event:e,value:_value,obj:$this});
 					}
 				},
 				mouseup:function(e){
@@ -157,7 +157,7 @@
 						isMouseDown = false;
 						setSelectable($body,true);
 						_api.setValue();		
-						options.change({event:e,value:_value,obj:$this});
+						options.onChange({event:e,value:_value,obj:$this});
 					}
 				}
 			});

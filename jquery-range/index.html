@@ -48,7 +48,7 @@
 	max:50,
 	value:40,
 	steps:5,
-	change:function(status){
+	onChange:function(status){
 		$('#input1').val(status.value);
 	}
 });</pre>
@@ -60,7 +60,7 @@
 					max:50,
 					value:40,
 					steps:5,
-					change:function(status){
+					onChange:function(status){
 						$('#input1').val(status.value);
 					}
 				});			
@@ -77,7 +77,7 @@
 	max:62,
 	value:40,
 	steps:5,
-	slide:function(status){
+	onSlide:function(status){
 		$('#input2').val(status.value);
 	}
 });</pre>
@@ -89,7 +89,7 @@
 					max:62,
 					value:40,
 					steps:5,
-					slide:function(status){
+					onSlide:function(status){
 						$('#input2').val(status.value);
 					}
 				});
@@ -145,12 +145,12 @@
 							<td>outer进度计算以进度条宽为准，inner进度计算需扣除条滑块宽</td>
 						</tr>
 						<tr>
-							<td>slide</td>
+							<td>onSlide</td>
 							<td>function(){}</td>
 							<td>当前值变化时触发的事件，传入对象:event为事件,value为当前值</td>
 						</tr>
 						<tr>
-							<td>change</td>
+							<td>onChange</td>
 							<td>function(){}</td>
 							<td>当前值变化后触发的事件，传入对象:event为事件,value为当前值</td>
 						</tr>

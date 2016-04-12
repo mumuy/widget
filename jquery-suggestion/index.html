@@ -57,7 +57,7 @@
 $('.search input[type="text"]').suggestion({
 	url:'http://suggestion.baidu.com/su',
 	FieldName:'wd',
-	jsonpCallback:'window.baidu.sug',
+	jsonp:'cb',
 	get:function(item){
 		var data = item['data']['s'];
 		item.target.empty();
@@ -72,7 +72,7 @@ $('.search input[type="text"]').suggestion({
 				$('.search input[type="text"]').suggestion({
 					url:'http://suggestion.baidu.com/su',
 					FieldName:'wd',
-					jsonpCallback:'window.baidu.sug',
+					jsonp:'cb',
 					get:function(item){
 						var data = item['data']['s'];
 						item.target.empty();

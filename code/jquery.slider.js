@@ -138,6 +138,7 @@
         this.resize = function(){
             _distance = [];
             _inner = 0;
+            $items = $lists.children();
             if(options.direction=='x'){
                 $lists.css('width','');
                 $items.css('width','');
@@ -229,8 +230,8 @@
                         $list1.animate(params,{easing:options.easing, duration: duration});
                 }
                 $nav_list.removeClass(options.activeTriggerCls).eq(_index% _size).addClass(options.activeTriggerCls);   //导航选中
+                $lists.promise().then(callback);
             }
-            $lists.promise().then(callback);
         };
         //移动后回调
         var callback = function(){
@@ -245,7 +246,8 @@
             }
         };
         //滚动轴
-        var scroll = function(e){              
+        var scroll = function(e){
+            e = e||window.event;           
             if(!$lists.is(':animated')){ //防止滚动太快动画没完成
                 var delta = -e.wheelDelta/120||e.detail/3;
                 delta>0?_.next(e):_.prev(e);                      
@@ -379,7 +381,6 @@
                 $list2 = $list1.clone().insertAfter($list1);
                 $lists = $list1.add($list2);
             }
-            $items = $lists.children();
             //节点添加
             if (options.hasTriggers) {  //是否存在导航
                 if (!$this.find("."+options.navCls).length) {   //使用children找不到

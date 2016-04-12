@@ -8,7 +8,8 @@
         var defaults = {
             hiddenTop:0,                //滚动隐藏的位置
             fixedTop:0,                 //显示的位置
-            duration:500                //动画时长
+            duration:500,               //动画时长
+            autoHide:true
         };
         var options = $.extend({}, defaults, parameter);
         var $document = $(document);
@@ -31,7 +32,7 @@
                 var up = scroll_top - _scroll_top<0;
                 var ismove = Math.abs(scroll_top-_scroll_top)>10;
                 var hide_top = Math.max(options.hiddenTop,_top+_height);
-                if(scroll_top>hide_top){ //滚动距离大于菜单下边缘
+                if(options.autoHide&&scroll_top>hide_top){ //滚动距离大于菜单下边缘
                     $this.css({'transition':_transition});
                     if(ismove){
                         if(up){

@@ -1,5 +1,5 @@
 /**
- * jquery.calendar.js 1.0
+ * jquery.slider-calendar.js 1.0
  * http://passer-by.com
  */
 ;(function($, window, document, undefined) {
@@ -15,21 +15,17 @@
         var options = $.extend({}, defaults, parameter);
         return this.each(function() {
             var $this = $(this);
-            var $table = $('<table>').appendTo($this);
-            var $caption = $('<caption>').appendTo($table);
-            var $prevYear = $('<a class="'+options.prefix+'-prevYear" href="javascript:;">&lt;&lt;</a>').appendTo($caption);
-            var $prevMonth = $('<a class="'+options.prefix+'-prevMonth" href="javascript:;">&lt;</a>').appendTo($caption);
-            var $title = $('<span>').appendTo($caption);
-            var $nextMonth = $('<a class="'+options.prefix+'-nextMonth" href="javascript:;">&gt;</a>').appendTo($caption);
-            var $nextYear = $('<a class="'+options.prefix+'-nextYear" href="javascript:;">&gt;&gt;</a>').appendTo($caption);
-            var $back = $('<a class="'+options.prefix+'-back" href="javascript:;">今天</a>').appendTo($caption);
+            var $title = $('<div class="'+options.prefix+'-title"></div>').appendTo($this);
+            var $prevMonth = $('<a class="'+options.prefix+'-prevMonth" href="javascript:;">&lt;</a>').appendTo($title);
+            var $date = $('<span>').appendTo($title);
+            var $nextMonth = $('<a class="'+options.prefix+'-nextMonth" href="javascript:;">&gt;</a>').appendTo($title);
+            var $panel = $('<div class="'+options.prefix+'-panel"></div>').appendTo($this);
             var _today,         //当天
                 _data,          //日期数据
                 _day,           //日历状态
                 _range = [];    //当前选择范围
-            /*****  节点修改 *****/
-            $table.append('<thead><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr></thead>');
-            var $tbody = $('<tbody>').appendTo($table);
+            /***** 样式初始化 *****/
+            var width = $this.width();
             /***** 私有方法 *****/
             //获取日期数据
             var getDateObj = function(year,month,day){
@@ -75,17 +71,15 @@
                 }
                 return obj;
             };
+            //获取某月信息
             var getData = function(obj){
-                if(typeof obj=='undefined'){
-                    obj = _today;
-                }
-                _day = getDateObj(obj['year'],obj['month'],1);      //当月第一天
-                var days = getMonthDays(_day);              //当月天数
-                var data = [];                              //日历信息
+                var first = getDateObj(obj['year'],obj['month'],1);     //当月第一天
+                var days = getMonthDays(first);                         //当月天数
+                var data = [];                                          //日历信息
                 var obj = {};
                 //上月日期
-                for(var i=_day['week'];i>0;i--){
-                    obj = getDateObj(_day['year'],_day['month'],_day['day']-i);
+                for(var i=first['week'];i>0;i--){
+                    obj = getDateObj(first['year'],first['month'],first['day']-i);
                     var info = getDateInfo(obj);
                     if(!options.limitRange.length){
                         info['status'] = 'disabled';
@@ -95,10 +89,10 @@
                 //当月日期
                 for(var i=0;i<days;i++){
                     obj = {
-                        'year':_day['year'],
-                        'month':_day['month'],
-                        'day':_day['day']+i,
-                        'week':(_day['week']+i)%7
+                        'year':first['year'],
+                        'month':first['month'],
+                        'day':first['day']+i,
+                        'week':(first['week']+i)%7
                     };
                     obj['code'] = ''+obj['year']+(obj['month']>9?obj['month']:'0'+obj['month'])+(obj['day']>9?obj['day']:'0'+obj['day']);
                     var info = getDateInfo(obj);
@@ -116,8 +110,10 @@
                 }
                 return data;        
             };
-            var format = function(data){
-                options.onChange(_day);
+            //格式化月份
+            var formatMonth = function($table,data){
+                $table.append('<thead><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr></thead>');
+                var $tbody = $('<tbody>').appendTo($table);
                 for(var i=0;i<data.length;i++){
                     var d = data[i];
                     if(d['status'] == 'active'){
@@ -164,65 +160,93 @@
                     }
                 }
                 html+='</tr>';
-                $title.html(_day['year']+'年'+_day['month']+'月');
                 $tbody.html(html);
             };
+            //格式化日历
+            var format = function(obj){
+                if(typeof obj=='undefined'){
+                    obj = _today;
+                }
+                var data;
+                $panel.empty();
+                if(obj['month']<1){
+                    obj['year']--;
+                    obj['month']+=12;
+                }else if(obj['month']>12){
+                    obj['year']++;
+                    obj['month']-=12;
+                }
+                $date.html(obj['year']+'年'+obj['month']+'月');
+                var $prev = $('<table>').appendTo($panel);
+                data = getData({'year':obj['year'],'month':obj['month']-1});
+                formatMonth($prev,data);
+                var $now = $('<table>').appendTo($panel);
+                data = getData({'year':obj['year'],'month':obj['month']});
+                formatMonth($now,data);
+                var $next = $('<table>').appendTo($panel);
+                data = getData({'year':obj['year'],'month':obj['month']+1});
+                formatMonth($next,data);
+                if(_api){
+                    _api.resize();
+                }
+                options.onChange(obj);
+            }
             /***** 初始化 *****/
             _today = getDateObj();
             _day = {
                 'year':_today['year'],
                 'month':_today['month']
             };
-            $prevMonth.click(function(){
-                _day['month']--;
-                _data = getData(_day);
-                format(_data);
-            });
-            $nextMonth.click(function(){
-                _day['month']++;
-                _data = getData(_day);
-                format(_data);
-            });
-            $prevYear.click(function(){
-                _day['year']--;
-                 _data = getData(_day);
-                format(_data);
-            });
-            $nextYear.click(function(){
-                _day['year']++;
-                _data = getData(_day);
-                format(_data);
-            });
-            $back.click(function(){
-                _data = getData();
-                format(_data);
-            });
             $this.on('click','td',function(){
                 var $this = $(this);
                 var index = $(this).data('id');
-                var day = _data[index];
+                var data = getData(_day);
+                var day = data[index];
                 if(day['status']!='disabled'){         
                     if(options.isRange){
                         if(_range.length!=1){
                             _range = [day];
-                            format(_data);
+                            format(_day);
                         }else{
                             _range.push(day);
                             _range.sort(function(a,b){
                                 return a['code']>b['code'];
                             });
-                            format(_data);
+                            format(_day);
                             options.onSelect(_range);
                         }
                     }else{
                         _range = [day];
-                        format(_data);
+                        format(_day);
                         options.onSelect(_range);
                     }
                 }
             });
-            _data = getData();
-            format(_data);
+            format();
+            var _api;
+            $this.slider({
+                'contentCls':options.prefix+'-panel',
+                'prevBtnCls':options.prefix+'-prevMonth',
+                'nextBtnCls':options.prefix+'-nextMonth',
+                'hasTriggers':false,
+                'activeIndex':1,
+                'afterEvent':function(status){
+                    if(status.index!=1){
+                        if(_api){
+                            _api.setIndex(1,false);
+                        }
+                        if(status.index==2){
+                            _day['month']++;
+                            format(_day);
+                        }else{
+                            _day['month']--;
+                            format(_day);
+                        }
+                    }
+                }
+            },function(api){
+                _api = api;
+            });
         });
     };
 })(jQuery, window, document);
