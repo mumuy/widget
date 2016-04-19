@@ -6,6 +6,9 @@
 
 - 项目演示(DEMO)地址：http://passer-by.com/widget/
 
+### 版权
+本套组件由 [passer-by.com](http://passer-by.com/) 原创，请尊重原创，保留脚本头部版权。
+
 ### 调用
 统一的调用方式：
 ```javascript
@@ -90,6 +93,3 @@ $(selector).suggestion(options);
 ```javascript
 $(selector).accordion(options,callback(api));
 ```
-
-### 版权
-本套组件由 [passer-by.com](http://passer-by.com/) 原创，请尊重原创，保留脚本头部版权。
