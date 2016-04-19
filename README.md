@@ -4,7 +4,6 @@
 
 - 代码发布分支：master
 
-<<<<<<< HEAD
 - 项目演示(DEMO)地址：http://passer-by.com/widget/
 
 ### 调用
@@ -91,8 +90,6 @@ $(selector).suggestion(options);
 ```javascript
 $(selector).accordion(options,callback(api));
 ```
-=======
-项目演示(DEMO)地址：http://passer-by.com/widget/
 
-请尊重原创，保留头部版权
->>>>>>> 3c989ef44ff794cf869eddaed22c3832a11a4679
+### 版权
+本套组件由 [passer-by.com](http://passer-by.com/) 原创，请尊重原创，保留脚本头部版权。
