@@ -17,7 +17,7 @@ $(selector).widgetName(options,callback(api));
 ---
 
 ### 轮播
-<a href="http://passer-by.com/widget/jquery-slider/" target="_blank">演示</a>
+[演示](http://passer-by.com/widget/jquery-slider/)
 ```javascript
 $(selector).slider(options,callback(api));
 ```
