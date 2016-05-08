@@ -108,7 +108,7 @@
                     }
                     data.push(info);
                 }
-                return data;        
+                return data;
             };
             //格式化月份
             var formatMonth = function($table,data){
@@ -127,10 +127,10 @@
                         var d = data[i];
                         if(d['code']>=start&&d['code']<=end){
                             if(d['status']=='disabled'){
+                                _range[1]=d;
                                 break;
                             }else{
                                 d['status'] = 'active';
-                                _range[1]=d;
                             }
                         }
                     }
@@ -202,7 +202,7 @@
                 var index = $(this).data('id');
                 var data = getData(_day);
                 var day = data[index];
-                if(day['status']!='disabled'){         
+                if(day['status']!='disabled'){
                     if(options.isRange){
                         if(_range.length!=1){
                             _range = [day];

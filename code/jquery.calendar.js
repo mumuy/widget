@@ -114,7 +114,7 @@
                     }
                     data.push(info);
                 }
-                return data;        
+                return data;
             };
             var format = function(data){
                 options.onChange(_day);
@@ -131,10 +131,10 @@
                         var d = data[i];
                         if(d['code']>=start&&d['code']<=end){
                             if(d['status']=='disabled'){
+                                _range[1]=d;
                                 break;
                             }else{
                                 d['status'] = 'active';
-                                _range[1]=d;
                             }
                         }
                     }
@@ -201,7 +201,7 @@
                 var $this = $(this);
                 var index = $(this).data('id');
                 var day = _data[index];
-                if(day['status']!='disabled'){         
+                if(day['status']!='disabled'){
                     if(options.isRange){
                         if(_range.length!=1){
                             _range = [day];
