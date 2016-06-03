@@ -89,7 +89,7 @@
             if (options.beforeEvent(status) !== false) {
                 var steps = options.steps;
                 if(steps=='auto'){  //自动判定步数
-                    for(steps=1;_distance[_index+_size]-_distance[_index+_size-steps-1]<=_outer;steps++);
+                    for(steps=1;_distance[_index+steps+1]-_distance[_index]<=_outer;steps++);
                 }
                 switch (options.inEndEffect) {
                     case 'none':
