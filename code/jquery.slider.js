@@ -46,7 +46,7 @@
             _time['start'] = + new Date();
             if (options.beforeEvent(status) !== false) {
                 var steps = options.steps;
-                if(steps=='auto'){
+                if(steps=='auto'){  //自动判定步数
                     for(steps=1;_distance[_index+_size]-_distance[_index+_size-steps-1]<=_outer;steps++);
                 }
                 switch (options.inEndEffect) {
@@ -89,25 +89,23 @@
             if (options.beforeEvent(status) !== false) {
                 var steps = options.steps;
                 if(steps=='auto'){  //自动判定步数
-                    for(var i=_index;i<2*_size&&_distance[i+1]-_distance[_index]<=_outer;i++);
-                    _index = i;
-                }else{              //固定步数
-                    switch (options.inEndEffect) {
-                        case 'none':
-                            if (_distance[_size]-_distance[_index]>_outer) {
-                                _index = Math.min(_index + steps,_size - 1);
-                            }
-                            break;
-                        case 'cycle':
-                            _index += steps; //索引值计算
-                            break;
-                        default:
-                            if (_distance[_size]-_distance[_index]>_outer) {
-                                _index = Math.min(_index + steps,_size - 1);
-                            } else {
-                                _index = 0;
-                            }
-                    }
+                    for(steps=1;_distance[_index+_size]-_distance[_index+_size-steps-1]<=_outer;steps++);
+                }
+                switch (options.inEndEffect) {
+                    case 'none':
+                        if (_distance[_size]-_distance[_index]>_outer) {
+                            _index = Math.min(_index + steps,_size - 1);
+                        }
+                        break;
+                    case 'cycle':
+                        _index += steps; //索引值计算
+                        break;
+                    default:
+                        if (_distance[_size]-_distance[_index]>_outer) {
+                            _index = Math.min(_index + steps,_size - 1);
+                        } else {
+                            _index = 0;
+                        }
                 }
                 slide(options.animate);
             }
