@@ -133,9 +133,19 @@ $('.search input[type="text"]').suggestion({
 							<td>自定义回调函数</td>
 						</tr>
 						<tr>
+							<td>autoSubmit</td>
+							<td>true</td>
+							<td>点击确定是否自动提交表单</td>
+						</tr>
+						<tr>
+							<td>beforeSend</td>
+							<td>[无]</td>
+							<td>发送前动作：传入准备提交的表单项目，返回false终止提交</td>
+						</tr>
+						<tr>
 							<td>get</td>
 							<td>[无]</td>
-							<td>获得搜索建议:传入一个对象，target表示被建议列表对象,data表示请求到的数据</td>
+							<td>获得搜索建议：传入一个对象，target表示被建议列表对象,data表示请求到的数据</td>
 						</tr>
 						<tr>
 							<td>select</td>

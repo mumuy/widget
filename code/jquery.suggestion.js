@@ -13,9 +13,9 @@
             dataFormat:'jsonp',              //请求的格式
             parameter:{},                    //其他与接口有关参数
             jsonpCallback:'',                //自定义回调函数
-            autoSubmit:true,                 //点击确定自动提交表单
-            beforeSend:function(){},         //发送前
-            get:function(){},                //获得搜索建议:传入一个对象，target表示被建议列表对象,data表示请求到的数据
+            autoSubmit:true,                 //点击确定是否自动提交表单
+            beforeSend:function(){},         //发送前动作：传入准备提交的表单项目，返回false终止提交
+            get:function(){},                //获得搜索建议：传入一个对象，target表示被建议列表对象,data表示请求到的数据
             select: function(item) {         //选中搜索建议列表项：传入一个对象，target表示当前选中列表项,input表示当前input表单项
                 item.input.val(item.target.text());
             }
