@@ -102,7 +102,8 @@ $('.calendar2').calendar({
 			</div>
 			<script type="text/javascript">
 				$('.calendar2').calendar({
-					'select':function(range){
+					'onSelect':function(range){
+						console.log('fdfd');
 						alert('你选择了'+range[0]['year']+'-'+range[0]['month']+'-'+range[0]['day']);
 					}
 				});
