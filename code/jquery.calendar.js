@@ -9,7 +9,7 @@
             prefix:'widget',            //生成日历的class前缀
             isRange:false,              //是否选择范围
             limitRange:[],              //有效选择区域的范围
-            highlightRange:[],          //特殊日期范围      
+            highlightRange:[],          //指定日期范围高亮
             onChange:function(){},      //当前选中月份修改时触发
             onSelect:function(){}       //选择日期时触发
         };
