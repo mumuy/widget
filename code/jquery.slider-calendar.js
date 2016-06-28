@@ -6,9 +6,10 @@
     $.fn.calendar = function(parameter,getApi) {
         parameter = parameter || {};
         var defaults = {
-            prefix:'widget',          //生成日历的class前缀
-            isRange:false,            //是否选择范围
-            limitRange:[],            //有效选择区域的范围
+            prefix:'widget',            //生成日历的class前缀
+            isRange:false,              //是否选择范围
+            limitRange:[],              //有效选择区域的范围
+            highlightRange:[],          //指定日期范围高亮
             onChange:function(){},      //当前选中月份修改时触发
             onSelect:function(){}       //选择日期时触发
         };
@@ -66,8 +67,28 @@
                         }
                     }
                 }
+                obj['sign'] = [];
+                if(options.highlightRange.length){
+                    for(var i=0;i<options.highlightRange.length;i++){
+                        var start = options.highlightRange[i][0];
+                        var end =  options.highlightRange[i][1];
+                        if(start=='today'){
+                            start = _today['code'];
+                        }
+                        if(end=='today'){
+                            end = _today['code'];
+                        }
+                        if(start>end){
+                            start = [end,end=start][0];
+                        }
+                        if(obj['code']>=start&&obj['code']<=end){
+                            obj['sign'].push('highlight');
+                            break;
+                        }
+                    }
+                }
                 if(obj['code']==_today['code']){
-                    obj['sign'] = 'today';
+                    obj['sign'].push('today');
                 }
                 return obj;
             };
@@ -108,7 +129,7 @@
                     }
                     data.push(info);
                 }
-                return data;        
+                return data;
             };
             //格式化月份
             var formatMonth = function($table,data){
@@ -127,10 +148,10 @@
                         var d = data[i];
                         if(d['code']>=start&&d['code']<=end){
                             if(d['status']=='disabled'){
+                                _range[1]=d;
                                 break;
                             }else{
                                 d['status'] = 'active';
-                                _range[1]=d;
                             }
                         }
                     }
@@ -145,13 +166,14 @@
                 var html = '<tr>';
                 for(var i=0,len=data.length;i<len;i++){
                     var day = data[i];
-                    var className = '';
-                    if(day['sign']){
-                        className += options.prefix+'-'+day['sign'];
+                    var arr = [];
+                    for(var s=0;s<day['sign'].length;s++){
+                        arr.push(options.prefix+'-'+day['sign'][s]);
                     }
                     if(day['status']){
-                        className += ' '+options.prefix+'-'+day['status'];
+                        arr.push(options.prefix+'-'+day['status']);
                     }
+                    var className = arr.join(' ');
                     html+='<td'+(className?' class="'+className+'"':'')+' data-id="'+i+'">\
                         '+(day['link']?'<a href="'+day['link']+'">'+day['day']+'</a>':'<span>'+day['day']+'</span>')+'\
                     </td>';
@@ -202,7 +224,7 @@
                 var index = $(this).data('id');
                 var data = getData(_day);
                 var day = data[index];
-                if(day['status']!='disabled'){         
+                if(day['status']!='disabled'){
                     if(options.isRange){
                         if(_range.length!=1){
                             _range = [day];

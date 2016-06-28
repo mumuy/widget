@@ -31,7 +31,7 @@
 			var $this = $(this);
 			var $children = options.content?$(options.content):$this.html(); //内容区域
 			var $container = $('<div class="'+options.prefix+'-container"></div>');
-			var $overlay = $('.'+options.prefix+'-overlay');
+			var $overlay = $();
 			var $close = $('<div class="'+options.prefix+'-close"><a href="javascript:;">x</a></div>');
 			var $title = $('<div class="'+options.prefix+'-title">'+options.title+'</div>');
 			var $content = $('<div class="'+options.prefix+'-content"></div>').append($children);
@@ -42,7 +42,7 @@
 			//结构修改
 			$body.css('height','100%');
 			$this.appendTo($body).empty();
-			if(options.isModel && $overlay.length==0){
+			if(options.isModel){
 				$overlay = $('<div class="'+options.prefix+'-overlay"></div>').css({
 					'position': _position,
 					'z-index': '998',

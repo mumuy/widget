@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>我的组件库</title>
-		<link rel="shortcut icon" href="/public/img/favicon.png">
-		<link rel="stylesheet" href="public/css/commont.css">
+		<link rel="shortcut icon" href="/public/image/favicon.png">
+		<link rel="stylesheet" href="public/common.css">
 		<style type="text/css">
 			html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h3,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h3,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;*font-size:100%}legend{color:#000}#yui3-css-stamp.cssreset{display:none}
 			html{
@@ -53,6 +53,8 @@
 				font-size: 16px;
 			}
 			.mod-list{
+				width: 960px;
+				margin: 0 auto 20px;
 				text-align: center;
 			}
 			.mod-list li{
@@ -71,6 +73,12 @@
 			.mod-list .btn:hover{
 				background-color: #333;
 				color:#fff;
+			}
+			.mod-botton{
+				width: 960px;
+				height: 32px;
+				margin: 0 auto 20px;
+				text-align: center;
 			}
 			.mod-content{
 				width:840px;
@@ -117,6 +125,10 @@
 						<li><a class="btn" href="https://github.com/mumuy/widget/tarball/master" target="_blank">下载 .tar.gz</a></li>
 					</ul>
 				</div>
+				<div class="mod-botton">
+					<a class="github-button" href="https://github.com/mumuy" data-style="mega" data-count-href="/mumuy/followers" data-count-api="/users/mumuy#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @mumuy on GitHub">Follow @mumuy</a>
+					<a class="github-button" href="https://github.com/mumuy/widget" data-style="mega" data-count-href="/mumuy/widget/stargazers" data-count-api="/repos/mumuy/widget#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star mumuy/widget on GitHub">Star</a>
+				</div>
 			</header>
 			<div class="container">
 				<div class="main">
@@ -156,7 +168,7 @@
 							</li>
 							<li>
 								<p><a href="/widget/jquery-headroom/" target="_blank">浮动菜单</a></p>
-								<p>$(selector).imagezoom(options);</p>
+								<p>$(selector).headroom(options);</p>
 							</li>
 							<li>
 								<p><a href="/widget/jquery-calendar/" target="_blank">日历</a></p>
@@ -184,5 +196,6 @@
 				</div>
 			</footer>
 		</div>
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
 	</body>
 </html>

@@ -1,5 +1,5 @@
 /**
- * jquery.suggestion.js 1.0
+ * jquery.suggestion.js 1.1
  * http://passer-by.com
  */
 ;(function($, window, document, undefined) {
@@ -13,10 +13,12 @@
             dataFormat:'jsonp',              //请求的格式
             parameter:{},                    //其他与接口有关参数
             jsonpCallback:'',                //自定义回调函数
-            get:function(){},                //获得搜索建议:传入一个对象，target表示被建议列表对象,data表示请求到的数据
+            autoSubmit:true,                 //点击确定是否自动提交表单
+            beforeSend:function(){},         //发送前动作：传入准备提交的表单项目，返回false终止提交
+            get:function(){},                //获得搜索建议：传入一个对象，target表示被建议列表对象,data表示请求到的数据
             select: function(item) {         //选中搜索建议列表项：传入一个对象，target表示当前选中列表项,input表示当前input表单项
                 item.input.val(item.target.text());
-            }            
+            }
         }
         var options = $.extend({}, defaults, parameter);
         var $window = $(window);
@@ -76,6 +78,9 @@
                 switch(e.keyCode){
                     case 13:
                         hide();
+                        if(!options.autoSubmit){
+                            e.preventDefault();
+                        }
                     break;
                     case 38:
                         if(isShow){
@@ -146,15 +151,17 @@
                             if(value != _text){ //缓存上次输入
                                 _index = -1;
                                 options.parameter[options.FieldName] = _text = value;
-                                $.ajax({
-                                    type:'get',  
-                                    async: false,  
-                                    url :options.url,
-                                    data:options.parameter,
-                                    dataType:options.dataFormat,
-                                    jsonp:options.jsonp,
-                                    success:success
-                                });          
+                                if(options.beforeSend(options.parameter)!=false){
+                                    $.ajax({
+                                        type:'get',  
+                                        async: false,  
+                                        url :options.url,
+                                        data:options.parameter,
+                                        dataType:options.dataFormat,
+                                        jsonp:options.jsonp,
+                                        success:success
+                                    });                                    
+                                }
                             }else{
                                 if(hasData){
                                     $suggestion.show();
@@ -177,7 +184,9 @@
             });
             $list.on('click','li',function(){
                 select();
-                $form.submit();
+                if(options.autoSubmit){
+                    $form.submit();
+                }
             }).on('mouseenter','li',hover);
             $document.on({
                 'click':hide

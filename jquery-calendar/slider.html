@@ -56,6 +56,11 @@
 			.calendar .widget-disabled span{
 				color:#999;
 			}
+			.calendar .widget-highlight span{
+				background: #f7b82e;
+				color:#fff;
+				border-radius: 30px;
+			}
 			.calendar .widget-active span{
 				background: #39c;
 				color:#fff;
@@ -102,9 +107,31 @@ $('.calendar2').calendar({
 			</div>
 			<script type="text/javascript">
 				$('.calendar2').calendar({
-					'select':function(range){
+					'onSelect':function(range){
 						alert('你选择了'+range[0]['year']+'-'+range[0]['month']+'-'+range[0]['day']);
 					}
+				});
+			</script>
+			<div class="calendar calendar3"></div>
+			<div class="code">
+				<p>指定日期高亮显示，如：当前月份的15和16号</p>
+<pre>
+var today = new Date();
+var year = today.getFullYear();
+var month = today.getMonth()+1;
+var string = year+(month>9?month:'0'+month);
+$('.calendar3').calendar({
+	highlightRange:[[string+'15',string+'16']]
+});
+</pre>
+			</div>
+			<script type="text/javascript">
+				var today = new Date();
+				var year = today.getFullYear();
+				var month = today.getMonth()+1;
+				var string = year+(month>9?month:'0'+month);
+				$('.calendar3').calendar({
+					highlightRange:[[string+'15',string+'16']]
 				});
 			</script>
 			<div class="example">
@@ -136,6 +163,11 @@ $('.calendar2').calendar({
 							<td>limitRange</td>
 							<td>[]</td>
 							<td>有效选择区域的范围(可以为多区间),如[['20150501','20151001']],'today'表示今天</td>
+						</tr>
+						<tr>
+							<td>highlightRange</td>
+							<td>[]</td>
+							<td>指定日期范围高亮(可以为多区间),如[['20150501','20151001']],'today'表示今天</td>
 						</tr>
 						<tr>
 							<td>onChange(day)</td>
