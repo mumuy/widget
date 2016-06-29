@@ -197,7 +197,7 @@
         /****** 私有方法 ******/
         //移动
         var slide = function(isAnimate,s_duration) {
-            if(_inner>_outer){ //只有在内层超过外层时移动
+            if(_inner>=_outer){ //只有在内层超过外层时移动
                 var duration = isAnimate !=false ? (s_duration||options.duration):0; //判断滑块是否需要移动动画
                 var params = {};
                 $lists.stop();
