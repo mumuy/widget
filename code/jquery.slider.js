@@ -371,14 +371,18 @@
             _size = $list1.children().length;
             _index = options.activeIndex<0?_size + options.activeIndex:options.activeIndex;
             _param = options.direction=='x'?'left':'top';
-            $list1.css('position','absolute');
             if($outer.css('position')=='static'){
                 $outer.css('position','relative');
             }
             if (options.inEndEffect === "cycle") {
                 $list2 = $list1.clone().insertAfter($list1);
                 $lists = $list1.add($list2);
+                $list2.css({
+                    position:'absolute',
+                    top:0
+                });
             }
+            $list1.css('position','relative');
             //节点添加
             if (options.hasTriggers) {  //是否存在导航
                 if (!$this.find("."+options.navCls).length) {   //使用children找不到
