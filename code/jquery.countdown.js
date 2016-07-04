@@ -21,10 +21,8 @@
 				'disableBtnCls':'disable',
 				'auto':true,							//是否默认自动计数
 				'countEach': function (time) {			//每单位时间出发事件,传入一个对象，包含时间信息(month)和时间格式化输出(format)
-					$this.text(time['format']);
 				},
 				'countEnd':function (time) {			//倒计时结束回调事件
-					$this.text(time['format']);
 				}
 			};
 			var options = $.extend({}, defaults, parameter);
@@ -60,10 +58,11 @@
 				$this.addClass(options.disableBtnCls);
 				_hander = setInterval(function(){
 					_start -= options.interval;
+					$this.text(getTime(_start)['format']);
 					if(_start<=_end){
 						clearInterval(_hander);
-						options.countEnd(getTime(_end));
 						$this.removeClass(options.disableBtnCls);
+						options.countEnd(getTime(_end));
 					}else{
 						options.countEach(getTime(_start));
 					}

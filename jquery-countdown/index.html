@@ -28,11 +28,11 @@
 				<p id="time2">60</p>
 			</div>
 			<div class="code">
-				<p>$('#time2').countdown({'endtime':5});</p>
+				<p>$('#time2').countdown({'endtime':5,'countEnd':function(){alert('倒计时结束!');}});</p>
 			</div>
 			<script>
 				$('#time1').countdown({'endtime':'12:30:30'});
-				$('#time2').countdown({'endtime':5});
+				$('#time2').countdown({'endtime':5,'countEnd':function(){alert('倒计时结束!');}});
 			</script>
 			<div class="example">
 				<div class="call">
