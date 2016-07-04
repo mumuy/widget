@@ -17,13 +17,13 @@
 				'format': 'hh:mm:ss',					//格式
 				'starttime': $this.text(),				//开始时间
 				'endtime': '',							//结束时间
-				'interval': 1000,							//多久倒计时一次 单位：ms
+				'interval': 1000,						//多久倒计时一次 单位：ms
 				'disableBtnCls':'disable',
 				'auto':true,							//是否默认自动计数
 				'countEach': function (time) {			//每单位时间出发事件,传入一个对象，包含时间信息(month)和时间格式化输出(format)
+					$this.text(time['format']);
 				},
-				'countEnd':function (time) {			//倒计时结束回调事件
-				}
+				'countEnd':function (time) {}			//倒计时结束回调事件
 			};
 			var options = $.extend({}, defaults, parameter);
 			var _api = {};              //对外的函数接口
@@ -58,13 +58,11 @@
 				$this.addClass(options.disableBtnCls);
 				_hander = setInterval(function(){
 					_start -= options.interval;
-					$this.text(getTime(_start)['format']);
+					options.countEach(getTime(_start));
 					if(_start<=_end){
 						clearInterval(_hander);
 						$this.removeClass(options.disableBtnCls);
 						options.countEnd(getTime(_end));
-					}else{
-						options.countEach(getTime(_start));
 					}
 				},options.interval);
 			};
