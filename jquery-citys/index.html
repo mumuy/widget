@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>城市三级联动 - citys</title>
+		<link rel="shortcut icon" href="/public/img/favicon.png">
+		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<style type="text/css">
+			.citys{
+				margin-bottom: 25px;
+			}
+		</style>
+		<script type="text/javascript" src="../public/jquery.min.js"></script>
+		<script type="text/javascript" src="../code/jquery.citys.js"></script>
+	</head>
+	<body>
+		<div class="main">
+		  <div class="citys">
+        <select name="province"></select>
+        <select name="city"></select>
+        <select name="area"></select>
+      </div>
+			<div class="code">
+				$('.citys').citys({province:'福建',city:'厦门',area:'思明'});
+			</div>
+			<script type="text/javascript">
+				$('.citys').citys({province:'福建',city:'厦门',area:'思明'});
+			</script>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>$(selector).citys(options);</p>
+				</div>
+				<h2> options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th style="width:150">参数</th>
+							<th style="width:80">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>dataUrl</td>
+							<td>'citys.json'</td>
+							<td>数据库地址 (<a href="citys.json" target="_blank">最新数据:2016年5月</a>)</td>
+						</tr>
+						<tr>
+							<td>provinceField</td>
+							<td>'province'</td>
+							<td>省份字段名</td>
+						</tr>
+						<tr>
+							<td>cityField</td>
+							<td>'city'</td>
+							<td>城市字段名</td>
+						</tr>
+						<tr>
+							<td>areaField</td>
+							<td>'area'</td>
+							<td>地区字段名</td>
+						</tr>
+						<tr>
+							<td>province</td>
+							<td>[无]</td>
+							<td>省份,可以为地区编码或者名称</td>
+						</tr>
+						<tr>
+							<td>city</td>
+							<td>[无]</td>
+							<td>城市,可以为地区编码或者名称</td>
+						</tr>
+						<tr>
+							<td>area</td>
+							<td>[无]</td>
+							<td>地区,可以为地区编码或者名称</td>
+						</tr>
+						<tr>
+							<td>required</td>
+							<td>true</td>
+							<td>是否必须选一个</td>
+						</tr>
+						<tr>
+							<td>nodata</td>
+							<td>'hidden'</td>
+							<td>当无数据时的表现形式</td>
+						</tr>
+						<tr>
+							<td>onChange</td>
+							<td>[无]</td>
+							<td>地区切换时触发,回调函数传入地区数据</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+<html>
