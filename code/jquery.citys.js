@@ -26,15 +26,6 @@
                 $area = $this.find('select[name="'+options.areaField+'"]');
             $.getJSON(options.dataUrl,function(data){
                 var province,city,area,hasCity;
-                for(code in data){
-                  if(data[code].indexOf(options.province)>-1){
-                    options.province = isNaN(options.province)?code:options.province;
-                  }else if(data[code].indexOf(options.city)>-1){
-                    options.city = isNaN(options.city)?code:options.city;
-                  }else if(data[code].indexOf(options.area)>-1){
-                    options.area = isNaN(options.area)?code:options.area;
-                  }
-                }
                 var updateData = function(){
                   province = {},city={},area={};
                   hasCity = false;       //判断是非有地级城市
@@ -43,6 +34,8 @@
                       province[code]=data[code];
                       if(!options.province){
                         options.province = code;
+                      }else if(data[code].indexOf(options.province)>-1){
+                        options.province = isNaN(options.province)?code:options.province;
                       }
                     }else{
                       var p = code-options.province;
@@ -52,18 +45,23 @@
                           city[code]=data[code];
                           if(!options.city){
                             options.city = code;
+                          }else if(data[code].indexOf(options.city)>-1){
+                            options.city = isNaN(options.city)?code:options.city;
                           }
                         }else if(p>9000){                   //省直辖县级行政单位
                           city[code]=data[code];
-                        }else{
-                          if(hasCity){
-                            var c = code-options.city;
-                            if(options.city&&c>0&&c<100){   //同个城市的地区
-                              area[code]=data[code];
+                        }else if(hasCity){                  //非直辖市
+                          var c = code-options.city;
+                          if(options.city&&c>0&&c<100){     //同个城市的地区
+                            area[code]=data[code];
+                            if(!options.area){
+                              options.area = code;
+                            }else if(data[code].indexOf(options.area)>-1){
+                              options.area = isNaN(options.area)?code:options.area;
                             }
-                          }else{
-                            city[code]=data[code];          //直辖市处理
                           }
+                        }else{
+                          city[code]=data[code];            //直辖市
                         }
                       }
                     }
