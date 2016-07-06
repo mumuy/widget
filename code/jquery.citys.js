@@ -62,6 +62,9 @@
                           }
                         }else{
                           city[code]=data[code];            //直辖市
+                          if(!options.city){
+                            options.city = code;
+                          }
                         }
                       }
                     }
@@ -69,9 +72,9 @@
                 };
                 var change = function(){
                   var status = {
-                    province:data[options.province],
-                    city:data[options.city],
-                    area:data[options.area]
+                    province:data[options.province]||0,
+                    city:data[options.city]||0,
+                    area:data[options.area]||0
                   }
                   options.onChange(status);
                 };
