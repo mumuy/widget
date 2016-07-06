@@ -88,6 +88,12 @@ $(selector).popup(options);
 $(selector).suggestion(options);
 ```
 
+### 城市三级联动
+[演示](http://passer-by.com/widget/jquery-citys/)
+```javascript
+$(selector).citys(options);
+```
+
 ### 手风琴
 [演示](http://passer-by.com/widget/jquery-accordion/)
 ```javascript
