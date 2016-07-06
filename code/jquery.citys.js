@@ -47,6 +47,8 @@
                         if(!(code%100)){
                           hasCity = true;
                           city[code]=data[code];
+                        }else if(p>9000){                   //省直辖县级行政单位
+                          city[code]=data[code];
                         }else{
                           if(hasCity){
                             var c = code-options.city;
@@ -54,7 +56,7 @@
                               area[code]=data[code];
                             }
                           }else{
-                            city[code]=data[code];        //直辖市处理
+                            city[code]=data[code];          //直辖市处理
                           }
                         }
                       }
