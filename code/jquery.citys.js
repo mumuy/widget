@@ -41,12 +41,18 @@
                   for(code in data){
                     if(!(code%1e4)){     //获取所有的省级行政单位
                       province[code]=data[code];
+                      if(!options.province){
+                        options.province = code;
+                      }
                     }else{
                       var p = code-options.province;
                       if(options.province&&p>0&&p<1e4){    //同省的城市或地区
                         if(!(code%100)){
                           hasCity = true;
                           city[code]=data[code];
+                          if(!options.city){
+                            options.city = code;
+                          }
                         }else if(p>9000){                   //省直辖县级行政单位
                           city[code]=data[code];
                         }else{
