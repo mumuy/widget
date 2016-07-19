@@ -139,7 +139,10 @@
             $items = $lists.children();
             if(options.direction=='x'){
                 $lists.css('width','');
-                $items.css('width','');
+                $items.css({
+                    'float':'left',
+                    'width':''
+                });
                 _outer = $outer.width();
                 $items.each(function(i){
                     var $li = $(this);
@@ -483,13 +486,13 @@
                     'touchend':touchEnd
                 });
             }
-            $window.resize(function(){
+            $window.resize(function(){ //当窗体大小改变时，重新计算相关参数
                 var time = + new Date();
                 if(time-_time['start']>250&&options.delay<250||options.delay>=250){ //缓存防治连续变化多次触发
                     _.resize();
                 }
                 _time['start'] = time;
-            }); //当窗体大小改变时，重新计算相关参数
+            });
             //键盘控制
             if(options.keyboardAble){
                 $window.keydown(keyboard);
