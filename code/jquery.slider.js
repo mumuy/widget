@@ -174,7 +174,8 @@
         };        
         //设置当前帧
         this.setIndex = function(index,isAnimate){
-            _index = index%_size;
+            index = index%_size;
+            _index = index<0?_size + index:index;
             slide(isAnimate);
         };  
         //设置移动帧数
@@ -372,6 +373,7 @@
         //初始化
         var init = function(){
             _size = $list1.children().length;
+            options.activeIndex = options.activeIndex%_size;
             _index = options.activeIndex<0?_size + options.activeIndex:options.activeIndex;
             _param = options.direction=='x'?'left':'top';
             if($outer.css('position')=='static'){
