@@ -20,23 +20,26 @@
             //对象定义
             var $this = $(this);
             var _api = {};
-            _api.setValue = function(value){
-                var format = {
-                    currency:function(str,tofixed){
-                        var reg = new RegExp('([\\d,]+\\.?(\\d{0,'+tofixed+'})?).*');               //位数截取
-                        str = str.replace(/[^\d\.]/g,'').replace(/^[^\d]/,'').replace(reg,'$1');    //清除格式
-                        var value = (+str).toFixed(tofixed);
-                        var result = '';
-                        if(str){
-                            var number = value.split('.')[0];
-                            if(number){ //处理整数部分
-                                number = number.split('').reverse().join('').match(/\d{1,3}/g).join(',').split('').reverse().join('');
-                            }
-                            result = str.replace(/(\d)*(\.\d*)?/,number+'$2');  //和小数部分拼接
+            var format = {
+                currency:function(str,tofixed){
+                    var reg = new RegExp('([\\d,]+\\.?(\\d{0,'+tofixed+'})?).*');               //位数截取
+                    str = str.replace(/[^\d\.]/g,'').replace(/^[^\d]/,'').replace(reg,'$1');    //清除格式
+                    var value = (+str).toFixed(tofixed);
+                    var result = '';
+                    if(str){
+                        var number = value.split('.')[0];
+                        if(number){ //处理整数部分
+                            number = number.split('').reverse().join('').match(/\d{1,3}/g).join(',').split('').reverse().join('');
                         }
-                        return result;
+                        result = str.replace(/(\d)*(\.\d*)?/,number+'$2');  //和小数部分拼接
                     }
-                };
+                    return result;
+                }
+            };
+            _api.format = function(value){
+                return format[options.type](value,options.tofixed);
+            }
+            _api.setValue = function(value){
                 var s = format[options.type](value,options.tofixed);
                 if(s!=value){
                     $this.val(s);
