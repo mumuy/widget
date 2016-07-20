@@ -44,7 +44,7 @@
                 return false;
             }
             _time['start'] = + new Date();
-            if (options.beforeEvent(status) !== false) {
+            if (options.beforeEvent.call(_.element,status) !== false) {
                 var steps = options.steps;
                 if(steps=='auto'){  //自动判定步数
                     for(steps=1;_distance[_index+_size]-_distance[_index+_size-steps-1]<=_outer;steps++);
@@ -86,7 +86,7 @@
                 return false;
             }
             _time['start'] = + new Date();
-            if (options.beforeEvent(status) !== false) {
+            if (options.beforeEvent.call(_.element,status) !== false) {
                 var steps = options.steps;
                 if(steps=='auto'){  //自动判定步数
                     for(steps=1;_distance[_index+steps+1]-_distance[_index]<=_outer;steps++);
@@ -241,7 +241,7 @@
                 index: _index,
                 count: _size
             };
-            options.afterEvent(status);
+            options.afterEvent.call(_.element,status);
             if(_auto){
                 _hander&&clearTimeout(_hander);
                 _hander = setTimeout(_.next,options.delay);
@@ -406,7 +406,7 @@
                         destination: index,
                         event:e
                     };
-                    if(options.beforeEvent(status) !== false){
+                    if(options.beforeEvent.call(_.element,status) !== false){
                         _index = index;
                         _time['start'] = + new Date();
                         slide(options.animate,500);                      
@@ -557,9 +557,9 @@
         var options = $.extend({}, defaults, parameter);
         return this.each(function() {
             var $this = $(this);
-            var o = $.meta ? $.extend({}, options, $this.data()) : options;  
+            var o = $.meta ? $.extend({}, options, $this.data()) : options;
             var slider = new Slider(this,o);
-            callback(slider);
+            callback.call(this,slider);
         }); 
     };
     //jquery 动画扩展
