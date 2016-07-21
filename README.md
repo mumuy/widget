@@ -107,6 +107,13 @@ $(selector).suggestion(options);
 $(selector).citys(options);
 ```
 
+### 格式化输入框
+简介：格式化输入，方便验证
+[演示](http://passer-by.com/widget/jquery-inputFormat/)
+```javascript
+$(selector).inputFormat(options,callback(api));
+```
+
 ### 手风琴
 [演示](http://passer-by.com/widget/jquery-accordion/)
 ```javascript
