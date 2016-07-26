@@ -29,7 +29,7 @@
                     if(str){
                         var number = value.split('.')[0];
                         if(number){ //处理整数部分
-                            number = number.split('').reverse().join('').match(/\d{1,3}/g).join(',').split('').reverse().join('');
+                            number = number.replace(/\d(?=(?:\d{3})+\b)/g,'$&,');
                         }
                         result = str.replace(/(\d)*(\.\d*)?/,number+'$2');  //和小数部分拼接
                     }
