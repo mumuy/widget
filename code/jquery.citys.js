@@ -33,7 +33,11 @@
                     if(!(code%1e4)){     //获取所有的省级行政单位
                       province[code]=data[code];
                       if(!options.province){
-                        options.province = code;
+                        if(options.city&&!(options.city%1e4)){  //省未填，并判断为直辖市
+                          options.province = options.city;
+                        }else{
+                          options.province = code;
+                        }
                       }else if(data[code].indexOf(options.province)>-1){
                         options.province = isNaN(options.province)?code:options.province;
                       }
@@ -62,8 +66,14 @@
                           }
                         }else{
                           city[code]=data[code];            //直辖市
+                          if(options.area){
+                              options.city = options.area;
+                              options.area = '';
+                          }
                           if(!options.city){
                             options.city = code;
+                          }else if(data[code].indexOf(options.city)>-1){
+                            options.city = isNaN(options.city)?code:options.city;
                           }
                         }
                       }
