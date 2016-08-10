@@ -16,21 +16,55 @@
 	</head>
 	<body>
 		<div class="main">
-		  <div class="citys">
-        <select name="province"></select>
-        <select name="city"></select>
-        <select name="area"></select>
-      </div>
+		  	<div id="demo1" class="citys">
+		        <select name="province"></select>
+		        <select name="city"></select>
+		        <select name="area"></select>
+		    </div>
 			<div class="code">
-				$('.citys').citys({province:'福建',city:'厦门',area:'思明'});
+				<p>$('#demo1').citys({province:'福建',city:'厦门',area:'思明'});</p>
 			</div>
 			<script type="text/javascript">
-				$('.citys').citys({province:'福建',city:'厦门',area:'思明'});
+				$('#demo1').citys({province:'福建',city:'厦门',area:'思明'});
+			</script>
+			<div id="demo2" class="citys">
+		        <select name="province"></select>
+		        <select name="city"></select>
+		        <select name="area"></select>
+		    </div>
+			<div class="code">
+				<p>事件处理</p>
+<pre>
+$('#demo2').citys({
+	required:false,
+	nodata:'disabled',
+	onChange:function(data){
+		if(data['direct']&&data['city']){
+			alert('你选择了：'+data['province']+data['city']);
+		}else if(data['area']){
+			alert('你选择了：'+data['province']+data['city']+data['area']);
+		}
+	}
+});
+</pre>
+			</div>
+			<script type="text/javascript">
+				$('#demo2').citys({
+					required:false,
+					nodata:'disabled',
+					onChange:function(data){
+						if(data['direct']&&data['city']){
+							alert('你选择了：'+data['province']+data['city']);
+						}else if(data['area']){
+							alert('你选择了：'+data['province']+data['city']+data['area']);
+						}
+					}
+				});
 			</script>
 			<div class="example">
 				<div class="call">
 					<h1>调用方法：</h1>
-					<p>$(selector).citys(options);</p>
+					<p>$(selector).citys(options,callback);</p>
 				</div>
 				<h2> options参数</h2>
 				<table>
@@ -90,7 +124,22 @@
 						<tr>
 							<td>onChange</td>
 							<td>[无]</td>
-							<td>地区切换时触发,回调函数传入地区数据</td>
+							<td>地区切换时触发,回调函数传入地区数据:direct是否为直辖市,province省级名称,city地级名称,area区级名称</td>
+						</tr>
+					</tbody>
+				</table>
+				<h2> callback(api)参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th  style="width:200">方法</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>getInfo(data)</td>
+							<td>获取当前选中的地理信息</td>
 						</tr>
 					</tbody>
 				</table>

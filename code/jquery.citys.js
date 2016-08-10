@@ -3,8 +3,14 @@
  * http://passer-by.com
  */
 ;(function($, window, document, undefined) {
-    $.fn.citys = function(parameter) {
-        parameter = parameter || {};
+    $.fn.citys = function(parameter,getApi) {
+        if(typeof parameter == 'function'){ //重载
+            getApi = parameter;
+            parameter = {};
+        }else{
+            parameter = parameter || {};
+            getApi = getApi||function(){};
+        }
         var defaults = {
             dataUrl:'citys.json',     //数据库地址
             provinceField:'province', //省份字段名
@@ -20,6 +26,7 @@
         var options = $.extend({}, defaults, parameter);
         return this.each(function() {
             //对象定义
+            var _api = {};
             var $this = $(this);
             var $province = $this.find('select[name="'+options.provinceField+'"]'),
                 $city = $this.find('select[name="'+options.cityField+'"]'),
@@ -32,14 +39,16 @@
                     for(code in data){
                         if(!(code%1e4)){     //获取所有的省级行政单位
                             province[code]=data[code];
-                            if(!options.province){
-                                if(options.city&&!(options.city%1e4)){  //省未填，并判断为直辖市
-                                    options.province = options.city;
-                                }else{
-                                    options.province = code;
+                            if(options.required){
+                                if(!options.province){
+                                    if(options.city&&!(options.city%1e4)){  //省未填，并判断为直辖市
+                                        options.province = options.city;
+                                    }else{
+                                        options.province = code;
+                                    }
+                                }else if(data[code].indexOf(options.province)>-1){
+                                    options.province = isNaN(options.province)?code:options.province;
                                 }
-                            }else if(data[code].indexOf(options.province)>-1){
-                                options.province = isNaN(options.province)?code:options.province;
                             }
                         }else{
                             var p = code-options.province;
@@ -47,10 +56,12 @@
                                 if(!(code%100)){
                                     hasCity = true;
                                     city[code]=data[code];
-                                    if(!options.city){
-                                        options.city = code;
-                                    }else if(data[code].indexOf(options.city)>-1){
-                                        options.city = isNaN(options.city)?code:options.city;
+                                    if(options.required){
+                                        if(!options.city){
+                                            options.city = code;
+                                        }else if(data[code].indexOf(options.city)>-1){
+                                            options.city = isNaN(options.city)?code:options.city;
+                                        }
                                     }
                                 }else if(p>9000){                   //省直辖县级行政单位
                                     city[code]=data[code];
@@ -58,41 +69,38 @@
                                     var c = code-options.city;
                                     if(options.city&&c>0&&c<100){     //同个城市的地区
                                         area[code]=data[code];
-                                        if(!options.area){
-                                            options.area = code;
-                                        }else if(data[code].indexOf(options.area)>-1){
-                                            options.area = isNaN(options.area)?code:options.area;
+                                        if(options.required){
+                                            if(!options.area){
+                                                options.area = code;
+                                            }else if(data[code].indexOf(options.area)>-1){
+                                                options.area = isNaN(options.area)?code:options.area;
+                                            }
                                         }
                                     }
                                 }else{
                                     city[code]=data[code];            //直辖市
-                                    if(options.area){
-                                        options.city = options.area;
-                                        options.area = '';
-                                    }
-                                    if(!options.city){
-                                        options.city = code;
-                                    }else if(data[code].indexOf(options.city)>-1){
-                                        options.city = isNaN(options.city)?code:options.city;
+                                    if(options.required){
+                                        if(options.area){
+                                            options.city = options.area;
+                                            options.area = '';
+                                        }
+                                        if(!options.city){
+                                            options.city = code;
+                                        }else if(data[code].indexOf(options.city)>-1){
+                                            options.city = isNaN(options.city)?code:options.city;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 };
-                var change = function(){
-                    var status = {
-                        province:data[options.province]||'',
-                        city:data[options.city]||'',
-                        area:data[options.area]||''
-                    }
-                    options.onChange(status);
-                };
                 var format = {
                     province:function(){
                         $province.empty();
                         if(!options.required){
                             $province.append('<option> - 请选择 - </options>');
+                            options.province = 0;
                         }
                         for(i in province){
                             $province.append('<option value="'+i+'">'+province[i]+'</option>');
@@ -138,27 +146,40 @@
                         }
                     }
                 };
+                //获取当前地理信息
+                _api.getInfo = function(){
+                    var status = {
+                        direct:!hasCity,
+                        province:data[options.province]||'',
+                        city:data[options.city]||'',
+                        area:data[options.area]||''
+                    };
+                    return status;
+                };
+                //事件绑定
                 $province.on('change',function(){
-                    options.province = $(this).val().replace(/\d{4}$/,'0000');
+                    options.province = $(this).val();
                     options.city = 0;
                     options.area = 0;
                     updateData();
-                    change();
                     format.city();
+                    options.onChange(_api.getInfo());
                 });
                 $city.on('change',function(){
-                    options.city = $(this).val().replace(/\d{2}$/,'00');
+                    options.city = $(this).val();
                     options.area = 0;
                     updateData();
-                    change();
                     format.area();
+                    options.onChange(_api.getInfo());
                 });
                 $area.on('change',function(){
-                    change();
+                    options.area = $(this).val();
+                    options.onChange(_api.getInfo());
                 });
                 //初始化
                 updateData();
                 format.province();
+                getApi(_api);
             });
         });
     };
