@@ -72,7 +72,8 @@
 			<div class="code">
 				<p>移动过程中显示</p>
 				<p>
-<pre>$('#range2').range({
+<pre>
+$('#range2').range({
 	min:10,
 	max:62,
 	value:40,
@@ -80,7 +81,8 @@
 	onSlide:function(status){
 		$('#input2').val(status.value);
 	}
-});</pre>
+});
+</pre>
 				</p>
 			</div>
 			<script type="text/javascript">
@@ -99,7 +101,7 @@
 					<h1>调用方法：</h1>
 					<p>$(selector).range(options,callback(api));</p>
 				</div>
-				<h2> options参数</h2>
+				<h2>options参数</h2>
 				<table>
 					<thead>
 						<tr>
@@ -156,7 +158,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<h2> callback(api)参数</h2>
+				<h2>callback(api)参数</h2>
 				<table>
 					<thead>
 						<tr>

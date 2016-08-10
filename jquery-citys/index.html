@@ -86,32 +86,32 @@ $('#demo2').citys({
 						<tr>
 							<td>provinceField</td>
 							<td>'province'</td>
-							<td>省份字段名</td>
+							<td>省份(省级)字段名</td>
 						</tr>
 						<tr>
 							<td>cityField</td>
 							<td>'city'</td>
-							<td>城市字段名</td>
+							<td>城市(地级)字段名</td>
 						</tr>
 						<tr>
 							<td>areaField</td>
 							<td>'area'</td>
-							<td>地区字段名</td>
+							<td>地区(县区级)字段名</td>
 						</tr>
 						<tr>
 							<td>province</td>
 							<td>[无]</td>
-							<td>省份,可以为地区编码或者名称</td>
+							<td>省份(省级),可以为地区编码或者名称</td>
 						</tr>
 						<tr>
 							<td>city</td>
 							<td>[无]</td>
-							<td>城市,可以为地区编码或者名称</td>
+							<td>城市(地级),可以为地区编码或者名称</td>
 						</tr>
 						<tr>
 							<td>area</td>
 							<td>[无]</td>
-							<td>地区,可以为地区编码或者名称</td>
+							<td>地区(县区级),可以为地区编码或者名称</td>
 						</tr>
 						<tr>
 							<td>required</td>
@@ -126,11 +126,11 @@ $('#demo2').citys({
 						<tr>
 							<td>onChange</td>
 							<td>[无]</td>
-							<td>地区切换时触发,回调函数传入地区信息:direct是否为直辖市,province省级名称,city地级名称,area区级名称</td>
+							<td>地区切换时触发,回调函数传入地区信息:direct是否为直辖市,province省份(省级)名称,city城市(地级)名称,area地区(县区级)名称</td>
 						</tr>
 					</tbody>
 				</table>
-				<h2> callback(api)参数</h2>
+				<h2>callback(api)参数</h2>
 				<table>
 					<thead>
 						<tr>
@@ -141,7 +141,7 @@ $('#demo2').citys({
 					<tbody>
 						<tr>
 							<td>getInfo(data)</td>
-							<td>获取当前选中的地区信息:direct是否为直辖市,province省级名称,city地级名称,area区级名称</td>
+							<td>获取当前选中的地区信息:direct是否为直辖市,province省份(省级)名称,city城市(地级)名称,area地区(县区级)名称</td>
 						</tr>
 					</tbody>
 				</table>
