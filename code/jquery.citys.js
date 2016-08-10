@@ -82,9 +82,9 @@
                 };
                 var change = function(){
                   var status = {
-                    province:data[options.province]||0,
-                    city:data[options.city]||0,
-                    area:data[options.area]||0
+                    province:data[options.province]||'',
+                    city:data[options.city]||'',
+                    area:data[options.area]||''
                   }
                   options.onChange(status);
                 };
