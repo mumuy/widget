@@ -10,6 +10,9 @@
 			.citys{
 				margin-bottom: 25px;
 			}
+			.citys p{
+				line-height: 28px;
+			}
 		</style>
 		<script type="text/javascript" src="../public/jquery.min.js"></script>
 		<script type="text/javascript" src="../code/jquery.citys.js"></script>
@@ -17,9 +20,11 @@
 	<body>
 		<div class="main">
 		  	<div id="demo1" class="citys">
-		        <select name="province"></select>
-		        <select name="city"></select>
-		        <select name="area"></select>
+		  		<p>
+			  		<select name="province"></select>
+			        <select name="city"></select>
+			        <select name="area"></select>
+			   	</p>
 		    </div>
 			<div class="code">
 				<p>$('#demo1').citys({province:'福建',city:'厦门',area:'思明'});</p>
@@ -28,9 +33,12 @@
 				$('#demo1').citys({province:'福建',city:'厦门',area:'思明'});
 			</script>
 			<div id="demo2" class="citys">
-		        <select name="province"></select>
-		        <select name="city"></select>
-		        <select name="area"></select>
+		        <p>
+			  		<select name="province"></select>
+			        <select name="city"></select>
+			        <select name="area"></select>
+			   	</p>
+			   	<p id="place">&nbsp;</p>
 		    </div>
 			<div class="code">
 				<p>事件处理</p>
@@ -39,11 +47,8 @@ $('#demo2').citys({
 	required:false,
 	nodata:'disabled',
 	onChange:function(data){
-		if(data['direct']&&data['city']){
-			alert('你选择了：'+data['province']+data['city']);
-		}else if(data['area']){
-			alert('你选择了：'+data['province']+data['city']+data['area']);
-		}
+		var text = data['direct']?'(直辖市)':'';
+		$('#place').text('当前选中地区：'+data['province']+text+'-'+data['city']+'-'+data['area']);
 	}
 });
 </pre>
@@ -53,11 +58,8 @@ $('#demo2').citys({
 					required:false,
 					nodata:'disabled',
 					onChange:function(data){
-						if(data['direct']&&data['city']){
-							alert('你选择了：'+data['province']+data['city']);
-						}else if(data['area']){
-							alert('你选择了：'+data['province']+data['city']+data['area']);
-						}
+						var text = data['direct']?'(直辖市)':'';
+						$('#place').text('当前选中地区：'+data['province']+text+'-'+data['city']+'-'+data['area']);
 					}
 				});
 			</script>
