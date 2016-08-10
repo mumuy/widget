@@ -48,7 +48,7 @@ $('#demo2').citys({
 	nodata:'disabled',
 	onChange:function(data){
 		var text = data['direct']?'(直辖市)':'';
-		$('#place').text('当前选中地区：'+data['province']+text+'-'+data['city']+'-'+data['area']);
+		$('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
 	}
 });
 </pre>
@@ -59,7 +59,7 @@ $('#demo2').citys({
 					nodata:'disabled',
 					onChange:function(data){
 						var text = data['direct']?'(直辖市)':'';
-						$('#place').text('当前选中地区：'+data['province']+text+'-'+data['city']+'-'+data['area']);
+						$('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
 					}
 				});
 			</script>
