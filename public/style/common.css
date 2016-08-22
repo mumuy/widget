@@ -1,6 +1,18 @@
-body{
-	font-family: "Microsoft Yahei",Arial,Helvetica;
+html{
+	height:100%;
 }
+body{
+	position: relative;
+	min-height:100%;
+	font-size:14px;
+	font-family: Tahoma, Verdana,"Microsoft Yahei";
+	color:#333;
+}
+a{
+	text-decoration: none;
+	color:#333;
+}
+
 .main{
 	width:960px;
 	margin: 50px auto 0;
