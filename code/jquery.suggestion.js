@@ -1,5 +1,5 @@
 /**
- * jquery.suggestion.js 1.1
+ * jquery.suggestion.js 1.2
  * http://passer-by.com
  */
 ;(function($, window, document, undefined) {
@@ -15,8 +15,11 @@
             jsonpCallback:'',                //自定义回调函数
             autoSubmit:true,                 //点击确定是否自动提交表单
             beforeSend:function(){},         //发送前动作：传入准备提交的表单项目，返回false终止提交
-            get:function(){},                //获得搜索建议：传入一个对象，target表示被建议列表对象,data表示请求到的数据
-            select: function(item) {         //选中搜索建议列表项：传入一个对象，target表示当前选中列表项,input表示当前input表单项
+            callback:function(){},           //获得数据后触发：传入一个对象，target表示被建议列表对象,data表示请求到的数据
+            onChange:function(item){         //用户按键盘切换时触发
+                item.input.val(item.target.text());
+            },
+            onSelect: function(item) {       //选中搜索建议列表项触发：传入一个对象，target表示当前选中列表项,input表示当前input表单项
                 item.input.val(item.target.text());
             }
         }
@@ -87,7 +90,7 @@
                             if(_index>0){
                                 _index--;
                                 $items.eq(_index).addClass(options.activeCls).siblings().removeClass(options.activeCls);
-                                select();
+                                change();
                             }else{
                                 _index = -1;
                                 $items.removeClass(options.activeCls);
@@ -101,7 +104,7 @@
                             if(_index<$items.length-1){
                                 _index++;
                                 $items.eq(_index).addClass(options.activeCls).siblings().removeClass(options.activeCls);
-                                select();
+                                change();
                             }
                             e.preventDefault();
                         }
@@ -118,13 +121,13 @@
                 $target.addClass(options.activeCls).siblings().removeClass(options.activeCls);
             };
             //选中表单项
-            var select = function(){
+            var change = function(){
                 var $target = $list.find('li.'+options.activeCls);
                 var status = {
                     'target':$target,
                     'input':$this
                 }
-                options.select(status);
+                options.onChange(status);
             };
             //成功后的回调函数
             var success = function(data){
@@ -132,7 +135,7 @@
                     'target':$list,
                     'data':data
                 };
-                options.get(status);
+                options.callback(status);
                 $items = $suggestion.find('li');
                 hasData = $items.length>0;        //根据列表长度判断有没有值
                 if(hasData){
@@ -183,14 +186,17 @@
                 'keydown':down
             });
             $list.on('click','li',function(){
-                select();
+                var $target = $(this);
+                var status = {
+                    'target':$target,
+                    'input':$this
+                }
+                options.onSelect(status);
                 if(options.autoSubmit){
                     $form.submit();
                 }
             }).on('mouseenter','li',hover);
-            $document.on({
-                'click':hide
-            });
+            $document.on('click',hide);
             $window.resize(function(){
                 _height = $this.outerHeight(true);
                 _width = $this.outerWidth(true); 

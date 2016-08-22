@@ -44,7 +44,7 @@
                 return false;
             }
             _time['start'] = + new Date();
-            if (options.beforeEvent(status) !== false) {
+            if (options.beforeEvent.call(_.element,status) !== false) {
                 var steps = options.steps;
                 if(steps=='auto'){  //自动判定步数
                     for(steps=1;_distance[_index+_size]-_distance[_index+_size-steps-1]<=_outer;steps++);
@@ -86,7 +86,7 @@
                 return false;
             }
             _time['start'] = + new Date();
-            if (options.beforeEvent(status) !== false) {
+            if (options.beforeEvent.call(_.element,status) !== false) {
                 var steps = options.steps;
                 if(steps=='auto'){  //自动判定步数
                     for(steps=1;_distance[_index+steps+1]-_distance[_index]<=_outer;steps++);
@@ -139,7 +139,10 @@
             $items = $lists.children();
             if(options.direction=='x'){
                 $lists.css('width','');
-                $items.css('width','');
+                $items.css({
+                    'float':'left',
+                    'width':''
+                });
                 _outer = $outer.width();
                 $items.each(function(i){
                     var $li = $(this);
@@ -171,7 +174,8 @@
         };        
         //设置当前帧
         this.setIndex = function(index,isAnimate){
-            _index = index%_size;
+            index = index%_size;
+            _index = index<0?_size + index:index;
             slide(isAnimate);
         };  
         //设置移动帧数
@@ -197,7 +201,7 @@
         /****** 私有方法 ******/
         //移动
         var slide = function(isAnimate,s_duration) {
-            if(_inner>_outer){ //只有在内层超过外层时移动
+            if(_inner>=_outer){ //只有在内层超过外层时移动
                 var duration = isAnimate !=false ? (s_duration||options.duration):0; //判断滑块是否需要移动动画
                 var params = {};
                 $lists.stop();
@@ -237,7 +241,7 @@
                 index: _index,
                 count: _size
             };
-            options.afterEvent(status);
+            options.afterEvent.call(_.element,status);
             if(_auto){
                 _hander&&clearTimeout(_hander);
                 _hander = setTimeout(_.next,options.delay);
@@ -369,16 +373,21 @@
         //初始化
         var init = function(){
             _size = $list1.children().length;
+            options.activeIndex = options.activeIndex%_size;
             _index = options.activeIndex<0?_size + options.activeIndex:options.activeIndex;
             _param = options.direction=='x'?'left':'top';
-            $list1.css('position','absolute');
             if($outer.css('position')=='static'){
                 $outer.css('position','relative');
             }
             if (options.inEndEffect === "cycle") {
                 $list2 = $list1.clone().insertAfter($list1);
                 $lists = $list1.add($list2);
+                $list2.css({
+                    position:'absolute',
+                    top:0
+                });
             }
+            $list1.css('position','relative');
             //节点添加
             if (options.hasTriggers) {  //是否存在导航
                 if (!$this.find("."+options.navCls).length) {   //使用children找不到
@@ -397,7 +406,7 @@
                         destination: index,
                         event:e
                     };
-                    if(options.beforeEvent(status) !== false){
+                    if(options.beforeEvent.call(_.element,status) !== false){
                         _index = index;
                         _time['start'] = + new Date();
                         slide(options.animate,500);                      
@@ -479,13 +488,13 @@
                     'touchend':touchEnd
                 });
             }
-            $window.resize(function(){
+            $window.resize(function(){ //当窗体大小改变时，重新计算相关参数
                 var time = + new Date();
                 if(time-_time['start']>250&&options.delay<250||options.delay>=250){ //缓存防治连续变化多次触发
                     _.resize();
                 }
                 _time['start'] = time;
-            }); //当窗体大小改变时，重新计算相关参数
+            });
             //键盘控制
             if(options.keyboardAble){
                 $window.keydown(keyboard);
@@ -548,9 +557,9 @@
         var options = $.extend({}, defaults, parameter);
         return this.each(function() {
             var $this = $(this);
-            var o = $.meta ? $.extend({}, options, $this.data()) : options;  
+            var o = $.meta ? $.extend({}, options, $this.data()) : options;
             var slider = new Slider(this,o);
-            callback(slider);
+            callback.call(this,slider);
         }); 
     };
     //jquery 动画扩展

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>格式化输入框 - inputFormat</title>
+		<link rel="shortcut icon" href="/public/img/favicon.png">
+		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<style type="text/css">
+			.input{
+				margin-bottom: 25px;
+			}
+		</style>
+		<script type="text/javascript" src="../public/jquery.min.js"></script>
+		<script type="text/javascript" src="../code/jquery.inputFormat.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="input">
+				货币：<input type="text" name="currency" placeholder="100,000.00">
+			</div>
+			<div class="code">
+				$('input[type="text"]:eq(0)').inputFormat();
+			</div>
+			<script>
+				$('input[type="text"]:eq(0)').inputFormat();
+			</script>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>$(selector).inputFormat(options,callback);</p>
+				</div>
+				<h2>options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th width="150">参数</th>
+							<th width="80">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>type</td>
+							<td>'currency'</td>
+							<td>格式化数据类型</td>
+						</tr>
+						<tr>
+							<td>tofixed</td>
+							<td>2</td>
+							<td>四舍五入的位数</td>
+						</tr>
+					</tbody>
+				</table>
+				<h2>callback(api)参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th width="200">方法</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>format(value)</td>
+							<td>格式化指定值,返回格式化后结果</td>
+						</tr>
+						<tr>
+							<td>setValue(value)</td>
+							<td>设置输入框值</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+<html>

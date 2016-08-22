@@ -28,23 +28,23 @@
 				<p id="time2">60</p>
 			</div>
 			<div class="code">
-				<p>$('#time2').countdown({'endtime':5});</p>
+				<p>$('#time2').countdown({'endtime':5,'countEnd':function(){alert('倒计时结束!');}});</p>
 			</div>
 			<script>
 				$('#time1').countdown({'endtime':'12:30:30'});
-				$('#time2').countdown({'endtime':5});
+				$('#time2').countdown({'endtime':5,'countEnd':function(){alert('倒计时结束!');}});
 			</script>
 			<div class="example">
 				<div class="call">
 					<h1>调用方法：</h1>
 					<p>$(selector).countdown(options,callback(api));</p>
 				</div>
-				<h2> options参数</h2>
+				<h2>options参数</h2>
 				<table>
 					<thead>
 						<tr>
-							<th style="width:150">参数</th>
-							<th style="width:80">默认值</th>
+							<th width="150">参数</th>
+							<th width="80">默认值</th>
 							<th>说明</th>
 						</tr>
 					</thead>
@@ -85,17 +85,17 @@
 							<td>每计时单位执行,其中time包含时间信息：year年、quarter季度、month月、day日、hour小时、minute分钟、second秒、microsecond毫秒、format格式化输出</td>
 						</tr>
 						<tr>
-							<td>endEnd(time)</td>
+							<td>countEnd(time)</td>
 							<td>[时间格式化输出]</td>
 							<td>计时结束后执行,其中time包含时间信息：year年、quarter季度、month月、day日、hour小时、minute分钟、second秒、microsecond毫秒、format格式化输出</td>
 						</tr>
 					</tbody>
 				</table>
-				<h2> callback(api)参数</h2>
+				<h2>callback(api)参数</h2>
 				<table>
 					<thead>
 						<tr>
-							<th style="width:200">方法</th>
+							<th width="200">方法</th>
 							<th>说明</th>
 						</tr>
 					</thead>

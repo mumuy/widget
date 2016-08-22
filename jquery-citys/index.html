@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>城市三级联动 - citys</title>
+		<link rel="shortcut icon" href="/public/img/favicon.png">
+		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<style type="text/css">
+			.citys{
+				margin-bottom: 25px;
+			}
+			.citys p{
+				line-height: 28px;
+			}
+		</style>
+		<script type="text/javascript" src="../public/jquery.min.js"></script>
+		<script type="text/javascript" src="../code/jquery.citys.js"></script>
+	</head>
+	<body>
+		<div class="main">
+		  	<div id="demo1" class="citys">
+		  		<p>
+			  		<select name="province"></select>
+			        <select name="city"></select>
+			        <select name="area"></select>
+			   	</p>
+		    </div>
+			<div class="code">
+				<p>$('#demo1').citys({province:'福建',city:'厦门',area:'思明'});</p>
+			</div>
+			<script type="text/javascript">
+				$('#demo1').citys({province:'福建',city:'厦门',area:'思明'});
+			</script>
+			<div id="demo2" class="citys">
+		        <p>
+			  		<select name="province"></select>
+			        <select name="city"></select>
+			        <select name="area"></select>
+			   	</p>
+			   	<p id="place">&nbsp;</p>
+		    </div>
+			<div class="code">
+				<p>事件处理</p>
+<pre>
+$('#demo2').citys({
+	required:false,
+	nodata:'disabled',
+	onChange:function(data){
+		var text = data['direct']?'(直辖市)':'';
+		$('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
+	}
+});
+</pre>
+			</div>
+			<script type="text/javascript">
+				$('#demo2').citys({
+					required:false,
+					nodata:'disabled',
+					onChange:function(data){
+						var text = data['direct']?'(直辖市)':'';
+						$('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
+					}
+				});
+			</script>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>$(selector).citys(options,callback);</p>
+				</div>
+				<h2> options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th width="150">参数</th>
+							<th width="120">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>dataUrl</td>
+							<td>'citys.json'</td>
+							<td>数据库地址 (<a href="citys.json" target="_blank">最新数据:2016年7月</a>)</td>
+						</tr>
+						<tr>
+							<td>provinceField</td>
+							<td>'province'</td>
+							<td>省份(省级)字段名</td>
+						</tr>
+						<tr>
+							<td>cityField</td>
+							<td>'city'</td>
+							<td>城市(地级)字段名</td>
+						</tr>
+						<tr>
+							<td>areaField</td>
+							<td>'area'</td>
+							<td>地区(县区级)字段名</td>
+						</tr>
+						<tr>
+							<td>province</td>
+							<td>[无]</td>
+							<td>省份(省级),可以为地区编码或者名称</td>
+						</tr>
+						<tr>
+							<td>city</td>
+							<td>[无]</td>
+							<td>城市(地级),可以为地区编码或者名称</td>
+						</tr>
+						<tr>
+							<td>area</td>
+							<td>[无]</td>
+							<td>地区(县区级),可以为地区编码或者名称</td>
+						</tr>
+						<tr>
+							<td>required</td>
+							<td>true</td>
+							<td>是否必须选中(是否自动选择地区)</td>
+						</tr>
+						<tr>
+							<td>nodata</td>
+							<td>'hidden'</td>
+							<td>当无数据时的表现形式</td>
+						</tr>
+						<tr>
+							<td>onChange</td>
+							<td>[无]</td>
+							<td>地区切换时触发,回调函数传入地区信息:direct是否为直辖市,province省份(省级)名称,city城市(地级)名称,area地区(县区级)名称</td>
+						</tr>
+					</tbody>
+				</table>
+				<h2>callback(api)参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th width="200">方法</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>getInfo(data)</td>
+							<td>获取当前选中的地区信息:direct是否为直辖市,province省份(省级)名称,city城市(地级)名称,area地区(县区级)名称</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+<html>

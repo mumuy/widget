@@ -58,7 +58,7 @@ $('.search input[type="text"]').suggestion({
 	url:'http://suggestion.baidu.com/su',
 	FieldName:'wd',
 	jsonp:'cb',
-	get:function(item){
+	callback:function(item){
 		var data = item['data']['s'];
 		item.target.empty();
 		for(var i=0;i&lt;data.length;i++){
@@ -73,7 +73,7 @@ $('.search input[type="text"]').suggestion({
 					url:'http://suggestion.baidu.com/su',
 					FieldName:'wd',
 					jsonp:'cb',
-					get:function(item){
+					callback:function(item){
 						var data = item['data']['s'];
 						item.target.empty();
 						for(var i=0;i<data.length;i++){
@@ -87,12 +87,12 @@ $('.search input[type="text"]').suggestion({
 					<h1>调用方法：</h1>
 					<p>$(selector).suggestion(options);</p>
 				</div>
-				<h2> options参数</h2>
+				<h2>options参数</h2>
 				<table>
 					<thead>
 						<tr>
-							<th style="width:150">参数</th>
-							<th style="width:80">默认值</th>
+							<th width="150">参数</th>
+							<th width="80">默认值</th>
 							<th>说明</th>
 						</tr>
 					</thead>
@@ -143,12 +143,17 @@ $('.search input[type="text"]').suggestion({
 							<td>发送前动作：传入准备提交的表单项目，返回false终止提交</td>
 						</tr>
 						<tr>
-							<td>get</td>
+							<td>callback</td>
 							<td>[无]</td>
-							<td>获得搜索建议：传入一个对象，target表示被建议列表对象,data表示请求到的数据</td>
+							<td>获得数据后触发：传入一个对象，target表示被建议列表对象,data表示请求到的数据</td>
 						</tr>
 						<tr>
-							<td>select</td>
+							<td>onChange</td>
+							<td>[无]</td>
+							<td>用户按键盘切换时触发</td>
+						</tr>
+						<tr>
+							<td>onSelect</td>
 							<td>[无]</td>
 							<td>选中搜索建议列表项：传入一个对象，target表示当前选中列表项,input表示当前input表单项</td>
 						</tr>
