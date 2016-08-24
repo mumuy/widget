@@ -188,6 +188,14 @@
                 _index = index%_size;
                 slide(isAnimate);
             };
+            //获取当前帧
+            _api.getIndex = function(){
+                return _index;
+            };
+            //获取帧数
+            _api.getSize = function(){
+                return _size;
+            };
             //窗口变化
             _api.resize = function(){
                 if(options.fullScreen){

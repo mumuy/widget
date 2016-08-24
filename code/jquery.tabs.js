@@ -87,8 +87,8 @@
                 _hander = setInterval(next,options.delay);
             };
             //选择某标签
-            _api.select = function(index){
-                $triggers.removeClass(options.activeCls).eq(index).addClass(options.activeCls); 
+            _api.setIndex = function(index){
+                $triggers.removeClass(options.activeCls).eq(index).addClass(options.activeCls);
                 switch(options.effect){
                     case 'fade':
                         if(_index!=index){
@@ -116,6 +116,14 @@
                         _index = index;     
                 }
             }
+            //获取当前帧
+            _api.getIndex = function(){
+                return _index;
+            };
+            //获取帧数
+            _api.getSize = function(){
+                return _size;
+            };
             //事件绑定-导航
             $this.find('.'+options.prevBtnCls).click(prev);
             $this.find('.'+options.nextBtnCls).click(next);

@@ -194,6 +194,10 @@
         this.getIndex = function(){
             return _index;
         };
+        //获取帧数
+        this.getSize = function(){
+            return _size;
+        };
         //获取参数
         this.getOptions = function(){
             return options;
