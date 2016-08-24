@@ -81,7 +81,7 @@ $('#demo2').citys({
 var $town = $('#demo3 select[name="town"]');
 var townFormat = function(info){
 	$town.hide().empty();
-	if(info['code']%1000){	//是否为“区”
+	if(info['code']%1e4&&info['code']<7e6){	//是否为“区”且不是港澳台地区
 		$.ajax({
 			url:'http://passer-by.com/data_location/town/'+info['code']+'.json',
 			dataType:'json',
@@ -111,7 +111,7 @@ $('#demo3').citys({
 			var $town = $('#demo3 select[name="town"]');
 			var townFormat = function(info){
 				$town.hide().empty();
-				if(info['code']%1000){	//是否为“区”
+				if(info['code']%1e4&&info['code']<7e5){	//是否为“区”且不是港澳台地区
 					$.ajax({
 						url:'http://passer-by.com/data_location/town/'+info['code']+'.json',
 						dataType:'json',
