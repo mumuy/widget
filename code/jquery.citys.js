@@ -12,7 +12,7 @@
             getApi = getApi||function(){};
         }
         var defaults = {
-            dataUrl:'citys.json',     //数据库地址
+            dataUrl:'http://passer-by.com/data_location/list.json',     //数据库地址
             provinceField:'province', //省份字段名
             cityField:'city',         //城市字段名
             areaField:'area',         //地区字段名
@@ -152,7 +152,8 @@
                         direct:!hasCity,
                         province:data[options.province]||'',
                         city:data[options.city]||'',
-                        area:data[options.area]||''
+                        area:data[options.area]||'',
+                        code:options.area||options.city||options.province
                     };
                     return status;
                 };
