@@ -59,7 +59,7 @@
                     event:e
                 };
                 if(options.beforeEvent(status)!=false){
-                    _api.select(i);
+                    _api.setIndex(i);
                     options.afterEvent(status);
                 }
             };
@@ -73,7 +73,7 @@
                     event:e
                 };
                 if(options.beforeEvent(status)!=false){
-                    _api.select(i);
+                    _api.setIndex(i);
                     options.afterEvent(status);
                 }
             };
@@ -136,12 +136,12 @@
                     event:e
                 };
                 if(options.beforeEvent(status)!=false){
-                    _api.select(i);
+                    _api.setIndex(i);
                     options.afterEvent(status);
                 }
             });
             //初始化
-            _api.select(_index);
+            _api.setIndex(_index);
             //是否自动播放
             if (options.auto) {
                 $this.hover(_api.stop, _api.start);
