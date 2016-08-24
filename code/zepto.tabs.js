@@ -1,12 +1,12 @@
 /**
  * zepto.tabs.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     $.fn.tabs = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
-            parameter = {}; 
+            parameter = {};
         }else{
             parameter = parameter || {};
             getApi = getApi||function(){};
@@ -37,7 +37,7 @@
                 $triggers.removeClass(options.activeCls).eq(i).addClass(options.activeCls);
                 $panels.hide().eq(i).show();
             }
-            //初始化  
+            //初始化
             _api.select(options.activeIndex);   //默认选中状态
             $triggers.bind(options.triggerType, function(e) { //事件绑定
                 var i = $triggers.index($(this));

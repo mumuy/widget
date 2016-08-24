@@ -1,6 +1,6 @@
 /**
  * jquery.imagezoom.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     $.fn.imagezoom = function(parameter) {
@@ -31,12 +31,12 @@
                 var _ratio = 1;
                 if(this.complete&&_width){ //防止图片未加载时就开始计算
                     getRatio();
-                }else{     
+                }else{
                     this.onload = function(){
                         _width = this.width;
                         _height = this.height;
                         getRatio();
-                    }  
+                    }
                 }
                 //私有方法
                 function getRatio(){
@@ -50,11 +50,11 @@
                             if(_width>_outer_width){
                                 _ratio = Math.max(_outer_width/_width,_outer_height/_height);
                             }
-                        }               
+                        }
                     }else if(options.effect=='in'){ //在不放大图片失真的情况下，最大清晰度地展示完整图片
                         if(_width>_outer_width||_height>_outer_height){
                             _ratio = Math.min(_outer_width/_width,_outer_height/_height);
-                        } 
+                        }
                     }
                     zoom(_ratio);
                 };

@@ -1,6 +1,6 @@
 /**
  * jquery.scrolldiv.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     $.fn.scrolldiv = function(parameter) {
@@ -47,7 +47,7 @@
                     $list.each(function(i){
                         $list.eq(i).css("top",(_maxheight - $list.eq(i).height()) * times + "px");
                     });
-                }               
+                }
             }
             //事件绑定
             //鼠标滚轴

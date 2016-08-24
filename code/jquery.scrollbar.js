@@ -1,6 +1,6 @@
 /**
  * jquery.scrollbar.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
 	$.fn.scrollbar = function(parameter,getApi){
@@ -72,9 +72,9 @@
 				_content_length = options.direction=="y"?$content.height():$content.width();
 				_box_length = options.direction=="y"?$this.height():$this.width();
 				_thumb_length = _box_length/_content_length*_track_length;
-				_distance = Math.max(_track_length-_thumb_length,0);						
-				_room = Math.max(_content_length-_box_length,0);	
-				if(_content_length>_box_length){						
+				_distance = Math.max(_track_length-_thumb_length,0);
+				_room = Math.max(_content_length-_box_length,0);
+				if(_content_length>_box_length){
 					$thumb.css(options.direction=="y"?'height':'width',_thumb_length+'px');
 				}else{
 					$track.hide();
@@ -107,9 +107,9 @@
 						}
 					}else{
 						stopBubble(e);
-						stopDefault(e); 
+						stopDefault(e);
 					}
-					_api.slide(move);					
+					_api.slide(move);
 				}
 			}
 			function touchStart(e){
@@ -130,14 +130,14 @@
                     pageX: e.changedTouches[0].pageX,
                     pageY: e.changedTouches[0].pageY
                 };
-                var move = options.direction=="x"?_start.pageX - current.pageX:_start.pageY - current.pageY;//移动距离触发点的距离	
+                var move = options.direction=="x"?_start.pageX - current.pageX:_start.pageY - current.pageY;//移动距离触发点的距离
 				if (options.direction=="x"&&Math.abs(current.pageY - _start.pageY) < Math.abs(move)||options.direction=="y") {  //chrome移动版下，默认事件与自定义事件的冲突
                     move +=_content_position;
                     stopDefault(e);
 					if(move<0){
 						move = 0;
 					}else if(move>_room){
-						move = _room;	
+						move = _room;
 					}
 					if(_distance>0){
 						$thumb.css(options.direction=="y"?'top':'left', move*_api.ratio + "px");
@@ -167,7 +167,7 @@
 							move-=_cursor_position;
 						}
 						_api.slide(move/_api.ratio);
-					}	
+					}
 				}
 			});
 			$document.on({
@@ -176,14 +176,14 @@
 						var move = options.direction=="y"?e.pageY - _track_offset:e.pageX - _track_offset;
 						if(_cursor_position>0&&_cursor_position<_thumb_length){
 							move-=_cursor_position;
-						}						
+						}
 						_api.slide(move/_api.ratio);
 					}
 				},
 				mouseup:function(){
 					isMouseDown = false;
 					_cursor_position=0;
-					setSelectable($body,true);						
+					setSelectable($body,true);
 				},
 				resize:_api.resize
 			});
@@ -207,19 +207,19 @@
 			window.event.cancelBubble = true;
 		}
 	}
-	function stopDefault(e) { 
+	function stopDefault(e) {
 		if ( e && e.preventDefault ){
 			e.preventDefault();
 		}else{
-			 window.event.returnValue = false; 
+			 window.event.returnValue = false;
 		}
-		return false; 
+		return false;
 	}
-	function setSelectable(obj, enabled) { 
-		if(enabled) { 
-			obj.removeAttr("unselectable").removeAttr("onselectstart").css("-moz-user-select", "").css("-webkit-user-select", ""); 
-		} else { 
-			obj.attr("unselectable", "on").attr("onselectstart", "return false;").css("-moz-user-select", "none").css("-webkit-user-select", "none"); 
-		} 
-	} 
+	function setSelectable(obj, enabled) {
+		if(enabled) {
+			obj.removeAttr("unselectable").removeAttr("onselectstart").css("-moz-user-select", "").css("-webkit-user-select", "");
+		} else {
+			obj.attr("unselectable", "on").attr("onselectstart", "return false;").css("-moz-user-select", "none").css("-webkit-user-select", "none");
+		}
+	}
 })(jQuery, window, document);

@@ -1,11 +1,11 @@
 /**
  * jquery.accordion.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     $.fn.accordion = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
-            getApi = parameter;  
+            getApi = parameter;
             parameter = {};
         }else{
             parameter = parameter || {};
@@ -47,10 +47,10 @@
 				}else{
 					if(animate){
 						$panels.not(':eq('+i+')').slideUp(options.duration);
-						$panels.eq(i).slideDown(options.duration);						
+						$panels.eq(i).slideDown(options.duration);
 					}else{
 						$panels.not(':eq('+i+')').hide();
-						$panels.eq(i).show();				
+						$panels.eq(i).show();
 					}
 					$triggers.removeClass(options.activeCls).eq(i).addClass(options.activeCls);
 				}

@@ -1,11 +1,11 @@
 /**
  * jquery.inputFormat.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     $.fn.inputFormat = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
-            getApi = parameter; 
+            getApi = parameter;
             parameter = {};
         }else{
             parameter = parameter || {};

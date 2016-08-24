@@ -1,6 +1,6 @@
 /**
  * jquery.tabs.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     $.fn.tabs = function(parameter,getApi) {
@@ -80,7 +80,7 @@
             //停止播放
             _api.stop = function(){
                 _hander&&clearInterval(_hander);
-            };            
+            };
             //播放
             _api.start = function(){
                 _api.stop();
@@ -112,8 +112,8 @@
                         }
                         break;
                     default:
-                        $panels.hide().eq(index).show();   
-                        _index = index;     
+                        $panels.hide().eq(index).show();
+                        _index = index;
                 }
             }
             //获取当前帧

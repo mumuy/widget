@@ -1,6 +1,6 @@
 /**
  * zepto.slider.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     $.fn.slider = function(parameter,getApi) {

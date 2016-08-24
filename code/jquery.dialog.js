@@ -1,6 +1,6 @@
 /**
  * jquery.dialog.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
 	$.fn.dialog = function(parameter,getApi) {
@@ -15,7 +15,7 @@
 			prefix:'widget',
 			content:'',
 			title:'',
-			backgroundColor:'#000',       
+			backgroundColor:'#000',
 			opacity: 0.5,
 			autoOpen:false,
 			isModel:true,
@@ -52,7 +52,7 @@
 					'width': '100%',
 					'background': options.backgroundColor,
 					'display': 'none'
-				}).appendTo($this);                
+				}).appendTo($this);
 			}
 			$container.css({
 				'display':'none',
@@ -63,7 +63,7 @@
 				(function(name){
 					$('<button type="button">'+name+'</button>').appendTo($buttons).click(function(){
 						options.buttons[name](_api);
-					});                            
+					});
 				})(name);
 			}
 			//对话框开启
@@ -74,7 +74,7 @@
 					if(options.isModel){
 						$overlay.css({
 							'opacity': 0
-						}).stop().fadeTo(200,options.opacity);                    
+						}).stop().fadeTo(200,options.opacity);
 					}
 					$container.css("opacity",0).fadeTo(200, 1);
 					_api.resize();
@@ -98,7 +98,7 @@
 				$container.css({
 					"left": ($window.width()-$container.outerWidth())/2 + "px",
 					"top": ($window.height()-$container.outerHeight())/2 + "px"
-				});    
+				});
 			};
 			//设置对话框内容
 			_api.setContent = function(html){

@@ -1,6 +1,6 @@
 /**
  * jquery.slider-calendar.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     $.fn.calendar = function(parameter,getApi) {
