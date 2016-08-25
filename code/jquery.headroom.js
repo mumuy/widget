@@ -1,6 +1,6 @@
 /**
  * jquery.headroom.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     $.fn.headroom = function(parameter){
@@ -39,9 +39,9 @@
                             $this.css({'position':'fixed','top':options.fixedTop+'px'});
                         }else{
                             $this.css({'position':'fixed','top':options.fixedTop-_height+'px'});
-                        }  
+                        }
                         _scroll_top = scroll_top;
-                        isFixed = true;   
+                        isFixed = true;
                     }
                 }else if(scroll_top>_top){ //滚动距离介于菜单上边缘和下边缘之间
                     if(isFixed){
@@ -57,7 +57,7 @@
                     isFixed = false;
                 }
                 last_up = up;
-                last_scroll_top = scroll_top;  
+                last_scroll_top = scroll_top;
             };
             $window.scroll(scroll);
             scroll();

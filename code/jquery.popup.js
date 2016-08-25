@@ -1,6 +1,6 @@
 /**
  * jquery.popup.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     $.fn.popup = function(parameter,getApi) {
@@ -63,7 +63,7 @@
                 'show':function(){
                     if(!isShow){
                         _hander&&clearTimeout(_hander);
-                        _hander = setTimeout(function(){    
+                        _hander = setTimeout(function(){
                             $node.show();
                         },100);
                         isShow = true;
@@ -72,7 +72,7 @@
                 'hide':function(){
                     if(isShow){
                         _hander&&clearTimeout(_hander);
-                        _hander = setTimeout(function(){    
+                        _hander = setTimeout(function(){
                             $node.hide();
                         },100);
                         isShow = false;

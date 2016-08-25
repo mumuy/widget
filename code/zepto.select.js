@@ -1,11 +1,11 @@
 /**
  * zepto.select.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     $.fn.select = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
-			getApi = parameter; 
+			getApi = parameter;
             parameter = {};
         }else{
             parameter = parameter || {};
@@ -102,7 +102,7 @@
 				$item.addClass(options.activeCls).siblings().removeClass(options.activeCls);
 				$inner.hide();
 				options.selected(value);
-			}; 
+			};
 			//事件绑定
 			$box.click(function(){
 				if(isShow){

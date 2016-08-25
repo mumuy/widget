@@ -1,6 +1,6 @@
 /**
  * jquery.slider.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     var Slider = function(element,options){
@@ -18,7 +18,7 @@
             _hander,                //自动播放的函数句柄
             _time = {},             //记录动画断点
             _auto,                  //是否自动播放
-            _param;                 //移动控制参数,方向为x控制left,方向为y控制top        
+            _param;                 //移动控制参数,方向为x控制left,方向为y控制top
         //对象定义
         var $this = $(element),
             $list1 = $this.find("." + options.contentCls),
@@ -171,13 +171,13 @@
                 });
             }
             slide(false);
-        };        
+        };
         //设置当前帧
         this.setIndex = function(index,isAnimate){
             index = index%_size;
             _index = index<0?_size + index:index;
             slide(isAnimate);
-        };  
+        };
         //设置移动帧数
         this.setsteps = function(steps){
             options.steps = steps;
@@ -227,7 +227,7 @@
                         $prev.toggleClass(options.disableBtnCls,_index==0);
                         $next.toggleClass(options.disableBtnCls,_index==_size-1);
                     default:
-                        _index %= _size;               
+                        _index %= _size;
                         if(_distance[_size]-_distance[_index]<_outer){
                             params[_param] = _outer-_inner;
                         }else{
@@ -253,12 +253,12 @@
         };
         //滚动轴
         var scroll = function(e){
-            e = e||window.event;           
+            e = e||window.event;
             if(!$lists.is(':animated')){ //防止滚动太快动画没完成
                 var delta = -e.wheelDelta/120||e.detail/3;
-                delta>0?_.next(e):_.prev(e);                      
+                delta>0?_.next(e):_.prev(e);
             }
-            return false;         
+            return false;
         };
         //触摸开始
         var touchStart = function(e) {
@@ -270,7 +270,7 @@
                 pageY: e.originalEvent.changedTouches[0].pageY
             };
             _position[0] = $list1.position()[_param];
-            if (options.inEndEffect == "cycle") {   
+            if (options.inEndEffect == "cycle") {
                 _position[1] = $list2.position()[_param];
             }
         };
@@ -313,14 +313,14 @@
                                 _position[0] += 2*_distance[_size];
                                 $list1.css(_param, _position[0] + 'px');
                                 $list1 = [$list2, $list2 = $list1][0]; //两列表身份互换
-                                _position[0] = [_position[1], _position[1] = _position[0]][0];                                        
+                                _position[0] = [_position[1], _position[1] = _position[0]][0];
                             }
                         }else if(Math.abs(_position[0])>=_distance[_index+1]){
                             _index++;
                         }
                         if(options.inEndEffect!="cycle"&&_distance[_size]-_distance[_index]<=_outer){
                             _move *= 0.25;
-                        }                         
+                        }
                     }
                     //移动
                     _position[0] += _move;
@@ -330,7 +330,7 @@
                         $list2.css(_param, _position[1]);
                     }
                     _start = current;       //实时更新坐标，解决list衔接处来回切换的问题
-                }               
+                }
             }
         };
         //触碰结束
@@ -353,7 +353,7 @@
                 isMove = move/distance>options.sensitivity||endTime-_time['start']<250&&Math.abs(move)>10;
                 if(isMove){
                     _index++;
-                }                    
+                }
             }
             if(options.inEndEffect != "cycle"){
                 _index = Math.min(_size-1,_index);
@@ -413,7 +413,7 @@
                     if(options.beforeEvent.call(_.element,status) !== false){
                         _index = index;
                         _time['start'] = + new Date();
-                        slide(options.animate,500);                      
+                        slide(options.animate,500);
                     }
                 });
             }
@@ -431,7 +431,7 @@
             //事件绑定-向前向后导航
             if(options.pointerType === "click"){
                 $prev.on("click",_.prev);
-                $next.on("click",_.next);         
+                $next.on("click",_.next);
             }else{
                 $prev.on({
                     'mouseenter':function(){
@@ -484,7 +484,7 @@
                     $next.on({
                         'touchstart':touchS,
                         'touchend':touchE
-                    });                        
+                    });
                 })();
                 $this.on({
                     'touchstart':touchStart,
@@ -508,7 +508,7 @@
                 if(document.addEventListener){
                     _.element.addEventListener('DOMMouseScroll',scroll,false);
                 }
-                _.element.onmousewheel = scroll;                
+                _.element.onmousewheel = scroll;
             }
             _.resize();
         };
@@ -564,7 +564,7 @@
             var o = $.meta ? $.extend({}, options, $this.data()) : options;
             var slider = new Slider(this,o);
             callback.call(this,slider);
-        }); 
+        });
     };
     //jquery 动画扩展
     $.extend( $.easing,{
@@ -621,7 +621,7 @@
             return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
         },
         backinout: function (x, t, b, c, d, s) {
-            if (s == undefined) s = 1.70158; 
+            if (s == undefined) s = 1.70158;
             if ((t/=d/2) < 1) return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
             return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
         },
