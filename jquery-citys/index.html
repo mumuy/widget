@@ -30,7 +30,7 @@
                 </p>
             </div>
             <div class="code">
-                <p>通过地区编码设置</p>
+                <p>通过地区编码初始化设置</p>
                 <p>$('#demo').citys({code:350206});</p>
             </div>
             <script type="text/javascript">
@@ -44,7 +44,7 @@
                 </p>
             </div>
             <div class="code">
-                <p>通过名称设置</p>
+                <p>通过地区名称初始化设置</p>
                 <p>$('#demo1').citys({province:'福建',city:'厦门',area:'思明'});</p>
             </div>
             <script type="text/javascript">
@@ -91,7 +91,7 @@ $('#demo2').citys({
                 <p id="place">&nbsp;</p>
             </div>
             <div class="code">
-              <p>扩展成全国行政区划四级联动(省、市、区、街道)：</p>
+              <p>扩展显示街道信息：</p>
 <pre>
     var $town = $('#demo3 select[name="town"]');
     var townFormat = function(info){
