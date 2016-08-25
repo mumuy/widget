@@ -16,6 +16,7 @@
             provinceField:'province', //省份字段名
             cityField:'city',         //城市字段名
             areaField:'area',         //地区字段名
+            code:0,                   //地区编码
             province:0,               //省份,可以为地区编码或者名称
             city:0,                   //城市,可以为地区编码或者名称
             area:0,                   //地区,可以为地区编码或者名称
@@ -24,6 +25,11 @@
             onChange:function(){}     //地区切换时触发,回调函数传入地区数据
         };
         var options = $.extend({}, defaults, parameter);
+        if(options.code){   //如果设置地区编码，则忽略单独设置的信息
+            options.province = options.code - options.code%1e4;
+            options.city = options.code - options.code%1e2;
+            options.area = options.code;
+        }
         return this.each(function() {
             //对象定义
             var _api = {};
