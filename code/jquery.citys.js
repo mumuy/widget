@@ -26,9 +26,9 @@
         };
         var options = $.extend({}, defaults, parameter);
         if(options.code){   //如果设置地区编码，则忽略单独设置的信息
-            options.province = options.code - options.code%1e4;
-            options.city = options.code - options.code%1e2;
-            options.area = options.code;
+          options.province = options.code - options.code%1e4;
+          options.city = options.code - (options.code%1e4 ? options.code%1e2 : options.code);
+          options.area = options.code%1e2 ? options.code : 0; 
         }
         return this.each(function() {
             //对象定义
@@ -106,7 +106,6 @@
                         $province.empty();
                         if(!options.required){
                             $province.append('<option> - 请选择 - </options>');
-                            options.province = 0;
                         }
                         for(i in province){
                             $province.append('<option value="'+i+'">'+province[i]+'</option>');
