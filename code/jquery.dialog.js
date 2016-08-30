@@ -20,7 +20,8 @@
 			autoOpen:false,
 			isModel:true,
 			buttons:{},
-			beforeOpen:function(){}
+			beforeOpen:function(){},
+			afterClose:function(){}
 		};
 		var options = $.extend({}, defaults, parameter);
 		var $window = $(window);
@@ -40,7 +41,6 @@
 			var _position = isIE6?'absolute':'fixed';
 			var _isOpen = false; //是否是打开状态
 			//结构修改
-			$body.css('height','100%');
 			$this.appendTo($body).empty();
 			if(options.isModel){
 				$overlay = $('<div class="'+options.prefix+'-overlay"></div>').css({
@@ -92,6 +92,7 @@
 					$this.hide();
 				}
 				_isOpen = false;
+				options.afterClose();
 			};
 			//对话框形状自动调整
 			_api.resize = function(){
