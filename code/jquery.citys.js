@@ -22,7 +22,7 @@
             city:0,                   //城市,可以为地区编码或者名称
             area:0,                   //地区,可以为地区编码或者名称
             required: true,           //是否必须选一个
-            nodata:'hidden',          //当无数据时的表现形式
+            nodata:'hidden',          //当无数据时的表现形式:'hidden'隐藏,'disabled'禁用,为空不做任何处理
             onChange:function(){}     //地区切换时触发,回调函数传入地区数据
         };
         var options = $.extend({}, defaults, parameter);
@@ -128,7 +128,7 @@
                             }
                             if(options.nodata=='disabled'){
                                 $city.prop('disabled',$.isEmptyObject(city));
-                            }else{
+                            }else if(options.nodata=='hidden'){
                                 $city.css('display',$.isEmptyObject(city)?'none':'');
                             }
                             for(i in city){
@@ -146,7 +146,7 @@
                             }
                             if(options.nodata=='disabled'){
                                 $area.prop('disabled',$.isEmptyObject(area));
-                            }else{
+                            }else if(options.nodata=='hidden'){
                                 $area.css('display',$.isEmptyObject(area)?'none':'');
                             }
                             for(i in area){
