@@ -119,7 +119,6 @@
                 _time['start'] = time - _time['execute']; //时间镜像起点
                 slide(options.animate,duration);
             }else{
-                console.log(options.reverse);
                 _hander = setTimeout((options.reverse?_.prev:_.next),options.delay);
             }
         };
