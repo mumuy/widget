@@ -2,7 +2,15 @@
  * jquery.slider.js 1.0
  * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd)) {
+        // AMD或CMD
+        define([ "jquery" ], factory);
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     var Slider = function(element,options){
         //全局变量
         var _ = this,
@@ -645,4 +653,4 @@
             return $.easing.bounceout(x, t*2-d, 0, c, d) * .5 + c*.5 + b;
         }
     });
-})(jQuery, window, document);
+}));

@@ -2,7 +2,15 @@
  * jquery.slider-calendar.js 1.0
  * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd)) {
+        // AMD或CMD
+        define([ "jquery" ], factory);
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.calendar = function(parameter,getApi) {
         parameter = parameter || {};
         var defaults = {
@@ -271,4 +279,4 @@
             });
         });
     };
-})(jQuery, window, document);
+}));
