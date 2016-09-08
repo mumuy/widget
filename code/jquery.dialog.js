@@ -93,7 +93,7 @@
 			};
 			//对话框关闭
 			_api.close = function(){
-				$container.stop().fadeTo(200, 1);
+				$container.stop().fadeTo(200, 0);
 				if(options.isModel){
 					$overlay.stop().fadeOut(200,function(){
 						$this.hide();
