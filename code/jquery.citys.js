@@ -31,8 +31,8 @@
             province:0,               //省份,可以为地区编码或者名称
             city:0,                   //城市,可以为地区编码或者名称
             area:0,                   //地区,可以为地区编码或者名称
-            required: true,           //是否必须选一个
-            nodata:'hidden',          //当无数据时的表现形式:'hidden'隐藏,'disabled'禁用,为空不做任何处理
+            required: false,          //是否必须选一个
+            nodata: '',               //当无数据时的表现形式:'hidden'隐藏,'disabled'禁用,为空不做任何处理
             onChange:function(){}     //地区切换时触发,回调函数传入地区数据
         };
         var options = $.extend({}, defaults, parameter);
@@ -68,9 +68,10 @@
                                         }else{
                                             options.province = code;
                                         }
-                                    }else if(data[code].indexOf(options.province)>-1){
-                                        options.province = isNaN(options.province)?code:options.province;
                                     }
+                                }
+                                if(data[code].indexOf(options.province)>-1){
+                                    options.province = isNaN(options.province)?code:options.province;
                                 }
                             }else{
                                 var p = code-options.province;
@@ -81,9 +82,10 @@
                                         if(options.required){
                                             if(!options.city){
                                                 options.city = code;
-                                            }else if(data[code].indexOf(options.city)>-1){
-                                                options.city = isNaN(options.city)?code:options.city;
                                             }
+                                        }
+                                        if(data[code].indexOf(options.city)>-1){
+                                            options.city = isNaN(options.city)?code:options.city;
                                         }
                                     }else if(p>9000){                   //省直辖县级行政单位
                                         city[code]=data[code];
@@ -94,9 +96,10 @@
                                             if(options.required){
                                                 if(!options.area){
                                                     options.area = code;
-                                                }else if(data[code].indexOf(options.area)>-1){
-                                                    options.area = isNaN(options.area)?code:options.area;
                                                 }
+                                            }
+                                            if(data[code].indexOf(options.area)>-1){
+                                                options.area = isNaN(options.area)?code:options.area;
                                             }
                                         }
                                     }else{
@@ -108,9 +111,10 @@
                                             }
                                             if(!options.city){
                                                 options.city = code;
-                                            }else if(data[code].indexOf(options.city)>-1){
-                                                options.city = isNaN(options.city)?code:options.city;
                                             }
+                                        }
+                                        if(data[code].indexOf(options.city)>-1){
+                                            options.city = isNaN(options.city)?code:options.city;
                                         }
                                     }
                                 }
