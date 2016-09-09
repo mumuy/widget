@@ -36,11 +36,6 @@
             onChange:function(){}     //地区切换时触发,回调函数传入地区数据
         };
         var options = $.extend({}, defaults, parameter);
-        if(options.code){   //如果设置地区编码，则忽略单独设置的信息
-          options.province = options.code - options.code%1e4;
-          options.city = options.code - (options.code%1e4 ? options.code%1e2 : options.code);
-          options.area = options.code%1e2 ? options.code : 0; 
-        }
         return this.each(function() {
             //对象定义
             var _api = {};
@@ -55,6 +50,20 @@
                 jsonpCallback:'jsonp_location',
                 success:function(data){
                     var province,city,area,hasCity;
+                    if(options.code){   //如果设置地区编码，则忽略单独设置的信息
+                        var c = options.code - options.code%1e4;
+                        if(data[c]){
+                            options.province = c;
+                        }
+                        c = options.code - (options.code%1e4 ? options.code%1e2 : options.code);
+                        if(data[c]){
+                            options.city = c;
+                        }
+                        c = options.code%1e2 ? options.code : 0;
+                        if(data[c]){
+                            options.area = c;
+                        }
+                    }
                     var updateData = function(){
                         province = {},city={},area={};
                         hasCity = false;       //判断是非有地级城市
