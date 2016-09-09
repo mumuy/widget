@@ -32,7 +32,7 @@
             city:0,                   //城市,可以为地区编码或者名称
             area:0,                   //地区,可以为地区编码或者名称
             required: true,           //是否必须选一个
-            nodata: '',               //当无数据时的表现形式:'hidden'隐藏,'disabled'禁用,为空不做任何处理
+            nodata: 'hidden',         //当无数据时的表现形式:'hidden'隐藏,'disabled'禁用,为空不做任何处理
             onChange:function(){}     //地区切换时触发,回调函数传入地区数据
         };
         var options = $.extend({}, defaults, parameter);
