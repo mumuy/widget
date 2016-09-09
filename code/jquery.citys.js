@@ -76,8 +76,7 @@
                                     }else{
                                         options.province = code;
                                     }
-                                }
-                                if(data[code].indexOf(options.province)>-1){
+                                }else if(data[code].indexOf(options.province)>-1){
                                     options.province = isNaN(options.province)?code:options.province;
                                 }
                             }else{
@@ -88,8 +87,7 @@
                                         city[code]=data[code];
                                         if(options.required&&!options.city){
                                             options.city = code;
-                                        }
-                                        if(data[code].indexOf(options.city)>-1){
+                                        }else if(data[code].indexOf(options.city)>-1){
                                             options.city = isNaN(options.city)?code:options.city;
                                         }
                                     }else if(p>9000){                   //省直辖县级行政单位
@@ -100,23 +98,19 @@
                                             area[code]=data[code];
                                             if(options.required&&!options.area){
                                                 options.area = code;
-                                            }
-                                            if(data[code].indexOf(options.area)>-1){
+                                            }else if(data[code].indexOf(options.area)>-1){
                                                 options.area = isNaN(options.area)?code:options.area;
                                             }
                                         }
                                     }else{
                                         city[code]=data[code];            //直辖市
-                                        if(options.required){
-                                            if(options.area){
-                                                options.city = options.area;
-                                                options.area = '';
-                                            }
-                                            if(!options.city){
-                                                options.city = code;
-                                            }
+                                        if(options.area){
+                                            options.city = options.area;
+                                            options.area = '';
                                         }
-                                        if(data[code].indexOf(options.city)>-1){
+                                        if(options.required&&!options.city){
+                                            options.city = code;
+                                        }else if(data[code].indexOf(options.city)>-1){
                                             options.city = isNaN(options.city)?code:options.city;
                                         }
                                     }
