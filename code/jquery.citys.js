@@ -61,13 +61,14 @@
                         for(code in data){
                             if(!(code%1e4)){     //获取所有的省级行政单位
                                 province[code]=data[code];
-                                if(!options.province&&options.required){
+                                if(options.required&&!options.province){
                                     if(options.city&&!(options.city%1e4)){  //省未填，并判断为直辖市
                                         options.province = options.city;
                                     }else{
                                         options.province = code;
                                     }
-                                }else if(data[code].indexOf(options.province)>-1){
+                                }
+                                if(data[code].indexOf(options.province)>-1){
                                     options.province = isNaN(options.province)?code:options.province;
                                 }
                             }else{
@@ -76,9 +77,10 @@
                                     if(!(code%100)){
                                         hasCity = true;
                                         city[code]=data[code];
-                                        if(!options.city&&options.required){
+                                        if(options.required&&!options.city){
                                             options.city = code;
-                                        }else if(data[code].indexOf(options.city)>-1){
+                                        }
+                                        if(data[code].indexOf(options.city)>-1){
                                             options.city = isNaN(options.city)?code:options.city;
                                         }
                                     }else if(p>9000){                   //省直辖县级行政单位
@@ -87,22 +89,25 @@
                                         var c = code-options.city;
                                         if(options.city&&c>0&&c<100){     //同个城市的地区
                                             area[code]=data[code];
-                                            if(!options.area&&options.required){
+                                            if(options.required&&!options.area){
                                                 options.area = code;
-                                            }else if(data[code].indexOf(options.area)>-1){
+                                            }
+                                            if(data[code].indexOf(options.area)>-1){
                                                 options.area = isNaN(options.area)?code:options.area;
                                             }
                                         }
                                     }else{
                                         city[code]=data[code];            //直辖市
-                                        if(!options.city&&options.required){
+                                        if(options.required){
                                             if(options.area){
                                                 options.city = options.area;
                                                 options.area = '';
-                                            }else{
+                                            }
+                                            if(!options.city){
                                                 options.city = code;
                                             }
-                                        }else if(data[code].indexOf(options.city)>-1){
+                                        }
+                                        if(data[code].indexOf(options.city)>-1){
                                             options.city = isNaN(options.city)?code:options.city;
                                         }
                                     }
