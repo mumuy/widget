@@ -32,10 +32,10 @@
             </div>
             <div class="code">
                 <p>通过地区编码初始化设置</p>
-                <p>$('#demo').citys({code:350206});</p>
+                <p>$('#demo').citys({nodata:'hidden',code:350206});</p>
             </div>
             <script type="text/javascript">
-                $('#demo').citys({code:350206});
+                $('#demo').citys({nodata:'hidden',code:350206});
             </script>
             <div id="demo1" class="citys">
                 <p>
@@ -217,7 +217,7 @@ $('#demo2').citys({
                         </tr>
                         <tr>
                             <td>required</td>
-                            <td>false</td>
+                            <td>true</td>
                             <td>是否必须选中(是否自动选择地区)</td>
                         </tr>
                         <tr>
