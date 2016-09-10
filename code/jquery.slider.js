@@ -2,7 +2,17 @@
  * jquery.slider.js 1.0
  * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd)) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     var Slider = function(element,options){
         //全局变量
         var _ = this,
@@ -119,7 +129,7 @@
                 _time['start'] = time - _time['execute']; //时间镜像起点
                 slide(options.animate,duration);
             }else{
-                _hander = setTimeout(_.next,options.delay);
+                _hander = setTimeout((options.reverse?_.prev:_.next),options.delay);
             }
         };
         //停止播放
@@ -248,7 +258,7 @@
             options.afterEvent.call(_.element,status);
             if(_auto){
                 _hander&&clearTimeout(_hander);
-                _hander = setTimeout(_.next,options.delay);
+                _hander = setTimeout((options.reverse?_.prev:_.next),options.delay);
             }
         };
         //滚动轴
@@ -536,6 +546,7 @@
             hoverCls: 'hover',          //当鼠标移至相应区域时获得的class
             steps: 1,                   //移动帧数,'auto'自动移动至下个没有显示完整的帧
             direction: 'x',             //轮播的方向
+            reverse: false,             //是否反向自动播放
             inEndEffect: 'switch',      //"switch"表示来回切换,"cycle"表示循环,"none"表示无效果
             hasTriggers: true,          //是否含有导航触发点
             triggerCondition:'*',       //触发点的条件(有时需排除一些节点)
@@ -644,4 +655,4 @@
             return $.easing.bounceout(x, t*2-d, 0, c, d) * .5 + c*.5 + b;
         }
     });
-})(jQuery, window, document);
+}));

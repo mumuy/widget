@@ -2,7 +2,17 @@
  * jquery.dialog.js 1.0
  * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd)) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
 	$.fn.dialog = function(parameter,getApi) {
 		if(typeof parameter == 'function'){ //重载
 			getApi = parameter;
@@ -20,7 +30,8 @@
 			autoOpen:false,
 			isModel:true,
 			buttons:{},
-			beforeOpen:function(){}
+			beforeOpen:function(){},
+			afterClose:function(){}
 		};
 		var options = $.extend({}, defaults, parameter);
 		var $window = $(window);
@@ -40,7 +51,6 @@
 			var _position = isIE6?'absolute':'fixed';
 			var _isOpen = false; //是否是打开状态
 			//结构修改
-			$body.css('height','100%');
 			$this.appendTo($body).empty();
 			if(options.isModel){
 				$overlay = $('<div class="'+options.prefix+'-overlay"></div>').css({
@@ -83,7 +93,7 @@
 			};
 			//对话框关闭
 			_api.close = function(){
-				$container.stop().fadeTo(200, 1);
+				$container.stop().fadeTo(200, 0);
 				if(options.isModel){
 					$overlay.stop().fadeOut(200,function(){
 						$this.hide();
@@ -92,6 +102,7 @@
 					$this.hide();
 				}
 				_isOpen = false;
+				options.afterClose();
 			};
 			//对话框形状自动调整
 			_api.resize = function(){
@@ -121,4 +132,4 @@
 			getApi(_api);
 		});
 	}
-})(jQuery, window, document);
+}));

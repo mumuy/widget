@@ -14,6 +14,7 @@
                 line-height: 28px;
             }
             table a{
+                margin-right: 8px;
                 color: #369;
             }
         </style>
@@ -31,10 +32,10 @@
             </div>
             <div class="code">
                 <p>通过地区编码初始化设置</p>
-                <p>$('#demo').citys({code:350206});</p>
+                <p>$('#demo').citys({nodata:'hidden',code:350206});</p>
             </div>
             <script type="text/javascript">
-                $('#demo').citys({code:350206});
+                $('#demo').citys({nodata:'hidden',code:350206});
             </script>
             <div id="demo1" class="citys">
                 <p>
@@ -170,9 +171,18 @@ $('#demo2').citys({
                             <td>dataUrl</td>
                             <td>[数据库地址]</td>
                             <td>
+<<<<<<< HEAD
                               <p>数据库获取：<a href="http://passer-by.com/data_location/list.json" target="_blank">最新数据（2016年8月）</a></p>
+=======
+                              <p>最新数据库（2016年7月）：<a href="http://passer-by.com/data_location/list.json" target="_blank">JSON格式</a><a href="http://passer-by.com/data_location/list.jsonp" target="_blank">JSONP格式</a></p>
+>>>>>>> origin/gh-pages
                               <p>数据库项目：<a href="https://github.com/mumuy/data_location" target="_blank">中国行政区划（省、市、区、街道）</a></p>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>dataType</td>
+                            <td>'json'</td>
+                            <td>数据库类型:'json'或'jsonp'</td>
                         </tr>
                         <tr>
                             <td>provinceField</td>
@@ -217,7 +227,7 @@ $('#demo2').citys({
                         <tr>
                             <td>nodata</td>
                             <td>'hidden'</td>
-                            <td>当无数据时的表现形式:'hidden'隐藏,'disabled'禁用</td>
+                            <td>当无数据时的表现形式:'hidden'隐藏,'disabled'禁用,为空不做任何处理</td>
                         </tr>
                         <tr>
                             <td>onChange</td>

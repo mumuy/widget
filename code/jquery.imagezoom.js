@@ -2,7 +2,17 @@
  * jquery.imagezoom.js 1.0
  * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd)) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.imagezoom = function(parameter) {
         parameter = parameter || {};
         var defaults = {
@@ -93,4 +103,4 @@
             });
         });
     };
-})(jQuery, window, document);
+}));

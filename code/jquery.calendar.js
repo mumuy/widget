@@ -2,7 +2,17 @@
  * jquery.calendar.js 1.0
  * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd)) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.calendar = function(parameter,getApi) {
         parameter = parameter || {};
         var defaults = {
@@ -247,4 +257,4 @@
             format(_data);
         });
     };
-})(jQuery, window, document);
+}));

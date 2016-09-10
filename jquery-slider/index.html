@@ -106,7 +106,7 @@
 				<p>$(".slider1").slider({inEndEffect:"cycle",steps:2,auto:true,duration:300,delay:5000});</p>
 			</div>
 			<script type="text/javascript">
-				$(".slider1").slider({inEndEffect:"cycle",steps:2,auto:false,duration:5000,duration:300,delay:5000});
+				$(".slider1").slider({inEndEffect:"cycle",steps:2,auto:true,duration:300,delay:5000});
 			</script>
 			<div class="slider style2 slider2">
 				<span class="prev">&lt;</span>
@@ -123,12 +123,12 @@
 			</div>
 			<div class="code">
 				<p>
-					Y轴方向的轮播
+					Y轴方向的轮播,从上往下
 				</p>
-				<p>$(".slider2").slider({direction:"y",activeIndex:2});</p>
+				<p>$(".slider2").slider({direction:"y",reverse:true,auto:true,activeIndex:2});</p>
 			</div>
 			<script type="text/javascript">
-				$(".slider2").slider({direction:"y",activeIndex:2});
+				$(".slider2").slider({direction:"y",reverse:true,auto:true,activeIndex:2});
 			</script>
 			<div class="slider style2 slider3">
 				<div class="container">
@@ -313,6 +313,11 @@
 							<td>direction</td>
 							<td>'x'</td>
 							<td>轮播的方向</td>
+						</tr>
+						<tr>
+							<td>reverse</td>
+							<td>false</td>
+							<td>是否反向自动播放</td>
 						</tr>
 						<tr>
 							<td>inEndEffect</td>

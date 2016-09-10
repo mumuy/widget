@@ -2,7 +2,17 @@
  * jquery.scrollbar.js 1.0
  * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd)) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
 	$.fn.scrollbar = function(parameter,getApi){
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -222,4 +232,4 @@
 			obj.attr("unselectable", "on").attr("onselectstart", "return false;").css("-moz-user-select", "none").css("-webkit-user-select", "none");
 		}
 	}
-})(jQuery, window, document);
+}));
