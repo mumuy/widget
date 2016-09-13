@@ -69,9 +69,10 @@
 				'position':_position,
 				'z-index': '999'
 			}).appendTo($this).append($close).append($title).append($content).append($buttons);
+			var i = 1;
 			for(name in options.buttons){
 				(function(name){
-					$('<button type="button">'+name+'</button>').appendTo($buttons).click(function(){
+					$('<button class="button-'+(i++)+'" type="button">'+name+'</button>').appendTo($buttons).click(function(){
 						options.buttons[name](_api);
 					});
 				})(name);
