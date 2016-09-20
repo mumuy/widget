@@ -50,9 +50,6 @@
                 //私有方法
                 function getRatio(){
                     //数值计算
-                    if(_width>_outer_width||_height>_outer_height){ //在不放大图片失真的情况下，最大清晰度地展示完整图片
-                        _ratio = Math.min(_outer_width/_width,_outer_height/_height);
-                    }
                     if(options.effect=='out'){ //在不放大图片失真的情况下，最大面积地展示图片
                         if(_width>_height){
                             if(_height>_outer_height){
@@ -63,6 +60,10 @@
                                 _ratio = Math.max(_outer_width/_width,_outer_height/_height);
                             }
                         }
+                    }else if(options.effect=='in'){
+                        if(_width>_outer_width||_height>_outer_height){ //在不放大图片失真的情况下，最大清晰度地展示完整图片
+                            _ratio = Math.min(_outer_width/_width,_outer_height/_height);
+                        }                        
                     }
                     zoom(_ratio);
                 };
@@ -71,6 +72,8 @@
                     var obj = {
                         'width':Math.ceil(_width*ratio),
                         'height':Math.ceil(_height*ratio),
+                        'max-width':'none',
+                        'max-height':'none',
                         'margin-left':Math.ceil((_outer_width-_width*ratio)/2),
                         'margin-top':Math.ceil((_outer_height-_height*ratio)/2)
                     };
