@@ -34,7 +34,11 @@
             var _outer_width = parameter.width||$this.width();
             var _outer_height = parameter.height||$this.height();
             $this.find(options.condition).each(function() {
-                var $img = $(this).css('display','block');
+                var $img = $(this).css({
+                    'display':'block',
+                    'max-width':'none',
+                    'max-height':'none'
+                });
                 var temp = new Image();
                 temp.src = this.src;
                 var _width = temp.width,_height = temp.height,_ratio = 1;
@@ -72,8 +76,6 @@
                     var obj = {
                         'width':Math.ceil(_width*ratio),
                         'height':Math.ceil(_height*ratio),
-                        'max-width':'none',
-                        'max-height':'none',
                         'margin-left':Math.ceil((_outer_width-_width*ratio)/2),
                         'margin-top':Math.ceil((_outer_height-_height*ratio)/2)
                     };
