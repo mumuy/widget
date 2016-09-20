@@ -34,19 +34,18 @@
             var _outer_width = parameter.width||$this.width();
             var _outer_height = parameter.height||$this.height();
             $this.find(options.condition).each(function() {
-                var $img = $(this);
-                $img.css('display','block').removeAttr('width').removeAttr('height');
-                var  _width = this.width;
-                var  _height =this.height;
-                var _ratio = 1;
-                if(this.complete&&_width){ //防止图片未加载时就开始计算
+                var $img = $(this).css('display','block');
+                var temp = new Image();
+                temp.src = this.src;
+                var _width = temp.width,_height = temp.height,_ratio = 1;
+                if(temp.complete&&_width){ //防止图片未加载时就开始计算
                     getRatio();
-                }else{
-                    this.onload = function(){
-                        _width = this.width;
-                        _height = this.height;
+                }else{     
+                    temp.onload = function(){
+                        _width = temp.width;
+                        _height = temp.height;
                         getRatio();
-                    }
+                    }  
                 }
                 //私有方法
                 function getRatio(){
@@ -60,7 +59,7 @@
                             if(_width>_outer_width){
                                 _ratio = Math.max(_outer_width/_width,_outer_height/_height);
                             }
-                        }
+                        }               
                     }else if(options.effect=='in'){ //在不放大图片失真的情况下，最大清晰度地展示完整图片
                         if(_width>_outer_width||_height>_outer_height){
                             _ratio = Math.min(_outer_width/_width,_outer_height/_height);
