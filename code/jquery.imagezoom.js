@@ -1,5 +1,5 @@
 /**
- * jquery.imagezoom.js 1.0
+ * jquery.imagezoom.js 1.1
  * http://jquerywidget.com
  */
 ;(function (factory) {
@@ -20,6 +20,7 @@
             height: null,       //图片外层宽度
             resizeable: true,   //窗口大小改变时是否重新调整图片位置
             effect:'out',       //图片处理
+            data:'original',    //图片源（防止惰性加载插件）
             condition: 'img',   //默认筛选条件
             hoverEvent:false,   //鼠标悬浮时是否放大
             hoverRatio:1.2,     //鼠标悬浮时放大比例
@@ -40,7 +41,7 @@
                     'max-height':'none'
                 });
                 var temp = new Image();
-                temp.src = this.src;
+                temp.src = $img.data(options.data)||$img.attr('src');
                 var _width = temp.width,_height = temp.height,_ratio = 1;
                 if(temp.complete&&_width){ //防止图片未加载时就开始计算
                     getRatio();
