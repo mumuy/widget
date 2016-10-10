@@ -151,7 +151,7 @@
                             this.area();
                         },
                         area:function(){
-                            $area.empty();
+                            $area.empty().css('display',!hasCity?'none':'');
                             if(!options.required){
                                 $area.append('<option value=""> - 请选择 - </option>');
                             }
