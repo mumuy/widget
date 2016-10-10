@@ -152,19 +152,24 @@
                         },
                         area:function(){
                             $area.empty();
-                            if(!options.required){
-                                $area.append('<option value=""> - 请选择 - </option>');
-                            }
-                            if(options.nodata=='disabled'){
-                                $area.prop('disabled',$.isEmptyObject(area));
-                            }else if(options.nodata=='hidden'){
-                                $area.css('display',$.isEmptyObject(area)?'none':'');
-                            }
-                            for(i in area){
-                                $area.append('<option value="'+i+'">'+area[i]+'</option>');
-                            }
-                            if(options.area){
-                              $area.val(options.area);
+                            if(!hasCity){
+                                $area.css('display','none');
+                            }else{
+                                $area.css('display','');
+                                if(!options.required){
+                                    $area.append('<option value=""> - 请选择 - </option>');
+                                }
+                                if(options.nodata=='disabled'){
+                                    $area.prop('disabled',$.isEmptyObject(area));
+                                }else if(options.nodata=='hidden'){
+                                    $area.css('display',$.isEmptyObject(area)?'none':'');
+                                }
+                                for(i in area){
+                                    $area.append('<option value="'+i+'">'+area[i]+'</option>');
+                                }
+                                if(options.area){
+                                  $area.val(options.area);
+                                }
                             }
                         }
                     };
