@@ -3,7 +3,7 @@
  * http://jquerywidget.com
  */
 ;(function (factory) {
-    if (typeof define === "function" && (define.amd || define.cmd)) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
         // AMD或CMD
         define([ "jquery" ], function(){
             factory(jQuery);
