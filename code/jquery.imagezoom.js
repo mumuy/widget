@@ -22,6 +22,7 @@
             effect:'out',       //图片处理
             data:'original',    //图片源（防止惰性加载插件）
             condition: 'img',   //默认筛选条件
+            borderWidth: 0,     //图片边框宽度
             hoverEvent:false,   //鼠标悬浮时是否放大
             hoverRatio:1.2,     //鼠标悬浮时放大比例
             duration:300        //鼠标悬浮时放大动画时长
@@ -75,8 +76,8 @@
                 //缩放动画
                 function zoom(ratio,isAnimate){ //ratio：放大比例，isAnamate：是否动画（默认不动画）
                     var obj = {
-                        'width':Math.ceil(_width*ratio),
-                        'height':Math.ceil(_height*ratio),
+                        'width':Math.ceil(_width*ratio)-options.borderWidth*2,
+                        'height':Math.ceil(_height*ratio)-options.borderWidth*2,
                         'margin-left':Math.ceil((_outer_width-_width*ratio)/2),
                         'margin-top':Math.ceil((_outer_height-_height*ratio)/2)
                     };
