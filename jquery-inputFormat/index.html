@@ -17,13 +17,22 @@
 	<body>
 		<div class="main">
 			<div class="input">
-				货币：<input type="text" name="currency" placeholder="100,000.00">
+				<p>货币：<input type="text" name="currency" placeholder="100,000.00"></p>
 			</div>
 			<div class="code">
-				$('input[type="text"]:eq(0)').inputFormat();
+				$('input[name="currency"]').inputFormat();
 			</div>
 			<script>
-				$('input[type="text"]:eq(0)').inputFormat();
+				$('input[name="currency"]').inputFormat();
+			</script>
+			<div class="input">
+				<p>手机号：<input type="text" name="mobile" placeholder="188 8888 8888"></p>
+			</div>
+			<div class="code">
+				$('input[name="mobile"]').inputFormat({type:'mobile'});
+			</div>
+			<script>
+				$('input[name="mobile"]').inputFormat({type:'mobile'});
 			</script>
 			<div class="example">
 				<div class="call">
@@ -43,7 +52,7 @@
 						<tr>
 							<td>type</td>
 							<td>'currency'</td>
-							<td>格式化数据类型</td>
+							<td>格式化数据类型:'currency'货币,'mobile'手机号</td>
 						</tr>
 						<tr>
 							<td>tofixed</td>

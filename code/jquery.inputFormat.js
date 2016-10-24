@@ -44,6 +44,15 @@
                         result = str.replace(/(\d)*(\.\d*)?/,number+'$2');  //和小数部分拼接
                     }
                     return result;
+                },
+                mobile:function(str){
+                    var temp = (str.replace(/\s/g,'')+'xxxxxxxxxxx').substr(0,11);
+                    var result = $.trim(temp.replace(/x/g,'').replace(/^(\d{7})/,'$1 ').replace(/^(\d{3})/,'$1 '));
+                    if(temp.match(/^1[3|4|5|7|8|x][0-9x]{9}/)){
+                        return result;
+                    }else{
+                        return result.substr(0,result.length-1);
+                    }
                 }
             };
             _api.format = function(value){
