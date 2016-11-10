@@ -15,10 +15,13 @@ a{
 
 .header{
 	width: 960px;
-	padding-top: 20px;
+	padding-top: 15px;
 	margin: 0 auto;
 	line-height: 30px;
 	text-align: right;
+}
+.header a{
+	margin: 0 5px;
 }
 .main{
 	width:960px;
