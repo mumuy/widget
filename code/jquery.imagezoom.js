@@ -1,8 +1,18 @@
 /**
- * jquery.imagezoom.js 1.0
- * http://passer-by.com
+ * jquery.imagezoom.js 1.1
+ * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.imagezoom = function(parameter) {
         parameter = parameter || {};
         var defaults = {
@@ -10,7 +20,9 @@
             height: null,       //图片外层宽度
             resizeable: true,   //窗口大小改变时是否重新调整图片位置
             effect:'out',       //图片处理
+            data:'original',    //图片源（防止惰性加载插件）
             condition: 'img',   //默认筛选条件
+            borderWidth: 0,     //图片边框宽度
             hoverEvent:false,   //鼠标悬浮时是否放大
             hoverRatio:1.2,     //鼠标悬浮时放大比例
             duration:300        //鼠标悬浮时放大动画时长
@@ -24,17 +36,20 @@
             var _outer_width = parameter.width||$this.width();
             var _outer_height = parameter.height||$this.height();
             $this.find(options.condition).each(function() {
-                var $img = $(this);
-                $img.css('display','block').removeAttr('width').removeAttr('height');
-                var  _width = this.width;
-                var  _height =this.height;
-                var _ratio = 1;
-                if(this.complete&&_width){ //防止图片未加载时就开始计算
+                var $img = $(this).css({
+                    'display':'block',
+                    'max-width':'none',
+                    'max-height':'none'
+                });
+                var temp = new Image();
+                temp.src = $img.data(options.data)||$img.attr('src');
+                var _width = temp.width,_height = temp.height,_ratio = 1;
+                if(temp.complete&&_width){ //防止图片未加载时就开始计算
                     getRatio();
                 }else{     
-                    this.onload = function(){
-                        _width = this.width;
-                        _height = this.height;
+                    temp.onload = function(){
+                        _width = temp.width;
+                        _height = temp.height;
                         getRatio();
                     }  
                 }
@@ -50,19 +65,19 @@
                             if(_width>_outer_width){
                                 _ratio = Math.max(_outer_width/_width,_outer_height/_height);
                             }
-                        }               
-                    }else if(options.effect=='in'){ //在不放大图片失真的情况下，最大清晰度地展示完整图片
-                        if(_width>_outer_width||_height>_outer_height){
+                        }
+                    }else if(options.effect=='in'){
+                        if(_width>_outer_width||_height>_outer_height){ //在不放大图片失真的情况下，最大清晰度地展示完整图片
                             _ratio = Math.min(_outer_width/_width,_outer_height/_height);
-                        } 
+                        }                        
                     }
                     zoom(_ratio);
                 };
                 //缩放动画
                 function zoom(ratio,isAnimate){ //ratio：放大比例，isAnamate：是否动画（默认不动画）
                     var obj = {
-                        'width':Math.ceil(_width*ratio),
-                        'height':Math.ceil(_height*ratio),
+                        'width':Math.ceil(_width*ratio)-options.borderWidth*2,
+                        'height':Math.ceil(_height*ratio)-options.borderWidth*2,
                         'margin-left':Math.ceil((_outer_width-_width*ratio)/2),
                         'margin-top':Math.ceil((_outer_height-_height*ratio)/2)
                     };
@@ -93,4 +108,4 @@
             });
         });
     };
-})(jQuery, window, document);
+}));

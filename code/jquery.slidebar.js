@@ -1,14 +1,24 @@
 /**
  * jquery.sliderbar.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.slidebar = function(parameter) {
         parameter = parameter || {};
         var defaults = {
             closeBtnCls:"closebtn",         //关闭滑块触发点的class
             openBtnCls:"openbtn",           //打开滑块触发点的class
-            scrollEvent:true,               //是否在滚动过程中打开        
+            scrollEvent:true,               //是否在滚动过程中打开
             scrolltop:1200,                 //打开前滚动的距离
             duration: 500,                  //打开过程动画时间
             expires: 24,                    //cookie周期
@@ -17,7 +27,7 @@
             cookiePath:"/",                 //cookie路径
             //对外接口
             afterClose:function(){},
-            afterOpen:function(){} 
+            afterOpen:function(){}
         };
         var options = $.extend({}, defaults, parameter);
         var $window = $(window);
@@ -61,9 +71,9 @@
             if(isIE6){
                 $window.scroll(function(){
                     var scrolltop = $document.scrollTop();
-                    $this.css({"position":"absolute","top":scrolltop +_window_height-_height-parseInt(_bottom)+"px"}); 
+                    $this.css({"position":"absolute","top":scrolltop +_window_height-_height-parseInt(_bottom)+"px"});
                 });
-            }                    
+            }
             //滚轴滚动
             function scroll(){
                 if(!isClose){
@@ -79,14 +89,14 @@
             function hide(){
                 if(isShow){
                     $this.animate({'width':'0px'},options.duration);
-                    isShow = false;                    
+                    isShow = false;
                 }
             }
             //层显示
             function show(){
                 if(!isShow){
                     $this.animate({'width':_width},options.duration);
-                    isShow = true;                      
+                    isShow = true;
                 }
             }
             //层关闭
@@ -116,10 +126,10 @@
         for(var i = 0;i < arrStr.length;i ++){
             var temp = arrStr[i].split("=");
             if(temp[0] == objName) return unescape(temp[1]);
-        } 
+        }
     }
     //添加cookie
-    function addCookie(objName,objValue,objHours,objDomain,objPath){ 
+    function addCookie(objName,objValue,objHours,objDomain,objPath){
         var str = objName + "=" + escape(objValue);
         if(objHours > 0){  //为时不设定过期时间，浏览器关闭时cookie自动消失
             var date = new Date();
@@ -129,4 +139,4 @@
         }
         document.cookie = str;
     }
-})(jQuery, window, document);
+}));

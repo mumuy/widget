@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>轮播-silder</title>
-		<link rel="shortcut icon" href="/public/img/favicon.png">
-		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
-		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<link rel="shortcut icon" href="/public/image/favicon.png">
+		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
 		<style type="text/css">
 			.slider{
 				position: relative;
@@ -78,10 +78,14 @@
 				background:#fff;
 			}
 		</style>
-		<script type="text/javascript" src="../public/jquery.min.js"></script>
-		<script type="text/javascript" src="../code/jquery.slider.js"></script>
+		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
+		<script type="text/javascript" src="/code/jquery.slider.js"></script>
 	</head>
 	<body>
+		<div class="header">
+            <a href="https://github.com/mumuy/widget" target="_blank">项目地址</a>
+            <a href="/">返回首页</a>
+        </div>
 		<div class="main">
 			<div class="slider style1 slider1">
 				<span class="prev">&lt;</span>
@@ -106,7 +110,7 @@
 				<p>$(".slider1").slider({inEndEffect:"cycle",steps:2,auto:true,duration:300,delay:5000});</p>
 			</div>
 			<script type="text/javascript">
-				$(".slider1").slider({inEndEffect:"cycle",steps:2,auto:false,duration:5000,duration:300,delay:5000});
+				$(".slider1").slider({inEndEffect:"cycle",steps:2,auto:true,duration:300,delay:5000});
 			</script>
 			<div class="slider style2 slider2">
 				<span class="prev">&lt;</span>
@@ -123,12 +127,12 @@
 			</div>
 			<div class="code">
 				<p>
-					Y轴方向的轮播
+					Y轴方向的轮播,从上往下
 				</p>
-				<p>$(".slider2").slider({direction:"y",activeIndex:2});</p>
+				<p>$(".slider2").slider({direction:"y",reverse:true,auto:true,activeIndex:2});</p>
 			</div>
 			<script type="text/javascript">
-				$(".slider2").slider({direction:"y",activeIndex:2});
+				$(".slider2").slider({direction:"y",reverse:true,auto:true,activeIndex:2});
 			</script>
 			<div class="slider style2 slider3">
 				<div class="container">
@@ -315,6 +319,11 @@
 							<td>轮播的方向</td>
 						</tr>
 						<tr>
+							<td>reverse</td>
+							<td>false</td>
+							<td>是否反向自动播放</td>
+						</tr>
+						<tr>
 							<td>inEndEffect</td>
 							<td>'switch'</td>
 							<td>播放到最后一帧时的效果："switch"表示来回切换,"cycle"表示循环,"none"表示无效果</td>
@@ -456,12 +465,19 @@
 							<td>获取当前帧</td>
 						</tr>
 						<tr>
+							<td>getSize()</td>
+							<td>获取帧数</td>
+						</tr>
+						<tr>
 							<td>getOptions()</td>
 							<td>获取组件当前参数值</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+		</div>
+		<div style="display: none;">
+			<script src="http://s11.cnzz.com/z_stat.php?id=1260218562&web_id=1260218562"></script>
 		</div>
 	</body>
 <html>

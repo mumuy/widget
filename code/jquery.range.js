@@ -1,11 +1,21 @@
 /**
  * jquery.range.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.range = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
-        	getApi = parameter; 
+        	getApi = parameter;
             parameter = {};
         }else{
             parameter = parameter || {};
@@ -84,7 +94,7 @@
 					var move = e.changedTouches[0].pageX - _offset;
 					if(_cursor_position>0&&_cursor_position<_handle_width){   //鼠标在手柄中位置，对值的修正
 						move -=_cursor_position;
-					}							
+					}
 					move = Math.max(0,move);
 					move = Math.min(move,_width);
 					$value.css({
@@ -95,13 +105,13 @@
 					});
 					_value = Math.round(move/(_length*options.steps))*options.steps+options.min;
 					options.onSlide({event:e,value:_value,obj:$this});
-				}  
+				}
 			};
 			var touchEnd = function(e){
 				if(isMouseDown){
 					isMouseDown = false;
 					setSelectable($body,true);
-					_api.setValue();			
+					_api.setValue();
 					options.onChange({event:e,value:_value,obj:$this});
 				}
 			}
@@ -125,11 +135,11 @@
 						var move = e.pageX - _offset;
 						if(_cursor_position>0&&_cursor_position<_handle_width){   //鼠标在手柄中位置，对值的修正
 							move -=_cursor_position;
-						}	
+						}
 						_value = Math.round(move/(_length*options.steps))*options.steps+options.min;
 						_api.setValue();
 						options.onSlide({event:e,value:_value,obj:$this});
-						options.onChange({event:e,value:_value,obj:$this});					
+						options.onChange({event:e,value:_value,obj:$this});
 					}
 				}
 			});
@@ -139,7 +149,7 @@
 						var move = e.pageX - _offset;
 						if(_cursor_position>0&&_cursor_position<_handle_width){   //鼠标在手柄中位置，对值的修正
 							move -=_cursor_position;
-						}							
+						}
 						move = Math.max(0,move);
 						move = Math.min(move,_width);
 						$value.css({
@@ -156,7 +166,7 @@
 					if(isMouseDown){
 						isMouseDown = false;
 						setSelectable($body,true);
-						_api.setValue();		
+						_api.setValue();
 						options.onChange({event:e,value:_value,obj:$this});
 					}
 				}
@@ -174,20 +184,20 @@
 				window.event.cancelBubble = true;
 			}
 		}
-		function stopDefault(e) { 
+		function stopDefault(e) {
 			if ( e && e.preventDefault ){
 				e.preventDefault();
 			}else{
-				 window.event.returnValue = false; 
+				 window.event.returnValue = false;
 			}
-			return false; 
+			return false;
 		}
-		function setSelectable(obj, enabled) { 
-			if(enabled) { 
-				obj.removeAttr("unselectable").removeAttr("onselectstart").css("user-select", ""); 
-			} else { 
-				obj.attr("unselectable", "on").attr("onselectstart", "return false;").css("user-select", "none"); 
-			} 
-		} 
+		function setSelectable(obj, enabled) {
+			if(enabled) {
+				obj.removeAttr("unselectable").removeAttr("onselectstart").css("user-select", "");
+			} else {
+				obj.attr("unselectable", "on").attr("onselectstart", "return false;").css("user-select", "none");
+			}
+		}
     };
-})(jQuery, window, document);
+}));

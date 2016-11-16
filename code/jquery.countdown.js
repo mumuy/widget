@@ -1,8 +1,18 @@
 /**
  * jquery.countdown.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
 	$.fn.countdown = function (parameter,getApi) {
 		if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -69,7 +79,7 @@
 			_api.reset = function(){
 				if(isTimestamp){
 					_start = options.starttime?getTimestamp(options.starttime):(+new Date());
-					_end = getTimestamp(options.endtime);							
+					_end = getTimestamp(options.endtime);
 				}else{
 					_start = options.starttime*1e3;
 					_end = options.endtime*1e3;
@@ -105,24 +115,24 @@
 		}
 		function timeFormat(fmt,timestamp){
 			var date = new Date(timestamp);
-			var o = {   
-				"M+" : date.getMonth()+1,                 //月份   
-				"d+" : date.getDate(),                    //日   
-				"h+" : date.getHours(),                   //小时   
-				"m+" : date.getMinutes(),                 //分   
-				"s+" : date.getSeconds(),                 //秒   
-				"q+" : Math.floor((date.getMonth()+3)/3), //季度   
-				"S"  : date.getMilliseconds()             //毫秒   
-			};   
+			var o = {
+				"M+" : date.getMonth()+1,                 //月份
+				"d+" : date.getDate(),                    //日
+				"h+" : date.getHours(),                   //小时
+				"m+" : date.getMinutes(),                 //分
+				"s+" : date.getSeconds(),                 //秒
+				"q+" : Math.floor((date.getMonth()+3)/3), //季度
+				"S"  : date.getMilliseconds()             //毫秒
+			};
 			if(/(y+)/.test(fmt)){
 				fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));
 			}
 			for(var k in o){
 				if(new RegExp("("+ k +")").test(fmt)){
-					fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));  
+					fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
 				}
 			}
 			return fmt;
 		}
 	}
-})(jQuery, window, document);
+}));

@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>标签页-tabs</title>
-		<link rel="shortcut icon" href="/public/img/favicon.png">
-		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
-		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<link rel="shortcut icon" href="/public/image/favicon.png">
+		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
 		<style type="text/css">
 			a{
 				color:#333;
@@ -96,10 +96,14 @@
 				right:0;
 			}
 		</style>
-		<script type="text/javascript" src="../public/jquery.min.js"></script>
-		<script type="text/javascript" src="../code/jquery.tabs.js"></script>
+		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
+		<script type="text/javascript" src="/code/jquery.tabs.js"></script>
 	</head>
 	<body>
+		<div class="header">
+            <a href="https://github.com/mumuy/widget" target="_blank">项目地址</a>
+            <a href="/">返回首页</a>
+        </div>
 		<div class="main">
 			<div class="tabs tabs1">
 				<ul class="nav">
@@ -255,7 +259,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>select(value)</td>
+							<td>setIndex(value)</td>
 							<td>切换标签页</td>
 						</tr>
 						<tr>
@@ -266,9 +270,20 @@
 							<td>start()</td>
 							<td>开始自动播放</td>
 						</tr>
+						<tr>
+							<td>getIndex()</td>
+							<td>获取当前帧</td>
+						</tr>
+						<tr>
+							<td>getSize()</td>
+							<td>获取帧数</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
+		</div>
+		<div style="display: none;">
+			<script src="http://s11.cnzz.com/z_stat.php?id=1260218562&web_id=1260218562"></script>
 		</div>
 	</body>
 <html>

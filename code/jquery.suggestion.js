@@ -1,8 +1,18 @@
 /**
  * jquery.suggestion.js 1.2
- * http://passer-by.com
+ * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.suggestion = function(parameter) {
         parameter = parameter || {};
         var defaults = {
@@ -96,7 +106,7 @@
                                 $items.removeClass(options.activeCls);
                                 $this.val(_text);
                             }
-                            e.preventDefault();                                    
+                            e.preventDefault();
                         }
                     break;
                     case 40:
@@ -156,29 +166,29 @@
                                 options.parameter[options.FieldName] = _text = value;
                                 if(options.beforeSend(options.parameter)!=false){
                                     $.ajax({
-                                        type:'get',  
-                                        async: false,  
+                                        type:'get',
+                                        async: false,
                                         url :options.url,
                                         data:options.parameter,
                                         dataType:options.dataFormat,
                                         jsonp:options.jsonp,
                                         success:success
-                                    });                                    
+                                    });
                                 }
                             }else{
                                 if(hasData){
                                     $suggestion.show();
                                 }
-                            }                            
+                            }
                         }
                     }
-                },'500');  
+                },'500');
             }
-            //隐藏表单项                 
+            //隐藏表单项
             var hide = function(){
                 isShow = false;
                 _hander&&clearTimeout(_hander);
-                $suggestion.hide(); 
+                $suggestion.hide();
             };
             //事件绑定
             $this.on({
@@ -199,7 +209,7 @@
             $document.on('click',hide);
             $window.resize(function(){
                 _height = $this.outerHeight(true);
-                _width = $this.outerWidth(true); 
+                _width = $this.outerWidth(true);
                 _top = $this.position().top;
                 _left = $this.position().left;
                 $suggestion.css({
@@ -210,4 +220,4 @@
             });
         });
     };
-})(jQuery, window, document);
+}));

@@ -1,6 +1,6 @@
 /**
  * zepto.slider.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
 ;(function($, window, document, undefined) {
     $.fn.slider = function(parameter,getApi) {
@@ -187,6 +187,14 @@
             _api.setIndex = function(index,isAnimate){
                 _index = index%_size;
                 slide(isAnimate);
+            };
+            //获取当前帧
+            _api.getIndex = function(){
+                return _index;
+            };
+            //获取帧数
+            _api.getSize = function(){
+                return _size;
             };
             //窗口变化
             _api.resize = function(){

@@ -1,8 +1,18 @@
 /**
  * jquery.dialog.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
 	$.fn.dialog = function(parameter,getApi) {
 		if(typeof parameter == 'function'){ //重载
 			getApi = parameter;
@@ -15,12 +25,13 @@
 			prefix:'widget',
 			content:'',
 			title:'',
-			backgroundColor:'#000',       
+			backgroundColor:'#000',
 			opacity: 0.5,
 			autoOpen:false,
 			isModel:true,
 			buttons:{},
-			beforeOpen:function(){}
+			beforeOpen:function(){},
+			afterClose:function(){}
 		};
 		var options = $.extend({}, defaults, parameter);
 		var $window = $(window);
@@ -40,7 +51,6 @@
 			var _position = isIE6?'absolute':'fixed';
 			var _isOpen = false; //是否是打开状态
 			//结构修改
-			$body.css('height','100%');
 			$this.appendTo($body).empty();
 			if(options.isModel){
 				$overlay = $('<div class="'+options.prefix+'-overlay"></div>').css({
@@ -52,18 +62,19 @@
 					'width': '100%',
 					'background': options.backgroundColor,
 					'display': 'none'
-				}).appendTo($this);                
+				}).appendTo($this);
 			}
 			$container.css({
 				'display':'none',
 				'position':_position,
 				'z-index': '999'
 			}).appendTo($this).append($close).append($title).append($content).append($buttons);
+			var i = 1;
 			for(name in options.buttons){
 				(function(name){
-					$('<button type="button">'+name+'</button>').appendTo($buttons).click(function(){
+					$('<button class="button-'+(i++)+'" type="button">'+name+'</button>').appendTo($buttons).click(function(){
 						options.buttons[name](_api);
-					});                            
+					});
 				})(name);
 			}
 			//对话框开启
@@ -74,7 +85,7 @@
 					if(options.isModel){
 						$overlay.css({
 							'opacity': 0
-						}).stop().fadeTo(200,options.opacity);                    
+						}).stop().fadeTo(200,options.opacity);
 					}
 					$container.css("opacity",0).fadeTo(200, 1);
 					_api.resize();
@@ -83,7 +94,7 @@
 			};
 			//对话框关闭
 			_api.close = function(){
-				$container.stop().fadeTo(200, 1);
+				$container.stop().fadeTo(200, 0);
 				if(options.isModel){
 					$overlay.stop().fadeOut(200,function(){
 						$this.hide();
@@ -92,13 +103,14 @@
 					$this.hide();
 				}
 				_isOpen = false;
+				options.afterClose();
 			};
 			//对话框形状自动调整
 			_api.resize = function(){
 				$container.css({
 					"left": ($window.width()-$container.outerWidth())/2 + "px",
 					"top": ($window.height()-$container.outerHeight())/2 + "px"
-				});    
+				});
 			};
 			//设置对话框内容
 			_api.setContent = function(html){
@@ -121,4 +133,4 @@
 			getApi(_api);
 		});
 	}
-})(jQuery, window, document);
+}));

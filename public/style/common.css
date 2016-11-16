@@ -1,5 +1,27 @@
+html{
+	height:100%;
+}
 body{
-	font-family: "Microsoft Yahei",Arial,Helvetica;
+	position: relative;
+	min-height:100%;
+	font-size:14px;
+	font-family: Tahoma, Verdana,"Microsoft Yahei";
+	color:#333;
+}
+a{
+	text-decoration: none;
+	color:#333;
+}
+
+.header{
+	width: 960px;
+	padding-top: 15px;
+	margin: 0 auto;
+	line-height: 30px;
+	text-align: right;
+}
+.header a{
+	margin: 0 5px;
 }
 .main{
 	width:960px;

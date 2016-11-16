@@ -1,8 +1,18 @@
 /**
  * jquery.popup.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.popup = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -63,7 +73,7 @@
                 'show':function(){
                     if(!isShow){
                         _hander&&clearTimeout(_hander);
-                        _hander = setTimeout(function(){    
+                        _hander = setTimeout(function(){
                             $node.show();
                         },100);
                         isShow = true;
@@ -72,7 +82,7 @@
                 'hide':function(){
                     if(isShow){
                         _hander&&clearTimeout(_hander);
-                        _hander = setTimeout(function(){    
+                        _hander = setTimeout(function(){
                             $node.hide();
                         },100);
                         isShow = false;
@@ -96,4 +106,4 @@
             }
         });
     };
-})(jQuery, window, document);
+}));

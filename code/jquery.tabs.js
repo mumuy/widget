@@ -1,8 +1,18 @@
 /**
  * jquery.tabs.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.tabs = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -25,9 +35,9 @@
             activeIndex: 0,             //默认选中导航项的索引
             auto: false,                //是否自动播放
             delay: 3000,                //自动播放时停顿的时间间隔
-            beforeEvent: function() {   //切换前执行,返回flase时不移动;传入一个对象,包含：target当前导航项对象,tabs导航列表对象,panels内容列表对象,index当前导航项索引,event事件对象;
+            beforeEvent: function() {   //切换前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象
             },
-            afterEvent: function() {//切换后执行;传入一个对象,包含：target当前导航项对象,tabs导航列表对象,panels内容列表对象,index当前导航项索引,event事件对象;
+            afterEvent: function() {    //切换后执行;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象
             }
         };
         var options = $.extend({}, defaults, parameter);
@@ -59,7 +69,7 @@
                     event:e
                 };
                 if(options.beforeEvent(status)!=false){
-                    _api.select(i);
+                    _api.setIndex(i);
                     options.afterEvent(status);
                 }
             };
@@ -73,22 +83,22 @@
                     event:e
                 };
                 if(options.beforeEvent(status)!=false){
-                    _api.select(i);
+                    _api.setIndex(i);
                     options.afterEvent(status);
                 }
             };
             //停止播放
             _api.stop = function(){
                 _hander&&clearInterval(_hander);
-            };            
+            };
             //播放
             _api.start = function(){
                 _api.stop();
                 _hander = setInterval(next,options.delay);
             };
             //选择某标签
-            _api.select = function(index){
-                $triggers.removeClass(options.activeCls).eq(index).addClass(options.activeCls); 
+            _api.setIndex = function(index){
+                $triggers.removeClass(options.activeCls).eq(index).addClass(options.activeCls);
                 switch(options.effect){
                     case 'fade':
                         if(_index!=index){
@@ -112,10 +122,18 @@
                         }
                         break;
                     default:
-                        $panels.hide().eq(index).show();   
-                        _index = index;     
+                        $panels.hide().eq(index).show();
+                        _index = index;
                 }
             }
+            //获取当前帧
+            _api.getIndex = function(){
+                return _index;
+            };
+            //获取帧数
+            _api.getSize = function(){
+                return _size;
+            };
             //事件绑定-导航
             $this.find('.'+options.prevBtnCls).click(prev);
             $this.find('.'+options.nextBtnCls).click(next);
@@ -128,12 +146,12 @@
                     event:e
                 };
                 if(options.beforeEvent(status)!=false){
-                    _api.select(i);
+                    _api.setIndex(i);
                     options.afterEvent(status);
                 }
             });
             //初始化
-            _api.select(_index);
+            _api.setIndex(_index);
             //是否自动播放
             if (options.auto) {
                 $this.hover(_api.stop, _api.start);
@@ -142,4 +160,4 @@
             getApi(_api);
         });
     };
-})(jQuery, window, document);
+}));

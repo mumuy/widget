@@ -3,27 +3,40 @@
 	<head>
 		<meta charset="utf-8">
 		<title>格式化输入框 - inputFormat</title>
-		<link rel="shortcut icon" href="/public/img/favicon.png">
-		<link rel="stylesheet" type="text/css" href="../public/cssreset-min.css">
-		<link rel="stylesheet" type="text/css" href="../public/common.css">
+		<link rel="shortcut icon" href="/public/image/favicon.png">
+		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
 		<style type="text/css">
 			.input{
 				margin-bottom: 25px;
 			}
 		</style>
-		<script type="text/javascript" src="../public/jquery.min.js"></script>
-		<script type="text/javascript" src="../code/jquery.inputFormat.js"></script>
+		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
+		<script type="text/javascript" src="/code/jquery.inputFormat.js"></script>
 	</head>
 	<body>
+		<div class="header">
+            <a href="https://github.com/mumuy/widget" target="_blank">项目地址</a>
+            <a href="/">返回首页</a>
+        </div>
 		<div class="main">
 			<div class="input">
-				货币：<input type="text" name="currency" placeholder="100,000.00">
+				<p>货币：<input type="text" name="currency" placeholder="100,000.00"></p>
 			</div>
 			<div class="code">
-				$('input[type="text"]:eq(0)').inputFormat();
+				$('input[name="currency"]').inputFormat();
 			</div>
 			<script>
-				$('input[type="text"]:eq(0)').inputFormat();
+				$('input[name="currency"]').inputFormat();
+			</script>
+			<div class="input">
+				<p>手机号：<input type="text" name="mobile" placeholder="188 8888 8888"></p>
+			</div>
+			<div class="code">
+				$('input[name="mobile"]').inputFormat({type:'mobile'});
+			</div>
+			<script>
+				$('input[name="mobile"]').inputFormat({type:'mobile'});
 			</script>
 			<div class="example">
 				<div class="call">
@@ -43,7 +56,7 @@
 						<tr>
 							<td>type</td>
 							<td>'currency'</td>
-							<td>格式化数据类型</td>
+							<td>格式化数据类型:'currency'货币,'mobile'手机号</td>
 						</tr>
 						<tr>
 							<td>tofixed</td>
@@ -72,6 +85,9 @@
 					</tbody>
 				</table>
 			</div>
+		</div>
+		<div style="display: none;">
+			<script src="http://s11.cnzz.com/z_stat.php?id=1260218562&web_id=1260218562"></script>
 		</div>
 	</body>
 <html>

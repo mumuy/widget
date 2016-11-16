@@ -1,11 +1,21 @@
 /**
  * jquery.inputFormat.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.inputFormat = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
-            getApi = parameter; 
+            getApi = parameter;
             parameter = {};
         }else{
             parameter = parameter || {};
@@ -34,6 +44,15 @@
                         result = str.replace(/(\d)*(\.\d*)?/,number+'$2');  //和小数部分拼接
                     }
                     return result;
+                },
+                mobile:function(str){
+                    var temp = (str.replace(/\s/g,'')+'xxxxxxxxxxx').substr(0,11);
+                    var result = $.trim(temp.replace(/x/g,'').replace(/^(\d{7})/,'$1 ').replace(/^(\d{3})/,'$1 '));
+                    if(temp.match(/^1[3|4|5|7|8|x][0-9x]{9}/)){
+                        return result;
+                    }else{
+                        return result.substr(0,result.length-1);
+                    }
                 }
             };
             _api.format = function(value){
@@ -55,4 +74,4 @@
             getApi(_api);
         });
     };
-})(jQuery, window, document);
+}));

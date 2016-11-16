@@ -1,8 +1,18 @@
 /**
  * jquery.slider.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     var Slider = function(element,options){
         //全局变量
         var _ = this,
@@ -18,7 +28,7 @@
             _hander,                //自动播放的函数句柄
             _time = {},             //记录动画断点
             _auto,                  //是否自动播放
-            _param;                 //移动控制参数,方向为x控制left,方向为y控制top        
+            _param;                 //移动控制参数,方向为x控制left,方向为y控制top
         //对象定义
         var $this = $(element),
             $list1 = $this.find("." + options.contentCls),
@@ -119,7 +129,7 @@
                 _time['start'] = time - _time['execute']; //时间镜像起点
                 slide(options.animate,duration);
             }else{
-                _hander = setTimeout(_.next,options.delay);
+                _hander = setTimeout((options.reverse?_.prev:_.next),options.delay);
             }
         };
         //停止播放
@@ -171,13 +181,13 @@
                 });
             }
             slide(false);
-        };        
+        };
         //设置当前帧
         this.setIndex = function(index,isAnimate){
             index = index%_size;
             _index = index<0?_size + index:index;
             slide(isAnimate);
-        };  
+        };
         //设置移动帧数
         this.setsteps = function(steps){
             options.steps = steps;
@@ -193,6 +203,10 @@
         //获取当前帧
         this.getIndex = function(){
             return _index;
+        };
+        //获取帧数
+        this.getSize = function(){
+            return _size;
         };
         //获取参数
         this.getOptions = function(){
@@ -223,7 +237,7 @@
                         $prev.toggleClass(options.disableBtnCls,_index==0);
                         $next.toggleClass(options.disableBtnCls,_index==_size-1);
                     default:
-                        _index %= _size;               
+                        _index %= _size;
                         if(_distance[_size]-_distance[_index]<_outer){
                             params[_param] = _outer-_inner;
                         }else{
@@ -244,17 +258,17 @@
             options.afterEvent.call(_.element,status);
             if(_auto){
                 _hander&&clearTimeout(_hander);
-                _hander = setTimeout(_.next,options.delay);
+                _hander = setTimeout((options.reverse?_.prev:_.next),options.delay);
             }
         };
         //滚动轴
         var scroll = function(e){
-            e = e||window.event;           
+            e = e||window.event;
             if(!$lists.is(':animated')){ //防止滚动太快动画没完成
                 var delta = -e.wheelDelta/120||e.detail/3;
-                delta>0?_.next(e):_.prev(e);                      
+                delta>0?_.next(e):_.prev(e);
             }
-            return false;         
+            return false;
         };
         //触摸开始
         var touchStart = function(e) {
@@ -266,7 +280,7 @@
                 pageY: e.originalEvent.changedTouches[0].pageY
             };
             _position[0] = $list1.position()[_param];
-            if (options.inEndEffect == "cycle") {   
+            if (options.inEndEffect == "cycle") {
                 _position[1] = $list2.position()[_param];
             }
         };
@@ -309,14 +323,14 @@
                                 _position[0] += 2*_distance[_size];
                                 $list1.css(_param, _position[0] + 'px');
                                 $list1 = [$list2, $list2 = $list1][0]; //两列表身份互换
-                                _position[0] = [_position[1], _position[1] = _position[0]][0];                                        
+                                _position[0] = [_position[1], _position[1] = _position[0]][0];
                             }
                         }else if(Math.abs(_position[0])>=_distance[_index+1]){
                             _index++;
                         }
                         if(options.inEndEffect!="cycle"&&_distance[_size]-_distance[_index]<=_outer){
                             _move *= 0.25;
-                        }                         
+                        }
                     }
                     //移动
                     _position[0] += _move;
@@ -326,7 +340,7 @@
                         $list2.css(_param, _position[1]);
                     }
                     _start = current;       //实时更新坐标，解决list衔接处来回切换的问题
-                }               
+                }
             }
         };
         //触碰结束
@@ -349,7 +363,7 @@
                 isMove = move/distance>options.sensitivity||endTime-_time['start']<250&&Math.abs(move)>10;
                 if(isMove){
                     _index++;
-                }                    
+                }
             }
             if(options.inEndEffect != "cycle"){
                 _index = Math.min(_size-1,_index);
@@ -409,7 +423,7 @@
                     if(options.beforeEvent.call(_.element,status) !== false){
                         _index = index;
                         _time['start'] = + new Date();
-                        slide(options.animate,500);                      
+                        slide(options.animate,500);
                     }
                 });
             }
@@ -427,7 +441,7 @@
             //事件绑定-向前向后导航
             if(options.pointerType === "click"){
                 $prev.on("click",_.prev);
-                $next.on("click",_.next);         
+                $next.on("click",_.next);
             }else{
                 $prev.on({
                     'mouseenter':function(){
@@ -480,7 +494,7 @@
                     $next.on({
                         'touchstart':touchS,
                         'touchend':touchE
-                    });                        
+                    });
                 })();
                 $this.on({
                     'touchstart':touchStart,
@@ -504,7 +518,7 @@
                 if(document.addEventListener){
                     _.element.addEventListener('DOMMouseScroll',scroll,false);
                 }
-                _.element.onmousewheel = scroll;                
+                _.element.onmousewheel = scroll;
             }
             _.resize();
         };
@@ -532,6 +546,7 @@
             hoverCls: 'hover',          //当鼠标移至相应区域时获得的class
             steps: 1,                   //移动帧数,'auto'自动移动至下个没有显示完整的帧
             direction: 'x',             //轮播的方向
+            reverse: false,             //是否反向自动播放
             inEndEffect: 'switch',      //"switch"表示来回切换,"cycle"表示循环,"none"表示无效果
             hasTriggers: true,          //是否含有导航触发点
             triggerCondition:'*',       //触发点的条件(有时需排除一些节点)
@@ -560,7 +575,7 @@
             var o = $.meta ? $.extend({}, options, $this.data()) : options;
             var slider = new Slider(this,o);
             callback.call(this,slider);
-        }); 
+        });
     };
     //jquery 动画扩展
     $.extend( $.easing,{
@@ -617,7 +632,7 @@
             return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
         },
         backinout: function (x, t, b, c, d, s) {
-            if (s == undefined) s = 1.70158; 
+            if (s == undefined) s = 1.70158;
             if ((t/=d/2) < 1) return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
             return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
         },
@@ -640,4 +655,4 @@
             return $.easing.bounceout(x, t*2-d, 0, c, d) * .5 + c*.5 + b;
         }
     });
-})(jQuery, window, document);
+}));

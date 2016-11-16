@@ -1,8 +1,18 @@
 /**
  * jquery.calendar.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.calendar = function(parameter,getApi) {
         parameter = parameter || {};
         var defaults = {
@@ -247,4 +257,4 @@
             format(_data);
         });
     };
-})(jQuery, window, document);
+}));

@@ -1,8 +1,18 @@
 /**
  * jquery.scrolldiv.js 1.0
- * http://passer-by.com
+ * http://jquerywidget.com
  */
-;(function($, window, document, undefined) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ], function(){
+            factory(jQuery);
+        });
+    } else {
+        // 全局模式
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.scrolldiv = function(parameter) {
         parameter = parameter || {};
         var defaults = {
@@ -47,7 +57,7 @@
                     $list.each(function(i){
                         $list.eq(i).css("top",(_maxheight - $list.eq(i).height()) * times + "px");
                     });
-                }               
+                }
             }
             //事件绑定
             //鼠标滚轴
@@ -83,4 +93,4 @@
         }
         return false;
     }
-})(jQuery, window, document);
+}));
