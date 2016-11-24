@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8"/>
 		<title>全屏滚动</title>
-		<link rel="shortcut icon" href="/public/image/favicon.png">
-		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css">
-		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="shortcut icon" href="/public/image/favicon.png"/>
+		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css"/>
+		<link rel="stylesheet" type="text/css" href="/public/style/common.css"/>
 		<style type="text/css">
 			html,body{
 				height:100%;
@@ -33,8 +34,10 @@
 			}
 			.slider .nav{
 				position:absolute;
-				top:300px;
+				top:50%;
 				left:40px;
+				height: 72px;
+				margin-top: -36px;
 			}
 			.slider .nav li{
 				width:16px;
@@ -47,10 +50,15 @@
 			}
 			.slider .tag1{
 				position:absolute;
-				top:240px;
-				left:500px;
+				top:50%;
+				left:50%;
 				opacity: 0;
-				font-size:32px;
+				width: 250px;
+				height: 80px;
+				margin-top: -40px;
+				margin-left: -80px;
+				line-height: 40px;
+				font-size:28px;
 			}
 			.slider .active .tag1{
 				-webkit-animation: Xminus40 1000ms ease 500ms both; 
@@ -123,7 +131,7 @@
 				<div class="page1">
 					<div class="tag1">
 						<p>分页一</p>
-						<p>这里是演示，效果怎么样？</p>
+						<p>效果怎么样？</p>
 					</div>
 				</div>
 				<div class="page2">
