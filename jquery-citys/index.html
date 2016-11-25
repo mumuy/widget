@@ -36,10 +36,10 @@
             </div>
             <div class="code">
                 <p>通过地区编码初始化设置</p>
-                <p>$('#demo').citys({code:350206});</p>
+                <p>$('#demo').citys({code:350206,dataType:'jsonp'});</p>
             </div>
             <script type="text/javascript">
-                $('#demo').citys({code:350206});
+                $('#demo').citys({code:350206,dataType:'jsonp',dataUrl:'http://passer-by.com/data_location/list.jsonp'});
             </script>
             <div id="demo1" class="citys">
                 <p>
@@ -180,7 +180,7 @@ $('#demo2').citys({
                         </tr>
                         <tr>
                             <td>dataType</td>
-                            <td>'json'</td>
+                            <td>'jsonp'</td>
                             <td>数据库类型:'json'或'jsonp'</td>
                         </tr>
                         <tr>
