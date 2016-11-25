@@ -13,6 +13,9 @@
             .citys p{
                 line-height: 28px;
             }
+            .warning{
+                color: #c00;
+            }
             table a{
                 margin-right: 8px;
                 color: #369;
@@ -36,10 +39,10 @@
             </div>
             <div class="code">
                 <p>通过地区编码初始化设置</p>
-                <p>$('#demo').citys({code:350206,dataType:'jsonp'});</p>
+                <p>$('#demo').citys({code:350206});</p>
             </div>
             <script type="text/javascript">
-                $('#demo').citys({code:350206,dataType:'jsonp',dataUrl:'http://passer-by.com/data_location/list.jsonp'});
+                $('#demo').citys({code:350206});
             </script>
             <div id="demo1" class="citys">
                 <p>
@@ -180,8 +183,11 @@ $('#demo2').citys({
                         </tr>
                         <tr>
                             <td>dataType</td>
-                            <td>'jsonp'</td>
-                            <td>数据库类型:'json'或'jsonp'</td>
+                            <td>'json'</td>
+                            <td>
+                                <p>数据库类型:'json'或'jsonp'</p>
+                                <p class="warning">IE9-由于默认安全设置，需开启“通过域访问数据源”才可启用json，建议使用jsonp格式</p>
+                            </td>
                         </tr>
                         <tr>
                             <td>provinceField</td>

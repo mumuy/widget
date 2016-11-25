@@ -13,6 +13,7 @@
         factory(jQuery);
     }
 }(function ($) {
+    $.support.cors = true;
     $.fn.citys = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -46,6 +47,7 @@
             $.ajax({
                 url:options.dataUrl,
                 type:'GET',
+                crossDomain: true,
                 dataType:options.dataType,
                 jsonpCallback:'jsonp_location',
                 success:function(data){
