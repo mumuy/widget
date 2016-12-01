@@ -69,7 +69,7 @@
                     var updateData = function(){
                         province = {},city={},area={};
                         hasCity = false;       //判断是非有地级城市
-                        for(code in data){
+                        for(var code in data){
                             if(!(code%1e4)){     //获取所有的省级行政单位
                                 province[code]=data[code];
                                 if(options.required&&!options.province){
@@ -209,6 +209,9 @@
                     //初始化
                     updateData();
                     format.province();
+                    if(options.code){
+                        options.onChange(_api.getInfo());
+                    }
                     getApi(_api);
                 }
             });
