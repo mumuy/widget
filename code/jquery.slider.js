@@ -189,7 +189,7 @@
             slide(isAnimate);
         };
         //设置移动帧数
-        this.setsteps = function(steps){
+        this.setSteps = function(steps){
             options.steps = steps;
         };
         //设置动画停顿时间间隔
