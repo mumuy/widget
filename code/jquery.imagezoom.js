@@ -2,17 +2,28 @@
  * jquery.imagezoom.js 1.1
  * http://jquerywidget.com
  */
-;(function (factory) {
-    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
-        // AMD或CMD
-        define([ "jquery" ], function(){
+ ;(function (factory) {
+     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+         // AMD或CMD
+         define([ "jquery" ],factory);
+     } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
             factory(jQuery);
-        });
-    } else {
-        // 全局模式
-        factory(jQuery);
-    }
-}(function ($) {
+            return jQuery;
+        };
+     } else {
+         //Browser globals
+         factory(jQuery);
+     }
+ }(function ($) {
     $.fn.imagezoom = function(parameter) {
         parameter = parameter || {};
         var defaults = {
@@ -46,12 +57,12 @@
                 var _width = temp.width,_height = temp.height,_ratio = 1;
                 if(temp.complete&&_width){ //防止图片未加载时就开始计算
                     getRatio();
-                }else{     
+                }else{
                     temp.onload = function(){
                         _width = temp.width;
                         _height = temp.height;
                         getRatio();
-                    }  
+                    }
                 }
                 //私有方法
                 function getRatio(){
@@ -69,7 +80,7 @@
                     }else if(options.effect=='in'){
                         if(_width>_outer_width||_height>_outer_height){ //在不放大图片失真的情况下，最大清晰度地展示完整图片
                             _ratio = Math.min(_outer_width/_width,_outer_height/_height);
-                        }                        
+                        }
                     }
                     zoom(_ratio);
                 };

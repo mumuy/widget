@@ -5,11 +5,22 @@
 ;(function (factory) {
     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
         // AMD或CMD
-        define([ "jquery" ], function(){
-            factory(jQuery);
-        });
+        define([ "jquery" ],factory);
+    } else if (typeof module === 'object' && module.exports) {
+       // Node/CommonJS
+       module.exports = function( root, jQuery ) {
+           if ( jQuery === undefined ) {
+               if ( typeof window !== 'undefined' ) {
+                   jQuery = require('jquery');
+               } else {
+                   jQuery = require('jquery')(root);
+               }
+           }
+           factory(jQuery);
+           return jQuery;
+       };
     } else {
-        // 全局模式
+        //Browser globals
         factory(jQuery);
     }
 }(function ($) {
