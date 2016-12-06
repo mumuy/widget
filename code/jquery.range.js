@@ -2,11 +2,11 @@
  * jquery.range.js 1.0
  * http://jquerywidget.com
  */
- ;(function (factory) {
-     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
-         // AMD或CMD
-         define([ "jquery" ],factory);
-     } else if (typeof module === 'object' && module.exports) {
+;(function (factory) {
+    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+        // AMD或CMD
+        define([ "jquery" ],factory);
+    } else if (typeof module === 'object' && module.exports) {
         // Node/CommonJS
         module.exports = function( root, jQuery ) {
             if ( jQuery === undefined ) {
@@ -19,11 +19,11 @@
             factory(jQuery);
             return jQuery;
         };
-     } else {
-         //Browser globals
-         factory(jQuery);
-     }
- }(function ($) {
+    } else {
+        //Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.range = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
         	getApi = parameter;
