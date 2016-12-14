@@ -68,13 +68,13 @@
             };
             _api.format = function(value){
                 return format[options.type](value,options.tofixed);
-            }
+            };
             _api.setValue = function(value){
                 var s = format[options.type](value,options.tofixed);
                 if(s!=value){
                     $this.val(s);
                 }
-            }
+            };
             $this.on({
                 input:function(){
                     var value = $this.val();

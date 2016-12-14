@@ -41,7 +41,7 @@
 			autoReset:true,				//窗体变化是否重置
 			inEndEffect:false,			//滚轴到底时事件是否冒泡给页面
 			slide:0						//默认移动的距离
-		}
+		};
 		var options = $.extend({},defaults,parameter);
 		var $body = $("body");
 		var $document = $(document);

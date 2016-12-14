@@ -81,7 +81,7 @@
                     for (var i = 1; i <= _size ; i++) {
                         list_str += "<li>" + i + "</li>";
                     }
-                    $this.append("<ul class='" + options.navCls + "'>" + list_str + "</ul>")
+                    $this.append("<ul class='" + options.navCls + "'>" + list_str + "</ul>");
                 }
                 options.triggerType += options.triggerType === "mouse" ? "enter" : "";  //使用mouseenter防止事件冒泡
                 $nav_list = $this.find("." + options.navCls + " > "+options.triggerCondition).bind(options.triggerType, function(e) {
@@ -139,7 +139,7 @@
                     }
                     slide(options.animate);
                 }
-            }
+            };
             //返回下一帧
             _api.next = function() {
                 var status = {
@@ -171,18 +171,18 @@
                     }
                     slide(options.animate);
                 }
-            }
+            };
             //开始播放
             _api.start = function() {
                 _api.stop();
                 _hander = setInterval(_api.next, options.delay);
-            }
+            };
             //停止播放
             _api.stop = function() {
                 if (_hander) {
                     clearInterval(_hander);
                 }
-            }
+            };
             //设置当前帧
             _api.setIndex = function(index,isAnimate){
                 _index = index%_size;
@@ -242,7 +242,7 @@
                 var delta = {
                     'x': current.pageX - _start.pageX,
                     'y':current.pageY - _start.pageY
-                }
+                };
                 var move = delta[options.direction];  //移动距离触发点的距离
                 if(!_touch_direction){                //根据第一次移动向量判断方向
                     _touch_direction = Math.abs(delta.y) < Math.abs(delta.x)?'x':'y';

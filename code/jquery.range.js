@@ -91,7 +91,7 @@
 				_width = options.type=='outer'?$this.width():$this.width()-_handle_width;
 				_length = _width/(options.max - options.min);
 				_api.setValue();
-			}
+			};
 			/*私有方法*/
 			var touchStart = function(e) {
                 isMouseDown = true;
@@ -125,7 +125,7 @@
 					_api.setValue();
 					options.onChange({event:e,value:_value,obj:$this});
 				}
-			}
+			};
 			//事件绑定
 			if(_self.addEventListener){
                 _self.addEventListener("touchstart", touchStart);

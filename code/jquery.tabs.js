@@ -136,7 +136,7 @@
                         $panels.hide().eq(index).show();
                         _index = index;
                 }
-            }
+            };
             //获取当前帧
             _api.getIndex = function(){
                 return _index;

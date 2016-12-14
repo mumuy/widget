@@ -305,7 +305,7 @@
             var delta = {
                 'x': current.pageX - _start.pageX,
                 'y': current.pageY - _start.pageY
-            }
+            };
             _move = delta[options.direction];  //移动距离触发点的距离
             var direction = Math.abs(delta.y) < Math.abs(delta.x)?'x':'y';
             _touch_direction = _touch_direction||direction; //根据第一次移动向量判断方向
@@ -420,7 +420,7 @@
                     for (var i = 1; i <= _size ; i++) {
                         list_str += "<li>" + i + "</li>";
                     }
-                    $this.append("<ul class='" + options.navCls + "'>" + list_str + "</ul>")
+                    $this.append("<ul class='" + options.navCls + "'>" + list_str + "</ul>");
                 }
                 options.triggerType += options.triggerType === "mouse" ? "enter" : "";  //使用mouseenter防止事件冒泡
                 $nav_list = $this.find("."+options.navCls + " > " + options.triggerCondition).bind(options.triggerType, function(e) {
@@ -535,7 +535,7 @@
         };
         /* 执行初始化 */
         init();
-    }
+    };
 
     $.fn.slider = function(parameter,callback) {
         if(typeof parameter == 'function'){ //重载
@@ -614,25 +614,25 @@
         },
         elasin: function (x, t, b, c, d) {
             var s=1.70158;var p=0;var a=c;
-            if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
+            if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*0.3;
             if (a < Math.abs(c)) { a=c; var s=p/4; }
             else var s = p/(2*Math.PI) * Math.asin (c/a);
             return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
         },
         elasout: function (x, t, b, c, d) {
             var s=1.70158;var p=0;var a=c;
-            if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
+            if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*0.3;
             if (a < Math.abs(c)) { a=c; var s=p/4; }
             else var s = p/(2*Math.PI) * Math.asin (c/a);
             return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
         },
         elasinout: function (x, t, b, c, d) {
             var s=1.70158;var p=0;var a=c;
-            if (t==0) return b;  if ((t/=d/2)==2) return b+c;  if (!p) p=d*(.3*1.5);
+            if (t==0) return b;  if ((t/=d/2)==2) return b+c;  if (!p) p=d*(0.3*1.5);
             if (a < Math.abs(c)) { a=c; var s=p/4; }
             else var s = p/(2*Math.PI) * Math.asin (c/a);
-            if (t < 1) return -.5*(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
-            return a*Math.pow(2,-10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )*.5 + c + b;
+            if (t < 1) return -0.5*(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
+            return a*Math.pow(2,-10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )*0.5 + c + b;
         },
         backin: function (x, t, b, c, d, s) {
             if (s == undefined) s = 1.70158;
@@ -654,16 +654,16 @@
             if ((t/=d) < (1/2.75)) {
                 return c*(7.5625*t*t) + b;
             } else if (t < (2/2.75)) {
-                return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
+                return c*(7.5625*(t-=(1.5/2.75))*t + 0.75) + b;
             } else if (t < (2.5/2.75)) {
-                return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
+                return c*(7.5625*(t-=(2.25/2.75))*t + 0.9375) + b;
             } else {
-                return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
+                return c*(7.5625*(t-=(2.625/2.75))*t + 0.984375) + b;
             }
         },
         bounceinout: function (x, t, b, c, d) {
-            if (t < d/2) return $.easing.bouncein (x, t*2, 0, c, d) * .5 + b;
-            return $.easing.bounceout(x, t*2-d, 0, c, d) * .5 + c*.5 + b;
+            if (t < d/2) return $.easing.bouncein (x, t*2, 0, c, d) * 0.5 + b;
+            return $.easing.bounceout(x, t*2-d, 0, c, d) * 0.5 + c*0.5 + b;
         }
     });
 }));

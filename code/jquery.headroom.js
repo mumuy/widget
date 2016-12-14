@@ -46,7 +46,7 @@
             var last_up = false;
             var last_scroll_top = _scroll_top;
             var isFixed = false;
-            $this.width(_width).wrap('<div style="height:'+_height+'px"></div>')
+            $this.width(_width).wrap('<div style="height:'+_height+'px"></div>');
             //私有方法
             var scroll = function(){
                 var scroll_top = $document.scrollTop()+options.fixedTop;
@@ -83,5 +83,5 @@
             $window.scroll(scroll);
             scroll();
         });
-    }
+    };
 }));

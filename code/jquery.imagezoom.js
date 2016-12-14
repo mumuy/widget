@@ -62,7 +62,7 @@
                         _width = temp.width;
                         _height = temp.height;
                         getRatio();
-                    }
+                    };
                 }
                 //私有方法
                 function getRatio(){
@@ -83,7 +83,7 @@
                         }
                     }
                     zoom(_ratio);
-                };
+                }
                 //缩放动画
                 function zoom(ratio,isAnimate){ //ratio：放大比例，isAnamate：是否动画（默认不动画）
                     var obj = {
@@ -97,7 +97,7 @@
                     }else{
                         $img.css(obj);
                     }
-                };
+                }
                 //事件绑定
                 if(options.hoverEvent){
                     $this.on({

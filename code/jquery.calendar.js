@@ -61,7 +61,7 @@
                     'month':date.getMonth()+1,
                     'day':date.getDate(),
                     'week':date.getDay()
-                }
+                };
                 obj['code'] = ''+obj['year']+(obj['month']>9?obj['month']:'0'+obj['month'])+(obj['day']>9?obj['day']:'0'+obj['day']);
                 return obj;
             };

@@ -29,7 +29,7 @@
         var defaults = {
             list: [],   //栏目列表
             steps: 100  //滚动速度
-        }
+        };
         var options = $.extend({}, defaults, parameter);
         var $window = $(window);
         var $document = $(document);
@@ -87,7 +87,7 @@
             });
             slide();
         });
-    }
+    };
     //工具函数
     function stopBubble(e) {
         if (e && e.stopPropagation) {

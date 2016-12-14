@@ -75,7 +75,7 @@
                     }
                     $triggers.removeClass(options.activeCls).eq(i).addClass(options.activeCls);
                 }
-            }
+            };
             //初始化
             _api.select(options.activeIndex,false);
             $triggers.bind(options.triggerType, function(e) { //事件绑定
@@ -86,7 +86,7 @@
                     panels:$panels,
                     index:i,
                     event:e
-                }
+                };
                 if(options.beforeEvent(status)!=false){
                     _api.select(i);
                     options.afterEvent(status);

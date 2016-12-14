@@ -43,7 +43,7 @@
             onSelect: function(item) {       //选中搜索建议列表项触发：传入一个对象，target表示当前选中列表项,input表示当前input表单项
                 item.input.val(item.target.text());
             }
-        }
+        };
         var options = $.extend({}, defaults, parameter);
         var $window = $(window);
         var $document = $(document);
@@ -147,7 +147,7 @@
                 var status = {
                     'target':$target,
                     'input':$this
-                }
+                };
                 options.onChange(status);
             };
             //成功后的回调函数
@@ -162,7 +162,7 @@
                 if(hasData){
                     $suggestion.show();
                 }
-            }
+            };
             //显示表单项
             var show = function(){
                 isShow = true;
@@ -194,7 +194,7 @@
                         }
                     }
                 },'500');
-            }
+            };
             //隐藏表单项
             var hide = function(){
                 isShow = false;
@@ -211,7 +211,7 @@
                 var status = {
                     'target':$target,
                     'input':$this
-                }
+                };
                 options.onSelect(status);
                 if(options.autoSubmit){
                     $form.submit();

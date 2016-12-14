@@ -137,7 +137,7 @@
                             if(!options.required){
                                 $province.append('<option value=""> - 请选择 - </option>');
                             }
-                            for(i in province){
+                            for(var i in province){
                                 $province.append('<option value="'+i+'">'+province[i]+'</option>');
                             }
                             if(options.province){
@@ -155,7 +155,7 @@
                             }else if(options.nodata=='hidden'){
                                 $city.css('display',$.isEmptyObject(city)?'none':'');
                             }
-                            for(i in city){
+                            for(var i in city){
                                 $city.append('<option value="'+i+'">'+city[i]+'</option>');
                             }
                             if(options.city){
@@ -177,7 +177,7 @@
                                 }else if(options.nodata=='hidden'){
                                     $area.css('display',$.isEmptyObject(area)?'none':'');
                                 }
-                                for(i in area){
+                                for(var i in area){
                                     $area.append('<option value="'+i+'">'+area[i]+'</option>');
                                 }
                                 if(options.area){

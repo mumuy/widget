@@ -53,7 +53,7 @@
             if($this.data('widget-type')=='select'){ //如果已调用过，则不进行初始化
             	return false;
             }else{
-            	$this.data('widget-type','select')
+            	$this.data('widget-type','select');
             }
 			var $inner = $("<div class='"+options.innerCls+"'></div>");
 			var $list = $("<ul class='"+options.listCls+"'></ul>");
@@ -68,7 +68,7 @@
 				var status = {
 					'list':$list,
 					'item':$this
-				}
+				};
 				options.html(status);
 			});
 			var $items = $list.find('li');

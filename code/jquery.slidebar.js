@@ -62,7 +62,7 @@
             //初始化处理
             var isClose = !!getCookie(options.cookieName);
             var u = navigator.userAgent;
-            var isPC = !(u.indexOf('Mobi')>0||u.indexOf('Tablet')>0||u.indexOf('iPh')>0||u.indexOf('iPad')>0||u.indexOf('480')>0)
+            var isPC = !(u.indexOf('Mobi')>0||u.indexOf('Tablet')>0||u.indexOf('iPh')>0||u.indexOf('iPad')>0||u.indexOf('480')>0);
             var isWideScreen = $window.width()>=1280;
             if(isClose||!isPC||!isWideScreen){
                 $this.css({'overflow':'hidden','width': '0px'});

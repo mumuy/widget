@@ -58,7 +58,7 @@
             var _n = {
                 'width':$node.width(),
                 'height':$node.height()
-            }
+            };
             //样式定义
             if($this.css('position')!='absolute'){
                 $this.css('position','relative');
