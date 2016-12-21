@@ -30,6 +30,7 @@
             url:'',                          //请求的接口地址
             suggestionCls:'suggestion',      //提示框的内容class
             activeCls:'active',              //列表项选中class
+            dynamic:true,                    //动态
             FieldName:'word',                //当前input表单项在请求接口时的字段名
             dataFormat:'jsonp',              //请求的格式
             parameter:{},                    //其他与接口有关参数
@@ -176,15 +177,19 @@
                                 _index = -1;
                                 options.parameter[options.FieldName] = _text = value;
                                 if(options.beforeSend(options.parameter)!=false){
-                                    $.ajax({
-                                        type:'get',
-                                        async: false,
-                                        url :options.url,
-                                        data:options.parameter,
-                                        dataType:options.dataFormat,
-                                        jsonp:options.jsonp,
-                                        success:success
-                                    });
+                                    if(!options.dynamic){
+                                        success();
+                                    }else{
+                                        $.ajax({
+                                            type:'get',
+                                            async: false,
+                                            url :options.url,
+                                            data:options.parameter,
+                                            dataType:options.dataFormat,
+                                            jsonp:options.jsonp,
+                                            success:success
+                                        });
+                                    }
                                 }
                             }else{
                                 if(hasData){
