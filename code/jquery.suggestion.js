@@ -84,19 +84,6 @@
                 'width':_width+'px'
             });
             //方法定义
-            //按键松开
-            var up = function(e){
-                e.isPropagationStopped();
-                e.preventDefault();
-                switch(e.keyCode){
-                    case 13:
-                    case 38:
-                    case 40:
-                    break;
-                    default:
-                        show();
-                }
-            };
             //按键按下
             var down = function(e){
                 e.isPropagationStopped();
@@ -131,8 +118,6 @@
                             e.preventDefault();
                         }
                     break;
-                    default:
-                        hide();
                 }
             };
             //鼠标经过
@@ -198,7 +183,7 @@
                             }
                         }
                     }
-                },'500');
+                },500);
             };
             //隐藏表单项
             var hide = function(){
@@ -207,9 +192,10 @@
                 $suggestion.hide();
             };
             //事件绑定
-            $this.on({
-                'keyup':up,
-                'keydown':down
+            $this.on('keydown',down);
+            $this.on('input propertychange ',function(){
+                hide();
+                show();
             });
             $list.on('click','li',function(){
                 var $target = $(this);
