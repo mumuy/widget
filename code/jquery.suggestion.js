@@ -53,14 +53,11 @@
             var $this = $(this);
             var $form = $this.parents('form');
             var $box = $this.parent();
-            var $suggestion = $form.find('.'+options.suggestionCls);
-            if(!$suggestion.length){
-                $suggestion = $("<div class='"+options.suggestionCls+"'><ul></ul></div>").appendTo($box);
-            }
+            var $suggestion = $("<div class='"+options.suggestionCls+"'><ul></ul></div>").appendTo($box);
             var $list = $suggestion.find('ul');
             var $item = $list.find('li');
-            var _height = $this.outerHeight(true);
-            var _width = $this.outerWidth(true);
+            var _height = $this.outerHeight(false);
+            var _width = $this.outerWidth(false);
             var _text = '';
             var _hander = 0;
             var _index = -1;
@@ -210,8 +207,8 @@
             }).on('mouseenter','li',hover);
             $document.on('click',hide);
             $window.resize(function(){
-                _height = $this.outerHeight(true);
-                _width = $this.outerWidth(true);
+                _height = $this.outerHeight(false);
+                _width = $this.outerWidth(false);
                 _top = $this.position().top;
                 _left = $this.position().left;
                 $suggestion.css({
