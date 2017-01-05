@@ -50,6 +50,7 @@
         var $document = $(document);
         return this.each(function() {
             //对象定义
+            var that = this;
             var $this = $(this);
             var $form = $this.parents('form');
             var $box = $this.parent();
@@ -148,10 +149,10 @@
             };
             //显示表单项
             var show = function(){
-                isShow = true;
+                _hander&&clearTimeout(_hander);
                 _hander = setTimeout(function(){
-                    if(isShow){
-                        var value = $.trim($this.val());
+                    var value = $.trim($this.val());
+                    if(options.dynamic){
                         if(value==''){
                             hide();
                         }else{
@@ -159,41 +160,42 @@
                                 _index = -1;
                                 options.parameter[options.FieldName] = _text = value;
                                 if(options.beforeSend(options.parameter)!=false){
-                                    if(!options.dynamic){
-                                        success();
-                                    }else{
-                                        $.ajax({
-                                            type:'get',
-                                            async: false,
-                                            url :options.url,
-                                            data:options.parameter,
-                                            dataType:options.dataFormat,
-                                            jsonp:options.jsonp,
-                                            success:success
-                                        });
-                                    }
+                                    $.ajax({
+                                        type:'get',
+                                        async: false,
+                                        url :options.url,
+                                        data:options.parameter,
+                                        dataType:options.dataFormat,
+                                        jsonp:options.jsonp,
+                                        success:success
+                                    });
                                 }
                             }else{
                                 if(hasData){
                                     $suggestion.show();
                                 }
                             }
-                        }
+                        }                            
+                    }else{
+                        success();
                     }
+                    isShow = true;
                 },500);
             };
             //隐藏表单项
             var hide = function(){
-                isShow = false;
                 _hander&&clearTimeout(_hander);
-                $suggestion.hide();
+                _hander = setTimeout(function(){
+                    if(isShow){
+                        $suggestion.hide();
+                        isShow = false;
+                    }
+                },200);
             };
             //事件绑定
             $this.on('keydown',down);
-            $this.on('input propertychange ',function(){
-                hide();
-                show();
-            });
+            $this.on('input propertychange focus',show);
+            $this.on('blur',hide);            
             $list.on('click','li',function(){
                 var $target = $(this);
                 var status = {
@@ -205,7 +207,6 @@
                     $form.submit();
                 }
             }).on('mouseenter','li',hover);
-            $document.on('click',hide);
             $window.resize(function(){
                 _height = $this.outerHeight(false);
                 _width = $this.outerWidth(false);
