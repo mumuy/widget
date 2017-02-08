@@ -90,7 +90,7 @@
 			}
 			//对话框开启
 			_api.open = function(callback){
-				if(options.beforeOpen()!=false){
+				if(options.beforeOpen(this)!=false){
 					(callback || function(){})(); //如果open的时候传入了方法，则在执行时进行预处理
 					$this.show();
 					if(options.isModel){
@@ -114,7 +114,7 @@
 					$this.hide();
 				}
 				_isOpen = false;
-				options.afterClose();
+				options.afterClose(this);
 			};
 			//对话框形状自动调整
 			_api.resize = function(){
@@ -122,6 +122,10 @@
 					"left": ($window.width()-$container.outerWidth())/2 + "px",
 					"top": ($window.height()-$container.outerHeight())/2 + "px"
 				});
+			};
+			//设置标题
+			_api.setTitle = function(title){
+				$title.text(title);
 			};
 			//设置对话框内容
 			_api.setContent = function(html){
