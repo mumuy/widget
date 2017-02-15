@@ -93,7 +93,7 @@
                                     options.province = isNaN(options.province)?code:options.province;
                                 }
                             }else{
-                                var p = code-options.province;
+                                var p = code - options.province;
                                 if(options.province&&p>0&&p<1e4){    //同省的城市或地区
                                     if(!(code%100)){
                                         hasCity = true;
@@ -104,7 +104,12 @@
                                             options.city = isNaN(options.city)?code:options.city;
                                         }
                                     }else if(p>9000){                   //省直辖县级行政单位
-                                        city[code]=data[code];
+                                        city[code] = data[code];
+                                        if(options.required&&!options.city){
+                                            options.city = code;
+                                        }else if(data[code].indexOf(options.city)>-1){
+                                            options.city = isNaN(options.city)?code:options.city;
+                                        }
                                     }else if(hasCity){                  //非直辖市
                                         var c = code-options.city;
                                         if(options.city&&c>0&&c<100){     //同个城市的地区
