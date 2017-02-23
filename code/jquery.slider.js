@@ -246,7 +246,7 @@
                     case 'none':
                         _index = Math.min(_index,_size-1);    //索引范围检测
                         $prev.toggleClass(options.disableBtnCls,_index==0);
-                        $next.toggleClass(options.disableBtnCls,_index==_size-1);
+                        $next.toggleClass(options.disableBtnCls,_distance[_size]-_distance[_index]<=_outer);
                     default:
                         _index %= _size;
                         if(_distance[_size]-_distance[_index]<_outer){
