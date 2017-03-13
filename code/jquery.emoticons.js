@@ -196,10 +196,7 @@
     };
     //插入文字
     function insertText(obj,str) {
-        if (document.selection) {
-            var sel = document.selection.createRange();
-            sel.text = str;
-        } else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+        if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
             var startPos = obj.selectionStart,
                 endPos = obj.selectionEnd,
                 cursorPos = startPos,
