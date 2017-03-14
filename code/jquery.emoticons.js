@@ -112,6 +112,10 @@
                 {'title':'蛋糕','url':'dangao.gif'},
                 {'title':'发红包','url':'fahongbao.gif'}
             ],
+            'top':0,
+            'left':0,
+            'onShow':function(){},
+            'onHide':function(){},
             'onSelect':function(){}
         };
         var options = $.extend({}, defaults, parameter);
@@ -130,8 +134,7 @@
         //结构处理
         $layer.css({
             'position':'absolute',
-            'display':'none',
-            'margin-top':8
+            'display':'none'
         });
         $.each(options.list,function(index,item){
             _hash[item.title] = options.path+item.url;
@@ -161,6 +164,7 @@
             $layer.hide();
             $trigger = null;
             $textarea = null;
+            options.onHide();
         };
         //事件绑定
         $document.on('click','.'+options.triggerCls,function(){
@@ -171,9 +175,10 @@
             var height = $trigger.outerHeight();
             $trigger.addClass(options.activeCls);
             $layer.css({
-                left: offset.left,
-                top: offset.top+height
+                left: offset.left+options.left,
+                top: offset.top+height+options.top
             }).show();
+            options.onShow();
         });
         $document.on('click',function(e){
             var $target = $(e.target);
