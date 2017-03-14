@@ -190,13 +190,24 @@
             }
             options.onSelect(_api);
         });
+        //为了兼容insertText
+        $document.on('select click keyup','.'+options.publisherCls+' textarea',function(){
+            if (this.createTextRange){
+                this.caretPos = document.selection.createRange().duplicate();
+            }
+        });
         //初始化
         getApi(_api);
         return this;
     };
+
     //插入文字
     function insertText(obj,str) {
-        if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+        if(document.all && obj.createTextRange && obj.caretPos){ 
+            var caretPos=obj.caretPos; 
+            caretPos.text = caretPos.text.charAt(caretPos.text.length-1) == '' ? 
+            str+'' : str; 
+        }else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
             var startPos = obj.selectionStart,
                 endPos = obj.selectionEnd,
                 cursorPos = startPos,
