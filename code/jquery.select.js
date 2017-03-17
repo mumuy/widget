@@ -41,7 +41,7 @@
 			html:function(status){
 				status.list.append("<li>"+status.item.text()+"</li>");
 			},
-			selected:function(){}
+			onSelect:function(){}
         };
 		var options = $.extend({},defaults,options,parameter);
 		var $window = $(window);
@@ -92,7 +92,7 @@
 	        		e.isPropagationStopped();
 	        		switch(e.keyCode){
 	        			case 13:
-							_api.value($options.eq(_index).val());
+							_api.setValue($options.eq(_index).val());
 							isShow = false;
 	        			break;
 	        			case 38:
@@ -113,14 +113,14 @@
         		}
         	};
 			//公有方法
-			_api.value = function(value){
+			_api.setValue = function(value){
 				$this.val(value);
 				_index = $options.filter(':selected').index();
 				var $item = $items.eq(_index);
 				$box.html($item.html());
 				$item.addClass(options.activeCls).siblings().removeClass(options.activeCls);
 				$inner.hide();
-				options.selected(value);
+				options.onSelect(value);
 			};
 			//事件绑定
 			$box.click(function(){
@@ -140,7 +140,7 @@
 				'click':function(){
 					_index = $(this).index();
 					var $option = $options.eq(_index);
-					_api.value($option.val());
+					_api.setValue($option.val());
 				}
 			});
 			$document.click(function(){
@@ -154,7 +154,7 @@
 				'keydown':down
 			});
 			//初始化
-			_api.value($this.val());
+			_api.setValue($this.val());
 			getApi(_api);
 		});
     };
