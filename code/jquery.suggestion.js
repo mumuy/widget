@@ -34,6 +34,7 @@
             FieldName:'word',                //当前input表单项在请求接口时的字段名
             dataFormat:'jsonp',              //请求的格式
             parameter:{},                    //其他与接口有关参数
+            jsonp:'callback',                //传递自定义回调函数
             jsonpCallback:'',                //自定义回调函数
             autoSubmit:true,                 //点击确定是否自动提交表单
             beforeSend:function(){},         //发送前动作：传入准备提交的表单项目，返回false终止提交
@@ -160,7 +161,7 @@
                                 _index = -1;
                                 options.parameter[options.FieldName] = _text = value;
                                 if(options.beforeSend(options.parameter)!=false){
-                                    $.ajax({
+                                    var param = {
                                         type:'get',
                                         async: false,
                                         url :options.url,
@@ -168,7 +169,11 @@
                                         dataType:options.dataFormat,
                                         jsonp:options.jsonp,
                                         success:success
-                                    });
+                                    };
+                                    if(options.jsonpCallback){
+                                        param['jsonpCallback'] = options.jsonpCallback;
+                                    }
+                                    $.ajax(param);
                                 }
                             }else{
                                 if(hasData){
