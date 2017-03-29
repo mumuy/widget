@@ -25,7 +25,13 @@
     }
 }(function ($) {
     $.fn.calendar = function(parameter,getApi) {
-        parameter = parameter || {};
+        if(typeof parameter == 'function'){ //重载
+            getApi = parameter;
+            parameter = {};
+        }else{
+            parameter = parameter || {};
+            getApi = getApi||function(){};
+        }
         var defaults = {
             prefix:'widget',            //生成日历的class前缀
             isRange:false,              //是否选择范围
