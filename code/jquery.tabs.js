@@ -46,6 +46,7 @@
             activeIndex: 0,             //默认选中导航项的索引
             auto: false,                //是否自动播放
             delay: 3000,                //自动播放时停顿的时间间隔
+            duration: 500,              //动画时长
             beforeEvent: function() {   //切换前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象
             },
             afterEvent: function() {    //切换后执行;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象
@@ -119,7 +120,7 @@
                                     $(this).css('z-index',(index+_size-i-1)%_size+1);
                                 }
                             });
-                            $select.fadeOut(500,function(){
+                            $select.fadeOut(options.duration,function(){
                                 $select.css({
                                     'display':'block',
                                     'z-index':(index+_size-_index-1)%_size+1
