@@ -30,17 +30,20 @@
             width: null,        //图片外层宽度
             height: null,       //图片外层宽度
             resizeable: true,   //窗口大小改变时是否重新调整图片位置
-            effect:'out',       //图片处理
+            effect:'default',   //图片处理
             data:'original',    //图片源（防止惰性加载插件）
             condition: 'img',   //默认筛选条件
             borderWidth: 0,     //图片边框宽度
-            hoverEvent:false,   //鼠标悬浮时是否放大
+            hoverEffect:false,  //鼠标悬浮时是否放大
             hoverRatio:1.2,     //鼠标悬浮时放大比例
-            duration:300        //鼠标悬浮时放大动画时长
+            duration:300,       //鼠标悬浮时放大动画时长
+            beforeHover:function(){},
+            afterHover:function(){}
         };
         var options = $.extend({}, defaults, parameter);
         var $window = $(window);
         return this.each(function(index) {
+            var _ = this;
             var $this = $(this).css("overflow", "hidden");
             var _duration = options.duration;
             var _hoverRatio = options.hoverRatio;
@@ -67,7 +70,7 @@
                 //私有方法
                 function getRatio(){
                     //数值计算
-                    if(options.effect=='out'){ //在不放大图片失真的情况下，最大面积地展示图片
+                    if(options.effect=='out'){ //在不放大图片失真的情况下，最大面积地展示图片并覆盖整个外框
                         if(_width>_height){
                             if(_height>_outer_height){
                                 _ratio = Math.max(_outer_width/_width,_outer_height/_height);
@@ -81,6 +84,8 @@
                         if(_width>_outer_width||_height>_outer_height){ //在不放大图片失真的情况下，最大清晰度地展示完整图片
                             _ratio = Math.min(_outer_width/_width,_outer_height/_height);
                         }
+                    }else{  //任何条件下，最大面积地展示图片并覆盖整个外框
+                        _ratio = Math.max(_outer_width/_width,_outer_height/_height);
                     }
                     zoom(_ratio);
                 }
@@ -99,13 +104,17 @@
                     }
                 }
                 //事件绑定
-                if(options.hoverEvent){
+                if(options.hoverEffect){
                     $this.on({
                         'mouseenter':function(){
-                            zoom(_ratio*_hoverRatio,true);
+                            if(options.beforeHover.call(_)!=false){
+                                zoom(_ratio*_hoverRatio,true);
+                            }
                         },
                         'mouseleave':function(){
-                            zoom(_ratio,true);
+                            if(options.afterHover.call(_)!=false){
+                                zoom(_ratio,true);
+                            }   
                         }
                     });
                 }
