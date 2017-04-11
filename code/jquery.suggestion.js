@@ -38,7 +38,7 @@
             jsonpCallback:'',                //自定义回调函数
             autoSubmit:true,                 //点击确定是否自动提交表单
             beforeSend:function(){},         //发送前动作：传入准备提交的表单项目，返回false终止提交
-            callback:function(){},           //获得数据后触发：传入一个对象，target表示被建议列表对象,data表示请求到的数据
+            onCallback:function(){},           //获得数据后触发：传入一个对象，target表示被建议列表对象,data表示请求到的数据
             onChange:function(item){         //用户按键盘切换时触发
                 item.input.val(item.target.text());
             },
@@ -141,7 +141,7 @@
                     'target':$list,
                     'data':data
                 };
-                options.callback(status);
+                options.onCallback(status);
                 $items = $suggestion.find('li');
                 hasData = $items.length>0;        //根据列表长度判断有没有值
                 if(hasData){

@@ -62,7 +62,7 @@ $('.search input[type="text"]').suggestion({
 	url:'http://suggestion.baidu.com/su',
 	FieldName:'wd',
 	jsonp:'cb',
-	callback:function(item){
+	onCallback:function(item){
 		var data = item['data']['s'];
 		item.target.empty();
 		for(var i=0;i&lt;data.length;i++){
@@ -77,7 +77,7 @@ $('.search input[type="text"]').suggestion({
 					url:'http://suggestion.baidu.com/su',
 					FieldName:'wd',
 					jsonp:'cb',
-					callback:function(item){
+					onCallback:function(item){
 						var data = item['data']['s'];
 						item.target.empty();
 						for(var i=0;i<data.length;i++){
@@ -157,7 +157,7 @@ $('.search input[type="text"]').suggestion({
 							<td>发送前动作：传入准备提交的表单项目，返回false终止提交</td>
 						</tr>
 						<tr>
-							<td>callback</td>
+							<td>onCallback</td>
 							<td>[无]</td>
 							<td>获得数据后触发：传入一个对象，target表示被建议列表对象,data表示请求到的数据</td>
 						</tr>
