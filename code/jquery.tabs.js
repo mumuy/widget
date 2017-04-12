@@ -82,7 +82,7 @@
                 };
                 if(options.beforeEvent(status)!=false){
                     _api.setIndex(i);
-                    options.afterEvent(status);
+                    options.afterEvent({index:i,count: _size});
                 }
             };
             //下一个
@@ -96,7 +96,7 @@
                 };
                 if(options.beforeEvent(status)!=false){
                     _api.setIndex(i);
-                    options.afterEvent(status);
+                    options.afterEvent({index:i,count: _size});
                 }
             };
             //停止播放
@@ -159,7 +159,7 @@
                 };
                 if(options.beforeEvent(status)!=false){
                     _api.setIndex(i);
-                    options.afterEvent(status);
+                    options.afterEvent({index:i,count: _size});
                 }
             });
             //初始化
