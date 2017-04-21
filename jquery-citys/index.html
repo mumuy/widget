@@ -8,10 +8,13 @@
         <link rel="stylesheet" type="text/css" href="/public/style/common.css">
         <style type="text/css">
             .citys{
-                margin-bottom: 25px;
+                margin-bottom: 10px;
             }
             .citys p{
                 line-height: 28px;
+            }
+            .warning{
+                color: #c00;
             }
             table a{
                 margin-right: 8px;
@@ -36,10 +39,10 @@
             </div>
             <div class="code">
                 <p>通过地区编码初始化设置</p>
-                <p>$('#demo').citys({nodata:'hidden',code:350206});</p>
+                <p>$('#demo').citys({code:350206});</p>
             </div>
             <script type="text/javascript">
-                $('#demo').citys({nodata:'hidden',code:350206});
+                $('#demo').citys({code:350206});
             </script>
             <div id="demo1" class="citys">
                 <p>
@@ -61,7 +64,7 @@
                     <select name="city"></select>
                     <select name="area"></select>
                 </p>
-                <p id="place">&nbsp;</p>
+                <p id="place">请选择地区</p>
             </div>
             <div class="code">
             <p>事件处理</p>
@@ -93,7 +96,6 @@ $('#demo2').citys({
                     <select name="area"></select>
                     <select name="town"></select>
                 </p>
-                <p id="place">&nbsp;</p>
             </div>
             <div class="code">
               <p>扩展显示行政区划第四级(街道)信息：</p>
@@ -175,14 +177,17 @@ $('#demo2').citys({
                             <td>dataUrl</td>
                             <td>[数据库地址]</td>
                             <td>
-                              <p>最新数据库（2016年9月）：<a href="http://passer-by.com/data_location/list.json" target="_blank">JSON格式</a><a href="http://passer-by.com/data_location/list.jsonp" target="_blank">JSONP格式</a></p>
+                              <p>最新数据库（<script src="http://passer-by.com/data_location/version.js"></script>）：<a href="http://passer-by.com/data_location/list.json" target="_blank">JSON格式</a><a href="http://passer-by.com/data_location/list.jsonp" target="_blank">JSONP格式</a></p>
                               <p>数据库项目：<a href="https://github.com/mumuy/data_location" target="_blank">中国行政区划（省、市、区、街道）</a></p>
                             </td>
                         </tr>
                         <tr>
                             <td>dataType</td>
                             <td>'json'</td>
-                            <td>数据库类型:'json'或'jsonp'</td>
+                            <td>
+                                <p>数据库类型:'json'或'jsonp'</p>
+                                <p class="warning">IE9-由于默认安全设置，需开启“通过域访问数据源”才能跨域访问json，此类情况建议使用jsonp格式</p>
+                            </td>
                         </tr>
                         <tr>
                             <td>provinceField</td>

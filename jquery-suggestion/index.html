@@ -62,7 +62,7 @@ $('.search input[type="text"]').suggestion({
 	url:'http://suggestion.baidu.com/su',
 	FieldName:'wd',
 	jsonp:'cb',
-	callback:function(item){
+	onCallback:function(item){
 		var data = item['data']['s'];
 		item.target.empty();
 		for(var i=0;i&lt;data.length;i++){
@@ -77,7 +77,7 @@ $('.search input[type="text"]').suggestion({
 					url:'http://suggestion.baidu.com/su',
 					FieldName:'wd',
 					jsonp:'cb',
-					callback:function(item){
+					onCallback:function(item){
 						var data = item['data']['s'];
 						item.target.empty();
 						for(var i=0;i<data.length;i++){
@@ -96,7 +96,7 @@ $('.search input[type="text"]').suggestion({
 					<thead>
 						<tr>
 							<th width="150">参数</th>
-							<th width="80">默认值</th>
+							<th width="120">默认值</th>
 							<th>说明</th>
 						</tr>
 					</thead>
@@ -112,14 +112,19 @@ $('.search input[type="text"]').suggestion({
 							<td>提示框的内容class</td>
 						</tr>
 						<tr>
-							<td>activeCls</td>
-							<td>'active'</td>
-							<td>列表项选中class</td>
-						</tr>
-						<tr>
 							<td>FieldName</td>
 							<td>'word'</td>
 							<td>当前input表单项在请求接口时的字段名</td>
+						</tr>			
+						<tr>
+							<td>dynamic</td>
+							<td>true</td>
+							<td>是否需要异步请求数据</td>
+						</tr>
+						<tr>
+							<td>activeCls</td>
+							<td>'active'</td>
+							<td>列表项选中class</td>
 						</tr>
 						<tr>
 							<td>dataFormat</td>
@@ -130,6 +135,11 @@ $('.search input[type="text"]').suggestion({
 							<td>parameter</td>
 							<td>{}</td>
 							<td>其他与接口有关参数</td>
+						</tr>
+						<tr>
+							<td>jsonp</td>
+							<td>'callback'</td>
+							<td>传递自定义回调函数</td>
 						</tr>
 						<tr>
 							<td>jsonpCallback</td>
@@ -147,7 +157,7 @@ $('.search input[type="text"]').suggestion({
 							<td>发送前动作：传入准备提交的表单项目，返回false终止提交</td>
 						</tr>
 						<tr>
-							<td>callback</td>
+							<td>onCallback</td>
 							<td>[无]</td>
 							<td>获得数据后触发：传入一个对象，target表示被建议列表对象,data表示请求到的数据</td>
 						</tr>

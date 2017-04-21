@@ -5,11 +5,22 @@
 ;(function (factory) {
     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
         // AMD或CMD
-        define([ "jquery" ], function(){
+        define([ "jquery" ],factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
             factory(jQuery);
-        });
+            return jQuery;
+        };
     } else {
-        // 全局模式
+        //Browser globals
         factory(jQuery);
     }
 }(function ($) {
@@ -19,36 +30,36 @@
             url:'',                          //请求的接口地址
             suggestionCls:'suggestion',      //提示框的内容class
             activeCls:'active',              //列表项选中class
+            dynamic:true,                    //动态
             FieldName:'word',                //当前input表单项在请求接口时的字段名
             dataFormat:'jsonp',              //请求的格式
             parameter:{},                    //其他与接口有关参数
+            jsonp:'callback',                //传递自定义回调函数
             jsonpCallback:'',                //自定义回调函数
             autoSubmit:true,                 //点击确定是否自动提交表单
             beforeSend:function(){},         //发送前动作：传入准备提交的表单项目，返回false终止提交
-            callback:function(){},           //获得数据后触发：传入一个对象，target表示被建议列表对象,data表示请求到的数据
+            onCallback:function(){},           //获得数据后触发：传入一个对象，target表示被建议列表对象,data表示请求到的数据
             onChange:function(item){         //用户按键盘切换时触发
                 item.input.val(item.target.text());
             },
             onSelect: function(item) {       //选中搜索建议列表项触发：传入一个对象，target表示当前选中列表项,input表示当前input表单项
                 item.input.val(item.target.text());
             }
-        }
+        };
         var options = $.extend({}, defaults, parameter);
         var $window = $(window);
         var $document = $(document);
         return this.each(function() {
             //对象定义
+            var that = this;
             var $this = $(this);
             var $form = $this.parents('form');
             var $box = $this.parent();
-            var $suggestion = $form.find('.'+options.suggestionCls);
-            if(!$suggestion.length){
-                $suggestion = $("<div class='"+options.suggestionCls+"'><ul></ul></div>").appendTo($box);
-            }
+            var $suggestion = $("<div class='"+options.suggestionCls+"'><ul></ul></div>").appendTo($box);
             var $list = $suggestion.find('ul');
             var $item = $list.find('li');
-            var _height = $this.outerHeight(true);
-            var _width = $this.outerWidth(true);
+            var _height = $this.outerHeight(false);
+            var _width = $this.outerWidth(false);
             var _text = '';
             var _hander = 0;
             var _index = -1;
@@ -72,19 +83,6 @@
                 'width':_width+'px'
             });
             //方法定义
-            //按键松开
-            var up = function(e){
-                e.isPropagationStopped();
-                e.preventDefault();
-                switch(e.keyCode){
-                    case 13:
-                    case 38:
-                    case 40:
-                    break;
-                    default:
-                        show();
-                }
-            };
             //按键按下
             var down = function(e){
                 e.isPropagationStopped();
@@ -119,8 +117,6 @@
                             e.preventDefault();
                         }
                     break;
-                    default:
-                        hide();
                 }
             };
             //鼠标经过
@@ -136,7 +132,7 @@
                 var status = {
                     'target':$target,
                     'input':$this
-                }
+                };
                 options.onChange(status);
             };
             //成功后的回调函数
@@ -145,19 +141,19 @@
                     'target':$list,
                     'data':data
                 };
-                options.callback(status);
+                options.onCallback(status);
                 $items = $suggestion.find('li');
                 hasData = $items.length>0;        //根据列表长度判断有没有值
                 if(hasData){
                     $suggestion.show();
                 }
-            }
+            };
             //显示表单项
             var show = function(){
-                isShow = true;
+                _hander&&clearTimeout(_hander);
                 _hander = setTimeout(function(){
-                    if(isShow){
-                        var value = $.trim($this.val());
+                    var value = $.trim($this.val());
+                    if(options.dynamic){
                         if(value==''){
                             hide();
                         }else{
@@ -165,7 +161,7 @@
                                 _index = -1;
                                 options.parameter[options.FieldName] = _text = value;
                                 if(options.beforeSend(options.parameter)!=false){
-                                    $.ajax({
+                                    var param = {
                                         type:'get',
                                         async: false,
                                         url :options.url,
@@ -173,43 +169,52 @@
                                         dataType:options.dataFormat,
                                         jsonp:options.jsonp,
                                         success:success
-                                    });
+                                    };
+                                    if(options.jsonpCallback){
+                                        param['jsonpCallback'] = options.jsonpCallback;
+                                    }
+                                    $.ajax(param);
                                 }
                             }else{
                                 if(hasData){
                                     $suggestion.show();
                                 }
                             }
-                        }
+                        }                            
+                    }else{
+                        success();
                     }
-                },'500');
-            }
+                    isShow = true;
+                },500);
+            };
             //隐藏表单项
             var hide = function(){
-                isShow = false;
                 _hander&&clearTimeout(_hander);
-                $suggestion.hide();
+                _hander = setTimeout(function(){
+                    if(isShow){
+                        $suggestion.hide();
+                        isShow = false;
+                    }
+                },200);
             };
             //事件绑定
-            $this.on({
-                'keyup':up,
-                'keydown':down
-            });
+            $this.on('keydown',down);
+            $this.on('input propertychange focus',show);
+            $this.on('blur',hide);            
             $list.on('click','li',function(){
                 var $target = $(this);
                 var status = {
                     'target':$target,
                     'input':$this
-                }
+                };
                 options.onSelect(status);
                 if(options.autoSubmit){
                     $form.submit();
                 }
             }).on('mouseenter','li',hover);
-            $document.on('click',hide);
             $window.resize(function(){
-                _height = $this.outerHeight(true);
-                _width = $this.outerWidth(true);
+                _height = $this.outerHeight(false);
+                _width = $this.outerWidth(false);
                 _top = $this.position().top;
                 _left = $this.position().left;
                 $suggestion.css({

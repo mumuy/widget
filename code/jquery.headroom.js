@@ -5,11 +5,22 @@
 ;(function (factory) {
     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
         // AMD或CMD
-        define([ "jquery" ], function(){
+        define([ "jquery" ],factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
             factory(jQuery);
-        });
+            return jQuery;
+        };
     } else {
-        // 全局模式
+        //Browser globals
         factory(jQuery);
     }
 }(function ($) {
@@ -35,7 +46,7 @@
             var last_up = false;
             var last_scroll_top = _scroll_top;
             var isFixed = false;
-            $this.width(_width).wrap('<div style="height:'+_height+'px"></div>')
+            $this.width(_width).wrap('<div style="height:'+_height+'px"></div>');
             //私有方法
             var scroll = function(){
                 var scroll_top = $document.scrollTop()+options.fixedTop;
@@ -72,5 +83,5 @@
             $window.scroll(scroll);
             scroll();
         });
-    }
+    };
 }));

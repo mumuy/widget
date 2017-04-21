@@ -2,17 +2,28 @@
  * jquery.tabs.js 1.0
  * http://jquerywidget.com
  */
-;(function (factory) {
-    if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
-        // AMD或CMD
-        define([ "jquery" ], function(){
+ ;(function (factory) {
+     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
+         // AMD或CMD
+         define([ "jquery" ],factory);
+     } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
             factory(jQuery);
-        });
-    } else {
-        // 全局模式
-        factory(jQuery);
-    }
-}(function ($) {
+            return jQuery;
+        };
+     } else {
+         //Browser globals
+         factory(jQuery);
+     }
+ }(function ($) {
     $.fn.tabs = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -35,6 +46,7 @@
             activeIndex: 0,             //默认选中导航项的索引
             auto: false,                //是否自动播放
             delay: 3000,                //自动播放时停顿的时间间隔
+            duration: 500,              //动画时长
             beforeEvent: function() {   //切换前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象
             },
             afterEvent: function() {    //切换后执行;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象
@@ -70,7 +82,7 @@
                 };
                 if(options.beforeEvent(status)!=false){
                     _api.setIndex(i);
-                    options.afterEvent(status);
+                    options.afterEvent({index:i,count: _size});
                 }
             };
             //下一个
@@ -84,7 +96,7 @@
                 };
                 if(options.beforeEvent(status)!=false){
                     _api.setIndex(i);
-                    options.afterEvent(status);
+                    options.afterEvent({index:i,count: _size});
                 }
             };
             //停止播放
@@ -108,7 +120,7 @@
                                     $(this).css('z-index',(index+_size-i-1)%_size+1);
                                 }
                             });
-                            $select.fadeOut(500,function(){
+                            $select.fadeOut(options.duration,function(){
                                 $select.css({
                                     'display':'block',
                                     'z-index':(index+_size-_index-1)%_size+1
@@ -125,7 +137,7 @@
                         $panels.hide().eq(index).show();
                         _index = index;
                 }
-            }
+            };
             //获取当前帧
             _api.getIndex = function(){
                 return _index;
@@ -147,7 +159,7 @@
                 };
                 if(options.beforeEvent(status)!=false){
                     _api.setIndex(i);
-                    options.afterEvent(status);
+                    options.afterEvent({index:i,count: _size});
                 }
             });
             //初始化

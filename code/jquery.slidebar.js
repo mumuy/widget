@@ -5,11 +5,22 @@
 ;(function (factory) {
     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
         // AMD或CMD
-        define([ "jquery" ], function(){
+        define([ "jquery" ],factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
             factory(jQuery);
-        });
+            return jQuery;
+        };
     } else {
-        // 全局模式
+        //Browser globals
         factory(jQuery);
     }
 }(function ($) {
@@ -51,7 +62,7 @@
             //初始化处理
             var isClose = !!getCookie(options.cookieName);
             var u = navigator.userAgent;
-            var isPC = !(u.indexOf('Mobi')>0||u.indexOf('Tablet')>0||u.indexOf('iPh')>0||u.indexOf('iPad')>0||u.indexOf('480')>0)
+            var isPC = !(u.indexOf('Mobi')>0||u.indexOf('Tablet')>0||u.indexOf('iPh')>0||u.indexOf('iPad')>0||u.indexOf('480')>0);
             var isWideScreen = $window.width()>=1280;
             if(isClose||!isPC||!isWideScreen){
                 $this.css({'overflow':'hidden','width': '0px'});

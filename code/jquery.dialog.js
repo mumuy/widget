@@ -5,11 +5,22 @@
 ;(function (factory) {
     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
         // AMD或CMD
-        define([ "jquery" ], function(){
+        define([ "jquery" ],factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
             factory(jQuery);
-        });
+            return jQuery;
+        };
     } else {
-        // 全局模式
+        //Browser globals
         factory(jQuery);
     }
 }(function ($) {
@@ -70,7 +81,7 @@
 				'z-index': '999'
 			}).appendTo($this).append($close).append($title).append($content).append($buttons);
 			var i = 1;
-			for(name in options.buttons){
+			for(var name in options.buttons){
 				(function(name){
 					$('<button class="button-'+(i++)+'" type="button">'+name+'</button>').appendTo($buttons).click(function(){
 						options.buttons[name](_api);
@@ -79,7 +90,7 @@
 			}
 			//对话框开启
 			_api.open = function(callback){
-				if(options.beforeOpen()!=false){
+				if(options.beforeOpen(this)!=false){
 					(callback || function(){})(); //如果open的时候传入了方法，则在执行时进行预处理
 					$this.show();
 					if(options.isModel){
@@ -103,7 +114,7 @@
 					$this.hide();
 				}
 				_isOpen = false;
-				options.afterClose();
+				options.afterClose(this);
 			};
 			//对话框形状自动调整
 			_api.resize = function(){
@@ -111,6 +122,10 @@
 					"left": ($window.width()-$container.outerWidth())/2 + "px",
 					"top": ($window.height()-$container.outerHeight())/2 + "px"
 				});
+			};
+			//设置标题
+			_api.setTitle = function(title){
+				$title.text(title);
 			};
 			//设置对话框内容
 			_api.setContent = function(html){
@@ -132,5 +147,5 @@
 			$window.resize(_api.resize);
 			getApi(_api);
 		});
-	}
+	};
 }));

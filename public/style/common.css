@@ -75,7 +75,7 @@ pre {
 	border-left: 1px solid #cee1ee;
 	word-break: break-all;
 	word-wrap: break-word;
-	padding-left: 10px;
+	padding:0 10px;
 	font-weight: normal;
 }
 .example tr th {

@@ -5,11 +5,22 @@
 ;(function (factory) {
     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
         // AMD或CMD
-        define([ "jquery" ], function(){
+        define([ "jquery" ],factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
             factory(jQuery);
-        });
+            return jQuery;
+        };
     } else {
-        // 全局模式
+        //Browser globals
         factory(jQuery);
     }
 }(function ($) {
@@ -41,12 +52,13 @@
 			var _start=0,_end=0;
 			var isTimestamp = isNaN(options.starttime)||isNaN(options.endtime);//是否为秒计数模式
 			var getTime = function(timestamp){
+				var date,format;
 				if(isTimestamp){
-					var date = new Date(timestamp);
-					var format = timeFormat(options.format,timestamp);
+					date = new Date(timestamp);
+					format = timeFormat(options.format,timestamp);
 				}else{
-					var date = new Date();
-					var format = timestamp/1e3;
+					date = new Date();
+					format = timestamp/1e3;
 				}
 				return {
 					'year':date.getFullYear(),
@@ -58,8 +70,8 @@
 					'quarter':Math.floor((date.getMonth()+3)/3),
 					'microsecond':date.getMilliseconds(),
 					'format':format
-				}
-			}
+				};
+			};
 			var count = function(){
 				if(_hander){
 					clearInterval(_hander);
@@ -134,5 +146,5 @@
 			}
 			return fmt;
 		}
-	}
+	};
 }));

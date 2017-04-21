@@ -5,11 +5,22 @@
 ;(function (factory) {
     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
         // AMD或CMD
-        define([ "jquery" ], function(){
+        define([ "jquery" ],factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
             factory(jQuery);
-        });
+            return jQuery;
+        };
     } else {
-        // 全局模式
+        //Browser globals
         factory(jQuery);
     }
 }(function ($) {
@@ -30,7 +41,7 @@
 			html:function(status){
 				status.list.append("<li>"+status.item.text()+"</li>");
 			},
-			selected:function(){}
+			onSelect:function(){}
         };
 		var options = $.extend({},defaults,options,parameter);
 		var $window = $(window);
@@ -42,7 +53,7 @@
             if($this.data('widget-type')=='select'){ //如果已调用过，则不进行初始化
             	return false;
             }else{
-            	$this.data('widget-type','select')
+            	$this.data('widget-type','select');
             }
 			var $inner = $("<div class='"+options.innerCls+"'></div>");
 			var $list = $("<ul class='"+options.listCls+"'></ul>");
@@ -57,7 +68,7 @@
 				var status = {
 					'list':$list,
 					'item':$this
-				}
+				};
 				options.html(status);
 			});
 			var $items = $list.find('li');
@@ -81,7 +92,7 @@
 	        		e.isPropagationStopped();
 	        		switch(e.keyCode){
 	        			case 13:
-							_api.value($options.eq(_index).val());
+							_api.setValue($options.eq(_index).val());
 							isShow = false;
 	        			break;
 	        			case 38:
@@ -102,14 +113,14 @@
         		}
         	};
 			//公有方法
-			_api.value = function(value){
+			_api.setValue = function(value){
 				$this.val(value);
 				_index = $options.filter(':selected').index();
 				var $item = $items.eq(_index);
 				$box.html($item.html());
 				$item.addClass(options.activeCls).siblings().removeClass(options.activeCls);
 				$inner.hide();
-				options.selected(value);
+				options.onSelect(value);
 			};
 			//事件绑定
 			$box.click(function(){
@@ -129,7 +140,7 @@
 				'click':function(){
 					_index = $(this).index();
 					var $option = $options.eq(_index);
-					_api.value($option.val());
+					_api.setValue($option.val());
 				}
 			});
 			$document.click(function(){
@@ -143,7 +154,7 @@
 				'keydown':down
 			});
 			//初始化
-			_api.value($this.val());
+			_api.setValue($this.val());
 			getApi(_api);
 		});
     };

@@ -59,9 +59,9 @@
     };
     //IE6~9兼容
     function setTBodyInnerHTML(tbody, html) {
-        var div = document.createElement('div')
-        div.innerHTML = '<table>' + html + '</table>'
-        tbody.parentNode.replaceChild(div.firstChild.firstChild, tbody)
+        var div = document.createElement('div');
+        div.innerHTML = '<table>' + html + '</table>';
+        tbody.parentNode.replaceChild(div.firstChild.firstChild, tbody);
     }
     var isIE= navigator.appVersion.indexOf("MSIE")>-1;
 
@@ -114,7 +114,7 @@
                 'month':date.getMonth()+1,
                 'day':date.getDate(),
                 'week':date.getDay()
-            }
+            };
             obj['code'] = ''+obj['year']+(obj['month']>9?obj['month']:'0'+obj['month'])+(obj['day']>9?obj['day']:'0'+obj['day']);
             return obj;
         };
@@ -273,7 +273,7 @@
         //获取当前月份
         _self.getCurrentMonth = function(){
             return _day;
-        }
+        };
         /***** 初始化 *****/
         _today = getDateObj();
         _day = {
@@ -301,7 +301,7 @@
             format(_data);
         });
         EventUtil.addEvent($back,'click',function(){
-            _day = {'year':_today['year'],'month':_today['month']}
+            _day = {'year':_today['year'],'month':_today['month']};
             _data = _self.getData();
             format(_data);
         });

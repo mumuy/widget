@@ -108,7 +108,7 @@
 					<thead>
 						<tr>
 							<th width="150">参数</th>
-							<th width="80">默认值</th>
+							<th width="120">默认值</th>
 							<th>说明</th>
 						</tr>
 					</thead>
@@ -148,16 +148,16 @@
 						<tr>
 							<td>beforeOpen</td>
 							<td>
-								function(){}
+								function(api){}
 							</td>
-							<td>打开窗口前事件处理</td>
+							<td>打开窗口前事件处理，api为方法接口</td>
 						</tr>
 						<tr>
 							<td>afterClose</td>
 							<td>
-								function(){}
+								function(api){}
 							</td>
-							<td>关闭窗口后事件处理</td>
+							<td>关闭窗口后事件处理，api为方法接口</td>
 						</tr>
 					</tbody>
 				</table>
@@ -181,6 +181,10 @@
 						<tr>
 							<td>resize()</td>
 							<td>对话框形状自动调整</td>
+						</tr>
+						<tr>
+							<td>setTitle()</td>
+							<td>设置对话框标题</td>
 						</tr>
 						<tr>
 							<td>setContent()</td>

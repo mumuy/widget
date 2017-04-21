@@ -5,14 +5,26 @@
 ;(function (factory) {
     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
         // AMD或CMD
-        define([ "jquery" ], function(){
+        define([ "jquery" ],factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
             factory(jQuery);
-        });
+            return jQuery;
+        };
     } else {
-        // 全局模式
+        //Browser globals
         factory(jQuery);
     }
 }(function ($) {
+    $.support.cors = true;
     $.fn.citys = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -46,6 +58,7 @@
             $.ajax({
                 url:options.dataUrl,
                 type:'GET',
+                crossDomain: true,
                 dataType:options.dataType,
                 jsonpCallback:'jsonp_location',
                 success:function(data){
@@ -67,7 +80,7 @@
                     var updateData = function(){
                         province = {},city={},area={};
                         hasCity = false;       //判断是非有地级城市
-                        for(code in data){
+                        for(var code in data){
                             if(!(code%1e4)){     //获取所有的省级行政单位
                                 province[code]=data[code];
                                 if(options.required&&!options.province){
@@ -80,7 +93,7 @@
                                     options.province = isNaN(options.province)?code:options.province;
                                 }
                             }else{
-                                var p = code-options.province;
+                                var p = code - options.province;
                                 if(options.province&&p>0&&p<1e4){    //同省的城市或地区
                                     if(!(code%100)){
                                         hasCity = true;
@@ -91,7 +104,12 @@
                                             options.city = isNaN(options.city)?code:options.city;
                                         }
                                     }else if(p>9000){                   //省直辖县级行政单位
-                                        city[code]=data[code];
+                                        city[code] = data[code];
+                                        if(options.required&&!options.city){
+                                            options.city = code;
+                                        }else if(data[code].indexOf(options.city)>-1){
+                                            options.city = isNaN(options.city)?code:options.city;
+                                        }
                                     }else if(hasCity){                  //非直辖市
                                         var c = code-options.city;
                                         if(options.city&&c>0&&c<100){     //同个城市的地区
@@ -124,7 +142,7 @@
                             if(!options.required){
                                 $province.append('<option value=""> - 请选择 - </option>');
                             }
-                            for(i in province){
+                            for(var i in province){
                                 $province.append('<option value="'+i+'">'+province[i]+'</option>');
                             }
                             if(options.province){
@@ -142,7 +160,7 @@
                             }else if(options.nodata=='hidden'){
                                 $city.css('display',$.isEmptyObject(city)?'none':'');
                             }
-                            for(i in city){
+                            for(var i in city){
                                 $city.append('<option value="'+i+'">'+city[i]+'</option>');
                             }
                             if(options.city){
@@ -164,7 +182,7 @@
                                 }else if(options.nodata=='hidden'){
                                     $area.css('display',$.isEmptyObject(area)?'none':'');
                                 }
-                                for(i in area){
+                                for(var i in area){
                                     $area.append('<option value="'+i+'">'+area[i]+'</option>');
                                 }
                                 if(options.area){
@@ -207,6 +225,9 @@
                     //初始化
                     updateData();
                     format.province();
+                    if(options.code){
+                        options.onChange(_api.getInfo());
+                    }
                     getApi(_api);
                 }
             });

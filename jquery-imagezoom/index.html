@@ -47,14 +47,14 @@
 				<p>
 <pre>
 $('#zoom li').imagezoom({
-	'hoverEvent':true
+	'hoverEffect':true
 });
 </pre>
 				</p>
 			</div>
 			<script type="text/javascript">
 				$('#zoom li').imagezoom({
-					'hoverEvent':true
+					'hoverEffect':true
 				});			
 			</script>
 			<div class="example">
@@ -67,7 +67,7 @@ $('#zoom li').imagezoom({
 					<thead>
 						<tr>
 							<th width="150">参数</th>
-							<th width="80">默认值</th>
+							<th width="120">默认值</th>
 							<th>说明</th>
 						</tr>
 					</thead>
@@ -99,8 +99,8 @@ $('#zoom li').imagezoom({
 						</tr>
 						<tr>
 							<td>effect</td>
-							<td>'out'</td>
-							<td>图片居中方式处理</td>
+							<td>'default'</td>
+							<td>图片居中方式处理:default最大面积覆盖外框，in最大面积显示完整图片，out在不模糊的情况下最大面积覆盖外框</td>
 						</tr>
 						<tr>
 							<td>condition</td>
@@ -108,7 +108,7 @@ $('#zoom li').imagezoom({
 							<td>默认筛选条件</td>
 						</tr>
 						<tr>
-							<td>hoverEvent</td>
+							<td>hoverEffect</td>
 							<td>false</td>
 							<td>鼠标悬浮时是否放大</td>
 						</tr>
@@ -121,6 +121,16 @@ $('#zoom li').imagezoom({
 							<td>duration</td>
 							<td>300</td>
 							<td>鼠标悬浮时放大动画时长</td>
+						</tr>
+						<tr>
+							<td>beforeHover()</td>
+							<td>[空]</td>
+							<td>鼠标进入悬浮前触发</td>
+						</tr>
+						<tr>
+							<td>afterHover()</td>
+							<td>[空]</td>
+							<td>鼠标离开悬浮后触发</td>
 						</tr>
 					</tbody>
 				</table>

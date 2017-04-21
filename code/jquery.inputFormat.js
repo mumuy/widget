@@ -5,11 +5,22 @@
 ;(function (factory) {
     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
         // AMD或CMD
-        define([ "jquery" ], function(){
+        define([ "jquery" ],factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
             factory(jQuery);
-        });
+            return jQuery;
+        };
     } else {
-        // 全局模式
+        //Browser globals
         factory(jQuery);
     }
 }(function ($) {
@@ -57,13 +68,13 @@
             };
             _api.format = function(value){
                 return format[options.type](value,options.tofixed);
-            }
+            };
             _api.setValue = function(value){
                 var s = format[options.type](value,options.tofixed);
                 if(s!=value){
                     $this.val(s);
                 }
-            }
+            };
             $this.on({
                 input:function(){
                     var value = $this.val();

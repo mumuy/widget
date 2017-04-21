@@ -36,7 +36,7 @@
             _api.select = function(i){
                 $triggers.removeClass(options.activeCls).eq(i).addClass(options.activeCls);
                 $panels.hide().eq(i).show();
-            }
+            };
             //初始化
             _api.select(options.activeIndex);   //默认选中状态
             $triggers.bind(options.triggerType, function(e) { //事件绑定
@@ -47,7 +47,7 @@
                     panels:$panels,
                     index:i,
                     event:e
-                }
+                };
                 if(options.beforeEvent(status)!=false){
                     _api.select(i);
                     options.afterEvent(status);

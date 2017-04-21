@@ -10,10 +10,10 @@
 			.popup{
 				margin-bottom: 25px;
 			}
-			.popup1 a{
+			.style1 a{
 				text-decoration: none;
 			}
-			.popup1 .trigger{
+			.style1 .trigger{
 				display: block;
 				width:80px;
 				height:30px;
@@ -22,11 +22,11 @@
 				text-align: center;
 				color:#333;
 			}
-			.popup1 ul{
+			.style1 ul{
 				width: 200px;
 				background: #aaa;
 			}
-			.popup1 li{
+			.style1 li{
 				line-height: 28px;
 				text-align: center;
 			}
@@ -40,7 +40,7 @@
             <a href="/">返回首页</a>
         </div>
 		<div class="main">
-			<div class="popup popup1">
+			<div class="popup style1 popup1">
 				<div><a class="trigger" href="javascript:;">菜单</a></div>
 				<ul>
 					<li><span>菜单项1</span></li>
@@ -51,20 +51,39 @@
 				</ul>	
 			</div>
 			<div class="code">
-				$('.popup1').popup({trigger:'.trigger',triggerType:'mouse',node:'ul'});
+				<p>触发点下边与弹出层上边水平居中对齐</p>
+				<p>$('.popup1').popup({trigger:'.trigger',triggerType:'mouse',node:'ul'});</p>
 			</div>
 			<script type="text/javascript">
 				$('.popup1').popup({trigger:'.trigger',triggerType:'mouse',node:'ul'});
 			</script>
-			<div class="popup popup2">
+			<div class="popup style1 popup2">
+				<div><a class="trigger" href="javascript:;">菜单</a></div>
+				<ul>
+					<li><span>菜单项1</span></li>
+					<li><span>菜单项2</span></li>
+					<li><span>菜单项3</span></li>
+					<li><span>菜单项4</span></li>
+					<li><span>菜单项5</span></li>
+				</ul>	
+			</div>
+			<div class="code">
+				<p>触发点右侧与弹出层左侧垂直居中对齐</p>
+				<p>$('.popup2').popup({trigger:'.trigger',triggerType:'mouse',node:'ul',points:['rc','lc']});</p>
+			</div>
+			<script type="text/javascript">
+				$('.popup2').popup({trigger:'.trigger',triggerType:'mouse',node:'ul',points:['rc','lc']});
+			</script>
+			<div class="popup popup3">
 				<img class="small" src="image/test.jpg" width="100" height="100"/>
 				<img class="big" src="image/test.jpg" width="180" height="180"/>
 			</div>
 			<div class="code">
-				$('.popup2').popup({trigger:'.small',triggerType:'mouse',node:'.big',points:['cc','cc']});
+				<p>触发点与弹出层居中对齐</p>
+				<p>$('.popup3').popup({trigger:'.small',triggerType:'mouse',node:'.big',points:['cc','cc']});</p>
 			</div>
 			<script type="text/javascript">
-				$('.popup2').popup({trigger:'.small',triggerType:'mouse',node:'.big',points:['cc','cc']});
+				$('.popup3').popup({trigger:'.small',triggerType:'mouse',node:'.big',points:['cc','cc']});
 			</script>
 			<div class="example">
 				<div class="call">
@@ -76,7 +95,7 @@
 					<thead>
 						<tr>
 							<th width="150">参数</th>
-							<th width="80">默认值</th>
+							<th width="120">默认值</th>
 							<th>说明</th>
 						</tr>
 					</thead>

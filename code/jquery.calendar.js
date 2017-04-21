@@ -5,16 +5,33 @@
 ;(function (factory) {
     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
         // AMD或CMD
-        define([ "jquery" ], function(){
+        define([ "jquery" ],factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
             factory(jQuery);
-        });
+            return jQuery;
+        };
     } else {
-        // 全局模式
+        //Browser globals
         factory(jQuery);
     }
 }(function ($) {
     $.fn.calendar = function(parameter,getApi) {
-        parameter = parameter || {};
+        if(typeof parameter == 'function'){ //重载
+            getApi = parameter;
+            parameter = {};
+        }else{
+            parameter = parameter || {};
+            getApi = getApi||function(){};
+        }
         var defaults = {
             prefix:'widget',            //生成日历的class前缀
             isRange:false,              //是否选择范围
@@ -50,7 +67,7 @@
                     'month':date.getMonth()+1,
                     'day':date.getDate(),
                     'week':date.getDay()
-                }
+                };
                 obj['code'] = ''+obj['year']+(obj['month']>9?obj['month']:'0'+obj['month'])+(obj['day']>9?obj['day']:'0'+obj['day']);
                 return obj;
             };

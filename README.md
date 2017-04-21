@@ -119,3 +119,9 @@ $(selector).inputFormat(options,callback(api));
 ```javascript
 $(selector).accordion(options,callback(api));
 ```
+
+### 聊天表情
+[演示](http://jquerywidget.com/jquery-emoticons/)
+```javascript
+$.emoticons(options,callback(api));
+```

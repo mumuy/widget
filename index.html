@@ -3,6 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>我的组件库</title>
+		<meta name="description" content="简单实用的jQuery插件库，包含轮播（幻灯片）、标签页、弹出框、滚动条、城市三级联动等组件，极大地方便了前端开发">
+		<meta name="keywords" content="jQuery插件,javascript,前端开发,轮播,组件">
+		<meta name="author" content="木木阳,mumuy,passerby" />
 		<link rel="shortcut icon" href="/public/image/favicon.png">
 		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css">
 		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
@@ -79,6 +82,9 @@
 				margin-bottom: 10px;
 				line-height: 20px;
 			}
+			.mod-content a.hot{
+				color: #cc0000;
+			}
 			.mod-content a:hover{
 				border-bottom: 1px dotted #666;
 			}
@@ -108,7 +114,7 @@
 					<ul>
 						<li><a class="btn" href="http://passer-by.com/" target="_blank">个人网站</a></li>
 						<li><a class="btn" href="https://github.com/mumuy/widget" target="_blank">查看GitHub</a></li>
-						<li><a class="btn" href="https://github.com/mumuy/widget/zipball/master" target="_blank">下载 .zip</a></li>
+						<li><a class="btn" href="https://github.com/mumuy/widget/zipball/gh-pages" target="_blank">下载 .zip</a></li>
 					</ul>
 				</div>
 				<div class="mod-botton">
@@ -121,7 +127,11 @@
 					<div class="mod-content">
 						<ul>
 							<li>
-								<p><a class="hot" href="/jquery-slider/" target="_blank">轮播</a><p>
+								<p>
+									<a class="hot" href="/jquery-slider/" target="_blank">轮播</a>
+									<span>/</span>
+									<a href="/jquery-slider/subject.html" target="_blank">全屏轮播</a>
+								<p>
 								<p>$(selector).slider(options,callback(api));</p>
 							</li>
 							<li>
@@ -157,7 +167,11 @@
 								<p>$(selector).headroom(options);</p>
 							</li>
 							<li>
-								<p><a href="/jquery-calendar/" target="_blank">日历</a></p>
+								<p>
+									<a href="/jquery-calendar/" target="_blank">日历</a>
+									<span>/</span>
+									<a href="/jquery-calendar/slider.html" target="_blank">滑动日历(基于轮播)</a>
+								</p>
 								<p>$(selector).calendar(options);</p>
 							</li>
 							<li>
@@ -179,6 +193,10 @@
 							<li>
 								<p><a href="/jquery-accordion/" target="_blank">手风琴</a></p>
 								<p>$(selector).accordion(options,callback(api));</p>
+							</li>
+							<li>
+								<p><a href="/jquery-emoticons/" target="_blank">聊天表情</a></p>
+								<p>$.emoticons(options,callback(api));</p>
 							</li>
 						</ul>
 					</div>

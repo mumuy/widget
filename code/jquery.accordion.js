@@ -5,11 +5,22 @@
 ;(function (factory) {
     if (typeof define === "function" && (define.amd || define.cmd) && !jQuery) {
         // AMD或CMD
-        define([ "jquery" ], function(){
+        define([ "jquery" ],factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
             factory(jQuery);
-        });
+            return jQuery;
+        };
     } else {
-        // 全局模式
+        //Browser globals
         factory(jQuery);
     }
 }(function ($) {
@@ -64,7 +75,7 @@
                     }
                     $triggers.removeClass(options.activeCls).eq(i).addClass(options.activeCls);
                 }
-            }
+            };
             //初始化
             _api.select(options.activeIndex,false);
             $triggers.bind(options.triggerType, function(e) { //事件绑定
@@ -75,7 +86,7 @@
                     panels:$panels,
                     index:i,
                     event:e
-                }
+                };
                 if(options.beforeEvent(status)!=false){
                     _api.select(i);
                     options.afterEvent(status);
