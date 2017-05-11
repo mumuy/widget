@@ -39,6 +39,7 @@
             provinceField:'province', //省份字段名
             cityField:'city',         //城市字段名
             areaField:'area',         //地区字段名
+            valueType:'code',         //下拉框值的类型,code行政区划代码,name地名
             code:0,                   //地区编码
             province:0,               //省份,可以为地区编码或者名称
             city:0,                   //城市,可以为地区编码或者名称
@@ -143,10 +144,11 @@
                                 $province.append('<option value=""> - 请选择 - </option>');
                             }
                             for(var i in province){
-                                $province.append('<option value="'+i+'">'+province[i]+'</option>');
+                                $province.append('<option value="'+(options.valueType=='code'?i:province[i])+'" data-code="'+i+'">'+province[i]+'</option>');
                             }
                             if(options.province){
-                                $province.val(options.province);
+                                var value = options.valueType=='code'?options.province:province[options.province];
+                                $province.val(value);
                             }
                             this.city();
                         },
@@ -161,10 +163,11 @@
                                 $city.css('display',$.isEmptyObject(city)?'none':'');
                             }
                             for(var i in city){
-                                $city.append('<option value="'+i+'">'+city[i]+'</option>');
+                                $city.append('<option value="'+(options.valueType=='code'?i:city[i])+'" data-code="'+i+'">'+city[i]+'</option>');
                             }
                             if(options.city){
-                                $city.val(options.city);
+                                var value = options.valueType=='code'?options.city:city[options.city];
+                                $city.val(value);
                             }
                             this.area();
                         },
@@ -183,10 +186,11 @@
                                     $area.css('display',$.isEmptyObject(area)?'none':'');
                                 }
                                 for(var i in area){
-                                    $area.append('<option value="'+i+'">'+area[i]+'</option>');
+                                    $area.append('<option value="'+(options.valueType=='code'?i:area[i])+'" data-code="'+i+'">'+area[i]+'</option>');
                                 }
                                 if(options.area){
-                                  $area.val(options.area);
+                                    var value = options.valueType=='code'?options.area:area[options.area];
+                                    $area.val(value);
                                 }
                             }
                         }
@@ -204,7 +208,7 @@
                     };
                     //事件绑定
                     $province.on('change',function(){
-                        options.province = $(this).val();
+                        options.province = $(this).find('option:selected').data('code')||0; //选中节点的区划代码
                         options.city = 0;
                         options.area = 0;
                         updateData();
@@ -212,14 +216,14 @@
                         options.onChange(_api.getInfo());
                     });
                     $city.on('change',function(){
-                        options.city = $(this).val();
+                        options.city = $(this).find('option:selected').data('code')||0; //选中节点的区划代码
                         options.area = 0;
                         updateData();
                         format.area();
                         options.onChange(_api.getInfo());
                     });
                     $area.on('change',function(){
-                        options.area = $(this).val();
+                        options.area = $(this).find('option:selected').data('code')||0; //选中节点的区划代码
                         options.onChange(_api.getInfo());
                     });
                     //初始化

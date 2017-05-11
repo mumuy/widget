@@ -52,11 +52,11 @@
                 </p>
             </div>
             <div class="code">
-                <p>通过地区名称初始化设置</p>
-                <p>$('#demo1').citys({province:'福建',city:'厦门',area:'思明'});</p>
+                <p>通过地区名称初始化设置，并且下拉框值为地区名称</p>
+                <p>$('#demo1').citys({valueType:'name',province:'福建',city:'厦门',area:'思明'});</p>
             </div>
             <script type="text/javascript">
-                $('#demo1').citys({province:'福建',city:'厦门',area:'思明'});
+                $('#demo1').citys({valueType:'name',province:'福建',city:'厦门',area:'思明'});
             </script>
             <div id="demo2" class="citys">
                 <p>
@@ -203,6 +203,11 @@ $('#demo2').citys({
                             <td>areaField</td>
                             <td>'area'</td>
                             <td>地区(县区级)字段名</td>
+                        </tr>
+                        <tr>
+                            <td>valueType</td>
+                            <td>'code'</td>
+                            <td>下拉框值的类型,code行政区划代码,name地名</td>
                         </tr>
                         <tr>
                             <td>code</td>
