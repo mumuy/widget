@@ -54,10 +54,11 @@
 			var $children = options.content?$(options.content):$this.html(); //内容区域
 			var $container = $('<div class="'+options.prefix+'-container"></div>');
 			var $overlay = $();
-			var $close = $('<div class="'+options.prefix+'-close"><a href="javascript:;">x</a></div>');
-			var $title = $('<div class="'+options.prefix+'-title">'+options.title+'</div>');
-			var $content = $('<div class="'+options.prefix+'-content"></div>').append($children);
-			var $buttons = $('<div class="'+options.prefix+'-buttons"></div>');
+			var $close = $('<a href="javascript:;">x</a>');
+			var $title = $('<h3>'+options.title+'</h3>');
+			var $wg_head = $('<div class="'+options.prefix+'-head"></div>').append($title).append($close);
+			var $wg_body = $('<div class="'+options.prefix+'-body"></div>').append($children);
+			var $wg_foot = $('<div class="'+options.prefix+'-foot"></div>');
 			var _api = {};  //对外接口
 			var _position = isIE6?'absolute':'fixed';
 			var _isOpen = false; //是否是打开状态
@@ -79,11 +80,11 @@
 				'display':'none',
 				'position':_position,
 				'z-index': '999'
-			}).appendTo($this).append($close).append($title).append($content).append($buttons);
+			}).appendTo($this).append($wg_head).append($wg_body).append($wg_foot);
 			var i = 1;
 			for(var name in options.buttons){
 				(function(name){
-					$('<button class="button-'+(i++)+'" type="button">'+name+'</button>').appendTo($buttons).click(function(){
+					$('<button class="button-'+(i++)+'" type="button">'+name+'</button>').appendTo($wg_foot).click(function(){
 						options.buttons[name](_api);
 					});
 				})(name);
@@ -129,11 +130,11 @@
 			};
 			//设置对话框内容
 			_api.setContent = function(html){
-				$content.html(html);
+				$wg_body.html(html);
 			};
 			//获取按键对象
 			_api.getButtons = function(){
-				return $buttons;
+				return $wg_foot;
 			};
 			_api.isOpen = function(){
 				return _isOpen;
