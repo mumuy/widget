@@ -99,25 +99,19 @@
                                     if(!(code%100)){
                                         hasCity = true;
                                         city[code]=data[code];
-                                        if(options.required&&!options.city){
-                                            options.city = code;
-                                        }else if(data[code].indexOf(options.city)>-1){
+                                        if(data[code].indexOf(options.city)>-1){
                                             options.city = isNaN(options.city)?code:options.city;
                                         }
                                     }else if(p>9000){                   //省直辖县级行政单位
                                         city[code] = data[code];
-                                        if(options.required&&!options.city){
-                                            options.city = code;
-                                        }else if(data[code].indexOf(options.city)>-1){
+                                        if(data[code].indexOf(options.city)>-1){
                                             options.city = isNaN(options.city)?code:options.city;
                                         }
                                     }else if(hasCity){                  //非直辖市
                                         var c = code-options.city;
                                         if(options.city&&c>0&&c<100){     //同个城市的地区
                                             area[code]=data[code];
-                                            if(options.required&&!options.area){
-                                                options.area = code;
-                                            }else if(data[code].indexOf(options.area)>-1){
+                                            if(data[code].indexOf(options.area)>-1){
                                                 options.area = isNaN(options.area)?code:options.area;
                                             }
                                         }
@@ -127,9 +121,7 @@
                                             options.city = options.area;
                                             options.area = '';
                                         }
-                                        if(options.required&&!options.city){
-                                            options.city = code;
-                                        }else if(data[code].indexOf(options.city)>-1){
+                                        if(data[code].indexOf(options.city)>-1){
                                             options.city = isNaN(options.city)?code:options.city;
                                         }
                                     }
@@ -167,6 +159,9 @@
                             }
                             if(options.city){
                                 var value = options.valueType=='code'?options.city:city[options.city];
+                                $city.val(value);
+                            }else if(options.area){
+                                var value = options.valueType=='code'?options.area:city[options.area];
                                 $city.val(value);
                             }
                             this.area();
