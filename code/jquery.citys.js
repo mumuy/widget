@@ -116,13 +116,9 @@
                                             }
                                         }
                                     }else{
-                                        city[code]=data[code];            //直辖市
-                                        if(options.area){
-                                            options.city = options.area;
-                                            options.area = '';
-                                        }
-                                        if(data[code].indexOf(options.city)>-1){
-                                            options.city = isNaN(options.city)?code:options.city;
+                                        area[code]=data[code];            //直辖市
+                                        if(data[code].indexOf(options.area)>-1){
+                                            options.area = isNaN(options.area)?code:options.area;
                                         }
                                     }
                                 }
@@ -146,47 +142,47 @@
                         },
                         city:function(){
                             $city.empty();
-                            if(!options.required){
-                                $city.append('<option value=""> - 请选择 - </option>');
-                            }
-                            if(options.nodata=='disabled'){
-                                $city.prop('disabled',$.isEmptyObject(city));
-                            }else if(options.nodata=='hidden'){
-                                $city.css('display',$.isEmptyObject(city)?'none':'');
-                            }
-                            for(var i in city){
-                                $city.append('<option value="'+(options.valueType=='code'?i:city[i])+'" data-code="'+i+'">'+city[i]+'</option>');
-                            }
-                            if(options.city){
-                                var value = options.valueType=='code'?options.city:city[options.city];
-                                $city.val(value);
-                            }else if(options.area){
-                                var value = options.valueType=='code'?options.area:city[options.area];
-                                $city.val(value);
+                            if(!hasCity){
+                                $city.css('display','none');
+                            }else{
+                                $city.css('display','');
+                                if(!options.required){
+                                    $city.append('<option value=""> - 请选择 - </option>');
+                                }
+                                if(options.nodata=='disabled'){
+                                    $city.prop('disabled',$.isEmptyObject(city));
+                                }else if(options.nodata=='hidden'){
+                                    $city.css('display',$.isEmptyObject(city)?'none':'');
+                                }
+                                for(var i in city){
+                                    $city.append('<option value="'+(options.valueType=='code'?i:city[i])+'" data-code="'+i+'">'+city[i]+'</option>');
+                                }
+                                if(options.city){
+                                    var value = options.valueType=='code'?options.city:city[options.city];
+                                    $city.val(value);
+                                }else if(options.area){
+                                    var value = options.valueType=='code'?options.area:city[options.area];
+                                    $city.val(value);
+                                }
                             }
                             this.area();
                         },
                         area:function(){
                             $area.empty();
-                            if(!hasCity){
-                                $area.css('display','none');
-                            }else{
-                                $area.css('display','');
-                                if(!options.required){
-                                    $area.append('<option value=""> - 请选择 - </option>');
-                                }
-                                if(options.nodata=='disabled'){
-                                    $area.prop('disabled',$.isEmptyObject(area));
-                                }else if(options.nodata=='hidden'){
-                                    $area.css('display',$.isEmptyObject(area)?'none':'');
-                                }
-                                for(var i in area){
-                                    $area.append('<option value="'+(options.valueType=='code'?i:area[i])+'" data-code="'+i+'">'+area[i]+'</option>');
-                                }
-                                if(options.area){
-                                    var value = options.valueType=='code'?options.area:area[options.area];
-                                    $area.val(value);
-                                }
+                            if(!options.required){
+                                $area.append('<option value=""> - 请选择 - </option>');
+                            }
+                            if(options.nodata=='disabled'){
+                                $area.prop('disabled',$.isEmptyObject(area));
+                            }else if(options.nodata=='hidden'){
+                                $area.css('display',$.isEmptyObject(area)?'none':'');
+                            }
+                            for(var i in area){
+                                $area.append('<option value="'+(options.valueType=='code'?i:area[i])+'" data-code="'+i+'">'+area[i]+'</option>');
+                            }
+                            if(options.area){
+                                var value = options.valueType=='code'?options.area:area[options.area];
+                                $area.val(value);
                             }
                         }
                     };
