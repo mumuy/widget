@@ -16,13 +16,14 @@
             .warning{
                 color: #c00;
             }
-            table a{
+            .main a{
                 margin-right: 8px;
                 color: #369;
             }
         </style>
         <script type="text/javascript" src="/public/script/jquery.min.js"></script>
         <script type="text/javascript" src="/code/jquery.citys.js"></script>
+        <script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
     </head>
     <body>
         <div class="header">
@@ -30,6 +31,22 @@
             <a href="/">返回首页</a>
         </div>
         <div class="main">
+            <div id="location" class="citys">
+                <p>您现在的位置：</p>
+                <p>
+                    <select name="province"></select>
+                    <select name="city"></select>
+                    <select name="area"></select>
+                </p>
+            </div>
+            <div class="code">
+                <p>根据IP地址定位：<a href="http://passer-by.com/api/#docs/ip">IP接口文档</a></p>
+            </div>
+            <script type="text/javascript">
+                if(remote_ip_info){
+                    $('#location').citys({province:remote_ip_info['province'],city:remote_ip_info['city'],area:remote_ip_info['district']});
+                }
+            </script>
             <div id="demo" class="citys">
                 <p>
                     <select name="province"></select>
