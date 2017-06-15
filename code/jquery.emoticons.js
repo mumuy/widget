@@ -151,7 +151,9 @@
             if(list){
                 for(var i=0;i<list.length;i++){
                     title = list[i].replace(filter,'');
-                    str = str.replace(list[i],' <img src="'+_hash[title]+'"/> ');
+                    if(_hash[title]){
+                        str = str.replace(list[i],' <img src="'+_hash[title]+'"/> ');
+                    }
                 }                
             }
             return str;
