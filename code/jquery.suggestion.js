@@ -83,7 +83,8 @@
                 'disableautocomplete':true
             });
             $suggestion.css({
-                'position':'absolute'
+                'position':'absolute',
+                'display':'none'
             });
             //方法定义
             //位置调整
