@@ -1,5 +1,5 @@
 /**
- * jquery.suggestion.js 1.2
+ * jquery.suggestion.js 1.3
  * http://jquerywidget.com
  */
 ;(function (factory) {
