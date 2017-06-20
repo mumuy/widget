@@ -65,8 +65,8 @@ $('.search input[type="text"]').suggestion({
 	onCallback:function(item,data){
 		var list = data['s'];
 		item.empty();
-		for(var i=0;i<list.length;i++){
-			item.append('<li>'+list[i]+'</li>');
+		for(var i=0;i&gt;list.length;i++){
+			item.append('&lt;li&gt;'+list[i]+'&lt;/li&gt;');
 		}
 	}
 });
