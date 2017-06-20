@@ -32,7 +32,7 @@
             activeCls:'active',              //列表项选中class
             dynamic:true,                    //动态
             FieldName:'word',                //当前input表单项在请求接口时的字段名
-            dataFormat:'jsonp',              //请求的格式
+            dataType:'jsonp',              //请求的格式
             parameter:{},                    //其他与接口有关参数
             jsonp:'callback',                //传递自定义回调函数
             jsonpCallback:'',                //自定义回调函数
@@ -162,7 +162,7 @@
                                         async: false,
                                         url :options.url,
                                         data:options.parameter,
-                                        dataType:options.dataFormat,
+                                        dataType:options.dataType,
                                         jsonp:options.jsonp,
                                         success:success
                                     };
