@@ -24,8 +24,14 @@
         factory(jQuery);
     }
 }(function ($) {
-    $.fn.suggestion = function(parameter) {
-        parameter = parameter || {};
+    $.fn.suggestion = function(parameter,getApi) {
+        if(typeof parameter == 'function'){ //重载
+            getApi = parameter;
+            parameter = {};
+        }else{
+            parameter = parameter || {};
+            getApi = getApi||function(){};
+        }
         var defaults = {
             url:'',                          //请求的接口地址
             suggestionCls:'suggestion',      //提示框的内容class
@@ -38,7 +44,7 @@
             jsonpCallback:'',                //自定义回调函数
             autoSubmit:true,                 //点击确定是否自动提交表单
             beforeSend:function(){},         //发送前动作：传入准备提交的表单项目，返回false终止提交
-            onCallback:function(){},           //获得数据后触发：传入一个对象，target表示被建议列表对象,data表示请求到的数据
+            onCallback:function(){},         //获得数据后触发：target表示被建议列表对象,data表示请求到的数据
             onChange:function(item){         //用户按键盘切换时触发
                 item.input.val(item.target.text());
             },
@@ -51,16 +57,17 @@
         var $document = $(document);
         return this.each(function() {
             //对象定义
+            var _api = {};
             var that = this;
             var $this = $(this);
-            var $form = $this.parents('form')||$this.parent();;
+            var $form = $this.parents('form')||$this.parent();
             var $box = $this.parent();
             var $suggestion = $("<div class='"+options.suggestionCls+"'><ul></ul></div>").appendTo($box);
             var $list = $suggestion.find('ul');
             var $item = $list.find('li');
             var _height = $this.outerHeight(false);
             var _width = $this.outerWidth(false);
-            var _text = '';
+            var _text = null;
             var _hander = 0;
             var _index = -1;
             var isShow = false;
@@ -76,19 +83,27 @@
                 'disableautocomplete':true
             });
             $suggestion.css({
-                'position':'absolute',
-                'top':_top+_height+'px',
-                'left':_left+'px',
-                'display':'none',
-                'width':_width+'px'
+                'position':'absolute'
             });
             //方法定义
+            //位置调整
+            var reset = function(){
+                _height = $this.outerHeight(false);
+                _width = $this.outerWidth(false);
+                _top = $this.position().top;
+                _left = $this.position().left;
+                $suggestion.css({
+                    'top':_top+_height+'px',
+                    'left':_left+'px',
+                    'width':_width+'px'
+                });
+            };
             //按键按下
             var down = function(e){
                 e.isPropagationStopped();
                 switch(e.keyCode){
                     case 13:
-                        hide();
+                        _api.hide();
                         if(!options.autoSubmit){
                             e.preventDefault();
                         }
@@ -142,41 +157,42 @@
                 hasData = $items.length>0;        //根据列表长度判断有没有值
                 if(hasData){
                     $suggestion.show();
+                }else{
+                    _api.hide();
                 }
             };
+            /* 公有方法 */
             //显示表单项
-            var show = function(){
+            _api.show = function(){
                 _hander&&clearTimeout(_hander);
                 _hander = setTimeout(function(){
                     var value = $.trim($this.val());
                     if(options.dynamic){
-                        if(value==''){
-                            hide();
-                        }else{
-                            if(value != _text){ //缓存上次输入
-                                _index = -1;
-                                options.parameter[options.FieldName] = _text = value;
-                                if(options.beforeSend(options.parameter)!=false){
-                                    var param = {
-                                        type:'get',
-                                        async: false,
-                                        url :options.url,
-                                        data:options.parameter,
-                                        dataType:options.dataType,
-                                        jsonp:options.jsonp,
-                                        success:success
-                                    };
-                                    if(options.jsonpCallback){
-                                        param['jsonpCallback'] = options.jsonpCallback;
-                                    }
-                                    $.ajax(param);
+                        if(value != _text){ //缓存上次输入
+                            _index = -1;
+                            options.parameter[options.FieldName] = _text = value;
+                            if(options.beforeSend(options.parameter)!=false){
+                                var param = {
+                                    type:'get',
+                                    async: false,
+                                    url :options.url,
+                                    data:options.parameter,
+                                    dataType:options.dataType,
+                                    jsonp:options.jsonp,
+                                    success:success
+                                };
+                                if(options.jsonpCallback){
+                                    param['jsonpCallback'] = options.jsonpCallback;
                                 }
-                            }else{
-                                if(hasData){
-                                    $suggestion.show();
-                                }
+                                $.ajax(param);
                             }
-                        }                            
+                        }else{
+                            if(hasData){
+                                $suggestion.show();
+                            }else{
+                                _api.hide();
+                            }
+                        }
                     }else{
                         success();
                     }
@@ -184,7 +200,7 @@
                 },500);
             };
             //隐藏表单项
-            var hide = function(){
+            _api.hide = function(){
                 _hander&&clearTimeout(_hander);
                 _hander = setTimeout(function(){
                     if(isShow){
@@ -195,8 +211,8 @@
             };
             //事件绑定
             $this.on('keydown',down);
-            $this.on('input propertychange focus',show);
-            $this.on('blur',hide);            
+            $this.on('input propertychange focus',_api.show);
+            $this.on('blur',_api.hide);            
             $list.on('click','li',function(){
                 var $target = $(this);
                 var status = {
@@ -208,17 +224,10 @@
                     $form.submit();
                 }
             }).on('mouseenter','li',hover);
-            $window.resize(function(){
-                _height = $this.outerHeight(false);
-                _width = $this.outerWidth(false);
-                _top = $this.position().top;
-                _left = $this.position().left;
-                $suggestion.css({
-                    'top':_top+_height+'px',
-                    'left':_left+'px',
-                    'width':_width+'px'
-                });
-            });
+            $window.resize(reset);
+            //初始化
+            reset();
+            getApi(_api);
         });
     };
 }));
