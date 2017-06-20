@@ -53,7 +53,7 @@
             //对象定义
             var that = this;
             var $this = $(this);
-            var $form = $this.parents('form');
+            var $form = $this.parents('form')||$this.parent();;
             var $box = $this.parent();
             var $suggestion = $("<div class='"+options.suggestionCls+"'><ul></ul></div>").appendTo($box);
             var $list = $suggestion.find('ul');
