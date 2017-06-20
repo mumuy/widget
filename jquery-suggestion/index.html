@@ -63,10 +63,10 @@ $('.search input[type="text"]').suggestion({
 	FieldName:'wd',
 	jsonp:'cb',
 	onCallback:function(item){
-		var data = item['data']['s'];
-		item.target.empty();
-		for(var i=0;i&lt;data.length;i++){
-			item.target.append('&lt;li&gt;'+data[i]+'&lt;/li&gt;');
+		var list = data['s'];
+		item.empty();
+		for(var i=0;i<list.length;i++){
+			item.append('<li>'+list[i]+'</li>');
 		}
 	}
 });
