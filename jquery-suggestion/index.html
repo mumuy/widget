@@ -62,7 +62,7 @@ $('.search input[type="text"]').suggestion({
 	url:'http://suggestion.baidu.com/su',
 	FieldName:'wd',
 	jsonp:'cb',
-	onCallback:function(item){
+	onCallback:function(item,data){
 		var list = data['s'];
 		item.empty();
 		for(var i=0;i<list.length;i++){
