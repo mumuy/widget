@@ -35,6 +35,7 @@
         }
         var defaults = {
             dataUrl:'http://passer-by.com/data_location/list.json',     //数据库地址
+            crossDomain: true,        //是否开启跨域
             dataType:'json',          //数据库类型:'json'或'jsonp'
             provinceField:'province', //省份字段名
             cityField:'city',         //城市字段名
@@ -59,7 +60,7 @@
             $.ajax({
                 url:options.dataUrl,
                 type:'GET',
-                crossDomain: true,
+                crossDomain: options.crossDomain,
                 dataType:options.dataType,
                 jsonpCallback:'jsonp_location',
                 success:function(data){
@@ -102,7 +103,7 @@
                                         if(data[code].indexOf(options.city)>-1){
                                             options.city = isNaN(options.city)?code:options.city;
                                         }
-                                    }else if(p>9000){                   //省直辖县级行政单位
+                                    }else if(p>8000){                   //省直辖县级行政单位
                                         city[code] = data[code];
                                         if(data[code].indexOf(options.city)>-1){
                                             options.city = isNaN(options.city)?code:options.city;
