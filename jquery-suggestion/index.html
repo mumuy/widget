@@ -162,13 +162,17 @@ $('.search input[type="text"]').suggestion({
 							<td>获得数据后触发：target表示建议列表对象,data表示请求到的数据</td>
 						</tr>
 						<tr>
-							<td>onChange()</td>
-							<td>[无]</td>
+							<td>onChange(item)</td>
+							<td>function(item){
+				                item.input.val(item.target.text());
+				            }</td>
 							<td>用户按键盘切换时触发</td>
 						</tr>
 						<tr>
-							<td>onSelect()</td>
-							<td>[无]</td>
+							<td>onSelect(item)</td>
+							<td>function(item) {
+				                item.input.val(item.target.text());
+				            }</td>
 							<td>选中搜索建议列表项：传入一个对象，target表示当前选中列表项,input表示当前input表单项</td>
 						</tr>
 					</tbody>
