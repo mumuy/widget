@@ -137,11 +137,7 @@
             };
             //成功后的回调函数
             var success = function(data){
-                var status = {
-                    'target':$list,
-                    'data':data
-                };
-                options.onCallback(status);
+                options.onCallback($list,data);
                 $items = $suggestion.find('li');
                 hasData = $items.length>0;        //根据列表长度判断有没有值
                 if(hasData){
