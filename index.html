@@ -88,6 +88,22 @@
 			.mod-content a:hover{
 				border-bottom: 1px dotted #666;
 			}
+			.mod-qrcode {
+			    position: fixed;
+			    right: 25px;
+			    bottom: 25px;
+			    text-align: center;
+			}
+			.mod-qrcode .box {
+			    width: 195px;
+			    height: 195px;
+			    overflow: hidden;
+			}
+			.mod-qrcode p{
+				margin: 0;
+				line-height: 30px;
+				color: #666;
+			}
 			.mod-foot{
 				text-align: center;
 				padding:0 30px;
@@ -199,6 +215,10 @@
 								<p>$.emoticons(options,callback(api));</p>
 							</li>
 						</ul>
+					</div>
+					<div class="mod-qrcode">
+						<div class="box"><img src="public/image/qrcode.bmp" width="195"></div>
+						<p>手机扫一扫，发现更多</p>
 					</div>
 				</div>
 			</div>
