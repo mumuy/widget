@@ -93,14 +93,14 @@ $(selector).popup(options);
 简介：仿搜索引擎中的搜索提示，方便用户选择
 [演示](http://jquerywidget.com/jquery-suggestion/)
 ```javascript
-$(selector).suggestion(options);
+$(selector).suggestion(options,callback(api));
 ```
 
 ### 城市三级联动
 简介：最新最全的城市区划数据，并收集包含了港澳台地方信息
 [演示](http://jquerywidget.com/jquery-citys/)
 ```javascript
-$(selector).citys(options);
+$(selector).citys(options,callback(api));
 ```
 
 ### 格式化输入框
