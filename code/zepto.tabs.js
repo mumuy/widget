@@ -18,9 +18,9 @@
             triggerType: 'mouse',       //切换时的触发事件
             triggerCondition: "*",      //导航项的条件：条件不支持多级
             activeIndex: 0,             //默认选中导航项的索引
-            beforeEvent: function() {   //切换前执行,返回flase时不移动;传入一个对象,包含：target当前导航项对象,tabs导航列表对象,panels内容列表对象,index当前导航项索引,event事件对象;
+            onChangeStart: function() {   //切换前执行,返回flase时不移动;传入一个对象,包含：target当前导航项对象,tabs导航列表对象,panels内容列表对象,index当前导航项索引,event事件对象;
             },
-            afterEvent: function() {//切换后执行;传入一个对象,包含：target当前导航项对象,tabs导航列表对象,panels内容列表对象,index当前导航项索引,event事件对象;
+            onChangeEnd: function() {//切换后执行;传入一个对象,包含：target当前导航项对象,tabs导航列表对象,panels内容列表对象,index当前导航项索引,event事件对象;
             }
         };
         var options = $.extend({}, defaults, parameter);
@@ -48,9 +48,9 @@
                     index:i,
                     event:e
                 };
-                if(options.beforeEvent(status)!=false){
+                if(options.onChangeStart(status)!=false){
                     _api.select(i);
-                    options.afterEvent(status);
+                    options.onChangeEnd(status);
                 }
             });
             getApi(_api);

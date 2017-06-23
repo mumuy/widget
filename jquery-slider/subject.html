@@ -161,7 +161,7 @@
 					scrollable:true,
 					inEndEffect:'none',
 					keyboardAble:true,
-					afterEvent:function(status){
+					onChangeEnd:function(status){
 						$pages.eq(status.index).addClass('active').siblings().removeClass('active');
 					}
 				});			

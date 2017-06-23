@@ -279,7 +279,7 @@
                 'nextBtnCls':options.prefix+'-nextMonth',
                 'hasTriggers':false,
                 'activeIndex':1,
-                'afterEvent':function(status){
+                'onChangeEnd':function(status){
                     if(status.index!=1){
                         if(_api){
                             _api.setIndex(1,false);

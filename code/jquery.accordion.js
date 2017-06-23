@@ -41,9 +41,9 @@
             multiple: false,            //是否同时支持多面板展开
             animate: false,             //是否开启动画
             duration:500,               //动画开启时长
-            beforeEvent: function() {   //切换前执行,返回flase时不移动;传入一个对象,包含：target当前导航项对象,tabs导航列表对象,panels内容列表对象,index当前导航项索引,event事件对象;
+            onChangeStart: function() {   //切换前执行,返回flase时不移动;传入一个对象,包含：target当前导航项对象,tabs导航列表对象,panels内容列表对象,index当前导航项索引,event事件对象;
             },
-            afterEvent: function() {    //切换后执行;传入一个对象,包含：target当前导航项对象,tabs导航列表对象,panels内容列表对象,index当前导航项索引,event事件对象;
+            onChangeEnd: function() {    //切换后执行;传入一个对象,包含：target当前导航项对象,tabs导航列表对象,panels内容列表对象,index当前导航项索引,event事件对象;
             }
         };
         var options = $.extend({}, defaults, parameter);
@@ -87,9 +87,9 @@
                     index:i,
                     event:e
                 };
-                if(options.beforeEvent(status)!=false){
+                if(options.onChangeStart(status)!=false){
                     _api.select(i);
-                    options.afterEvent(status);
+                    options.onChangeEnd(status);
                 }
             });
             getApi(_api);

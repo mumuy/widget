@@ -404,12 +404,12 @@
 							<td>是否允许滚动滚动轴时换屏</td>
 						</tr>
 						<tr>
-							<td>beforeEvent(status)</td>
+							<td>onChangeStart(status)</td>
 							<td>[无]</td>
 							<td>移动前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination方向(prev向前,next向后,数字为相应的索引),event事件对象;</td>
 						</tr>
 						<tr>
-							<td>afterEvent(status)</td>
+							<td>onChangeEnd(status)</td>
 							<td>[无]</td>
 							<td>移动后执行;传入一个对象,包含：index事件发生前索引,count帧长度,destination方向(prev向前,next向后,数字为相应的索引),event事件对象</td>
 						</tr>

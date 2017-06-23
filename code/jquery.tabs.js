@@ -47,9 +47,9 @@
             auto: false,                //是否自动播放
             delay: 3000,                //自动播放时停顿的时间间隔
             duration: 500,              //动画时长
-            beforeEvent: function() {   //切换前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象
+            onChangeStart: function() {   //切换前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象
             },
-            afterEvent: function() {    //切换后执行;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象
+            onChangeEnd: function() {    //切换后执行;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象
             }
         };
         var options = $.extend({}, defaults, parameter);
@@ -80,9 +80,9 @@
                     destination: i,
                     event:e
                 };
-                if(options.beforeEvent(status)!=false){
+                if(options.onChangeStart(status)!=false){
                     _api.setIndex(i);
-                    options.afterEvent({index:i,count: _size});
+                    options.onChangeEnd({index:i,count: _size});
                 }
             };
             //下一个
@@ -94,9 +94,9 @@
                     destination: i,
                     event:e
                 };
-                if(options.beforeEvent(status)!=false){
+                if(options.onChangeStart(status)!=false){
                     _api.setIndex(i);
-                    options.afterEvent({index:i,count: _size});
+                    options.onChangeEnd({index:i,count: _size});
                 }
             };
             //停止播放
@@ -157,9 +157,9 @@
                     destination: i,
                     event:e
                 };
-                if(options.beforeEvent(status)!=false){
+                if(options.onChangeStart(status)!=false){
                     _api.setIndex(i);
-                    options.afterEvent({index:i,count: _size});
+                    options.onChangeEnd({index:i,count: _size});
                 }
             });
             //初始化

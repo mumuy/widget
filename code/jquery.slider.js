@@ -65,7 +65,7 @@
                 return false;
             }
             _time['start'] = + new Date();
-            if (options.beforeEvent.call(_.element,status) !== false) {
+            if (options.onChangeStart.call(_.element,status) !== false) {
                 var steps = options.steps;
                 if(steps=='auto'){  //自动判定步数
                     for(steps=1;_distance[_index+_size]-_distance[_index+_size-steps-1]<=_outer;steps++);
@@ -107,7 +107,7 @@
                 return false;
             }
             _time['start'] = + new Date();
-            if (options.beforeEvent.call(_.element,status) !== false) {
+            if (options.onChangeStart.call(_.element,status) !== false) {
                 var steps = options.steps;
                 if(steps=='auto'){  //自动判定步数
                     for(steps=1;_distance[_index+steps+1]-_distance[_index]<=_outer;steps++);
@@ -266,7 +266,7 @@
                 index: _index,
                 count: _size
             };
-            options.afterEvent.call(_.element,status);
+            options.onChangeEnd.call(_.element,status);
             if(_auto){
                 _hander&&clearTimeout(_hander);
                 _hander = setTimeout((options.reverse?_.prev:_.next),options.delay);
@@ -431,7 +431,7 @@
                         destination: index,
                         event:e
                     };
-                    if(options.beforeEvent.call(_.element,status) !== false){
+                    if(options.onChangeStart.call(_.element,status) !== false){
                         _index = index;
                         _time['start'] = + new Date();
                         slide(options.animate,500);
@@ -575,9 +575,9 @@
             sensitivity: 0.4,           //触摸屏的敏感度,滑动当前帧的百分比移动该帧，该值越小越敏感
             scrollable:false,           //是否允许滚动滚动轴时换屏
             /* 对外事件接口 */
-            beforeEvent: function() {    //移动前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination方向(prev向前,next向后,数字为相应的索引);
+            onChangeStart: function() {    //移动前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination方向(prev向前,next向后,数字为相应的索引);
             },
-            afterEvent: function() {     //移动后执行;传入一个对象,包含：index事件发生前索引,count帧长度
+            onChangeEnd: function() {     //移动后执行;传入一个对象,包含：index事件发生前索引,count帧长度
             }
         };
         var options = $.extend({}, defaults, parameter);
