@@ -22,7 +22,7 @@
 			},
 			selected:function(){}
         };
-		var options = $.extend({},defaults,options,parameter);
+		var options = $.extend({},defaults,parameter);
 		var $window = $(window);
 		var $document = $(document);
         return this.each(function(i) {

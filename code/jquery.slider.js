@@ -154,7 +154,7 @@
             }
         };
         //窗口变化
-        this.resize = function(){
+        this.reset = function(){
             _distance = [];
             _inner = 0;
             $items = $lists.children();
@@ -516,7 +516,7 @@
             $window.resize(function(){ //当窗体大小改变时，重新计算相关参数
                 var time = + new Date();
                 if(time-_time['start']>250&&options.delay<250||options.delay>=250){ //缓存防治连续变化多次触发
-                    _.resize();
+                    _.reset();
                 }
                 _time['start'] = time;
             });
@@ -531,7 +531,7 @@
                 }
                 _.element.onmousewheel = scroll;
             }
-            _.resize();
+            _.reset();
         };
         /* 执行初始化 */
         init();

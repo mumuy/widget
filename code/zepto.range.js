@@ -22,7 +22,7 @@
 			onSlide: function(){},	//当前值变化时触发的事件，传入对象:event为事件,value为当前值
 			onChange: function(){}    //当前值变化后触发的事件，传入对象:event为事件,value为当前值
         };
-		var options = $.extend({},defaults,options,parameter);
+		var options = $.extend({},defaults,parameter);
 		var $window = $(window);
 		var $document = $(document);
 		var $body = $("body");
