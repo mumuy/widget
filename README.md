@@ -79,7 +79,7 @@ $(selector).imagezoom(options);
 简介：日期及日期范围选择，灵活的日期选择功能
 [演示](http://jquerywidget.com/jquery-calendar/)
 ```javascript
-$(selector).calendar(options);
+$(selector).calendar(options,callback(api));
 ```
 
 ### 弹出层
