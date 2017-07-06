@@ -91,8 +91,8 @@
                                     }else{
                                         options.province = code;
                                     }
-                                }else if(data[code].indexOf(options.province)>-1){
-                                    options.province = isNaN(options.province)?code:options.province;
+                                }else if(isNaN(options.province)&&data[code].indexOf(options.province)>-1){
+                                    options.province = code;
                                 }
                             }else{
                                 var p = code - options.province;
@@ -100,26 +100,34 @@
                                     if(!(code%100)){
                                         hasCity = true;
                                         city[code]=data[code];
-                                        if(data[code].indexOf(options.city)>-1){
-                                            options.city = isNaN(options.city)?code:options.city;
+                                        if(!options.city){
+                                            options.city = code;
+                                        }else if(isNaN(options.city)&&data[code].indexOf(options.city)>-1){
+                                            options.city = code;
                                         }
-                                    }else if(p>8000){                   //省直辖县级行政单位
+                                    }else if(p>8000){                 //省直辖县级行政单位
                                         city[code] = data[code];
-                                        if(data[code].indexOf(options.city)>-1){
-                                            options.city = isNaN(options.city)?code:options.city;
+                                        if(!options.city){
+                                            options.city = code;
+                                        }else if(isNaN(options.city)&&data[code].indexOf(options.city)>-1){
+                                            options.city = code;
                                         }
                                     }else if(hasCity){                  //非直辖市
                                         var c = code-options.city;
                                         if(options.city&&c>0&&c<100){     //同个城市的地区
                                             area[code]=data[code];
-                                            if(data[code].indexOf(options.area)>-1){
-                                                options.area = isNaN(options.area)?code:options.area;
+                                            if(!options.area){
+                                                options.area = code;
+                                            }else if(isNaN(options.area)&&data[code].indexOf(options.area)>-1){
+                                                options.area = code;
                                             }
                                         }
                                     }else{
-                                        area[code]=data[code];            //直辖市
-                                        if(data[code].indexOf(options.area)>-1){
-                                            options.area = isNaN(options.area)?code:options.area;
+                                        area[code] = data[code];            //直辖市
+                                        if(!options.area){
+                                            options.area = code;
+                                        }else if(isNaN(options.area)&&data[code].indexOf(options.area)>-1){
+                                            options.area = code;
                                         }
                                     }
                                 }
