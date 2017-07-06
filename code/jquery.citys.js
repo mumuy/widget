@@ -100,14 +100,14 @@
                                     if(!(code%100)){
                                         hasCity = true;
                                         city[code]=data[code];
-                                        if(!options.city){
+                                        if(options.required&&!options.city){
                                             options.city = code;
                                         }else if(isNaN(options.city)&&data[code].indexOf(options.city)>-1){
                                             options.city = code;
                                         }
                                     }else if(p>8000){                 //省直辖县级行政单位
                                         city[code] = data[code];
-                                        if(!options.city){
+                                        if(options.required&&!options.city){
                                             options.city = code;
                                         }else if(isNaN(options.city)&&data[code].indexOf(options.city)>-1){
                                             options.city = code;
@@ -116,7 +116,7 @@
                                         var c = code-options.city;
                                         if(options.city&&c>0&&c<100){     //同个城市的地区
                                             area[code]=data[code];
-                                            if(!options.area){
+                                            if(options.required&&!options.area){
                                                 options.area = code;
                                             }else if(isNaN(options.area)&&data[code].indexOf(options.area)>-1){
                                                 options.area = code;
@@ -124,7 +124,7 @@
                                         }
                                     }else{
                                         area[code] = data[code];            //直辖市
-                                        if(!options.area){
+                                        if(options.required&&!options.area){
                                             options.area = code;
                                         }else if(isNaN(options.area)&&data[code].indexOf(options.area)>-1){
                                             options.area = code;
