@@ -236,7 +236,7 @@
                 data = getData({'year':obj['year'],'month':obj['month']+1});
                 formatMonth($next,data);
                 if(_api){
-                    _api.resize();
+                    _api.reset();
                 }
                 options.onChange(obj);
             };
