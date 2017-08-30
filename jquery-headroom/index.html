@@ -7,9 +7,6 @@
 		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css">
 		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
 		<style type="text/css">
-			.main{
-				padding-bottom:1500px;
-			}
 			.headroom{
 				margin-bottom: 20px;
 			}
@@ -25,8 +22,12 @@
 				text-align: center;
 			}
 			.headroom li a{
+				display: block;
 				text-decoration: none;
 				color:#fff;
+			}
+			.headroom li a.active{
+				background: rgba(0,0,0,0.1);
 			}
 		</style>
 		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
@@ -41,11 +42,11 @@
 			<div class="headroom">
 				<div class="head">
 					<ul>
-						<li><a href="javascript:;">菜单1</a></li>
-						<li><a href="javascript:;">菜单2</a></li>
-						<li><a href="javascript:;">菜单3</a></li>
-						<li><a href="javascript:;">菜单4</a></li>
-						<li><a href="javascript:;">菜单5</a></li>
+						<li><a href="#hash1">菜单1</a></li>
+						<li><a href="#hash2">菜单2</a></li>
+						<li><a href="#hash3">菜单3</a></li>
+						<li><a href="#hash4">菜单4</a></li>
+						<li><a href="#hash5">菜单5</a></li>
 					</ul>
 				</div>
 			</div>
@@ -53,9 +54,6 @@
 				<p></p>
 				<p>$('.head').headroom({'hiddenTop':400});</p>
 			</div>
-			<script type="text/javascript">
-				$('.head').headroom({'hiddenTop':400});
-			</script>
 			<div class="example">
 				<div class="call">
 					<h1>调用方法：</h1>
@@ -91,9 +89,27 @@
 							<td>true</td>
 							<td>是否自动隐藏</td>
 						</tr>
+						<tr>
+							<td>scrollOffset</td>
+							<td>0</td>
+							<td>描点滚动偏移顶部距离</td>
+						</tr>
+						<tr>
+							<td>activeCls</td>
+							<td>'active'</td>
+							<td>菜单选中时的class</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
+			<div id="hash1" style="height:300px;">描点1</div>
+			<div id="hash2" style="height:300px;">描点2</div>
+			<div id="hash3" style="height:300px;">描点3</div>
+			<div id="hash4" style="height:300px;">描点4</div>
+			<div id="hash5" style="height:300px;">描点5</div>
+			<script type="text/javascript">
+				$('.head').headroom({'hiddenTop':400,autoHide:false,'scrollOffset':60});
+			</script>
 		</div>
 		<div style="display: none;">
 			<script src="http://s11.cnzz.com/z_stat.php?id=1260218562&web_id=1260218562"></script>
