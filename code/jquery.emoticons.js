@@ -138,7 +138,7 @@
         });
         $.each(options.list,function(index,item){
             _hash[item.title] = options.path+item.url;
-            $list.append('<li title="'+item.title+'"><img src="'+_hash[item.title]+'"/></li>');
+            $list.append('<li title="'+item.title+'"><img data-src="'+_hash[item.title]+'"/></li>');
         });
         //接口处理
         _api.getTextarea = function(){
@@ -176,6 +176,10 @@
             var offset = $trigger.offset();
             var height = $trigger.outerHeight();
             $trigger.addClass(options.activeCls);
+            $layer.find('img').each(function(){
+                var $this = $(this);
+                $this.attr('src',$this.data('src'));
+            });
             $layer.css({
                 left: offset.left+options.left,
                 top: offset.top+height+options.top
