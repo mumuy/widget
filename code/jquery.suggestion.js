@@ -105,6 +105,14 @@
                 switch(e.keyCode){
                     case 13:
                         _api.hide();
+                        var status = {
+                            'input':$this
+                        };
+                        if(_index>=0){
+                            var $target = $items.eq(_index);
+                            status['target'] = $target;
+                        }
+                        options.onSelect(status);
                         if(!options.autoSubmit){
                             e.preventDefault();
                         }
