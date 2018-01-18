@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>颜色选择器-colorpicker</title>
+		<link rel="shortcut icon" href="/public/image/favicon.png">
+		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
+		<style type="text/css">			
+			.panel{
+				margin-bottom:20px;
+			}
+			.panel p{
+				line-height: 26px;
+				margin-bottom: 5px;
+			}
+			.range{
+				width:240px;
+				height:4px;
+				margin-bottom:15px;
+				border:1px solid #e2e2e2;
+			}
+			.range .value{
+				background:#0064cd;
+			}
+			.range .handle{
+				display:block;
+				top:-3px;
+				width:8px;
+				height:8px;
+				margin-left:-5px;
+				border:1px solid #e2e2e2;
+				background:#fff;
+				cursor:default;
+				outline:0;
+			}
+		</style>
+		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
+		<script type="text/javascript" src="/code/jquery.colorpicker.js"></script>
+	</head>
+	<body>
+		<div class="header">
+            <a href="https://github.com/mumuy/widget" target="_blank">项目地址</a>
+            <a href="/">返回首页</a>
+        </div>
+		<div class="main">
+			<div class="panel">
+				<p>系统默认颜色选择扩展</p>
+				<p><input type="color" value="#fc0000"/></p>
+			</div>
+			<div class="code">
+				<p>悬浮时实时改变</p>
+				<p>
+<pre>$('input[type="color"]').colorpicker({hoverChange:true});</pre>
+				</p>
+			</div>
+			<script type="text/javascript">
+				$('input[type="color"]').colorpicker({hoverChange:true});
+			</script>
+			<div class="panel">
+				<p>文本输入框颜色选择扩展</p>
+				<p>
+					<input type="text" value="#00f000"/>
+					<span id="test"></span>
+				</p>
+			</div>
+			<div class="code">
+				<p>修改完成后触发事件</p>
+				<p>
+<pre>$('input[type="text"]').colorpicker({
+	'onSelect':function(color){
+		$('#test').text('颜色修改为：'+color);
+	}
+});</pre>
+				</p>
+			</div>
+			<script type="text/javascript">
+				$('input[type="text"]').colorpicker({
+					'onSelect':function(color){
+						$('#test').text('颜色修改为：'+color);
+					}
+				});
+			</script>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>$(selector).colorpicker(options);</p>
+				</div>
+				<h2>options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th width="150">参数</th>
+							<th width="120">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>id</td>
+							<td>'colorpicker'</td>
+							<td>颜色选择器的ID</td>
+						</tr>
+						<tr>
+							<td>hoverChange</td>
+							<td>false</td>
+							<td>悬浮于调色板时是否立即触发修改表单值</td>
+						</tr>
+						<tr>
+							<td>onChange</td>
+							<td>[空]</td>
+							<td>悬浮于调色板时触发</td>
+						</tr>
+						<tr>
+							<td>onSelect</td>
+							<td>[空]</td>
+							<td>选中调色板时触发</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div style="display: none;">
+			<script src="http://s11.cnzz.com/z_stat.php?id=1260218562&web_id=1260218562"></script>
+		</div>
+	</body>
+<html>

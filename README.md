@@ -116,6 +116,12 @@ $(selector).inputFormat(options,callback(api));
 $(selector).accordion(options,callback(api));
 ```
 
+### 颜色选择器
+[演示](http://jquerywidget.com/jquery-colorpicker/)
+```javascript
+$(selector).colorpicker(options);
+```
+
 ### 聊天表情
 [演示](http://jquerywidget.com/jquery-emoticons/)
 ```javascript
