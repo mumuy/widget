@@ -100,19 +100,30 @@
                 if($colorpicker.data('key')==$this.data('key')){  //防止多个实例化对象冲突
                     options.onChange(color);
                     if(options.hoverChange){
-                        $this.val(color);
+                        $this.val(color).trigger('change');
                     }
                 }
             });
-            $colorpicker.on('mouseenter','input',function(){
+            var hander = null;
+            $colorpicker.on('keydown','input',function(){
+                hander&&clearTimeout(hander);
+            });
+            $colorpicker.on('keyup','input',function(){
                 var $input = $(this);
                 var color = $input.val();
-                $input.parent().css({
-                    'background':color
-                });
-                if($colorpicker.data('key')==$this.data('key')){  //防止多个实例化对象冲突
-                    options.onChange(color);
-                }
+                hander&&clearTimeout(hander);
+                hander = setTimeout(function(){
+                    if(color.length==4||color.length==7){
+                        $input.parent().css({
+                            'background':color
+                        });
+                        if($colorpicker.data('key')==$this.data('key')){  //防止多个实例化对象冲突
+                            options.onChange(color);
+                            options.onSelect(color);
+                            $this.val(color).trigger('change');
+                        }
+                    }
+                },500);
             });
             $colorpicker.on('click','thead td',function(){
                 var $td = $(this);
@@ -122,7 +133,7 @@
                 });
                 if($colorpicker.data('key')==$this.data('key')){  //防止多个实例化对象冲突
                     options.onSelect(color);
-                    $this.val(color);
+                    $this.val(color).trigger('change');
                 }
                 $colorpicker.fadeOut();
             });
