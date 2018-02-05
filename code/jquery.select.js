@@ -135,7 +135,9 @@
 			});
 			$items.on({
 				'mouseenter':function(){
-					$(this).addClass(options.activeCls).siblings().removeClass(options.activeCls);
+					var $this = $(this);
+					_index = $this.index();
+					$this.addClass(options.activeCls).siblings().removeClass(options.activeCls);
 				},
 				'click':function(){
 					_index = $(this).index();
