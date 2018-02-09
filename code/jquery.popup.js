@@ -49,40 +49,40 @@
             if($this.css('position')!='absolute'){
                 $this.css('position','relative');
             }
-            var _offset = $this.offset();
-            var _t = (function(){
-                var offset = $trigger.offset();
-                return {
-                    'left':offset.left-_offset.left,
-                    'top':offset.top-_offset.top,
-                    'width':$trigger.outerWidth(),
-                    'height':$trigger.outerHeight()
-                };
-            })();
-            var _n = {
-                'width':$node.outerWidth(),
-                'height':$node.outerHeight()
-            };
-            var times = {
-                'l':0,
-                't':0,
-                'c':0.5,
-                'r':1,
-                'b':1
-            };
-            var _left = _t['left'] + _t['width']*times[options.points[0].charAt(0)]-_n['width']*times[options.points[1].charAt(0)];
-            var _top = _t['top'] + _t['height']*times[options.points[0].charAt(1)]-_n['height']*times[options.points[1].charAt(1)];
-            $node.css({
-                'position':'absolute',
-                'left':_left+options.offset[0]+'px',
-                'top':_top+options.offset[1]+'px',
-                'z-index':999
-            });
             var isShow = false;
             var _hander = null;
             var _node = {
                 'show':function(){
                     if(!isShow){
+                        var _offset = $this.offset();
+                        var _t = (function(){
+                            var offset = $trigger.offset();
+                            return {
+                                'left':offset.left-_offset.left,
+                                'top':offset.top-_offset.top,
+                                'width':$trigger.outerWidth(),
+                                'height':$trigger.outerHeight()
+                            };
+                        })();
+                        var _n = {
+                            'width':$node.outerWidth(),
+                            'height':$node.outerHeight()
+                        };
+                        var times = {
+                            'l':0,
+                            't':0,
+                            'c':0.5,
+                            'r':1,
+                            'b':1
+                        };
+                        var _left = _t['left'] + _t['width']*times[options.points[0].charAt(0)]-_n['width']*times[options.points[1].charAt(0)];
+                        var _top = _t['top'] + _t['height']*times[options.points[0].charAt(1)]-_n['height']*times[options.points[1].charAt(1)];
+                        $node.css({
+                            'position':'absolute',
+                            'left':_left+options.offset[0]+'px',
+                            'top':_top+options.offset[1]+'px',
+                            'z-index':999
+                        });
                         _hander&&clearTimeout(_hander);
                         _hander = setTimeout(function(){
                             $node.show();
