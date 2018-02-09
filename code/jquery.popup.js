@@ -45,24 +45,24 @@
             var $this = $(this);
             var $trigger = $this.find(options.trigger);
             var $node = $this.find(options.node).hide();
+            //样式定义
+            if($this.css('position')!='absolute'){
+                $this.css('position','relative');
+            }
             var _offset = $this.offset();
             var _t = (function(){
                 var offset = $trigger.offset();
                 return {
                     'left':offset.left-_offset.left,
                     'top':offset.top-_offset.top,
-                    'width':$trigger.width(),
-                    'height':$trigger.height()
+                    'width':$trigger.outerWidth(),
+                    'height':$trigger.outerHeight()
                 };
             })();
             var _n = {
-                'width':$node.width(),
-                'height':$node.height()
+                'width':$node.outerWidth(),
+                'height':$node.outerHeight()
             };
-            //样式定义
-            if($this.css('position')!='absolute'){
-                $this.css('position','relative');
-            }
             var times = {
                 'l':0,
                 't':0,
