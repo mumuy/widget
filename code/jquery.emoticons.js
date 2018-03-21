@@ -168,6 +168,19 @@
             $textarea = null;
             options.onHide();
         };
+        // 获取光标位置
+        var getCursortPosition = function (textDom) {
+            var cursorPos = 0;
+            if (document.selection) {   // IE Support
+                textDom.focus ();
+                var selectRange = document.selection.createRange();
+                selectRange.moveStart ('character', -textDom.value.length);
+                cursorPos = selectRange.text.length;
+            }else if (textDom.selectionStart || textDom.selectionStart == '0') {    // Firefox support
+                cursorPos = textDom.selectionStart;
+            }
+            return cursorPos;
+        };
         //事件绑定
         $document.on('click','.'+options.triggerCls,function(){
             $trigger = $(this);
@@ -200,6 +213,17 @@
                 insertText($textarea[0],'['+title+']');
             }
             options.onSelect(_api);
+        });
+        $document.on('keydown','.'+options.publisherCls+' textarea',function(e){
+            var value = this.value;
+            var index = getCursortPosition(this);
+            if(index==value.length&&e.keyCode==8){
+                var m = this.value.match(/\[[^\[\]]+\]$/);
+                if(m){
+                    this.value = this.value.substr(0,m.index);
+                    return false;
+                }
+            }
         });
         //为了兼容insertText
         $document.on('select click keyup','.'+options.publisherCls+' textarea',function(){
