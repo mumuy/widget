@@ -102,18 +102,28 @@
 							<td>下拉菜单选中class</td>
 						</tr>
 						<tr>
+							<td>hasTrigger</td>
+							<td>false</td>
+							<td>是否有展开触发点</td>
+						</tr>
+						<tr>
+							<td>triggerCls</td>
+							<td>'trigger'</td>
+							<td>展开触发点class</td>
+						</tr>
+						<tr>
 							<td>html(status)</td>
 							<td>
 								function(status){
 									status.list.append("&lt;li&gt;"+status.item.text()+"&lt;/li&gt;");
 								}
 							</td>
-							<td>下拉菜单自定义结构</td>
+							<td>下拉菜单自定义结构。box选择框,list下拉框,item选中项目</td>
 						</tr>
 						<tr>
-							<td>onSelect(value)</td>
+							<td>onSelect(status)</td>
 							<td>[无]</td>
-							<td>选择事件处理</td>
+							<td>选择时触发。box选择框,list下拉框,item选中项目,value选中值</td>
 						</tr>
 					</tbody>
 				</table>

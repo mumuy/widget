@@ -35,6 +35,8 @@
         var defaults = {
 			selectCls:'select',
 			boxCls:'box',
+			hasTrigger:false,
+			triggerCls:'trigger',
 			innerCls:'inner',
 			listCls:'list',
 			activeCls:'active',
@@ -62,10 +64,16 @@
 			$inner.append($list);
 			$select.append($box).append($inner);
 			$this.hide().after($select);
+			var $trigger = $box;
+			if(options.hasTrigger){
+				$trigger = $("<div class='"+options.triggerCls+"'></div>");
+				$select.append($trigger);
+			}
 			var $options = $this.find('option');
 			$options.each(function(){
 				var $this = $(this);
 				var status = {
+					'box':$box,
 					'list':$list,
 					'item':$this
 				};
@@ -120,10 +128,16 @@
 				$box.html($item.html());
 				$item.addClass(options.activeCls).siblings().removeClass(options.activeCls);
 				$inner.hide();
-				options.onSelect(value);
+				var status = {
+					'box':$box,
+					'list':$list,
+					'item':$item,
+					'value':value
+				};
+				options.onSelect(status);
 			};
 			//事件绑定
-			$box.click(function(){
+			$trigger.click(function(){
 				if(isShow){
 					$inner.hide();
 				}else{
@@ -135,9 +149,7 @@
 			});
 			$items.on({
 				'mouseenter':function(){
-					var $this = $(this);
-					_index = $this.index();
-					$this.addClass(options.activeCls).siblings().removeClass(options.activeCls);
+					$(this).addClass(options.activeCls).siblings().removeClass(options.activeCls);
 				},
 				'click':function(){
 					_index = $(this).index();
