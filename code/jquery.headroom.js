@@ -79,7 +79,7 @@
                         _scroll_top = scroll_top;
                         isFixed = true;
                     }
-                }else if(scroll_top>_top){ //滚动距离介于菜单上边缘和下边缘之间
+                }else if(scroll_top>=_top){ //滚动距离介于菜单上边缘和下边缘之间
                     if(isFixed){
                         $fixed.css({'transition':_transition,'position':'fixed','top':options.fixedTop+'px'});
                     }else{
