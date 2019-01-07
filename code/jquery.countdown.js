@@ -56,12 +56,17 @@
 			var isTimestamp = isNaN(options.starttime)||isNaN(options.endtime);//是否为秒计数模式
 			var getTime = function(timestamp){
 				var date,format;
+				var time = Math.max(_start,_end);
+				var diff = _start - _end;
+				var offset_GMT = new Date().getTimezoneOffset(); 
 				if(isTimestamp){
-					date = new Date(timestamp);
-					format = timeFormat(options.format,timestamp);
+					date = new Date(time);
+					format = timeFormat(options.format,time);
+					diff_format = timeFormat(options.format,diff+offset_GMT*60*1000);
 				}else{
 					date = new Date();
-					format = timestamp/1e3;
+					format = time/1e3;
+					diff_format = diff/1e3;
 				}
 				return {
 					'year':date.getFullYear(),
@@ -72,7 +77,8 @@
 					'second':date.getSeconds(),
 					'quarter':Math.floor((date.getMonth()+3)/3),
 					'microsecond':date.getMilliseconds(),
-					'format':format
+					'format':format,
+					'distance':diff_format
 				};
 			};
 			var count = function(){
@@ -126,6 +132,7 @@
             getApi(_api);
 		});
 		function getTimestamp(str){
+			str = str.replace(/\-/g,'/');
 			return +new Date(str)||+new Date('1970/1/1 '+str);
 		}
 		function timeFormat(fmt,timestamp){
