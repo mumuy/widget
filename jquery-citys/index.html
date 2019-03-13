@@ -25,7 +25,7 @@
         </style>
         <script type="text/javascript" src="/public/script/jquery.min.js"></script>
         <script type="text/javascript" src="/code/jquery.citys.js"></script>
-        <script src="http://pv.sohu.com/cityjson"></script>
+        <script src="https://pv.sohu.com/cityjson"></script>
     </head>
     <body>
         <div class="header">
@@ -42,7 +42,7 @@
                 </p>
             </div>
             <div class="code">
-                <p>根据IP地址定位：<a href="http://passer-by.com/api/#docs/ip" target="_blank">IP接口文档</a></p>
+                <p>根据IP地址定位：<a href="https://passer-by.com/api/#docs/ip" target="_blank">IP接口文档</a></p>
             </div>
             <script type="text/javascript">
                 if(returnCitySN){
@@ -124,7 +124,7 @@ $('#demo2').citys({
     $town.hide().empty();
     if(info['code']%1e4&&info['code']<7e6){	//是否为“区”且不是港澳台地区
     	$.ajax({
-    		url:'http://passer-by.com/data_location/town/'+info['code']+'.json',
+    		url:'https://passer-by.com/data_location/town/'+info['code']+'.json',
     		dataType:'json',
     		success:function(town){
     			$town.show();
@@ -154,7 +154,7 @@ $('#demo2').citys({
         			$town.hide().empty();
         			if(info['code']%1e4&&info['code']<7e5){	//是否为“区”且不是港澳台地区
         				$.ajax({
-        					url:'http://passer-by.com/data_location/town/'+info['code']+'.json',
+        					url:'https://passer-by.com/data_location/town/'+info['code']+'.json',
         					dataType:'json',
         					success:function(town){
         						$town.show();
@@ -196,7 +196,7 @@ $('#demo2').citys({
                             <td>dataUrl</td>
                             <td>[数据库地址]</td>
                             <td>
-                              <p>最新数据库（<script src="http://passer-by.com/data_location/version.js"></script>）：<a href="http://passer-by.com/data_location/list.json" target="_blank">JSON格式</a><a href="http://passer-by.com/data_location/list.jsonp" target="_blank">JSONP格式</a></p>
+                              <p>最新数据库（<script src="https://passer-by.com/data_location/version.js"></script>）：<a href="https://passer-by.com/data_location/list.json" target="_blank">JSON格式</a><a href="http://passer-by.com/data_location/list.jsonp" target="_blank">JSONP格式</a></p>
                               <p>数据库项目：<a href="https://github.com/mumuy/data_location" target="_blank">中国行政区划（省、市、区、街道）</a></p>
                             </td>
                         </tr>
@@ -291,7 +291,7 @@ $('#demo2').citys({
             </div>
         </div>
         <div style="display: none;">
-            <script src="http://s11.cnzz.com/z_stat.php?id=1260218562&web_id=1260218562"></script>
+            <script src="https://s11.cnzz.com/z_stat.php?id=1260218562&web_id=1260218562"></script>
         </div>
     </body>
 </html>
