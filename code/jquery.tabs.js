@@ -116,19 +116,19 @@
                 $triggers.removeClass(options.activeCls).eq(index).addClass(options.activeCls);
                 switch(options.effect){
                     case 'fade':
+                        $panels.stop().css('opacity',1);
                         if(_index!=index){
-                            var $select = $panels.eq(_index).css('z-index',_size+1);
                             $panels.each(function(i){
+                                var $this = $(this);
                                 if(i!=_index){
-                                    $(this).css('z-index',(index+_size-i-1)%_size+1);
+                                    $this.css('z-index',(index+_size-i-1)%_size+1);
+                                }else{
+                                    $this.css('z-index',_size+1);
+                                    $this.fadeOut(options.duration,function(){
+                                        $this.show().css('z-index',(index+_size-i-1)%_size+1);
+                                        _index = index;
+                                    });
                                 }
-                            });
-                            $select.fadeOut(options.duration,function(){
-                                $select.css({
-                                    'display':'block',
-                                    'z-index':(index+_size-_index-1)%_size+1
-                                });
-                                _index = index;
                             });
                         }else{
                             $panels.each(function(i){
@@ -137,7 +137,7 @@
                         }
                         break;
                     default:
-                        $panels.hide().eq(index).show();
+                        $panels.eq(index).show().siblings().hide();
                         _index = index;
                 }
             };
