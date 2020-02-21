@@ -35,6 +35,8 @@
             duration:500,               //动画时长
             autoHide:true,              //自动隐藏
             scrollOffset:0,             //移动时的偏移量
+            isScrollActive:true,        //滚动是改变选中状态
+            activeIndex:0,              //默认选中菜单
             activeCls:'active'
         };
         var options = $.extend({}, defaults, parameter);
@@ -50,12 +52,15 @@
             var last_scroll_top = _scroll_top;
             var isFixed = false;
             var isAnimate = false;
-            $this.wrapInner('<div></div>');
-            var $fixed = $this.children();
+            $this.wrap('<div></div>');
+            var $fixed = $this.parent();
+            $fixed.wrap('<div></div>');
+            var $outer = $fixed.parent();
             var _width = $this.width();
             var _height = $this.outerHeight();
-            $this.height(_height);
-            $fixed.css({'background':$this.css('background-color')});
+            $fixed.css({
+                'background':$this.css('background-color')
+            });
             var $links = $this.find('a[href*=#]');
             var $list = $.map($links,function(link){
                 var $link = $(link);
@@ -75,44 +80,48 @@
                     $fixed.css({'transition':_transition});
                     if(ismove){
                         if(up){
-                            $fixed.css({'position':'fixed','top':options.fixedTop+'px'});
+                            $fixed.css({'position':'fixed','top':options.fixedTop+'px','z-index':99});
                         }else{
-                            $fixed.css({'position':'fixed','top':options.fixedTop-_height+'px'});
+                            $fixed.css({'position':'fixed','top':options.fixedTop-_height+'px','z-index':99});
                         }
                         _scroll_top = scroll_top;
                         isFixed = true;
                     }
                 }else if(scroll_top>=_top){ //滚动距离介于菜单上边缘和下边缘之间
                     if(isFixed){
-                        $fixed.css({'transition':_transition,'position':'fixed','top':options.fixedTop+'px'});
+                        $fixed.css({'transition':_transition,'position':'fixed','top':options.fixedTop+'px','z-index':99});
                     }else{
-                        $fixed.css({'transition':'','position':'','top':''});
+                        $fixed.css({'transition':'','position':'','top':'','z-index':0});
                     }
                     _scroll_top = scroll_top;
                     isFixed = true;
                 }else{ //滚动距离小于菜单上边缘
-                    $fixed.css({'transition':'','position':'','top':''});
+                    $fixed.css({'transition':'','position':'','top':'','z-index':0});
                     _scroll_top = scroll_top;
                     isFixed = false;
                 }
                 last_up = up;
                 last_scroll_top = scroll_top;
-
-                var id='';
-                for(var i=0;i<$list.length;i++){
-                    var top = $list[i].offset().top-options.scrollOffset;
-                    if(top<=scroll_top){
-                        id = $list[i].attr('id');
+                if(options.isScrollActive){                
+                    var id='';
+                    for(var i=0;i<$list.length;i++){
+                        var top = $list[i].offset().top-options.scrollOffset;
+                        if(top<=scroll_top){
+                            id = $list[i].attr('id');
+                        }
                     }
-                }
-                if(id&&!isAnimate){
-                    $links.removeClass(options.activeCls);
-                    $links.filter('[href=#'+id+']').addClass(options.activeCls);
+                    if(id&&!isAnimate){
+                        $links.removeClass(options.activeCls);
+                        $links.filter('[href=#'+id+']').addClass(options.activeCls);
+                    }
                 }
             };
             var resize = function(){
-                _width = $this.width();
+                _width = $outer.width();
                 _height = $this.outerHeight();
+                $outer.css({
+                    'height':_height
+                });
                 $fixed.css({
                     'width':_width,
                     'height':_height
@@ -124,17 +133,22 @@
                 var $this = $(this);
                 var hash = $this.attr('href');
                 var $panel = $(hash);
-                var top = $panel.offset().top-options.scrollOffset;
-                $links.removeClass(options.activeCls);
-                $this.addClass(options.activeCls);
-                isAnimate = true;
-                $('html,body').animate({scrollTop:top},500,function(){
-                    isAnimate = false;
-                });
+                if($panel.length){
+                    var top = $panel.offset().top-options.scrollOffset;
+                    $links.removeClass(options.activeCls);
+                    $this.addClass(options.activeCls);
+                    isAnimate = true;
+                    $('html,body').animate({scrollTop:top},500,function(){
+                        isAnimate = false;
+                        scroll();
+                    });
+                }
                 return false;
             });
             //初始化
-            $links.eq(0).addClass(options.activeCls);
+            if(parameter['activeIndex']){
+                $links.eq(parameter.activeIndex).click();
+            }
             resize();
             scroll();
         });
