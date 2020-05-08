@@ -27,8 +27,9 @@
         factory(jQuery);
     }
 }(function ($) {
-    $.fn.headroom = function(parameter){
-        parameter = parameter || {};
+    $.fn.headroom = function(parameter,callback){
+        var parameter = parameter || {};
+        var callback = callback || function(){};
         var defaults = {
             hiddenTop:0,                //滚动隐藏的位置
             fixedTop:0,                 //显示的位置
@@ -70,8 +71,9 @@
                     return $item;
                 }
             });
+            var _api = {};
             //私有方法
-            var scroll = function(){
+            _api.scroll = function(){
                 var scroll_top = $document.scrollTop()+options.fixedTop;
                 var up = scroll_top - _scroll_top<0;
                 var ismove = Math.abs(scroll_top-_scroll_top)>10;
@@ -116,7 +118,7 @@
                     }
                 }
             };
-            var resize = function(){
+            _api.resize = function(){
                 _width = $outer.width();
                 _height = $this.outerHeight();
                 $outer.css({
@@ -127,8 +129,8 @@
                     'height':_height
                 });
             };
-            $window.scroll(scroll);
-            $window.resize(resize);
+            $window.scroll(_api.scroll);
+            $window.resize(_api.resize);
             $links.on('click',function(){
                 var $this = $(this);
                 var hash = $this.attr('href');
@@ -140,17 +142,18 @@
                     isAnimate = true;
                     $('html,body').animate({scrollTop:top},500,function(){
                         isAnimate = false;
-                        scroll();
+                        _api.scroll();
                     });
                 }
                 return false;
             });
             //初始化
+            _api.resize();
+            _api.scroll();
             if(parameter['activeIndex']){
                 $links.eq(parameter.activeIndex).click();
             }
-            resize();
-            scroll();
+            callback(_api);
         });
     };
 }));
