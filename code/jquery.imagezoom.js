@@ -1,5 +1,5 @@
 /**
- * jquery.imagezoom.js 1.1
+ * jquery.headroom.js 1.0
  * http://jquerywidget.com
  */
 ;(function (factory) {
@@ -27,108 +27,135 @@
         factory(jQuery);
     }
 }(function ($) {
-    $.fn.imagezoom = function(parameter) {
-        parameter = parameter || {};
+    $.fn.headroom = function(parameter,callback){
+        var parameter = parameter || {};
+        var callback = callback || function(){};
         var defaults = {
-            width: null,        //图片外层宽度
-            height: null,       //图片外层宽度
-            resizeable: true,   //窗口大小改变时是否重新调整图片位置
-            effect:'default',   //图片处理
-            data:'original',    //图片源（防止惰性加载插件）
-            condition: 'img',   //默认筛选条件
-            borderWidth: 0,     //图片边框宽度
-            hoverEffect:false,  //鼠标悬浮时是否放大
-            hoverRatio:1.2,     //鼠标悬浮时放大比例
-            duration:300,       //鼠标悬浮时放大动画时长
-            beforeHover:function(){},
-            afterHover:function(){}
+            hiddenTop:0,                //滚动隐藏的位置
+            fixedTop:0,                 //显示的位置
+            duration:500,               //动画时长
+            autoHide:true,              //自动隐藏
+            scrollOffset:0,             //移动时的偏移量
+            isScrollActive:true,        //滚动是改变选中状态
+            activeIndex:0,              //默认选中菜单
+            activeCls:'active'
         };
         var options = $.extend({}, defaults, parameter);
-        var $window = $(window);
-        return this.each(function(index) {
-            var _ = this;
-            var $this = $(this).css("overflow", "hidden");
-            var _duration = options.duration;
-            var _hoverRatio = options.hoverRatio;
-            var _outer_width = parameter.width||$this.width();
-            var _outer_height = parameter.height||$this.height();
-            $this.find(options.condition).each(function() {
-                var $img = $(this).css({
-                    'display':'block',
-                    'max-width':'none',
-                    'max-height':'none'
-                });
-                var temp = new Image();
-                temp.src = $img.data(options.data)||$img.attr('src');
-                var _width = temp.width,_height = temp.height,_ratio = 1;
-                if(temp.complete&&_width){ //防止图片未加载时就开始计算
-                    getRatio();
-                }else{
-                    temp.onload = function(){
-                        _width = temp.width;
-                        _height = temp.height;
-                        getRatio();
-                    };
-                }
-                //私有方法
-                function getRatio(){
-                    //数值计算
-                    if(options.effect=='out'){ //在不放大图片失真的情况下，最大面积地展示图片并覆盖整个外框
-                        if(_width>_height){
-                            if(_height>_outer_height){
-                                _ratio = Math.max(_outer_width/_width,_outer_height/_height);
-                            }
-                        }else{
-                            if(_width>_outer_width){
-                                _ratio = Math.max(_outer_width/_width,_outer_height/_height);
-                            }
-                        }
-                    }else if(options.effect=='in'){
-                        if(_width>_outer_width||_height>_outer_height){ //在不放大图片失真的情况下，最大清晰度地展示完整图片
-                            _ratio = Math.min(_outer_width/_width,_outer_height/_height);
-                        }
-                    }else{  //任何条件下，最大面积地展示图片并覆盖整个外框
-                        _ratio = Math.max(_outer_width/_width,_outer_height/_height);
-                    }
-                    zoom(_ratio);
-                }
-                //缩放动画
-                function zoom(ratio,isAnimate){ //ratio：放大比例，isAnamate：是否动画（默认不动画）
-                    var obj = {
-                        'width':Math.ceil(_width*ratio)-options.borderWidth*2,
-                        'height':Math.ceil(_height*ratio)-options.borderWidth*2,
-                        'margin-left':Math.ceil((_outer_width-_width*ratio)/2),
-                        'margin-top':Math.ceil((_outer_height-_height*ratio)/2)
-                    };
-                    if(isAnimate){
-                        $img.stop().animate(obj,_duration);
-                    }else{
-                        $img.css(obj);
-                    }
-                }
-                //事件绑定
-                if(options.hoverEffect){
-                    $this.on({
-                        'mouseenter':function(){
-                            if(options.beforeHover.call(_)!=false){
-                                zoom(_ratio*_hoverRatio,true);
-                            }
-                        },
-                        'mouseleave':function(){
-                            if(options.afterHover.call(_)!=false){
-                                zoom(_ratio,true);
-                            }   
-                        }
-                    });
-                }
-                if(options.resizeable){
-                    $window.resize(function(){
-                        _outer_width = parameter.width||$this.width();
-                        _outer_height = parameter.height||$this.height();
-                        getRatio();
-                    });
+        var $document = $(document);
+        var $window  = $(window);
+        return this.each(function() {
+            //对象定义
+            var $this = $(this);
+            var _top = $this.offset().top;
+            var _scroll_top = 0;
+            var _transition = 'all '+(options.duration/1e3)+'s ease';
+            var last_up = false;
+            var last_scroll_top = _scroll_top;
+            var isFixed = false;
+            var isAnimate = false;
+            $this.wrap('<div></div>');
+            var $fixed = $this.parent();
+            $fixed.wrap('<div></div>');
+            var $outer = $fixed.parent();
+            var _width = $this.width();
+            var _height = $this.outerHeight();
+            $fixed.css({
+                'background':$this.css('background-color')
+            });
+            var $links = $this.find('a[href*=#]');
+            var $list = $.map($links,function(link){
+                var $link = $(link);
+                var url = $link.attr('href');
+                var index = url.indexOf('#');
+                var hash = url.substr(index);
+                var $item = $(hash);
+                if($item.length){
+                    return $item;
                 }
             });
+            var _api = {};
+            //私有方法
+            _api.scroll = function(){
+                var scroll_top = $document.scrollTop()+options.fixedTop;
+                var up = scroll_top - _scroll_top<0;
+                var ismove = Math.abs(scroll_top-_scroll_top)>10;
+                var hide_top = Math.max(options.hiddenTop,_top+_height);
+                if(options.autoHide&&scroll_top>hide_top){ //滚动距离大于菜单下边缘
+                    $fixed.css({'transition':_transition});
+                    if(ismove){
+                        if(up){
+                            $fixed.css({'position':'fixed','top':options.fixedTop+'px','z-index':99});
+                        }else{
+                            $fixed.css({'position':'fixed','top':options.fixedTop-_height+'px','z-index':99});
+                        }
+                        _scroll_top = scroll_top;
+                        isFixed = true;
+                    }
+                }else if(scroll_top>=_top){ //滚动距离介于菜单上边缘和下边缘之间
+                    if(isFixed){
+                        $fixed.css({'transition':_transition,'position':'fixed','top':options.fixedTop+'px','z-index':99});
+                    }else{
+                        $fixed.css({'transition':'','position':'','top':'','z-index':0});
+                    }
+                    _scroll_top = scroll_top;
+                    isFixed = true;
+                }else{ //滚动距离小于菜单上边缘
+                    $fixed.css({'transition':'','position':'','top':'','z-index':0});
+                    _scroll_top = scroll_top;
+                    isFixed = false;
+                }
+                last_up = up;
+                last_scroll_top = scroll_top;
+                if(options.isScrollActive){                
+                    var id='';
+                    for(var i=0;i<$list.length;i++){
+                        var top = $list[i].offset().top-options.scrollOffset;
+                        if(top<=scroll_top){
+                            id = $list[i].attr('id');
+                        }
+                    }
+                    if(id&&!isAnimate){
+                        $links.removeClass(options.activeCls);
+                        $links.filter('[href=#'+id+']').addClass(options.activeCls);
+                    }
+                }
+            };
+            _api.resize = function(){
+                _width = $outer.width();
+                _height = $this.outerHeight();
+                $outer.css({
+                    'height':_height
+                });
+                $fixed.css({
+                    'width':_width,
+                    'height':_height
+                });
+            };
+            $window.scroll(_api.scroll);
+            $window.resize(_api.resize);
+            $links.on('click',function(){
+                var $this = $(this);
+                var hash = $this.attr('href');
+                var $panel = $(hash);
+                if($panel.length){
+                    var top = $panel.offset().top-options.scrollOffset;
+                    $links.removeClass(options.activeCls);
+                    $this.addClass(options.activeCls);
+                    isAnimate = true;
+                    $('html,body').animate({scrollTop:top},500,function(){
+                        isAnimate = false;
+                        _api.scroll();
+                    });
+                }
+                return false;
+            });
+            //初始化
+            _api.resize();
+            _api.scroll();
+            if(parameter['activeIndex']){
+                $links.eq(parameter.activeIndex).click();
+            }
+            callback(_api);
         });
     };
 }));
