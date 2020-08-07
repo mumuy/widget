@@ -30,6 +30,7 @@
 			.suggestion li{
 				padding:0 10px;
 				line-height: 24px;
+				cursor: pointer;
 			}
 			.suggestion .active{
 				background: #ccc;
@@ -60,15 +61,26 @@
 <pre>
 $('.search input[type="text"]').suggestion({
 	url:'https://www.baidu.com/sugrec',
-	FieldName:'wd',
-	jsonp:'cb',
-	onCallback:function(item,data){
-		var list = data['s'];
-		item.empty();
-		for(var i=0;i&gt;list.length;i++){
-			item.append('&lt;li&gt;'+list[i]+'&lt;/li&gt;');
+		FieldName:'wd',
+		parameter:{
+			'ie':'utf-8',
+			'json':1,
+			'prod':'pc',
+			'from':'pc_web'
+		},
+		jsonp:'cb',
+		onCallback:function(data){
+			var result = [];
+			if(data['g']){
+				result = data['g'].map(function(item){
+					return {
+						'value':item['q'],
+						'name':item['q']
+					};
+				});
+			}
+			return result;
 		}
-	}
 });
 </pre>
 			</div>
@@ -76,13 +88,24 @@ $('.search input[type="text"]').suggestion({
 				$('.search input[type="text"]').suggestion({
 					url:'https://www.baidu.com/sugrec',
 					FieldName:'wd',
+					parameter:{
+						'ie':'utf-8',
+						'json':1,
+						'prod':'pc',
+						'from':'pc_web'
+					},
 					jsonp:'cb',
-					onCallback:function(item,data){
-						var list = data['s'];
-						item.empty();
-						for(var i=0;i<list.length;i++){
-							item.append('<li>'+list[i]+'</li>');
+					onCallback:function(data){
+						var result = [];
+						if(data['g']){
+							result = data['g'].map(function(item){
+								return {
+									'value':item['q'],
+									'name':item['q']
+								};
+							});
 						}
+						return result;
 					}
 				});
 			</script>
@@ -157,23 +180,19 @@ $('.search input[type="text"]').suggestion({
 							<td>发送前动作：传入准备提交的表单项目，返回false终止提交</td>
 						</tr>
 						<tr>
-							<td>onCallback(target,data)</td>
+							<td>onCallback(data)</td>
 							<td>[无]</td>
-							<td>获得数据后触发：target表示建议列表对象,data表示请求到的数据</td>
+							<td>data表示请求到的数据，返回[{'name':'','value':''},...]表示搜索列表项，其中name用于显示，value表示有效值</td>
 						</tr>
 						<tr>
-							<td>onChange(item)</td>
-							<td>function(item){
-				                item.input.val(item.target.text());
-				            }</td>
-							<td>用户按键盘切换时触发</td>
+							<td>onChange()</td>
+							<td>[无]</td>
+							<td>用户按键盘切换时触发，返回false不自动填入值</td>
 						</tr>
 						<tr>
-							<td>onSelect(item)</td>
-							<td>function(item) {
-				                item.input.val(item.target.text());
-				            }</td>
-							<td>选中搜索建议列表项：传入一个对象，target表示当前选中列表项,input表示当前input表单项</td>
+							<td>onSelect()</td>
+							<td>[无]</td>
+							<td>选中搜索建议列表项时触发，返回false不自动填入值</td>
 						</tr>
 					</tbody>
 				</table>

@@ -1,5 +1,5 @@
 /**
- * jquery.suggestion.js 1.3
+ * jquery.suggestion.js 1.4
  * http://jquerywidget.com
  */
 ;(function (factory) {
@@ -41,18 +41,16 @@
             activeCls:'active',              //列表项选中class
             dynamic:true,                    //动态
             FieldName:'word',                //当前input表单项在请求接口时的字段名
-            dataType:'jsonp',              //请求的格式
+            dataType:'jsonp',                //请求的格式
             parameter:{},                    //其他与接口有关参数
             jsonp:'callback',                //传递自定义回调函数
             jsonpCallback:'',                //自定义回调函数
             autoSubmit:true,                 //点击确定是否自动提交表单
             beforeSend:function(){},         //发送前动作：传入准备提交的表单项目，返回false终止提交
             onCallback:function(){},         //获得数据后触发：target表示被建议列表对象,data表示请求到的数据
-            onChange:function(item){         //用户按键盘切换时触发
-                item.input.val(item.target.text());
+            onChange:function(){         //用户按键盘切换时触发
             },
-            onSelect: function(item) {       //选中搜索建议列表项触发：传入一个对象，target表示当前选中列表项,input表示当前input表单项
-                item.input.val(item.target.text());
+            onSelect: function() {       //选中搜索建议列表项触发：传入一个对象，target表示当前选中列表项,input表示当前input表单项
             }
         };
         var options = $.extend({}, defaults, parameter);
@@ -108,14 +106,12 @@
                 switch(e.keyCode){
                     case 13:
                         _api.hide();
-                        var status = {
-                            'input':$this
-                        };
                         if(_index>=0){
                             var $target = $items.eq(_index);
-                            status['target'] = $target;
+                            if(options.onSelect()!=false){
+                                $this.val($target.data('value'));
+                            }
                         }
-                        options.onSelect(status);
                         if(!options.autoSubmit){
                             e.preventDefault();
                         }
@@ -156,15 +152,17 @@
             //选中表单项
             var change = function(){
                 var $target = $list.find('li.'+options.activeCls);
-                var status = {
-                    'target':$target,
-                    'input':$this
-                };
-                options.onChange(status);
+                if(options.onChange()!=false){
+                    $this.val($target.data('value'));
+                }
             };
             //成功后的回调函数
             var success = function(data){
-                options.onCallback($list,data);
+                var list = options.onCallback(data);
+                $list.empty();
+                list.forEach(function(item){
+                    $list.append('<li data-value="'+item['value']+'">'+item['name']+'</li>');
+                });
                 $items = $suggestion.find('li');
                 hasData = $items.length>0;        //根据列表长度判断有没有值
                 if(hasData){
@@ -227,11 +225,9 @@
             $this.on('blur',_api.hide);            
             $list.on('click','li',function(){
                 var $target = $(this);
-                var status = {
-                    'target':$target,
-                    'input':$this
-                };
-                options.onSelect(status);
+                if(options.onSelect()!=false){
+                    $this.val($target.data('value'));
+                }
                 if(options.autoSubmit){
                     $form.submit();
                 }
