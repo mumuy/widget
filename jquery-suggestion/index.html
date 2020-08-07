@@ -185,14 +185,14 @@ $('.search input[type="text"]').suggestion({
 							<td>data表示请求到的数据，返回[{'name':'','value':''},...]表示搜索列表项，其中name用于显示，value表示有效值</td>
 						</tr>
 						<tr>
-							<td>onChange()</td>
+							<td>onChange(data)</td>
 							<td>[无]</td>
-							<td>用户按键盘切换时触发，返回false不自动填入值</td>
+							<td>用户按键盘切换时触发，data表示当前选中项的数据，返回false不自动填入值;</td>
 						</tr>
 						<tr>
-							<td>onSelect()</td>
+							<td>onSelect(data)</td>
 							<td>[无]</td>
-							<td>选中搜索建议列表项时触发，返回false不自动填入值</td>
+							<td>选中搜索建议列表项时触发，data表示当前选中项的数据，返回false不自动填入值;</td>
 						</tr>
 					</tbody>
 				</table>

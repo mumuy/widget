@@ -57,9 +57,9 @@
         var $window = $(window);
         var $document = $(document);
         return this.each(function() {
-            //对象定义
+            // 对象定义
             var _api = {};
-            var that = this;
+            var _ = this;
             var $this = $(this);
             var $form = $this.parents('form')||$this.parent();
             var $box = $this.parent();
@@ -73,7 +73,7 @@
             var _index = -1;
             var isShow = false;
             var hasData = false;
-            //节点样式
+            // 节点样式
             $form.css({
                 'position':'relative'
             });
@@ -87,8 +87,8 @@
                 'position':'absolute',
                 'display':'none'
             });
-            //方法定义
-            //位置调整
+            // 方法定义
+            // 位置调整
             var reset = function(){
                 _height = $this.outerHeight(false);
                 _width = $this.outerWidth(false);
@@ -100,7 +100,7 @@
                     'width':_width+'px'
                 });
             };
-            //按键按下
+            // 按键按下
             var down = function(e){
                 e.isPropagationStopped();
                 switch(e.keyCode){
@@ -108,7 +108,11 @@
                         _api.hide();
                         if(_index>=0){
                             var $target = $items.eq(_index);
-                            if(options.onSelect()!=false){
+                            var data = {
+                                'name':$target.data('name'),
+                                'value':$target.data('value'),
+                            };
+                            if(options.onSelect(data)!=false){
                                 $this.val($target.data('value'));
                             }
                         }
@@ -142,27 +146,31 @@
                     break;
                 }
             };
-            //鼠标经过
+            // 鼠标经过
             var hover = function(e){
                 e.isPropagationStopped();
                 var $target = $(this);
                 _index = $target.index();
                 $target.addClass(options.activeCls).siblings().removeClass(options.activeCls);
             };
-            //选中表单项
+            // 选中表单项
             var change = function(){
                 var $target = $list.find('li.'+options.activeCls);
-                if(options.onChange()!=false){
+                var data = {
+                    'name':$target.data('name'),
+                    'value':$target.data('value'),
+                };
+                if(options.onChange(data)!=false){
                     $this.val($target.data('value'));
                 }
             };
-            //成功后的回调函数
+            // 成功后的回调函数
             var success = function(data){
                 var list = options.onCallback(data);
                 if(list&&list.length){
                     $list.empty();
                     list.forEach(function(item){
-                        $list.append('<li data-value="'+item['value']+'">'+item['name']+'</li>');
+                        $list.append('<li data-value="'+item['value']+'" data-name="'+item['name']+'">'+item['name']+'</li>');
                     });
                 }
                 $items = $suggestion.find('li');
@@ -174,7 +182,7 @@
                 }
             };
             /* 公有方法 */
-            //显示表单项
+            // 显示表单项
             _api.show = function(){
                 _hander&&clearTimeout(_hander);
                 _hander = setTimeout(function(){
@@ -211,7 +219,7 @@
                     isShow = true;
                 },500);
             };
-            //隐藏表单项
+            // 隐藏表单项
             _api.hide = function(){
                 _hander&&clearTimeout(_hander);
                 _hander = setTimeout(function(){
@@ -221,13 +229,17 @@
                     }
                 },200);
             };
-            //事件绑定
+            // 事件绑定
             $this.on('keydown',down);
             $this.on('input propertychange focus',_api.show);
             $this.on('blur',_api.hide);            
             $list.on('click','li',function(){
                 var $target = $(this);
-                if(options.onSelect()!=false){
+                var data = {
+                    'name':$target.data('name'),
+                    'value':$target.data('value'),
+                };
+                if(options.onSelect(data)!=false){
                     $this.val($target.data('value'));
                 }
                 if(options.autoSubmit){
@@ -235,7 +247,7 @@
                 }
             }).on('mouseenter','li',hover);
             $window.resize(reset);
-            //初始化
+            // 初始化
             reset();
             getApi(_api);
         });
