@@ -159,10 +159,12 @@
             //成功后的回调函数
             var success = function(data){
                 var list = options.onCallback(data);
-                $list.empty();
-                list.forEach(function(item){
-                    $list.append('<li data-value="'+item['value']+'">'+item['name']+'</li>');
-                });
+                if(list&&list.length){
+                    $list.empty();
+                    list.forEach(function(item){
+                        $list.append('<li data-value="'+item['value']+'">'+item['name']+'</li>');
+                    });
+                }
                 $items = $suggestion.find('li');
                 hasData = $items.length>0;        //根据列表长度判断有没有值
                 if(hasData){
