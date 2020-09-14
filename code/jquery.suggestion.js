@@ -190,7 +190,9 @@
                     if(options.dynamic){
                         if(value != _text){ //缓存上次输入
                             _index = -1;
-                            options.parameter[options.FieldName] = _text = value;
+                            if(options.FieldName){
+                                options.parameter[options.FieldName] = _text = value;
+                            }
                             if(options.beforeSend(options.parameter)!=false){
                                 var param = {
                                     type:'get',
