@@ -253,6 +253,7 @@
             obj.value = tmpStr.substring(0, startPos) + str + tmpStr.substring(endPos, tmpStr.length);
             cursorPos += str.length;
             obj.selectionStart = obj.selectionEnd = cursorPos;
+            obj.focus();
         } else {
             obj.value += str;
         }
