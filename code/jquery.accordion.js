@@ -40,7 +40,7 @@
             panelCls: "panel",          //列表所对应的内容列表的class值
             activeCls: "active",        //导航选中时的class
             triggerType: 'mouse',       //切换时的触发事件
-            activeIndex: 0,             //默认选中导航项的索引
+            activeIndex: -1,            //默认选中导航项的索引
             multiple: false,            //是否同时支持多面板展开
             animate: false,             //是否开启动画
             duration:500,               //动画开启时长
@@ -65,7 +65,11 @@
                     if(animate){
                         $panels.eq(i).slideToggle(options.duration);
                     }else{
-                        $panels.eq(i).toggle(options.duration);
+                        if($panels.eq(i).is(':visible')){
+                            $panels.eq(i).hide();
+                        }else{
+                            $panels.eq(i).show();
+                        }
                     }
                     $triggers.eq(i).toggleClass(options.activeCls);
                 }else{
@@ -80,7 +84,10 @@
                 }
             };
             //初始化
-            _api.select(options.activeIndex,false);
+            $panels.hide();
+            if(options.activeIndex>-1){
+                _api.select(options.activeIndex,false);
+            }
             $triggers.bind(options.triggerType, function(e) { //事件绑定
                 var i = $triggers.index($(this));
                 var status = {
