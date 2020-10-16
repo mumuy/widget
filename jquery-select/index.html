@@ -7,9 +7,13 @@
 		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css">
 		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
 		<style type="text/css">	
-			.select{
-				width:180px;
+			.demo{
 				margin-bottom:25px;
+			}
+			.select{
+				display: inline-block;
+				width:180px;
+				margin-right: 20px;
 				text-indent:1em;
 			}
 			.select .box{
@@ -42,7 +46,7 @@
 			}
 		</style>
 		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
-		<script type="text/javascript" src="/code/jquery.select.js"></script>
+		<script type="text/javascript" src="/code/jquery.select.js?v=20201016"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -50,16 +54,23 @@
             <a href="/">返回首页</a>
         </div>
 		<div class="main">
-			<select class="select1">
-				<option value="op1">选项一</option>
-				<option value="op2" selected>选项二</option>
-				<option value="op3">选项三</option>
-			</select>
+			<div class="demo">
+				<select class="select1">
+					<option value="op1">选项一</option>
+					<option value="op2" selected>选项二</option>
+					<option value="op3">选项三</option>
+				</select>
+				<span id="test"></span>
+			</div>
 			<div class="code">
-				<p>$(".select1").select();</p>
+				<p>$(".select1").select({
+					'onSelect':function(item){$('#test').text('选中选项：'+item['name']);}
+				});</p>
 			</div>
 			<script type="text/javascript">
-				$(".select1").select();
+				$(".select1").select({
+					'onSelect':function(item){$('#test').text('选中选项：'+item['name']);}
+				});
 			</script>
 			<div class="example">
 				<div class="call">
@@ -112,18 +123,18 @@
 							<td>展开触发点class</td>
 						</tr>
 						<tr>
-							<td>html(status)</td>
+							<td>format(item)</td>
 							<td>
-								function(status){
-									status.list.append("&lt;li&gt;"+status.item.text()+"&lt;/li&gt;");
+								function(item){
+									return '&lt;span&gt;'+item['name']+'&lt;/span&gt;';
 								}
 							</td>
-							<td>下拉菜单自定义结构。box选择框,list下拉框,item选中项目</td>
+							<td>下拉菜单自定义结构。item['name']选项名称,item['value']选项值。</td>
 						</tr>
 						<tr>
-							<td>onSelect(status)</td>
+							<td>onSelect(item)</td>
 							<td>[无]</td>
-							<td>选择时触发。box选择框,list下拉框,item选中项目,value选中值</td>
+							<td>选择时触发。item['name']选项名称,item['value']选项值。</td>
 						</tr>
 					</tbody>
 				</table>

@@ -1,5 +1,5 @@
 /**
- * jquery.select.js 1.0
+ * jquery.select.js 1.1
  * http://jquerywidget.com
  */
 ;(function (factory) {
@@ -43,8 +43,8 @@
 			innerCls:'inner',
 			listCls:'list',
 			activeCls:'active',
-			html:function(status){
-				status.list.append("<li>"+status.item.text()+"</li>");
+			format:function(item){
+				return '<span>'+item['name']+'</span>';
 			},
 			onSelect:function(){}
         };
@@ -75,12 +75,11 @@
 			var $options = $this.find('option');
 			$options.each(function(){
 				var $this = $(this);
-				var status = {
-					'box':$box,
-					'list':$list,
-					'item':$this
+				var item = {
+					'value':$this.val(),
+					'name':$this.text()
 				};
-				options.html(status);
+				$list.append('<li data-value="'+item['value']+'">'+options.format(item)+'</li>');
 			});
 			var $items = $list.find('li');
 			var _api = {};
@@ -126,18 +125,18 @@
 			//公有方法
 			_api.setValue = function(value){
 				$this.val(value);
-				_index = $options.filter(':selected').index();
+				var $selected_option = $options.filter(':selected');
+				var name = $selected_option.text();
+				_index = $selected_option.index();
 				var $item = $items.eq(_index);
 				$box.html($item.html());
 				$item.addClass(options.activeCls).siblings().removeClass(options.activeCls);
 				$inner.hide();
-				var status = {
-					'box':$box,
-					'list':$list,
-					'item':$item,
+				var item = {
+					'name':name,
 					'value':value
 				};
-				options.onSelect(status);
+				options.onSelect(item);
 			};
 			//事件绑定
 			$trigger.click(function(){
