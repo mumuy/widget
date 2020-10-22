@@ -40,7 +40,7 @@
             panelCls: "panel",          //列表所对应的内容列表的class值
             activeCls: "active",        //导航选中时的class
             triggerType: 'mouse',       //切换时的触发事件
-            activeIndex: -1,            //默认选中导航项的索引
+            activeIndex: -1,             //默认选中导航项的索引
             multiple: false,            //是否同时支持多面板展开
             animate: false,             //是否开启动画
             duration:500,               //动画开启时长
@@ -84,9 +84,11 @@
                 }
             };
             //初始化
-            $panels.hide();
-            if(options.activeIndex>-1){
-                _api.select(options.activeIndex,false);
+            if(!options.multiple){
+                $panels.hide();
+                if(options.activeIndex>-1){
+                    _api.select(options.activeIndex,false);
+                }
             }
             $triggers.bind(options.triggerType, function(e) { //事件绑定
                 var i = $triggers.index($(this));
