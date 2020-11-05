@@ -123,7 +123,7 @@
         		}
         	};
 			//公有方法
-			_api.setValue = function(value){
+			_api.setValue = function(value,isTrigger){
 				$this.val(value);
 				var $selected_option = $options.filter(':selected');
 				var name = $selected_option.text();
@@ -136,7 +136,9 @@
 					'name':name,
 					'value':value
 				};
-				options.onSelect(item);
+				if(isTrigger!=false){
+					options.onSelect(item);
+				}
 			};
 			//事件绑定
 			$trigger.click(function(){
@@ -170,7 +172,7 @@
 				'keydown':down
 			});
 			//初始化
-			_api.setValue($this.val());
+			_api.setValue($this.val(),false);
 			getApi(_api);
 		});
     };
