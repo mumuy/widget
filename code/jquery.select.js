@@ -1,5 +1,5 @@
 /**
- * jquery.select.js 1.1
+ * jquery.select.js 1.2
  * http://jquerywidget.com
  */
 ;(function (factory) {
@@ -36,13 +36,8 @@
             getApi = getApi||function(){};
         }
         var defaults = {
-			selectCls:'select',
-			boxCls:'box',
+			prefix:'widget',
 			hasTrigger:false,
-			triggerCls:'trigger',
-			innerCls:'inner',
-			listCls:'list',
-			activeCls:'active',
 			format:function(item){
 				return '<span>'+item['name']+'</span>';
 			},
@@ -60,16 +55,16 @@
             }else{
             	$this.data('widget-type','select');
             }
-			var $inner = $("<div class='"+options.innerCls+"'></div>");
-			var $list = $("<ul class='"+options.listCls+"'></ul>");
-			var $box = $("<div class='"+options.boxCls+"'></div>");
-			var $select = $("<div class='"+options.selectCls+"'></div>");
+			var $inner = $("<div class='"+options.prefix+"-picker'></div>");
+			var $list = $("<ul class='"+options.prefix+"-list'></ul>");
+			var $box = $("<div class='"+options.prefix+"-box'></div>");
+			var $select = $("<div class='"+options.prefix+"-select'></div>");
 			$inner.append($list);
 			$select.append($box).append($inner);
 			$this.hide().after($select);
 			var $trigger = $box;
 			if(options.hasTrigger){
-				$trigger = $("<div class='"+options.triggerCls+"'></div>");
+				$trigger = $("<div class='"+options.prefix+"-trigger'></div>");
 				$select.append($trigger);
 			}
 			var $options = $this.find('option');
@@ -108,14 +103,14 @@
 	        			case 38:
 	        				if(_index>0){
 	        					_index--;
-	        					$items.eq(_index).addClass(options.activeCls).siblings().removeClass(options.activeCls);
+	        					$items.eq(_index).addClass(options.prefix+'-active').siblings().removeClass(options.prefix+'-active');
 	        				}
 	        				e.preventDefault();
 	        			break;
 	        			case 40:
 	        				if(_index<$items.length-1){
 	        					_index++;
-	        					$items.eq(_index).addClass(options.activeCls).siblings().removeClass(options.activeCls);
+	        					$items.eq(_index).addClass(options.prefix+'-active').siblings().removeClass(options.prefix+'-active');
 	        				}
 	        				e.preventDefault();
 	        			break;
@@ -130,7 +125,7 @@
 				_index = $selected_option.index();
 				var $item = $items.eq(_index);
 				$box.html($item.html());
-				$item.addClass(options.activeCls).siblings().removeClass(options.activeCls);
+				$item.addClass(options.prefix+'-active').siblings().removeClass(options.prefix+'-active');
 				$inner.hide();
 				var item = {
 					'name':name,
@@ -146,14 +141,14 @@
 					$inner.hide();
 				}else{
 					$inner.show();
-					$items.eq(_index).addClass(options.activeCls).siblings().removeClass(options.activeCls);
+					$items.eq(_index).addClass(options.prefix+'-active').siblings().removeClass(options.prefix+'-active');
 				}
 				isShow = !isShow;
 				_target = true;
 			});
 			$items.on({
 				'mouseenter':function(){
-					$(this).addClass(options.activeCls).siblings().removeClass(options.activeCls);
+					$(this).addClass(options.prefix+'-active').siblings().removeClass(options.prefix+'-active');
 				},
 				'click':function(){
 					_index = $(this).index();

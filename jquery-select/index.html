@@ -10,19 +10,19 @@
 			.demo{
 				margin-bottom:25px;
 			}
-			.select{
+			.widget-select{
 				display: inline-block;
 				width:180px;
 				margin-right: 20px;
 				text-indent:1em;
 			}
-			.select .box{
+			.widget-select .widget-box{
 				position:relative;
 				height:28px;
 				border:1px solid #e2e2e2;
 				line-height:28px;
 			}
-			.select .box:after{
+			.widget-select .widget-box:after{
 				position:absolute;
 				top:50%;
 				right:12px;
@@ -33,16 +33,16 @@
 				border:4px solid transparent;
 				border-top:4px solid #000;
 			}
-			.select .list{
+			.widget-select .widget-list{
 				background:#fff;
 				border:1px solid #e2e2e2;
 			}
-			.select .list li{
+			.widget-select .widget-list li{
 				height:28px;
 				line-height:28px;
 			}
-			.select .list li.active{
-				background:#999;
+			.widget-select .widget-list li.widget-active{
+				background:#ccc;
 			}
 		</style>
 		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
@@ -88,39 +88,9 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>selectCls</td>
-							<td>'select'</td>
-							<td>选择框外层class</td>
-						</tr>
-						<tr>
-							<td>boxCls</td>
-							<td>'box'</td>
-							<td>选择框class</td>
-						</tr>
-						<tr>
-							<td>innerCls</td>
-							<td>'inner'</td>
-							<td>下拉菜单外层class</td>
-						</tr>
-						<tr>
-							<td>listCls</td>
-							<td>'list'</td>
-							<td>下拉菜单class</td>
-						</tr>
-						<tr>
-							<td>activeCls</td>
-							<td>'active'</td>
-							<td>下拉菜单选中class</td>
-						</tr>
-						<tr>
-							<td>hasTrigger</td>
-							<td>false</td>
-							<td>是否有展开触发点</td>
-						</tr>
-						<tr>
-							<td>triggerCls</td>
-							<td>'trigger'</td>
-							<td>展开触发点class</td>
+							<td>prefix</td>
+							<td>'widget'</td>
+							<td>自定义节点class的前缀</td>
 						</tr>
 						<tr>
 							<td>format(item)</td>
