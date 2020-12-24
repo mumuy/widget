@@ -169,11 +169,12 @@
                 });
                 _outer = $outer.width();
                 $items.each(function(i){
-                    var $li = $(this);
-                    var width = Math.min($li.width(),_outer);
+                    var $item = $(this);
+                    var $temp = $items.eq(i%_size);
+                    var width = Math.min($temp.width(),_outer);
                     _distance.push(_inner);
-                    $li.width(width);
-                    _inner += Math.ceil($li.outerWidth(true));
+                    $item.width(width);
+                    _inner += Math.ceil($item.outerWidth(true));
                 }).each(function(i){
                     _distance.push(_inner+_distance[i]);
                 });
@@ -185,11 +186,12 @@
                 $items.css('height','');
                 _outer = $outer.height();
                 $items.each(function(i){
-                    var $li = $(this);
-                    var height = Math.min($li.height(),_outer);
+                    var $item = $(this);
+                    var $temp = $items.eq(i%_size);
+                    var height = Math.min($temp.height(),_outer);
                     _distance.push(_inner);
-                    $li.height(height);
-                    _inner += Math.ceil($li.outerHeight(true));
+                    $item.height(height);
+                    _inner += Math.ceil($item.outerHeight(true));
                 }).each(function(i){
                     _distance.push(_inner+_distance[i]);
                 });
