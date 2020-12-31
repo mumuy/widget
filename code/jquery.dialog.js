@@ -39,6 +39,7 @@
 			prefix:'widget',
 			content:'',
 			title:'',
+			top:null,
 			backgroundColor:'#000',
 			opacity: 0.5,
 			autoOpen:false,
@@ -57,7 +58,7 @@
 			var $children = options.content?$(options.content):$this.html(); //内容区域
 			var $container = $('<div class="'+options.prefix+'-container"></div>');
 			var $overlay = $();
-			var $close = $('<a href="javascript:;">x</a>');
+			var $close = $('<a class="'+options.prefix+'-close" href="javascript:;">x</a>');
 			var $title = $('<h3>'+options.title+'</h3>');
 			var $wg_head = $('<div class="'+options.prefix+'-head"></div>').append($title).append($close);
 			var $wg_body = $('<div class="'+options.prefix+'-body"></div>').append($children);
@@ -122,10 +123,17 @@
 			};
 			//对话框形状自动调整
 			_api.resize = function(){
-				$container.css({
-					"left": ($window.width()-$container.outerWidth())/2 + "px",
-					"top": ($window.height()-$container.outerHeight())/2 + "px"
-				});
+				if(options.top!=null){
+					$container.css({
+						"left": ($window.width()-$container.outerWidth())/2 + "px",
+						"top": options.top + "px"
+					});
+				}else{				
+					$container.css({
+						"left": ($window.width()-$container.outerWidth())/2 + "px",
+						"top": ($window.height()-$container.outerHeight())/2 + "px"
+					});
+				}
 			};
 			//设置标题
 			_api.setTitle = function(title){
