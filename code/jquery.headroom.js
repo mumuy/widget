@@ -82,16 +82,16 @@
                     $fixed.css({'transition':_transition});
                     if(ismove){
                         if(up){
-                            $fixed.css({'position':'fixed','top':options.fixedTop+'px','z-index':99});
+                            $fixed.css({'position':'fixed','top':options.fixedTop+'px','z-index':9999});
                         }else{
-                            $fixed.css({'position':'fixed','top':options.fixedTop-_height+'px','z-index':99});
+                            $fixed.css({'position':'fixed','top':options.fixedTop-_height+'px','z-index':9999});
                         }
                         _scroll_top = scroll_top;
                         isFixed = true;
                     }
                 }else if(scroll_top>=_top){ //滚动距离介于菜单上边缘和下边缘之间
                     if(isFixed){
-                        $fixed.css({'transition':_transition,'position':'fixed','top':options.fixedTop+'px','z-index':99});
+                        $fixed.css({'transition':_transition,'position':'fixed','top':options.fixedTop+'px','z-index':9999});
                     }else{
                         $fixed.css({'transition':'','position':'','top':'','z-index':0});
                     }
