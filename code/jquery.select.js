@@ -59,6 +59,7 @@
 			var $list = $("<ul class='"+options.prefix+"-list'></ul>");
 			var $box = $("<div class='"+options.prefix+"-box'></div>");
 			var $select = $("<div class='"+options.prefix+"-select'></div>");
+			$select.data('key',Math.random());
 			$inner.append($list);
 			$select.append($box).append($inner);
 			$this.hide().after($select);
@@ -80,7 +81,6 @@
 			var _api = {};
 			var _index = 0;
 			var isShow = false;
-			var _target = false; //触发标记，不论有多少个select实例，只展开一个
 			//样式修改
 			$select.css({
 				'position':'relative'
@@ -127,6 +127,7 @@
 				$box.html($item.html());
 				$item.addClass(options.prefix+'-active').siblings().removeClass(options.prefix+'-active');
 				$inner.hide();
+				$(_self).trigger('change');
 				var item = {
 					'name':name,
 					'value':value
@@ -144,7 +145,6 @@
 					$items.eq(_index).addClass(options.prefix+'-active').siblings().removeClass(options.prefix+'-active');
 				}
 				isShow = !isShow;
-				_target = true;
 			});
 			$items.on({
 				'mouseenter':function(){
@@ -154,14 +154,26 @@
 					_index = $(this).index();
 					var $option = $options.eq(_index);
 					_api.setValue($option.val());
-				}
-			});
-			$document.click(function(){
-				if(isShow&&!_target){
-					$inner.hide();
 					isShow = false;
 				}
-				_target = false;
+			});
+			$document.click(function(e){
+				if(e.target.tagName!='SELECT'){
+					var $outer = $(e.target).closest('.'+options.prefix+'-select');
+					if($outer.length){
+						if($outer.data('key')!=$select.data('key')){
+							if(isShow){					
+								$inner.hide();
+								isShow = false;
+							}
+						}
+					}else{
+						if(isShow){					
+							$inner.hide();
+							isShow = false;
+						}
+					}
+				}
 			});
 			$window.on({
 				'keydown':down
