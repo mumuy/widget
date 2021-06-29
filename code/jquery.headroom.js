@@ -36,6 +36,7 @@
             duration:500,               //动画时长
             autoHide:true,              //自动隐藏
             scrollOffset:0,             //移动时的偏移量
+            zIndex:9999,                //zindex
             isScrollActive:true,        //滚动是改变选中状态
             activeIndex:0,              //默认选中菜单
             activeCls:'active'
@@ -82,16 +83,16 @@
                     $fixed.css({'transition':_transition});
                     if(ismove){
                         if(up){
-                            $fixed.css({'position':'fixed','top':options.fixedTop+'px','z-index':9999});
+                            $fixed.css({'position':'fixed','top':options.fixedTop+'px','z-index':options.zIndex});
                         }else{
-                            $fixed.css({'position':'fixed','top':options.fixedTop-_height+'px','z-index':9999});
+                            $fixed.css({'position':'fixed','top':options.fixedTop-_height+'px','z-index':options.zIndex});
                         }
                         _scroll_top = scroll_top;
                         isFixed = true;
                     }
                 }else if(scroll_top>=_top){ //滚动距离介于菜单上边缘和下边缘之间
                     if(isFixed){
-                        $fixed.css({'transition':_transition,'position':'fixed','top':options.fixedTop+'px','z-index':9999});
+                        $fixed.css({'transition':_transition,'position':'fixed','top':options.fixedTop+'px','z-index':options.zIndex});
                     }else{
                         $fixed.css({'transition':'','position':'','top':'','z-index':0});
                     }
