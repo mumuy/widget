@@ -43,6 +43,7 @@
             points:['cb','ct']          //弹出层与参考节点的对齐方式
         };
         var options = $.extend({}, defaults, parameter);
+        var $document = $(document);
         return this.each(function() {
             //对象定义
             var $this = $(this);
@@ -115,6 +116,14 @@
                         _node.hide();
                     }else{
                         _node.show();
+                    }
+                    return false;
+                });
+                $document.on('click',function(e){
+                    if(!$.contains($node[0],e.target)){
+                        if(isShow){
+                            _node.hide();
+                        }
                     }
                 });
             }
