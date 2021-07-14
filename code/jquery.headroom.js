@@ -120,13 +120,14 @@
                 }
             };
             _api.resize = function(){
+                _window_width = $document.width();
                 _width = $outer.width();
                 _height = $this.outerHeight();
                 $outer.css({
                     'height':_height
                 });
                 $fixed.css({
-                    'width':_width,
+                    'width':_window_width==_width?'100%':_width,
                     'height':_height
                 });
             };
