@@ -512,7 +512,7 @@
                         'touchend':touchE
                     });
                 })();
-                $this.on({
+                $outer.on({
                     'touchstart':touchStart,
                     'touchmove':touchMove,
                     'touchend':touchEnd
