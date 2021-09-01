@@ -146,7 +146,7 @@ $('.search input[type="text"]').suggestion({
 						</tr>
 						<tr>
 							<td>itemFormat</td>
-							<td>function(item){return item['name'];}</td>
+							<td>function(data){return data['name'];}</td>
 							<td>建议列表节点样式</td>
 						</tr>
 						<tr>
@@ -196,12 +196,12 @@ $('.search input[type="text"]').suggestion({
 						</tr>
 						<tr>
 							<td>onChange(data)</td>
-							<td>[无]</td>
+							<td>function(data){return data['value'];}</td>
 							<td>用户按键盘切换时触发，data表示当前选中项的数据，返回false不自动填入值;</td>
 						</tr>
 						<tr>
 							<td>onSelect(data)</td>
-							<td>[无]</td>
+							<td>function(data){return data['value'];}</td>
 							<td>选中搜索建议列表项时触发，data表示当前选中项的数据，返回false不自动填入值;</td>
 						</tr>
 					</tbody>

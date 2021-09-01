@@ -52,9 +52,11 @@
             },
             beforeSend:function(){},            //发送前动作：传入准备提交的表单项目，返回false终止提交
             onCallback:function(){},            //获得数据后触发：target表示被建议列表对象,data表示请求到的数据
-            onChange:function(){                //用户按键盘切换时触发
+            onChange:function(item){                //用户按键盘切换时触发
+                return item['value'];
             },
-            onSelect: function() {              //选中搜索建议列表项触发：传入一个对象，target表示当前选中列表项,input表示当前input表单项
+            onSelect: function(item) {              //选中搜索建议列表项触发：传入一个对象，target表示当前选中列表项,input表示当前input表单项
+                return item['value'];
             }
         };
         var options = $.extend({}, defaults, parameter);
@@ -116,10 +118,10 @@
                                 'name':$target.data('name'),
                                 'value':$target.data('value'),
                             };
-                            if(options.onSelect(data)!=false){
-                                var value = $target.data('value');
-                                $this.val(value);
-                                $this.data('value',value);
+                            var result = options.onSelect(data);
+                            if(result!=false){
+                                $this.val(result);
+                                $this.data('value',result);
                             }
                         }
                         if(!options.autoSubmit){
@@ -166,10 +168,10 @@
                     'name':$target.data('name'),
                     'value':$target.data('value'),
                 };
-                if(options.onChange(data)!=false){
-                    var value = $target.data('value');
-                    $this.val(value);
-                    $this.data('value',value);
+                var result = options.onChange(data);
+                if(result!=false){
+                    $this.val(result);
+                    $this.data('value',result);
                 }
             };
             // 成功后的回调函数
@@ -252,10 +254,10 @@
                     'name':$target.data('name'),
                     'value':$target.data('value'),
                 };
-                if(options.onSelect(data)!=false){
-                    var value = $target.data('value');
-                    $this.val(value);
-                    $this.data('value',value);
+                var result = options.onSelect(data);
+                if(result!=false){
+                    $this.val(result);
+                    $this.data('value',result);
                 }
                 if(options.autoSubmit){
                     $form.submit();
