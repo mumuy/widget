@@ -68,21 +68,23 @@
                 jsonpCallback:'jsonp_location',
                 success:function(data){
                     var province,city,area,hasCity;
-                    if(options.code){   //如果设置地区编码，则忽略单独设置的信息
-                        var c = options.code - options.code%1e4;
-                        if(data[c]){
-                            options.province = c;
+                    var initCode = function(){
+                        if(options.code){   //如果设置地区编码，则忽略单独设置的信息
+                            var c = options.code - options.code%1e4;
+                            if(data[c]){
+                                options.province = c;
+                            }
+                            c = options.code - (options.code%1e4 ? options.code%1e2 : options.code);
+                            if(data[c]){
+                                options.city = c;
+                            }
+                            c = options.code%1e2 ? options.code : 0;
+                            if(data[c]){
+                                options.area = c;
+                            }
                         }
-                        c = options.code - (options.code%1e4 ? options.code%1e2 : options.code);
-                        if(data[c]){
-                            options.city = c;
-                        }
-                        c = options.code%1e2 ? options.code : 0;
-                        if(data[c]){
-                            options.area = c;
-                        }
-                    }
-                    var updateData = function(){
+                    };
+                    var updateCode = function(){
                         province = {},city={},area={};
                         hasCity = false;       //判断是非有地级城市
                         for(var code in data){
@@ -198,7 +200,14 @@
                             }
                         }
                     };
-                    //获取当前地理信息
+                    // 设置值
+                    _api.setCode = function(code){
+                        options.code = code;
+                        initCode();
+                        updateCode();
+                        format.province();
+                    };
+                    // 获取当前地理信息
                     _api.getInfo = function(){
                         var status = {
                             direct:!hasCity,
@@ -209,19 +218,19 @@
                         };
                         return status;
                     };
-                    //事件绑定
+                    // 事件绑定
                     $province.on('change',function(){
                         options.province = $(this).find('option:selected').data('code')||0; //选中节点的区划代码
                         options.city = 0;
                         options.area = 0;
-                        updateData();
+                        updateCode();
                         format.city();
                         options.onChange(_api.getInfo());
                     });
                     $city.on('change',function(){
                         options.city = $(this).find('option:selected').data('code')||0; //选中节点的区划代码
                         options.area = 0;
-                        updateData();
+                        updateCode();
                         format.area();
                         options.onChange(_api.getInfo());
                     });
@@ -229,8 +238,8 @@
                         options.area = $(this).find('option:selected').data('code')||0; //选中节点的区划代码
                         options.onChange(_api.getInfo());
                     });
-                    //初始化
-                    updateData();
+                    // 初始化
+                    updateCode();
                     format.province();
                     if(options.code){
                         options.onChange(_api.getInfo());
