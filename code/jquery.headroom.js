@@ -31,15 +31,16 @@
         var parameter = parameter || {};
         var callback = callback || function(){};
         var defaults = {
-            hiddenTop:0,                //滚动隐藏的位置
-            fixedTop:0,                 //显示的位置
-            duration:500,               //动画时长
-            autoHide:true,              //自动隐藏
-            scrollOffset:0,             //移动时的偏移量
-            zIndex:9999,                //zindex
-            isScrollActive:true,        //滚动是改变选中状态
-            activeIndex:0,              //默认选中菜单
-            activeCls:'active'
+            hiddenTop:0,                // 滚动隐藏的位置
+            fixedTop:0,                 // 显示的位置
+            duration:500,               // 动画时长
+            autoHide:true,              // 自动隐藏
+            scrollOffset:0,             // 移动时的偏移量
+            zIndex:9999,                // zindex
+            isScrollActive:true,        // 滚动是改变选中状态
+            activeIndex:0,              // 默认选中菜单
+            activeCls:'active',         // 选中效果
+            fixedCls:'fixed',           // 浮动
         };
         var options = $.extend({}, defaults, parameter);
         var $document = $(document);
@@ -83,23 +84,23 @@
                     $fixed.css({'transition':_transition});
                     if(ismove){
                         if(up){
-                            $fixed.css({'position':'fixed','top':options.fixedTop+'px','z-index':options.zIndex});
+                            $fixed.addClass(options.fixedCls).css({'position':'fixed','top':options.fixedTop+'px','z-index':options.zIndex});
                         }else{
-                            $fixed.css({'position':'fixed','top':options.fixedTop-_height+'px','z-index':options.zIndex});
+                            $fixed.addClass(options.fixedCls).css({'position':'fixed','top':options.fixedTop-_height+'px','z-index':options.zIndex});
                         }
                         _scroll_top = scroll_top;
                         isFixed = true;
                     }
                 }else if(scroll_top>=_top){ //滚动距离介于菜单上边缘和下边缘之间
                     if(isFixed){
-                        $fixed.css({'transition':_transition,'position':'fixed','top':options.fixedTop+'px','z-index':options.zIndex});
+                        $fixed.addClass(options.fixedCls).css({'transition':_transition,'position':'fixed','top':options.fixedTop+'px','z-index':options.zIndex});
                     }else{
-                        $fixed.css({'transition':'','position':'','top':'','z-index':0});
+                        $fixed.removeClass(options.fixedCls).css({'transition':'','position':'','top':'','z-index':0});
                     }
                     _scroll_top = scroll_top;
                     isFixed = true;
                 }else{ //滚动距离小于菜单上边缘
-                    $fixed.css({'transition':'','position':'','top':'','z-index':0});
+                    $fixed.removeClass(options.fixedCls).css({'transition':'','position':'','top':'','z-index':0});
                     _scroll_top = scroll_top;
                     isFixed = false;
                 }
@@ -109,7 +110,7 @@
                     var id='';
                     for(var i=0;i<$list.length;i++){
                         var top = $list[i].offset().top-options.scrollOffset;
-                        if(top<=scroll_top){
+                        if(Math.floor(top)<=scroll_top){
                             id = $list[i].attr('id');
                         }
                     }
