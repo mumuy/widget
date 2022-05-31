@@ -78,7 +78,8 @@
 					'quarter':Math.floor((date.getMonth()+3)/3),
 					'microsecond':date.getMilliseconds(),
 					'format':format,
-					'distance':diff_format
+					'distance':diff_format,
+					'timestamp':diff
 				};
 			};
 			var count = function(){
@@ -99,8 +100,13 @@
 			};
 			_api.reset = function(){
 				if(isTimestamp){
-					_start = options.starttime?getTimestamp(options.starttime):(+new Date());
-					_end = getTimestamp(options.endtime);
+					if(options.endtime.match(/(\d{4}[\/\-]\d{2}[\/\-]\d{2}\s)?/)){
+						_start =  getTimestamp(options.endtime);
+						_end = options.starttime?getTimestamp(options.starttime):(+new Date());
+					}else{					
+						_start = options.starttime?getTimestamp(options.starttime):(+new Date());
+						_end = getTimestamp(options.endtime);
+					}
 				}else{
 					_start = options.starttime*1e3;
 					_end = options.endtime*1e3;
