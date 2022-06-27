@@ -439,7 +439,7 @@
                     if(options.onChangeStart.call(_.element,status) !== false){
                         _index = index;
                         _time['start'] = + new Date();
-                        slide(options.animate,500);
+                        slide(options.animate,options.duration);
                     }
                 });
             }
