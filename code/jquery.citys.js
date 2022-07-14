@@ -50,6 +50,7 @@
             area:0,                   //地区,可以为地区编码或者名称
             required: true,           //是否必须选一个
             nodata: 'hidden',         //当无数据时的表现形式:'hidden'隐藏,'disabled'禁用,为空不做任何处理
+            placeholder:' - 请选择 - ',          // 默认项
             onChange:function(){}     //地区切换时触发,回调函数传入地区数据
         };
         var options = $.extend({}, defaults, parameter);
@@ -143,7 +144,7 @@
                         province:function(){
                             $province.empty();
                             if(!options.required){
-                                $province.append('<option value=""> - 请选择 - </option>');
+                                $province.append('<option value="">'+options.placeholder+'</option>');
                             }
                             for(var i in province){
                                 $province.append('<option value="'+(options.valueType=='code'?i:province[i])+'" data-code="'+i+'">'+province[i]+'</option>');
@@ -161,7 +162,7 @@
                             }else{
                                 $city.css('display','');
                                 if(!options.required){
-                                    $city.append('<option value=""> - 请选择 - </option>');
+                                    $city.append('<option value="">'+options.placeholder+'</option>');
                                 }
                                 if(options.nodata=='disabled'){
                                     $city.prop('disabled',$.isEmptyObject(city));
@@ -184,7 +185,7 @@
                         area:function(){
                             $area.empty();
                             if(!options.required){
-                                $area.append('<option value=""> - 请选择 - </option>');
+                                $area.append('<option value="">'+options.placeholder+'</option>');
                             }
                             if(options.nodata=='disabled'){
                                 $area.prop('disabled',$.isEmptyObject(area));
@@ -239,6 +240,7 @@
                         options.onChange(_api.getInfo());
                     });
                     // 初始化
+                    initCode();
                     updateCode();
                     format.province();
                     if(options.code){
