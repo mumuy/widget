@@ -53,13 +53,13 @@
 			var _api = {};              //对外的函数接口
 			var _hander = null;
 			var _start=0,_end=0;
-			var isTimestamp = isNaN(options.starttime)||isNaN(options.endtime);//是否为秒计数模式
+			var isTime = isNaN(options.starttime)||isNaN(options.endtime); //是否时间表达式
 			var getTime = function(timestamp){
 				var date,format;
 				var time = Math.max(_start,_end);
 				var diff = _start - _end;
 				var offset_GMT = new Date().getTimezoneOffset(); 
-				if(isTimestamp){
+				if(isTime){
 					date = new Date(time);
 					format = timeFormat(options.format,time);
 					diff_format = timeFormat(options.format,diff+offset_GMT*60*1000);
@@ -88,25 +88,31 @@
 				}
 				options.countEach(getTime(_start));
 				$this.addClass(options.disableBtnCls);
+				var isReverse = _start>_end?true:false;
 				_hander = setInterval(function(){
-					_start -= options.interval;
-					options.countEach(getTime(_start));
-					if(_start<=_end){
-						clearInterval(_hander);
-						$this.removeClass(options.disableBtnCls);
-						options.countEnd(getTime(_end));
+					if(isReverse){					
+						_start -= options.interval;
+						options.countEach(getTime(_start));
+						if(_start<=_end){
+							clearInterval(_hander);
+							$this.removeClass(options.disableBtnCls);
+							options.countEnd(getTime(_end));
+						}
+					}else{
+						_start += options.interval;
+						options.countEach(getTime(_start));
+						if(_start>=_end){
+							clearInterval(_hander);
+							$this.removeClass(options.disableBtnCls);
+							options.countEnd(getTime(_end));
+						}
 					}
 				},options.interval);
 			};
 			_api.reset = function(){
-				if(isTimestamp){
-					if(options.endtime.match(/(\d{4}[\/\-]\d{2}[\/\-]\d{2}\s)?/)){
-						_start =  getTimestamp(options.endtime);
-						_end = options.starttime?getTimestamp(options.starttime):(+new Date());
-					}else{					
-						_start = options.starttime?getTimestamp(options.starttime):(+new Date());
-						_end = getTimestamp(options.endtime);
-					}
+				if(isTime){				
+					_start = options.starttime?getTimestamp(options.starttime):(+new Date());
+					_end = getTimestamp(options.endtime);
 				}else{
 					_start = options.starttime*1e3;
 					_end = options.endtime*1e3;
@@ -114,8 +120,8 @@
 				count();
 			};
 			_api.setStarttime = function(start){
-				isTimestamp = isNaN(start);
-				if(isTimestamp){
+				isTime = isNaN(start);
+				if(isTime){
 					_start = getTimestamp(start);
 				}else{
 					_start = start*1e3;
@@ -123,8 +129,8 @@
 				count();
 			};
 			_api.setEndtime = function(end){
-				isTimestamp = isNaN(end);
-				if(isTimestamp){
+				isTime = isNaN(end);
+				if(isTime){
 					_end = getTimestamp(end);
 				}else{
 					_end = end*1e3;
