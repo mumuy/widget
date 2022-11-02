@@ -226,6 +226,7 @@
                             }
                         }
                     }else{
+                        _index = -1;
                         success();
                     }
                     isShow = true;
