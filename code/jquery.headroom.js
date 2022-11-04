@@ -116,7 +116,7 @@
                     }
                     if(id&&!isAnimate){
                         $links.removeClass(options.activeCls);
-                        $links.filter('[href=#'+id+']').addClass(options.activeCls);
+                        $links.filter('[href=#"'+id+'"]').addClass(options.activeCls);
                     }
                 }
             };
