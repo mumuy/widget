@@ -64,7 +64,7 @@
             $fixed.css({
                 'background':$this.css('background-color')
             });
-            var $links = $this.find('a[href*=#]');
+            var $links = $this.find('a[href*="#"]');
             var $list = $.map($links,function(link){
                 var $link = $(link);
                 var hash = $link.attr('href');
