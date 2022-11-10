@@ -71,7 +71,7 @@
                 var $link = $(this);
                 var url = $link.attr('href');
                 if(url.match(/^#\S/)){                
-                    var $item = $(hash);
+                    var $item = $(url);
                     if($item.length){
                         $list.push($item);
                     }
