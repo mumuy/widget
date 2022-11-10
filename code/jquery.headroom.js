@@ -61,16 +61,20 @@
             var $outer = $fixed.parent();
             var _width = $this.width();
             var _height = $this.outerHeight();
+            var backgroundColor = $this.css('background-color');
             $fixed.css({
-                'background':$this.css('background-color')
+                'background':backgroundColor!='rgba(0, 0, 0, 0)'?backgroundColor:'#ffffff'
             });
             var $links = $this.find('a[href*="#"]');
-            var $list = $.map($links,function(link){
-                var $link = $(link);
-                var hash = $link.attr('href');
-                var $item = $(hash);
-                if($item.length){
-                    return $item;
+            var $list = [];
+            $links.each(function(){
+                var $link = $(this);
+                var url = $link.attr('href');
+                if(url.match(/^#\S/)){                
+                    var $item = $(hash);
+                    if($item.length){
+                        $list.push($item);
+                    }
                 }
             });
             var _api = {};
