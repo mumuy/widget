@@ -85,15 +85,23 @@
 				'position':_position,
 				'z-index': '999'
 			}).appendTo($this).append($wg_head).append($wg_body).append($wg_foot);
-			var i = 1;
-			for(var name in options.buttons){
-				(function(name){
-					$('<button class="button-'+(i++)+'" type="button">'+name+'</button>').appendTo($wg_foot).click(function(){
-						options.buttons[name](_api);
-					});
-				})(name);
-			}
-			//对话框开启
+
+			// 设置按键
+			_api.setButtons = function(buttons){
+				$wg_foot.empty();
+				if(buttons){
+					options.buttons = buttons;
+				}
+				var i = 1;
+				for(var name in options.buttons){
+					(function(name){
+						$('<button class="button-'+(i++)+'" type="button">'+name+'</button>').appendTo($wg_foot).click(function(){
+							options.buttons[name](_api);
+						});
+					})(name);
+				}
+			};
+			// 对话框开启
 			_api.open = function(callback){
 				if(options.beforeOpen(this)!=false){
 					(callback || function(){})(); //如果open的时候传入了方法，则在执行时进行预处理
@@ -108,7 +116,7 @@
 					_isOpen = true;
 				}
 			};
-			//对话框关闭
+			// 对话框关闭
 			_api.close = function(){
 				$container.stop().fadeTo(200, 0);
 				if(options.isModel){
@@ -121,7 +129,7 @@
 				_isOpen = false;
 				options.afterClose(this);
 			};
-			//对话框形状自动调整
+			// 对话框形状自动调整
 			_api.resize = function(){
 				if(options.top!=null){
 					$container.css({
@@ -135,22 +143,25 @@
 					});
 				}
 			};
-			//设置标题
+			// 设置标题
 			_api.setTitle = function(title){
 				$title.text(title);
 			};
-			//设置对话框内容
+			// 设置对话框内容
 			_api.setContent = function(html){
 				$wg_body.html(html);
 			};
-			//获取按键对象
+			// 获取按键对象
 			_api.getButtons = function(){
 				return $wg_foot;
 			};
 			_api.isOpen = function(){
 				return _isOpen;
 			};
-			//事件绑定
+
+			// 初始化
+			_api.setButtons();
+			// 事件绑定
 			if(options.autoOpen){
 				_api.open();
 			}
