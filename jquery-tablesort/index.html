@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>表格排序-tablesort</title>
+		<link rel="shortcut icon" href="/public/image/favicon.png">
+		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
+		<style type="text/css">
+			a{
+				color:#333;
+				text-decoration:none;
+			}
+			.table{
+				margin-bottom: 20px;
+			}
+			.table table {
+			    width: 100%;
+			    table-layout: fixed;
+			    border-collapse: collapse;
+			    border-spacing: 0
+			}
+			.table table thead {
+			    background-color: #e3eef8
+			}
+			.table table tbody tr:nth-child(2n) {
+			    background-color: #f0f5f8
+			}
+			.table table th,.table table td {
+			    line-height: 20px;
+			    padding: 6px 10px;
+			    border: 1px solid #cee1ee;
+			    word-break: break-all;
+			    word-wrap: break-word;
+			    font-weight: normal
+			}
+			.table table th {
+			    font-weight: bold
+			}
+			.table table th.sortabled {
+			    cursor: pointer;
+			    -webkit-user-select: none;
+			    -moz-user-select: none;
+			    -o-user-select: none;
+			    user-select: none
+			}
+			.table table th.sort-asc {
+			    position: relative;
+			    background: #2095f2;
+			    padding-right: 20px;
+			    color: #fff
+			}
+			.table table th.sort-asc:after {
+			    position: absolute;
+			    right: 5px;
+			    top: 5px;
+			    content: '▲'
+			}
+			.table table th.sort-desc {
+			    position: relative;
+			    background: #2095f2;
+			    padding-right: 20px;
+			    color: #fff
+			}
+			.table table th.sort-desc:after {
+			    position: absolute;
+			    right: 5px;
+			    top: 5px;
+			    content: '▼'
+			}
+			.table table td.active {
+			    background: #e3eef8
+			}
+		</style>
+		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
+		<script type="text/javascript" src="/code/jquery.tablesort.js"></script>
+	</head>
+	<body>
+		<div class="header">
+			<div class="inner">
+				<div class="mod-head">
+					<div class="bd">
+						<a class="btn" href="https://github.com/mumuy/widget" rel="nofollow" target="_blank" title="Github">
+							<svg aria-hidden="true" class="octicon" height="20" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+							<span>Github</span>
+						</a>
+						<a class="btn" href="https://passer-by.com/" target="_blank">个人网站</a>
+                        <a class="btn" href="/">返回首页</a>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="container">
+			<div class="table">
+				<table>
+					<thead>
+						<tr>
+							<th class="sortabled">数字</th>
+							<th class="sortabled">字母</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td data-value="3"><span>3</span></td>
+							<td data-value="c"><span>c</span></td>
+						</tr>
+						<tr>
+							<td data-value="1"><span>1</span></td>
+							<td data-value="d"><span>d</span></td>
+						</tr>
+						<tr>
+							<td data-value="2"><span>2</span></td>
+							<td data-value="b"><span>b</span></td>
+						</tr>
+						<tr>
+							<td data-value="5"><span>5</span></td>
+							<td data-value="e"><span>e</span></td>
+						</tr>
+						<tr>
+							<td data-value="8"><span>8</span></td>
+							<td data-value="a"><span>a</span></td>
+						</tr>
+						<tr>
+							<td data-value="4"><span>4</span></td>
+							<td data-value="f"><span>f</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="code">
+				<p>$(".table table").tablesort();</p>
+			</div>
+			<script type="text/javascript">
+				$(".table table").tablesort();
+			</script>
+			<div class="example">
+				<div class="call">
+					<h1>调用方法：</h1>
+					<p>$(selector).tabs(options,callback(api));</p>
+				</div>
+				<h2>options参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th width="150">参数</th>
+							<th width="120">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>contentCls</td>
+							<td>'content'</td>
+							<td>内容列表的class</td>
+						</tr>
+						<tr>
+							<td>navCls</td>
+							<td>'nav'</td>
+							<td>导航列表的class</td>
+						</tr>
+						<tr>
+							<td>prevBtnCls</td>
+							<td>'prev'</td>
+							<td>向前一步的class</td>
+						</tr>
+						<tr>
+							<td>nextBtnCls</td>
+							<td>'next'</td>
+							<td>向后一步的class</td>
+						</tr>
+						<tr>
+							<td>activeCls</td>
+							<td>'active'</td>
+							<td>导航选中时的class</td>
+						</tr>
+						<tr>
+							<td>effect</td>
+							<td>'none'</td>
+							<td>切换的效果:'none'表直接切换,'fade'表淡入淡出效果</td>
+						</tr>
+						<tr>
+							<td>triggerType</td>
+							<td>'mouse'</td>
+							<td>切换时的触发事件类型:"mouse"表鼠标移入时触发,"click"表示鼠标点击时触发</td>
+						</tr>
+						<tr>
+							<td>triggerCondition</td>
+							<td>*</td>
+							<td>导航项的条件</td>
+						</tr>
+						<tr>
+							<td>activeIndex</td>
+							<td>0</td>
+							<td>默认选中导航项的索引</td>
+						</tr>
+						<tr>
+							<td>auto</td>
+							<td>false</td>
+							<td>是否自动播放</td>
+						</tr>
+						<tr>
+							<td>delay</td>
+							<td>3000</td>
+							<td>自动播放时停顿的时间间隔</td>
+						</tr>
+						<tr>
+							<td>duration</td>
+							<td>500</td>
+							<td>自动播放时的动画时长</td>
+						</tr>
+						<tr>
+							<td>onChangeStart(obj)</td>
+							<td>[无]</td>
+							<td>切换前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象</td>
+						</tr>
+						<tr>
+							<td>onChangeEnd(obj)</td>
+							<td>[无]</td>
+							<td>切换后执行;传入一个对象,包含：index事件发生前索引,count帧长度,destination目标索引,event事件对象</td>
+						</tr>
+					</tbody>
+				</table>
+				<h2>callback(api)参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th width="200">方法</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>setIndex(value)</td>
+							<td>切换标签页</td>
+						</tr>
+						<tr>
+							<td>stop()</td>
+							<td>停止自动播放</td>
+						</tr>
+						<tr>
+							<td>start()</td>
+							<td>开始自动播放</td>
+						</tr>
+						<tr>
+							<td>getIndex()</td>
+							<td>获取当前帧</td>
+						</tr>
+						<tr>
+							<td>getSize()</td>
+							<td>获取帧数</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script>
+			var _hmt = _hmt || [];
+			(function() {
+			  var hm = document.createElement("script");
+			  hm.src = "https://hm.baidu.com/hm.js?134d31aed1aec463afbaa9e0bec45001";
+			  var s = document.getElementsByTagName("script")[0];
+			  s.parentNode.insertBefore(hm, s);
+			})();
+		</script>
+	</body>
+<html>
