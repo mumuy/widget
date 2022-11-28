@@ -27,14 +27,8 @@
         factory(jQuery);
     }
  }(function ($) {
-    $.fn.tablesort = function(parameter,getApi) {
-        if(typeof parameter == 'function'){ //重载
-            getApi = parameter;
-            parameter = {};
-        }else{
-            parameter = parameter || {};
-            getApi = getApi||function(){};
-        }
+    $.fn.tablesort = function(parameter) {
+        parameter = parameter || {};
         var defaults = {
             /* 节点绑定 */
             sortCls: 'sortabled',       // 排序的class
@@ -50,7 +44,7 @@
             var thMap = [];
             var thHash = {};
             $table.find('thead tr').each(function(tr_index){
-                thMap[tr_index] = []; 
+                thMap[tr_index] = [];
             });
             $table.find('thead tr').each(function(tr_index){
                 var $tr = $(this);
@@ -118,7 +112,8 @@
                 var tr_index = $tr.index();
                 var th_index = $th.index();
                 var hash = thHash[tr_index+','+th_index];
-                if($th.hasClass(options.descCls)){
+                var type = $th.hasClass(options.descCls)?'desc':'asc';
+                if(type=='desc'){
                     $table.find('th').removeClass(options.descCls).removeClass(options.ascCls);
                     $th.addClass(options.ascCls);
                     sortTableByIndex(hash['col'],'up');
@@ -127,7 +122,7 @@
                     $th.addClass(options.descCls);
                     sortTableByIndex(hash['col'],'down');
                 }
-                options.onSortEnd(th_index);
+                options.onSortEnd(th_index,type);
             });
         });
     };
