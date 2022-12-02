@@ -44,7 +44,7 @@
             var thMap = [];
             var thHash = {};
             $table.find('thead tr').each(function(tr_index){
-                thMap[tr_index] = [];
+                thMap[tr_index] = []; 
             });
             $table.find('thead tr').each(function(tr_index){
                 var $tr = $(this);
@@ -85,16 +85,16 @@
                 });
                 if(type=='up'){
                     list.sort(function(item1,item2){
-                        if(isNaN(item1['value'])){
-                            return item1['value'].localeCompare(item2['value']);
+                        if(isNaN(item1['value'])||isNaN(item2['value'])){
+                            return item1['value'].toString().localeCompare(item2['value'].toString());
                         }else{
                             return item1['value']-item2['value'];
                         }
                     });
                 }else{
                     list.sort(function(item1,item2){
-                        if(isNaN(item1['value'])){
-                            return item2['value'].localeCompare(item1['value']);
+                        if(isNaN(item1['value'])||isNaN(item2['value'])){
+                            return item2['value'].toString().localeCompare(item1['value'].toString());
                         }else{
                             return item2['value']-item1['value'];
                         }
