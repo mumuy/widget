@@ -75,7 +75,7 @@
             var _height = $this.outerHeight(false);
             var _width = $this.outerWidth(false);
             var _text = null;
-            var _hander = 0;
+            var _hander = {};
             var _index = -1;
             var isShow = false;
             var hasData = false;
@@ -162,6 +162,13 @@
                 $target.addClass(options.activeCls).siblings().removeClass(options.activeCls);
             };
             // 选中表单项
+            function hasScrolled(element, direction) {
+                if (direction === 'vertical') {
+                    return element.scrollHeight > element.clientHeight;
+                } else if (direction === 'horizontal') {
+                    return element.scrollWidth > element.clientWidth;
+                }
+            }
             var change = function(){
                 var $target = $list.find('li.'+options.activeCls);
                 var data = {
@@ -170,6 +177,15 @@
                 };
                 var result = options.onChange.bind(_)(data);
                 if(result!=false){
+                    var $parent = $target.parent();
+                    if(!hasScrolled($parent[0],'vertical')){
+                        $parent = $parent.parent();
+                    }
+                    var top = $target.position().top+$parent.scrollTop();
+                    var height = $target.outerHeight();
+                    var outer_height = $parent.outerHeight();
+                    var scroll_top = Math.max(top-outer_height/2+height/2,0);
+                    $parent.scrollTop(scroll_top);
                     $this.val(result);
                     $this.data('value',result);
                 }
@@ -194,9 +210,10 @@
             /* 公有方法 */
             // 显示表单项
             _api.show = function(){
-                _hander&&clearTimeout(_hander);
-                _hander = setTimeout(function(){
+                _hander['show']&&clearTimeout(_hander['show']);
+                _hander['show'] = setTimeout(function(){
                     var value = $.trim($this.val());
+                    console.log('[value]',value);
                     if(options.dynamic){
                         if(value != _text){ //缓存上次输入
                             _index = -1;
@@ -231,11 +248,12 @@
                     }
                     isShow = true;
                 },500);
+                return false;
             };
             // 隐藏表单项
             _api.hide = function(){
-                _hander&&clearTimeout(_hander);
-                _hander = setTimeout(function(){
+                _hander['hide']&&clearTimeout(_hander['hide']);
+                _hander['hide'] = setTimeout(function(){
                     if(isShow){
                         $suggestion.hide();
                         isShow = false;
@@ -244,7 +262,9 @@
             };
             // 事件绑定
             $this.on('keydown',down);
-            $this.on('input propertychange focus',_api.show);
+            $this.on('input propertychange focus',function(){
+               _api.show(); 
+            });
             $document.on('click',function(){
                 _api.hide();
             });
@@ -255,7 +275,7 @@
                     'name':$target.data('name'),
                     'value':$target.data('value'),
                 };
-                var result = options.bind(_).onSelect(data);
+                var result = options.onSelect.bind(_)(data);
                 if(result!=false){
                     $this.val(result);
                     $this.data('value',result);
