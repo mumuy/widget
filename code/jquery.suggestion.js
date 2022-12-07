@@ -168,7 +168,7 @@
                     'name':$target.data('name'),
                     'value':$target.data('value'),
                 };
-                var result = options.onChange(data);
+                var result = options.onChange.bind(_)(data);
                 if(result!=false){
                     $this.val(result);
                     $this.data('value',result);
@@ -176,7 +176,7 @@
             };
             // 成功后的回调函数
             var success = function(data){
-                var list = options.onCallback(data);
+                var list = options.onCallback.bind(_)(data);
                 if(list&&list.length){
                     $list.empty();
                     list.forEach(function(item){
@@ -255,7 +255,7 @@
                     'name':$target.data('name'),
                     'value':$target.data('value'),
                 };
-                var result = options.onSelect(data);
+                var result = options.bind(_).onSelect(data);
                 if(result!=false){
                     $this.val(result);
                     $this.data('value',result);
