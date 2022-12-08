@@ -213,7 +213,6 @@
                 _hander['show']&&clearTimeout(_hander['show']);
                 _hander['show'] = setTimeout(function(){
                     var value = $.trim($this.val());
-                    console.log('[value]',value);
                     if(options.dynamic){
                         if(value != _text){ //缓存上次输入
                             _index = -1;
