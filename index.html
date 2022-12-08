@@ -12,11 +12,19 @@
 		<style type="text/css">
 			header{
 				height: 210px;
-				padding: 100px 0 25px;
-				background: url(public/image/bg.svg) center top repeat-x;
+				padding: 80px 0 20px;
 				color: #fff;
-				border: 1px solid rgba(0,0,0,0.015);
 				margin-bottom: 50px;
+			}
+			.bg{
+				position: absolute;
+				width: 100%;
+				height: 740px;
+				top: 0px;
+				left: 0px;
+				z-index: -1;
+				background: radial-gradient(95.74% 95.74% at 50% 116.49%, rgba(85, 144, 255, 0.15) 0%, rgba(85, 144, 255, 0) 100%), rgb(255, 255, 255);
+				transform: rotate(-180deg);
 			}
 			.container{
 				padding-bottom: 120px;
@@ -33,6 +41,17 @@
 			    line-height: 40px;
 			    z-index: 99;
 			}
+			.clearfix:after {
+				display:block;
+				content:".";
+				height:0;
+				visibility:hidden;
+				clear:both;
+			}
+			.clearfix {
+				zoom:1;
+			}
+
 			.mod-head{
 				margin-bottom: 35px;
 				line-height: 1.2;
@@ -40,13 +59,13 @@
 			}
 			.mod-head h1{
 				font-weight: bold;
-				line-height: 54px;
-				font-size: 42px;
+				line-height: 60px;
+				font-size: 45px;
 				color: #1a2b3b;
 			}
 			.mod-head p{
 				line-height: 30px;
-				font-size: 16px;
+				font-size: 18px;
 				color: #1a2b3b;
 			}
 			.mod-list{
@@ -82,9 +101,6 @@
 				width:840px;
 				margin:0 10px 0 auto;
 			}
-			.mod-content ul{
-				overflow: hidden;
-			}
 			.mod-content li{
 				float: left;
 				width: 50%;
@@ -92,13 +108,21 @@
 			}
 			.mod-content .item{
 				padding: 10px 15px;
-				background: #fafafa;
+				background: #fff;
+				border: 1px solid #fefefe;
 				margin: 0 4px 8px;
 				border-radius: 5px;
 				cursor: pointer;
+				box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+				color: #888;
 			}
 			.mod-content .item:hover{
-				background: #f5f5f5;
+				background: #fafafa;
+				border: 1px solid #fdfdfd;
+			}
+			.mod-content a{
+				font-weight: bold;
+				color: #444;
 			}
 			.mod-content a.hot{
 				color: #cc0000;
@@ -122,6 +146,7 @@
 	</head>
 	<body>
 		<div class="wrapper">
+			<div class="bg"></div>
 			<header>
 				<div class="mod-head">
 					<div class="inner">
@@ -148,7 +173,7 @@
 			<div class="container">
 				<div class="inner">
 					<div class="mod-content">
-						<ul>
+						<ul class="clearfix">
 							<li>
 								<div class="item">
 									<p>
