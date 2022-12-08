@@ -61,7 +61,7 @@
 		</div>
         <div class="container">
 			<div class="search">
-				<form action="http://www.baidu.com/s" target="_blank">
+				<form action="https://www.baidu.com/sugrec" target="_blank">
 					<input class="input-text" type="text" name="word" value="" placeholder="输入想要搜索的关键词"/>
 					<input class="input-submit" type="submit" value="搜索">
 				</form>
@@ -71,26 +71,26 @@
 <pre>
 $('.search input[type="text"]').suggestion({
 	url:'https://www.baidu.com/sugrec',
-		FieldName:'wd',
-		parameter:{
-			'ie':'utf-8',
-			'json':1,
-			'prod':'pc',
-			'from':'pc_web'
-		},
-		jsonp:'cb',
-		onCallback:function(data){
-			var result = [];
-			if(data['g']){
-				result = data['g'].map(function(item){
-					return {
-						'value':item['q'],
-						'name':item['q']
-					};
-				});
-			}
-			return result;
+	FieldName:'wd',
+	parameter:{
+		'ie':'utf-8',
+		'json':1,
+		'prod':'pc',
+		'from':'pc_web'
+	},
+	jsonp:'cb',
+	onCallback:function(data){
+		var result = [];
+		if(data['g']){
+			result = data['g'].map(function(item){
+				return {
+					'value':item['q'],
+					'name':item['q']
+				};
+			});
 		}
+		return result;
+	}
 });
 </pre>
 			</div>
