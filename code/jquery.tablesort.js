@@ -35,6 +35,7 @@
             ascCls:'sort-asc',          // 升序
             descCls:'sort-desc',        // 降序
             activeCls:'active',
+            firstSort:'asc',            // 第1次点击的时候默认排序
             onSortEnd: function() {     // 排序后触发
             }
         };
@@ -112,15 +113,20 @@
                 var tr_index = $tr.index();
                 var th_index = $th.index();
                 var hash = thHash[tr_index+','+th_index];
-                var type = $th.hasClass(options.descCls)?'desc':'asc';
+                var type = options.firstSort;
+                if($th.hasClass(options.descCls)){
+                    type = 'asc';
+                }else if($th.hasClass(options.ascCls)){
+                    type = 'desc';
+                }
                 if(type=='desc'){
-                    $table.find('th').removeClass(options.descCls).removeClass(options.ascCls);
-                    $th.addClass(options.ascCls);
-                    sortTableByIndex(hash['col'],'up');
-                }else{
                     $table.find('th').removeClass(options.descCls).removeClass(options.ascCls);
                     $th.addClass(options.descCls);
                     sortTableByIndex(hash['col'],'down');
+                }else{
+                    $table.find('th').removeClass(options.descCls).removeClass(options.ascCls);
+                    $th.addClass(options.ascCls);
+                    sortTableByIndex(hash['col'],'up');
                 }
                 options.onSortEnd(th_index,type);
             });
