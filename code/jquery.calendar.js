@@ -5,12 +5,19 @@
 ;(function (factory) {
     if (typeof define === "function" && (define.amd || define.cmd)){
         // AMD或CMD
-        define(['jquery'],factory);
+        if (jQuery === undefined ) {
+            define(['jquery'],factory);
+        }else{
+            define(function(){
+                factory(jQuery);
+                return jQuery;
+            });
+        }
     } else if (typeof module === 'object' && module.exports) {
         // Node/CommonJS
         module.exports = function( root, jQuery ) {
-            if ( jQuery === undefined ) {
-                if ( typeof window !== 'undefined' ) {
+            if (jQuery === undefined ) {
+                if (typeof window !== 'undefined' ) {
                     jQuery = require('jquery');
                 } else {
                     jQuery = require('jquery')(root);
@@ -22,6 +29,7 @@
     } else {
         //Browser globals
         factory(jQuery);
+    }ory(jQuery);
     }
 }(function ($) {
     $.fn.calendar = function(parameter,getApi) {
