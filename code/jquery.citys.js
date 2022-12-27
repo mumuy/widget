@@ -3,12 +3,9 @@
  * http://jquerywidget.com
  */
 ;(function (factory) {
-    if (typeof define === "function" && (define.amd || define.cmd) && typeof jQuery == 'undefined'){
+    if (typeof define === "function" && (define.amd || define.cmd)){
         // AMD或CMD
-        define(['jquery'],function(){
-            factory(jQuery);
-            return jQuery;
-        });
+        define(['jquery'],factory);
     } else if (typeof module === 'object' && module.exports) {
         // Node/CommonJS
         module.exports = function( root, jQuery ) {
