@@ -46,30 +46,32 @@
 			}
 			.table table th.sort-asc {
 			    position: relative;
-			    background: #2095f2;
+			    background: #fc9000;
 			    padding-right: 20px;
 			    color: #fff
 			}
 			.table table th.sort-asc:after {
 			    position: absolute;
 			    right: 5px;
-			    top: 5px;
+			    top: 50%;
+			    margin-top: -9px;
 			    content: '▲'
 			}
 			.table table th.sort-desc {
 			    position: relative;
-			    background: #2095f2;
+			    background: #fc9000;
 			    padding-right: 20px;
 			    color: #fff
 			}
 			.table table th.sort-desc:after {
 			    position: absolute;
 			    right: 5px;
-			    top: 5px;
+			    top: 50%;
+			    margin-top: -9px;
 			    content: '▼'
 			}
 			.table table td.active {
-			    background: #e3eef8
+			    background: #f8efe3
 			}
 		</style>
 		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
@@ -95,32 +97,42 @@
 				<table>
 					<thead>
 						<tr>
+							<th rowspan="2" class="sortabled">编号</th>
+							<th colspan="2">排序类型</th>
+						</tr>
+						<tr>
 							<th class="sortabled">数字</th>
 							<th class="sortabled">字母</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
+							<td data-value="1"><span>1</span></td>
 							<td data-value="3"><span>3</span></td>
 							<td data-value="c"><span>c</span></td>
 						</tr>
 						<tr>
+							<td data-value="2"><span>2</span></td>
 							<td data-value="1"><span>1</span></td>
 							<td data-value="d"><span>d</span></td>
 						</tr>
 						<tr>
+							<td data-value="3"><span>3</span></td>
 							<td data-value="2"><span>2</span></td>
 							<td data-value="b"><span>b</span></td>
 						</tr>
 						<tr>
+							<td data-value="4"><span>4</span></td>
 							<td data-value="5"><span>5</span></td>
 							<td data-value="e"><span>e</span></td>
 						</tr>
 						<tr>
+							<td data-value="5"><span>5</span></td>
 							<td data-value="8"><span>8</span></td>
 							<td data-value="a"><span>a</span></td>
 						</tr>
 						<tr>
+							<td data-value="6"><span>6</span></td>
 							<td data-value="4"><span>4</span></td>
 							<td data-value="f"><span>f</span></td>
 						</tr>
@@ -143,7 +155,7 @@
 					<thead>
 						<tr>
 							<th width="150">参数</th>
-							<th width="120">默认值</th>
+							<th width="150">默认值</th>
 							<th>说明</th>
 						</tr>
 					</thead>
@@ -172,6 +184,11 @@
 							<td>activeCls</td>
 							<td>'active'</td>
 							<td>导航选中时的class</td>
+						</tr>
+						<tr>
+							<td>firstSort</td>
+							<td>'asc'</td>
+							<td>第一次排序时默认排序方式</td>
 						</tr>
 						<tr>
 							<td>onSortEnd</td>

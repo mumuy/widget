@@ -10,7 +10,6 @@
 			.slider{
 				position: relative;
 				overflow: hidden;
-				height: 150px;
 				margin:0 auto 10px;
 			}
 			.slider .prev,.slider .next{
@@ -45,14 +44,16 @@
 				width:24px;
 				height:24px;
 				background: #ccc;
-				margin-right:5px;
+				margin:0 2px;
+				line-height: 24px;
+				cursor: pointer;
 			}
 			.slider .nav li.active{background:#ff0;}
 
 			.style1{
 				width:960px;
 			}
-			.style1 .container{
+			.style1 .box{
 				width: 900px;
 				height: 120px;
 				margin: 0 30px;
@@ -68,7 +69,7 @@
 			.style2{
 				width:220px;
 			}
-			.style2 .container{
+			.style2 .box{
 				width: 160px;
 				height: 120px;
 				margin: 0 30px;
@@ -100,7 +101,7 @@
 			<div class="slider style1 slider1">
 				<span class="prev">&lt;</span>
 				<span class="next">&gt;</span>
-				<div class="container">
+				<div class="box">
 					<ul class="content">
 						<li>1</li>
 						<li>2</li>
@@ -125,7 +126,7 @@
 			<div class="slider style2 slider2">
 				<span class="prev">&lt;</span>
 				<span class="next">&gt;</span>
-				<div class="container">
+				<div class="box">
 					<ul class="content">
 						<li>1</li>
 						<li>2</li>
@@ -145,7 +146,7 @@
 				$(".slider2").slider({direction:"y",reverse:true,auto:true,activeIndex:2});
 			</script>
 			<div class="slider style2 slider3">
-				<div class="container">
+				<div class="box">
 					<ul class="content">
 						<li>1</li>
 						<li>2</li>
@@ -172,7 +173,7 @@
 			<div class="slider style2 slider4">
 				<span class="prev">&lt;</span>
 				<span class="next">&gt;</span>
-				<div class="container">
+				<div class="box">
 					<ul class="content">
 						<li>1</li>
 						<li>2</li>
@@ -192,7 +193,7 @@
 			<div class="slider style1 slider5">
 				<span class="prev">&lt;</span>
 				<span class="next">&gt;</span>
-				<div class="container">
+				<div class="box">
 					<ul class="content">
 						<li>1</li>
 						<li>2</li>
@@ -219,7 +220,7 @@
 			<div class="slider style1 slider6">
 				<span class="prev">&lt;</span>
 				<span class="next">&gt;</span>
-				<div class="container">
+				<div class="box">
 					<ul class="content">
 						<li class="w24">1</li>
 						<li>2</li>
@@ -244,7 +245,7 @@
 				$(".slider6").slider({hasTriggers:false,duration:1000,steps:'auto'});
 			</script>
 			<div class="slider style2 slider7">
-				<div class="container">
+				<div class="box">
 					<ul class="content">
 						<li>新闻内容1</li>
 						<li>新闻内容2</li>

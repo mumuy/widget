@@ -23,12 +23,12 @@ a{
 .container{
 	width:960px;
 	margin: 50px auto 0;
-	padding-bottom: 25px;
+	padding-bottom: 120px;
 }
 .code{
 	border:1px dashed #e2e2e2;
 	padding:10px 5px;
-	margin-bottom:25px;
+	margin-bottom:50px;
 }
 pre {
 	font-family: "Microsoft Yahei",Arial,Helvetica;
@@ -94,8 +94,8 @@ pre {
 }
 
 .example{
-	padding-top:40px;
-	margin-bottom:90px;
+	padding-top:30px;
+	margin-bottom: 30px;
 }
 .example .call{
 	padding:18px 5px;

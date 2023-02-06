@@ -3,17 +3,21 @@
  * http://jquerywidget.com
  */
  ;(function (factory) {
-    if (typeof define === "function" && (define.amd || define.cmd) && typeof jQuery == 'undefined'){
+    if (typeof define === "function" && (define.amd || define.cmd)){
         // AMD或CMD
-        define(['jquery'],function(){
-            factory(jQuery);
-            return jQuery;
-        });
+        if (jQuery === undefined ) {
+            define(['jquery'],factory);
+        }else{
+            define(function(){
+                factory(jQuery);
+                return jQuery;
+            });
+        }
     } else if (typeof module === 'object' && module.exports) {
         // Node/CommonJS
         module.exports = function( root, jQuery ) {
-            if ( jQuery === undefined ) {
-                if ( typeof window !== 'undefined' ) {
+            if (jQuery === undefined ) {
+                if (typeof window !== 'undefined' ) {
                     jQuery = require('jquery');
                 } else {
                     jQuery = require('jquery')(root);
@@ -35,6 +39,7 @@
             ascCls:'sort-asc',          // 升序
             descCls:'sort-desc',        // 降序
             activeCls:'active',
+            firstSort:'asc',            // 第1次点击的时候默认排序
             onSortEnd: function() {     // 排序后触发
             }
         };
@@ -44,7 +49,7 @@
             var thMap = [];
             var thHash = {};
             $table.find('thead tr').each(function(tr_index){
-                thMap[tr_index] = [];
+                thMap[tr_index] = []; 
             });
             $table.find('thead tr').each(function(tr_index){
                 var $tr = $(this);
@@ -85,16 +90,16 @@
                 });
                 if(type=='up'){
                     list.sort(function(item1,item2){
-                        if(isNaN(item1['value'])){
-                            return item1['value'].localeCompare(item2['value']);
+                        if(isNaN(item1['value'])||isNaN(item2['value'])){
+                            return item1['value'].toString().localeCompare(item2['value'].toString());
                         }else{
                             return item1['value']-item2['value'];
                         }
                     });
                 }else{
                     list.sort(function(item1,item2){
-                        if(isNaN(item1['value'])){
-                            return item2['value'].localeCompare(item1['value']);
+                        if(isNaN(item1['value'])||isNaN(item2['value'])){
+                            return item2['value'].toString().localeCompare(item1['value'].toString());
                         }else{
                             return item2['value']-item1['value'];
                         }
@@ -112,15 +117,20 @@
                 var tr_index = $tr.index();
                 var th_index = $th.index();
                 var hash = thHash[tr_index+','+th_index];
-                var type = $th.hasClass(options.descCls)?'desc':'asc';
+                var type = options.firstSort;
+                if($th.hasClass(options.descCls)){
+                    type = 'asc';
+                }else if($th.hasClass(options.ascCls)){
+                    type = 'desc';
+                }
                 if(type=='desc'){
-                    $table.find('th').removeClass(options.descCls).removeClass(options.ascCls);
-                    $th.addClass(options.ascCls);
-                    sortTableByIndex(hash['col'],'up');
-                }else{
                     $table.find('th').removeClass(options.descCls).removeClass(options.ascCls);
                     $th.addClass(options.descCls);
                     sortTableByIndex(hash['col'],'down');
+                }else{
+                    $table.find('th').removeClass(options.descCls).removeClass(options.ascCls);
+                    $th.addClass(options.ascCls);
+                    sortTableByIndex(hash['col'],'up');
                 }
                 options.onSortEnd(th_index,type);
             });
