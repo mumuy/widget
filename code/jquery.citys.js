@@ -256,9 +256,7 @@
                 initCode();
                 updateCode();
                 format.province();
-                if(options.code){
-                    options.onChange(_api.getInfo());
-                }
+                options.onChange(_api.getInfo());
                 getApi(_api);
             };
             if(options.data){
