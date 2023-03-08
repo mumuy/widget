@@ -95,9 +95,9 @@
                             options.area = c;
                         }
                     }else{
-                        options.province = $province.val().replace(/\d{4}$/,'0000');
-                        options.city = $city.val().replace(/\d{2}$/,'00');
-                        options.area = $area.val();
+                        options.province = ($province.val()||'').toString().replace(/\d{4}$/,'0000');
+                        options.city = ($city.val()||'').toString().replace(/\d{2}$/,'00');
+                        options.area = ($area.val()||'').toString();
                     }
                 };
                 var updateCode = function(){
