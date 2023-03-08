@@ -3,20 +3,31 @@
  * http://jquerywidget.com
  */
 ;(function (factory) {
-    if (typeof define === "function" && (define.amd || define.cmd)){
-        // AMD或CMD
-        if (jQuery === undefined ) {
-            define(['jquery'],factory);
+    if (typeof define === "function" && define.amd){
+		// AMD
+        if (typeof jQuery === 'undefined') {
+			define(['jquery'],factory);
         }else{
 	        define(function(){
 	            factory(jQuery);
-	            return jQuery;
+	        });
+        }
+	}else if (typeof define === "function" && define.cmd){
+		// CMD
+        if (typeof jQuery === 'undefined') {
+			define(function(require){
+				var jQuery = require('jquery');
+	            factory(jQuery);
+	        });
+        }else{
+	        define(function(){
+	            factory(jQuery);
 	        });
         }
     } else if (typeof module === 'object' && module.exports) {
         // Node/CommonJS
         module.exports = function( root, jQuery ) {
-            if (jQuery === undefined ) {
+            if (typeof jQuery === 'undefined') {
                 if (typeof window !== 'undefined' ) {
                     jQuery = require('jquery');
                 } else {
