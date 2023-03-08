@@ -73,7 +73,8 @@
 				var date,format;
 				var time = Math.max(_start,_end);
 				var diff = _start - _end;
-				var offset_GMT = new Date().getTimezoneOffset(); 
+				var offset_GMT = new Date().getTimezoneOffset();
+				var diff_format;
 				if(isTime){
 					date = new Date(time);
 					format = timeFormat(options.format,time);
