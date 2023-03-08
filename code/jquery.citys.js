@@ -94,6 +94,10 @@
                         if(data[c]){
                             options.area = c;
                         }
+                    }else{
+                        options.province = $province.val().replace(/\d{4}$/,'0000');
+                        options.city = $city.val().replace(/\d{2}$/,'00');
+                        options.area = $area.val();
                     }
                 };
                 var updateCode = function(){
