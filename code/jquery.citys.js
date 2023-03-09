@@ -242,9 +242,17 @@
                         direct:!hasCity,
                         province:data[options.province]||'',
                         city:data[options.city]||'',
-                        area:data[options.area]||'',
-                        code:options.area||options.city||options.province
+                        area:data[options.area]||''
                     };
+                    if($area.length){
+                        status['code'] = options.area;
+                    }else if($city.length){
+                        status['code'] = options.city;
+                    }else if($province.length){
+                        status['code'] = options.province;
+                    }else{
+                        status['code'] = 0;
+                    }
                     return status;
                 };
                 // 事件绑定
