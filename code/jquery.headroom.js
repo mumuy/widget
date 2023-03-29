@@ -74,10 +74,11 @@
             var $fixed = $this.parent();
             $fixed.wrap('<div></div>');
             var $outer = $fixed.parent();
-            var _width = $this.width();
+            var _width = $this.outerWidth();
             var _height = $this.outerHeight();
             var backgroundColor = $this.css('background-color');
             $fixed.css({
+                'width':_width+'px',
                 'background':backgroundColor!='rgba(0, 0, 0, 0)'?backgroundColor:'#ffffff'
             });
             var $links = $this.find('a[href*="#"]');
@@ -93,6 +94,7 @@
                 }
             });
             var _api = {};
+            var _window_width;
             //私有方法
             _api.scroll = function(){
                 var scroll_top = $document.scrollTop()+options.fixedTop;
@@ -141,15 +143,19 @@
             };
             _api.resize = function(){
                 _window_width = $document.width();
+                $outer.attr('style','');
                 _width = $outer.width();
-                _height = $this.outerHeight();
-                $outer.css({
-                    'height':_height
-                });
                 $fixed.css({
-                    'width':_window_width==_width?'100%':_width,
-                    'height':_height
+                    'width':_window_width==_width?'100%':_width
                 });
+                var heightAuto = function(){
+                    _height = $this.outerHeight();
+                    $outer.css({
+                        'height':_height
+                    });
+                };
+                heightAuto();
+                setTimeout(heightAuto,500);
             };
             $window.scroll(_api.scroll);
             $window.resize(_api.resize);
