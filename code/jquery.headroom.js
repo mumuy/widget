@@ -83,9 +83,9 @@
                 'width':_width+'px',
                 'background':backgroundColor!='rgba(0, 0, 0, 0)'?backgroundColor:'#ffffff'
             });
-            if(options['background']){
+            if(options.background){
                 $fixed.css({
-                    'background':options['background']
+                    'background':options.background
                 });
             }
             var $links = $this.find('a[href*="#"]');
