@@ -56,6 +56,7 @@
             activeIndex:0,              // 默认选中菜单
             activeCls:'active',         // 选中效果
             fixedCls:'fixed',           // 浮动
+            background:'',
         };
         var options = $.extend({}, defaults, parameter);
         var $document = $(document);
@@ -81,6 +82,11 @@
                 'width':_width+'px',
                 'background':backgroundColor!='rgba(0, 0, 0, 0)'?backgroundColor:'#ffffff'
             });
+            if(options['background']){
+                $fixed.css({
+                    'background':options['background']
+                });
+            }
             var $links = $this.find('a[href*="#"]');
             var $list = [];
             $links.each(function(){
