@@ -49,6 +49,7 @@
             hiddenTop:0,                // 滚动隐藏的位置
             fixedTop:0,                 // 显示的位置
             duration:500,               // 动画时长
+            autoFixed:true,             // 自动浮动
             autoHide:true,              // 自动隐藏
             scrollOffset:0,             // 移动时的偏移量
             zIndex:9999,                // zindex
@@ -107,29 +108,31 @@
                 var up = scroll_top - _scroll_top<0;
                 var ismove = Math.abs(scroll_top-_scroll_top)>10;
                 var hide_top = Math.max(options.hiddenTop,_top+_height);
-                if(options.autoHide&&scroll_top>hide_top){ //滚动距离大于菜单下边缘
-                    $fixed.css({'transition':_transition});
-                    if(ismove){
-                        if(up){
-                            $fixed.addClass(options.fixedCls).css({'position':'fixed','top':options.fixedTop+'px','z-index':options.zIndex});
+                if(options.autoFixed){
+                    if(options.autoHide&&scroll_top>hide_top){ //滚动距离大于菜单下边缘
+                        $fixed.css({'transition':_transition});
+                        if(ismove){
+                            if(up){
+                                $fixed.addClass(options.fixedCls).css({'position':'fixed','top':options.fixedTop+'px','z-index':options.zIndex});
+                            }else{
+                                $fixed.addClass(options.fixedCls).css({'position':'fixed','top':options.fixedTop-_height+'px','z-index':options.zIndex});
+                            }
+                            _scroll_top = scroll_top;
+                            isFixed = true;
+                        }
+                    }else if(scroll_top>=_top){ //滚动距离介于菜单上边缘和下边缘之间
+                        if(isFixed){
+                            $fixed.addClass(options.fixedCls).css({'transition':_transition,'position':'fixed','top':options.fixedTop+'px','z-index':options.zIndex});
                         }else{
-                            $fixed.addClass(options.fixedCls).css({'position':'fixed','top':options.fixedTop-_height+'px','z-index':options.zIndex});
+                            $fixed.removeClass(options.fixedCls).css({'transition':'','position':'','top':'','z-index':0});
                         }
                         _scroll_top = scroll_top;
                         isFixed = true;
-                    }
-                }else if(scroll_top>=_top){ //滚动距离介于菜单上边缘和下边缘之间
-                    if(isFixed){
-                        $fixed.addClass(options.fixedCls).css({'transition':_transition,'position':'fixed','top':options.fixedTop+'px','z-index':options.zIndex});
-                    }else{
+                    }else{ //滚动距离小于菜单上边缘
                         $fixed.removeClass(options.fixedCls).css({'transition':'','position':'','top':'','z-index':0});
+                        _scroll_top = scroll_top;
+                        isFixed = false;
                     }
-                    _scroll_top = scroll_top;
-                    isFixed = true;
-                }else{ //滚动距离小于菜单上边缘
-                    $fixed.removeClass(options.fixedCls).css({'transition':'','position':'','top':'','z-index':0});
-                    _scroll_top = scroll_top;
-                    isFixed = false;
                 }
                 last_up = up;
                 last_scroll_top = scroll_top;
