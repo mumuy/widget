@@ -265,8 +265,8 @@
                     break;
                     case 'none':
                         _index = Math.min(_index,_size-1);    //索引范围检测
-                        $prev.toggleClass(options.disableBtnCls,_index==0);
-                        $next.toggleClass(options.disableBtnCls,_distance[_size]-_distance[_index]<=_outer);
+                        $prev.toggleClass(options.disabledBtnCls,_index==0);
+                        $next.toggleClass(options.disabledBtnCls,_distance[_size]-_distance[_index]<=_outer);
                     default:
                         _index %= _size;
                         if(_distance[_size]-_distance[_index]<_outer){
@@ -574,7 +574,7 @@
             nextBtnCls: 'next',         //向后一步的class
             /* 动画相关 */
             activeTriggerCls: 'active', //导航选中时的class
-            disableBtnCls: 'disable',   //按键不可用时的class
+            disabledBtnCls: 'disabled',  //按键不可用时的class
             hoverCls: 'hover',          //当鼠标移至相应区域时获得的class
             steps: 1,                   //移动帧数,'auto'自动移动至下个没有显示完整的帧
             direction: 'x',             //轮播的方向
