@@ -133,29 +133,41 @@
                 }else if(options.direction=='col'){
                     to[1] = from[1];
                 }
-                $tds.each(function(){
-                    var $temp = $(this);
-                    var t_fromKey = $temp.data('from');
-                    var t_toKey = $temp.data('to');
-                    var t_from = t_fromKey.split(':').map(function(value){return +value;});
-                    var t_to = t_toKey.split(':').map(function(value){return +value;});
-                    if(isInRange({from:t_from,to:t_to},{from:from,to:to})){
-                        cellList.push({
-                            'from':t_from,
-                            'to':t_to,
-                        });
-                    }
-                });
-                var outer_from = [Math.min.apply(null,cellList.map(function(item){
-                    return item['from'][0];
-                })),Math.min.apply(null,cellList.map(function(item){
-                    return item['from'][1];
-                }))];
-                var outer_to = [Math.max.apply(null,cellList.map(function(item){
-                    return item['to'][0];
-                })),Math.max.apply(null,cellList.map(function(item){
-                    return item['to'][1];
-                }))];
+                var getOuterRange = function(range){
+                    $tds.each(function(){
+                        var $temp = $(this);
+                        var t_fromKey = $temp.data('from');
+                        var t_toKey = $temp.data('to');
+                        var t_from = t_fromKey.split(':').map(function(value){return +value;});
+                        var t_to = t_toKey.split(':').map(function(value){return +value;});
+                        if(isInRange({from:t_from,to:t_to},range)){
+                            cellList.push({
+                                'from':t_from,
+                                'to':t_to,
+                            });
+                        }
+                    });
+                    var outer_from = [Math.min.apply(null,cellList.map(function(item){
+                        return item['from'][0];
+                    })),Math.min.apply(null,cellList.map(function(item){
+                        return item['from'][1];
+                    }))];
+                    var outer_to = [Math.max.apply(null,cellList.map(function(item){
+                        return item['to'][0];
+                    })),Math.max.apply(null,cellList.map(function(item){
+                        return item['to'][1];
+                    }))];
+                    return {
+                        from:outer_from,
+                        to:outer_to
+                    };
+                };
+                var range = {from:from,to:to};
+                var outer_range = getOuterRange(range);
+                while(outer_range['from'][0]!=range['from'][0]||outer_range['from'][1]!=range['from'][1]||outer_range['to'][0]!=range['to'][0]||outer_range['to'][1]!=range['to'][1]){
+                    range = outer_range;
+                    outer_range = getOuterRange(range);
+                }
                 $tds.each(function(){
                     var $temp = $(this);
                     var t_fromKey = $temp.data('from');
@@ -163,17 +175,14 @@
                     var t_from = t_fromKey.split(':').map(function(value){return +value;});
                     var t_to = t_toKey.split(':').map(function(value){return +value;});
                     if(param.className){
-                        if(isInRange({from:t_from,to:t_to},{from:outer_from,to:outer_to})){
+                        if(isInRange({from:t_from,to:t_to},outer_range)){
                             $temp.addClass(param.className);
                         }else if(param.isRemove){
                             $temp.removeClass(param.className);
                         }
                     }
                 });
-                callback({
-                    from:outer_from,
-                    to:outer_to
-                });
+                callback(outer_range);
             };
             _api.mergeCells = function(param,callback){
                 var callback = callback||function(){};
