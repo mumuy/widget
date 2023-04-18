@@ -51,7 +51,6 @@
             getApi = getApi||function(){};
         }
         var defaults = {
-            activeCls:'active',             // 选中的class
             disabledCls:'disabled',         // 不可选中的class
             selectedCls:'selected',         // 已选择的class
             selectingCls:'selecting',       // 正在选择的class
@@ -101,17 +100,22 @@
             });
             // 方法定义
             var isInRange = function(child_range,parent_range){
+                var range = {'from':[],'to':[]};
+                range['from'][0] = Math.min(parent_range['from'][0],parent_range['to'][0]);
+                range['from'][1] = Math.min(parent_range['from'][1],parent_range['to'][1]);
+                range['to'][0] = Math.max(parent_range['from'][0],parent_range['to'][0]);
+                range['to'][1] = Math.max(parent_range['from'][1],parent_range['to'][1]);
                 // 左上
-                if(child_range['from'][0]>=parent_range['from'][0]&&child_range['from'][1]>=parent_range['from'][1]&&child_range['from'][0]<=parent_range['to'][0]&&child_range['from'][1]<=parent_range['to'][1]){
+                if(child_range['from'][0]>=range['from'][0]&&child_range['from'][1]>=range['from'][1]&&child_range['from'][0]<=range['to'][0]&&child_range['from'][1]<=range['to'][1]){
                     return true;
                 // 右下
-                }else if(child_range['to'][0]>=parent_range['from'][0]&&child_range['to'][1]>=parent_range['from'][1]&&child_range['to'][0]<=parent_range['to'][0]&&child_range['to'][1]<=parent_range['to'][1]){
+                }else if(child_range['to'][0]>=range['from'][0]&&child_range['to'][1]>=range['from'][1]&&child_range['to'][0]<=range['to'][0]&&child_range['to'][1]<=range['to'][1]){
                     return true;
                 // 左下
-                }else if(child_range['to'][0]>=parent_range['from'][0]&&child_range['from'][1]>=parent_range['from'][1]&&child_range['to'][0]<=parent_range['to'][0]&&child_range['from'][1]<=parent_range['to'][1]){
+                }else if(child_range['to'][0]>=range['from'][0]&&child_range['from'][1]>=range['from'][1]&&child_range['to'][0]<=range['to'][0]&&child_range['from'][1]<=range['to'][1]){
                     return true;
                 // 右上
-                }else if(child_range['from'][0]>=parent_range['from'][0]&&child_range['to'][1]>=parent_range['from'][1]&&child_range['from'][0]<=parent_range['to'][0]&&child_range['to'][1]<=parent_range['to'][1]){
+                }else if(child_range['from'][0]>=range['from'][0]&&child_range['to'][1]>=range['from'][1]&&child_range['from'][0]<=range['to'][0]&&child_range['to'][1]<=range['to'][1]){
                     return true;
                 }else{
                     return false;                       
@@ -273,6 +277,7 @@
                         to:to,
                         isSelecting:true
                     };
+                    $tds.removeClass(options.selectedCls);
                     $td.addClass(options.selectingCls);
                     options.onSelectStart(from,to);
                 }else{
