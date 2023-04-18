@@ -67,7 +67,9 @@
             var $table = $(this);
             var $tbody = $table.find('tbody');
             var $trs = $tbody.find('tr');
-            var $tds = $tbody.find('td');
+            var $tds = $tbody.find('td').filter(function(){
+                return !$(this).hasClass(options.disabledCls);
+            });
             $table.css({
                 'user-select':'none'
             });
@@ -203,7 +205,9 @@
                     });
                     $itemList.html(htmlArr.join(''));
                     callback($itemList);
-                    $tds = $tbody.find('td');
+                    $tds = $tbody.find('td').filter(function(){
+                        return !$(this).hasClass(options.disabledCls);
+                    });
                 });
             };
             _api.splitCells = function(param,callback){
@@ -258,7 +262,9 @@
                         }
                     });
                     callback($itemList);
-                    $tds = $tbody.find('td');
+                    $tds = $tbody.find('td').filter(function(){
+                        return !$(this).hasClass(options.disabledCls);
+                    });
                 });
             };
             // 事件绑定
