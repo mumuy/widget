@@ -264,6 +264,16 @@
                                                 }
                                             }
                                         });
+                                        if(!isFirst){
+                                            for(var td_index=child_range['from'][1];td_index<=child_range['to'][1];td_index++){
+                                                var $newItem = $('<td class="'+className+'" data-from="'+(tr_index+':'+td_index)+'" data-to="'+(tr_index+':'+td_index)+'"></td>');
+                                                $tr.append($newItem);
+                                                if(!$itemList.length){
+                                                    $newItem.html(htmlStr);
+                                                }
+                                                $itemList.push($newItem[0]);
+                                            }
+                                        }
                                     }
                                 });
                                 $temp.remove();
