@@ -90,10 +90,8 @@
                         if(data[c]){
                             options.city = c;
                         }
-                        c = options.code%1e2 ? options.code : 0;
-                        if(data[c]){
-                            options.area = c;
-                        }
+                        c = options.code%1e2 ? options.code : '';
+                        options.area = c;
                     }else{
                         options.province = ($province.val()||'').toString().replace(/\d{4}$/,'0000');
                         options.city = ($city.val()||'').toString().replace(/\d{2}$/,'00');

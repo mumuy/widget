@@ -67,7 +67,7 @@
 			<div class="example">
 				<div class="call">
 					<h1>调用方法：</h1>
-					<p>$(selector).headroom(options);</p>
+					<p>$(selector).headroom(options,callback);</p>
 				</div>
 				<h2>options参数</h2>
 				<table>
@@ -123,6 +123,28 @@
 							<td>activeCls</td>
 							<td>'active'</td>
 							<td>菜单选中时的class</td>
+						</tr>
+						<tr>
+							<td>onResize</td>
+							<td>function(api){}</td>
+							<td>窗口变化时触发</td>
+						</tr>
+					</tbody>
+				</table>
+				<h2>callback(api)参数</h2>
+				<table>
+					<thead>
+						<tr>
+							<th width="150">参数</th>
+							<th width="120">默认值</th>
+							<th>说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>api.setOptions()</td>
+							<td>-</td>
+							<td>修改默认参数</td>
 						</tr>
 					</tbody>
 				</table>

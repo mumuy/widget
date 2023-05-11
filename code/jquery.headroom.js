@@ -58,6 +58,7 @@
             activeCls:'active',         // 选中效果
             fixedCls:'fixed',           // 浮动
             background:'',
+            onResize:function(){}
         };
         var options = $.extend({}, defaults, parameter);
         var $document = $(document);
@@ -100,10 +101,14 @@
                     }
                 }
             });
+             // 对外接口
             var _api = {};
+            _api.setOptions = function(parameter){
+                options = $.extend({}, options, parameter);
+            };
+            // 私有方法
             var _window_width;
-            //私有方法
-            _api.scroll = function(){
+            var scroll = function(){
                 var scroll_top = $document.scrollTop()+options.fixedTop;
                 var up = scroll_top - _scroll_top<0;
                 var ismove = Math.abs(scroll_top-_scroll_top)>10;
@@ -150,7 +155,9 @@
                     }
                 }
             };
-            _api.resize = function(){
+            var resize = function(){
+                options.onResize(_api);
+                last_scroll_top = _scroll_top = 0;
                 _window_width = $document.width();
                 $outer.attr('style','');
                 _width = $outer.width();
@@ -166,8 +173,9 @@
                 heightAuto();
                 setTimeout(heightAuto,500);
             };
-            $window.scroll(_api.scroll);
-            $window.resize(_api.resize);
+           
+            $window.scroll(scroll);
+            $window.resize(resize);
             $links.on('click',function(){
                 var $this = $(this);
                 var hash = $this.attr('href');
@@ -179,14 +187,14 @@
                     isAnimate = true;
                     $('html,body').animate({scrollTop:top},500,function(){
                         isAnimate = false;
-                        _api.scroll();
+                        scroll();
                     });
                 }
                 return false;
             });
             //初始化
-            _api.resize();
-            _api.scroll();
+            resize();
+            scroll();
             if(parameter['activeIndex']){
                 $links.eq(parameter.activeIndex).click();
             }

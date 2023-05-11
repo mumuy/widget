@@ -28,7 +28,7 @@
             activeTriggerCls: "active", //导航选中时的class
             activeIndex: 0,             //默认选中帧的索引
             activeLastIndex:0,          //默认选中的逆索引
-            disableBtnCls: "disable",   //按键不可用时的class
+            disabledBtnCls: "disabled",   //按键不可用时的class
             auto: false,                //是否自动播放
             animate: true,              //是否使用动画滑动
             delay: 3000,                //自动播放时停顿的时间间隔
@@ -336,8 +336,8 @@
                     }
                 });
                 if(options.inEndEffect === "none"){     //左右箭头不可用状态
-                    $prev.toggleClass(options.disableBtnCls,_index==0);
-                    $next.toggleClass(options.disableBtnCls,_index==_size-1);
+                    $prev.toggleClass(options.disabledBtnCls,_index==0);
+                    $next.toggleClass(options.disabledBtnCls,_index==_size-1);
                 }else if (options.inEndEffect === "cycle") {
                     params = _param=="left"?{'left':(_size - _index) * _distance}:{'top':(_size - _index) * _distance};
                     _isAnimated [1] = true;
