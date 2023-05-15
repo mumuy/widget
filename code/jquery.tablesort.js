@@ -116,9 +116,10 @@
                         }
                     });
                 }
-                $items.each(function(index){
+                $bd_tbody.append($temps);
+                $temps.each(function(index){
                     var $this = $(this);
-                    var $temp = $temps.eq(list[index]['index']);
+                    var $temp = $items.eq(list[index]['index']);
                     $this.replaceWith($temp);
                 });
             };
