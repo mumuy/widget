@@ -109,6 +109,7 @@
             // 私有方法
             var _window_width;
             var scroll = function(){
+                _top = $outer.offset().top;
                 var scroll_top = $document.scrollTop()+options.fixedTop;
                 var up = scroll_top - _scroll_top<0;
                 var ismove = Math.abs(scroll_top-_scroll_top)>10;
@@ -175,7 +176,7 @@
             };
            
             $window.scroll(scroll);
-            $window.resize(resize);
+            $window.resize(function(){});
             $links.on('click',function(){
                 var $this = $(this);
                 var hash = $this.attr('href');
