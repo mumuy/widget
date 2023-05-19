@@ -176,7 +176,7 @@
             };
            
             $window.scroll(scroll);
-            $window.resize(function(){});
+            $window.resize(resize);
             $links.on('click',function(){
                 var $this = $(this);
                 var hash = $this.attr('href');
