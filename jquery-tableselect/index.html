@@ -205,58 +205,42 @@
 			</div>
 			<div class="code">
 <pre>
-	var _range = null;
-	$(".demo table").tableselect({
-		'onSelectEnd':function(range){
-			_range = range;
-		},
-		'onChange':function(range){
-			_range = range;
-		}
-	},function(api){
+	$(".demo table").tableselect(function(api){
 		$('#mergeCells').on('click',function(){
-			if(_range){
-				api.mergeCells(_range,function($item){
+			var range = api.getSelectedRange();
+			if(range){
+				api.mergeCells(range,function($item){
 					$item.removeClass('selected');
 				});
-				_range = null;
 			}
 		});
 		$('#splitCells').on('click',function(){
-			if(_range){
-				api.splitCells(_range,function($item){
+			var range = api.getSelectedRange();
+			if(range){
+				api.splitCells(range,function($item){
 					$item.removeClass('selected');
 				});
-				_range = null;
 			}
 		});
 	});
 </pre>
 			</div>
 			<script type="text/javascript">
-				var _range = null;
-				$(".demo table").tableselect({
-					'onSelectEnd':function(range){
-						_range = range;
-					},
-					'onChange':function(range){
-						_range = range;
-					}
-				},function(api){
+				$(".demo table").tableselect(function(api){
 					$('#mergeCells').on('click',function(){
-						if(_range){
-							api.mergeCells(_range,function($item){
+						var range = api.getSelectedRange();
+						if(range){
+							api.mergeCells(range,function($item){
 								$item.removeClass('selected');
 							});
-							_range = null;
 						}
 					});
 					$('#splitCells').on('click',function(){
-						if(_range){
-							api.splitCells(_range,function($item){
+						var range = api.getSelectedRange();
+						if(range){
+							api.splitCells(range,function($item){
 								$item.removeClass('selected');
 							});
-							_range = null;
 						}
 					});
 				});
@@ -331,6 +315,10 @@
 						</tr>
 					</thead>
 					<tbody>
+						<tr>
+							<td>getSelectedRange()</td>
+							<td>获取当前已选择范围</td>
+						</tr>
 						<tr>
 							<td>mergeCells(range,callback)</td>
 							<td>合并单元格</td>
