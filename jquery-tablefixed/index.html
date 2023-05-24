@@ -2,23 +2,25 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>表格选择-tableselect</title>
+		<title>表格浮动表头-tablefixed</title>
 		<link rel="shortcut icon" href="/public/image/favicon.png">
 		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css">
 		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
 		<style type="text/css">
 			.demo{
+				height: 200px;
 				margin-bottom:25px;
 			}
 			.demo table {
-				width:100%;
-				margin-bottom: 20px;
+				min-width:100%;
 				table-layout:fixed;
 				border-collapse: collapse;
 				border-spacing: 0;
 			}
 			.demo table th,.demo td {
+				min-width: 60px;
 				border: 1px solid #cee1ee;
+				white-space: nowrap;
 				word-break: break-all;
 				word-wrap: break-word;
 				padding:4px 10px;
@@ -30,15 +32,9 @@
 				background-color: #e3eef8;
 				text-align: center;
 			}
-			.demo table td.selecting{
-				background-color: #fdf1dd;
-			}
-			.demo table td.selected{
-				background-color: #fc9000;
-			}
 		</style>
 		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
-		<script type="text/javascript" src="/code/jquery.tableselect.js?v=20230418"></script>
+		<script type="text/javascript" src="/code/jquery.tablefixed.js?v=20230528"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -71,11 +67,21 @@
 							<th>房间8</th>
 							<th>房间9</th>
 							<th>房间10</th>
+							<th>房间11</th>
+							<th>房间12</th>
+							<th>房间13</th>
+							<th>房间14</th>
+							<th>房间15</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td class="th disabled"><span>8:00-9:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -94,7 +100,14 @@
 							<td></td>
 							<td></td>
 							<td></td>
-							<td colspan="3"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
@@ -110,12 +123,22 @@
 							<td></td>
 							<td></td>
 							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td class="th disabled"><span>11:00-12:00</span></td>
 							<td></td>
 							<td></td>
-							<td rowspan="2"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -135,14 +158,26 @@
 							<td></td>
 							<td></td>
 							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td class="th disabled"><span>13:00-14:00</span></td>
 							<td></td>
 							<td></td>
-							<td><span>内容测试</span></td>
 							<td></td>
-							<td rowspan="3" colspan="2"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -150,6 +185,13 @@
 						</tr>
 						<tr>
 							<td class="th disabled"><span>14:00-15:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -169,9 +211,21 @@
 							<td></td>
 							<td></td>
 							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td class="th disabled"><span>16:00-17:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -195,60 +249,27 @@
 							<td></td>
 							<td></td>
 							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 					</tbody>
 				</table>
-				<p>
-					<button id="mergeCells">合并单元格</button>
-					<button id="splitCells">拆分单元格</button>
-				</p>
 			</div>
 			<div class="code">
 <pre>
-	$(".demo table").tableselect(function(api){
-		$('#mergeCells').on('click',function(){
-			var range = api.getSelectedRange();
-			if(range){
-				api.mergeCells(range,function($item){
-					$item.removeClass('selected');
-				});
-			}
-		});
-		$('#splitCells').on('click',function(){
-			var range = api.getSelectedRange();
-			if(range){
-				api.splitCells(range,function($item){
-					$item.removeClass('selected');
-				});
-			}
-		});
-	});
+	$(".demo").tablefixed();
 </pre>
 			</div>
 			<script type="text/javascript">
-				$(".demo table").tableselect(function(api){
-					$('#mergeCells').on('click',function(){
-						var range = api.getSelectedRange();
-						if(range){
-							api.mergeCells(range,function($item){
-								$item.removeClass('selected');
-							});
-						}
-					});
-					$('#splitCells').on('click',function(){
-						var range = api.getSelectedRange();
-						if(range){
-							api.splitCells(range,function($item){
-								$item.removeClass('selected');
-							});
-						}
-					});
-				});
+				$(".demo").tablefixed();
 			</script>
 			<div class="example">
 				<div class="call">
 					<h1>调用方法：</h1>
-					<p>$(selector).tableselect(options,callback(api));</p>
+					<p>$(selector).tablefixed(options);</p>
 				</div>
 				<h2>options参数</h2>
 				<table>
@@ -261,71 +282,14 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>disabledCls</td>
-							<td>'disabled'</td>
-							<td>不可选中的class</td>
+							<td>prefix</td>
+							<td>'widget'</td>
+							<td>内部class前缀</td>
 						</tr>
 						<tr>
-							<td>selectedCls</td>
-							<td>'selected'</td>
-							<td>已选择的class</td>
-						</tr>
-						<tr>
-							<td>selectingCls</td>
-							<td>'selecting'</td>
-							<td>正在选择的class</td>
-						</tr>
-						<tr>
-							<td>direction</td>
-							<td>'default'</td>
-							<td>选择方向。default:横纵皆可;row:横;col:纵;</td>
-						</tr>
-						<tr>
-							<td>onSelectStart(range)</td>
-							<td>
-								function(range){
-								}
-							</td>
-							<td>选中范围前</td>
-						</tr>
-						<tr>
-							<td>onSelectEnd(range)</td>
-							<td>
-								function(range){
-								}
-							</td>
-							<td>选中范围后</td>
-						</tr>
-						<tr>
-							<td>onChange(range)</td>
-							<td>
-								function(range){
-								}
-							</td>
-							<td>选中范围前</td>
-						</tr>
-					</tbody>
-				</table>
-				<h2>callback(api)参数</h2>
-				<table>
-					<thead>
-						<tr>
-							<th width="200">方法</th>
-							<th>说明</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>getSelectedRange()</td>
-							<td>获取当前已选择范围</td>
-						</tr>
-						<tr>
-							<td>mergeCells(range,callback)</td>
-							<td>合并单元格</td>
-						</tr>
-						<tr>
-							<td>splitCells(range,callback)</td>
-							<td>拆分单元格</td>
+							<td>fixedColumnCount</td>
+							<td>1</td>
+							<td>浮动侧栏列数</td>
 						</tr>
 					</tbody>
 				</table>
