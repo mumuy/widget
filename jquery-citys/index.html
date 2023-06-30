@@ -48,7 +48,7 @@
                 <p>
                     <select name="province"></select>
                     <select name="city"></select>
-                    <select name="area"></select>
+                    <select name="district"></select>
                 </p>
             </div>
             <div class="code">
@@ -63,7 +63,7 @@
                 <p>
                     <select name="province"></select>
                     <select name="city"></select>
-                    <select name="area"></select>
+                    <select name="district"></select>
                 </p>
             </div>
             <div class="code">
@@ -77,21 +77,21 @@
                 <p>
                     <select name="province"></select>
                     <select name="city"></select>
-                    <select name="area"></select>
+                    <select name="district"></select>
                 </p>
             </div>
             <div class="code">
                 <p>通过地区名称初始化设置，并且下拉框值为地区名称</p>
-                <p>$('#demo1').citys({valueType:'name',province:'福建',city:'厦门',area:'思明'});</p>
+                <p>$('#demo1').citys({valueType:'name',province:'福建',city:'厦门',district:'思明'});</p>
             </div>
             <script type="text/javascript">
-                $('#demo1').citys({valueType:'name',province:'福建',city:'厦门',area:'思明'});
+                $('#demo1').citys({valueType:'name',province:'福建',city:'厦门',district:'思明'});
             </script>
             <div id="demo2" class="citys">
                 <p>
                     <select name="province"></select>
                     <select name="city"></select>
-                    <select name="area"></select>
+                    <select name="district"></select>
                 </p>
                 <p id="place">请选择地区</p>
             </div>
@@ -103,7 +103,7 @@ $('#demo2').citys({
     nodata:'disabled',
     onChange:function(data){
         var text = data['direct']?'(直辖市)':'';
-        $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
+        $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['district']);
     }
 });
 </pre>
@@ -114,7 +114,7 @@ $('#demo2').citys({
                     nodata:'disabled',
                     onChange:function(data){
                         var text = data['direct']?'(直辖市)':'';
-                        $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
+                        $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['district']);
                     }
                 });
             </script>
@@ -122,7 +122,7 @@ $('#demo2').citys({
                 <p>
                     <select name="province"></select>
                     <select name="city"></select>
-                    <select name="area"></select>
+                    <select name="district"></select>
                     <select name="town"></select>
                 </p>
             </div>
@@ -148,7 +148,7 @@ $('#demo2').citys({
     $('#demo3').citys({
         province:'福建',
         city:'厦门',
-        area:'思明',
+        district:'思明',
         onChange:function(info){
         	townFormat(info);
         }
@@ -178,7 +178,7 @@ $('#demo2').citys({
                 $('#demo3').citys({
         			province:'福建',
         			city:'厦门',
-        			area:'思明',
+        			district:'思明',
         			onChange:function(info){
         				townFormat(info);
         			}
@@ -237,8 +237,8 @@ $('#demo2').citys({
                             <td>城市(地级)字段名</td>
                         </tr>
                         <tr>
-                            <td>areaField</td>
-                            <td>'area'</td>
+                            <td>districtField</td>
+                            <td>'district'</td>
                             <td>地区(县区级)字段名</td>
                         </tr>
                         <tr>
@@ -262,7 +262,7 @@ $('#demo2').citys({
                             <td>城市(地级),可以为地区编码或者名称</td>
                         </tr>
                         <tr>
-                            <td>area</td>
+                            <td>district</td>
                             <td>[无]</td>
                             <td>地区(县区级),可以为地区编码或者名称</td>
                         </tr>
@@ -284,7 +284,7 @@ $('#demo2').citys({
                         <tr>
                             <td>onChange(info)</td>
                             <td>[无]</td>
-                            <td>地区切换时触发,回调函数传入地区信息:direct是否为直辖市,province省份(省级)名称,city城市(地级)名称,area地区(县区级)名称,code地区编码</td>
+                            <td>地区切换时触发,回调函数传入地区信息:direct是否为直辖市,province省份(省级)名称,city城市(地级)名称,district地区(县区级)名称,code地区编码</td>
                         </tr>
                     </tbody>
                 </table>
@@ -299,7 +299,7 @@ $('#demo2').citys({
                     <tbody>
                         <tr>
                             <td>getInfo(data)</td>
-                            <td>获取当前选中的地区信息:direct是否为直辖市,province省份(省级)名称,city城市(地级)名称,area地区(县区级)名称,code地区编码</td>
+                            <td>获取当前选中的地区信息:direct是否为直辖市,province省份(省级)名称,city城市(地级)名称,district地区(县区级)名称,code地区编码</td>
                         </tr>
                         <tr>
                             <td>setCode(code)</td>
