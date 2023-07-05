@@ -17,7 +17,7 @@
 				border-collapse: collapse;
 				border-spacing: 0;
 			}
-			.demo table th,.demo td {
+			.demo table th,.demo table td {
 				border: 1px solid #cee1ee;
 				word-break: break-all;
 				word-wrap: break-word;
@@ -26,15 +26,18 @@
 				text-align: center;
 				font-weight: normal;
 			}
-			.demo table th, .demo table td.th{
-				background-color: #e3eef8;
-				text-align: center;
-			}
 			.demo table td.selecting{
 				background-color: #fdf1dd;
 			}
 			.demo table td.selected{
 				background-color: #fc9000;
+			}
+			.demo table td.disabled{
+				background-color: #f8f8f8;
+			}
+			.demo table th, .demo table td.th{
+				background-color: #e3eef8;
+				text-align: center;
 			}
 		</style>
 		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
@@ -155,7 +158,7 @@
 							<td></td>
 							<td></td>
 							<td></td>
-							<td></td>
+							<td class="disabled"></td>
 							<td></td>
 							<td></td>
 						</tr>

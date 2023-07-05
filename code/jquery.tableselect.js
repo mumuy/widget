@@ -67,9 +67,7 @@
             var $table = $(this);
             var $tbody = $table.find('tbody');
             var $trs = $tbody.find('tr');
-            var $tds = $tbody.find('td').filter(function () {
-                return !$(this).hasClass(options.disabledCls);
-            });
+            var $tds = $tbody.find('td');
             $table.css({ 
                 'user-select': 'none'
             });
@@ -101,7 +99,7 @@
                     } 
                 });
             });
-            // 方法定义
+            // 判断小范围是否在大范围内
             var isInRange = function (child_range, parent_range) {
                 var range = { 'from': [], 'to': [] };
                 range['from'][0] = Math.min(parent_range['from'][0], parent_range['to'][0]);
@@ -124,6 +122,40 @@
                     return false;
                 }
             };
+            // 获取从大范围排除小范围后的范围
+            var getRemainRange = function (child_range, parent_range) {
+                var left = Math.min(child_range['from'][0], child_range['to'][0]);
+                var top = Math.min(child_range['from'][1], child_range['to'][1]);
+                var right = Math.max(child_range['from'][0], child_range['to'][0]);
+                var bottom = Math.max(child_range['from'][1], child_range['to'][1]);
+                // 左上
+                if (parent_range['from'][0] <= parent_range['to'][0] && parent_range['from'][1] <= parent_range['to'][1]) {
+                    return {
+                        'from':parent_range['from'],
+                        'to':[left-1,top-1]
+                    };
+                // 右上
+                } else if (parent_range['from'][0] >= parent_range['to'][0] && parent_range['from'][1] <= parent_range['to'][1]) {
+                    return {
+                        'from':parent_range['from'],
+                        'to':[right+1,top-1]
+                    };
+                // 左下
+                } else if (parent_range['from'][0] <= parent_range['to'][0] && parent_range['from'][1] >= parent_range['to'][1]) {
+                    return {
+                        'from':parent_range['from'],
+                        'to':[left-1,bottom+1]
+                    };
+                // 右下
+                } else if (parent_range['from'][0] >= parent_range['to'][0] && parent_range['from'][1] >= parent_range['to'][1]) {
+                    return {
+                        'from':parent_range['from'],
+                        'to':[right+1,bottom+1]
+                    };
+                } else {
+                    return null;
+                }
+            };
             var selectRange = function (param, callback) {
                 var callback = callback || function () { };
                 var cellList = [];
@@ -134,8 +166,26 @@
                 } else if (options.direction == 'col') {
                     to[1] = from[1];
                 }
+                var selected_range = { from: from, to: to };
+                var $abledTds = $tds.filter(function () {
+                    return !$(this).hasClass(options.disabledCls);
+                });
+                var $disabledTds = $tds.filter(function () {
+                    return $(this).hasClass(options.disabledCls);
+                });
+                $disabledTds.each(function(){
+                    var $temp = $(this);
+                    var t_fromKey = $temp.data('from');
+                    var t_toKey = $temp.data('to');
+                    var t_from = t_fromKey.split(':').map(function (value) { return +value; });
+                    var t_to = t_toKey.split(':').map(function (value) { return +value; });
+                    let child_range = { from: t_from, to: t_to };
+                    if(isInRange(child_range,selected_range)){
+                        selected_range = getRemainRange(child_range,selected_range);
+                    }
+                });
                 var getOuterRange = function (range) {
-                    $tds.each(function () {
+                    $abledTds.each(function () {
                         var $temp = $(this);
                         var t_fromKey = $temp.data('from');
                         var t_toKey = $temp.data('to');
@@ -163,13 +213,12 @@
                         to: outer_to
                     };
                 };
-                var range = { from: from, to: to };
-                var outer_range = getOuterRange(range);
-                while (outer_range['from'][0] != range['from'][0] || outer_range['from'][1] != range['from'][1] || outer_range['to'][0] != range['to'][0] || outer_range['to'][1] != range['to'][1]) {
-                    range = outer_range;
-                    outer_range = getOuterRange(range);
+                var outer_range = getOuterRange(selected_range);
+                while (outer_range['from'][0] != selected_range['from'][0] || outer_range['from'][1] != selected_range['from'][1] || outer_range['to'][0] != selected_range['to'][0] || outer_range['to'][1] != selected_range['to'][1]) {
+                    selected_range = outer_range;
+                    outer_range = getOuterRange(selected_range);
                 }
-                $tds.each(function () {
+                $abledTds.each(function () {
                     var $temp = $(this);
                     var t_fromKey = $temp.data('from');
                     var t_toKey = $temp.data('to');
