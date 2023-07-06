@@ -130,56 +130,48 @@
                 var bottom = Math.max(child_range['from'][1], child_range['to'][1]);
                 // 上方
                 if (parent_range['from'][0] == parent_range['to'][0] && parent_range['from'][1] > parent_range['to'][1]) {
-                    console.log('[上方]');
                     return {
                         'from':parent_range['from'],
                         'to':[left,buttom+1]
                     };
                 // 下方
                 }else if (parent_range['from'][0] == parent_range['to'][0] && parent_range['from'][1] < parent_range['to'][1]) {
-                    console.log('[下方]');
                     return {
                         'from':parent_range['from'],
                         'to':[left,top-1]
                     };
                 // 左方
                 }else if (parent_range['from'][0] > parent_range['to'][0] && parent_range['from'][1] == parent_range['to'][1]) {
-                    console.log('[左方]');
                     return {
                         'from':parent_range['from'],
                         'to':[right+1,top]
                     };
                 // 右方
                 }else if (parent_range['from'][0] < parent_range['to'][0] && parent_range['from'][1] == parent_range['to'][1]) {
-                    console.log('[右方]');
                     return {
                         'from':parent_range['from'],
                         'to':[left-1,top]
                     };
                 // 右上
                 }else if (parent_range['from'][0] < parent_range['to'][0] && parent_range['from'][1] < parent_range['to'][1]) {
-                    console.log('[右上]');
                     return {
                         'from':parent_range['from'],
                         'to':[left-1,bottom+1]
                     };
                 // 左上
                 } else if (parent_range['from'][0] > parent_range['to'][0] && parent_range['from'][1] < parent_range['to'][1]) {
-                    console.log('[左上]');
                     return {
                         'from':parent_range['from'],
                         'to':[right+1,bottom+1]
                     };
                 // 右下
                 } else if (parent_range['from'][0] < parent_range['to'][0] && parent_range['from'][1] > parent_range['to'][1]) {
-                    console.log('[右下]');
                     return {
                         'from':parent_range['from'],
                         'to':[left-1,top-1]
                     };
                 // 左下
                 } else if (parent_range['from'][0] > parent_range['to'][0] && parent_range['from'][1] > parent_range['to'][1]) {
-                    console.log('[左下]');
                     return {
                         'from':parent_range['from'],
                         'to':[right+1,top-1]
@@ -210,7 +202,6 @@
                 if(limit_range){
                     selected_range = limit_range;
                 }
-                console.log('[selected_range#a]',JSON.stringify(selected_range));
                 // 遇到不可选单元格的处理
                 $disabledTds.each(function(){
                     var $temp = $(this);
@@ -223,7 +214,6 @@
                         selected_range = getRemainRange(child_range,selected_range);
                     }
                 });
-                console.log('[selected_range#b]',JSON.stringify(selected_range));
                 // 遇到夸行或跨列单元格的处理
                 var getOuterRange = function (range) {
                     $abledTds.each(function () {
@@ -382,7 +372,7 @@
             };
             _api.getSelectedCells = function(){
                 return $tds.filter(function () {
-                    return $(this).hasClass(options.selectedClsCls);
+                    return $(this).hasClass(options.selectedCls);
                 });
             };
             // 事件绑定
