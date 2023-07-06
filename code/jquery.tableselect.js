@@ -346,6 +346,11 @@
             _api.getSelectedRange = function(){
                 return _selectedRange;
             };
+            _api.getSelectedCells = function(){
+                return $tds.filter(function () {
+                    return $(this).hasClass(options.selectedClsCls);
+                });
+            };
             // 事件绑定
             $tbody.on('click', 'td', function () {
                 var $td = $(this);

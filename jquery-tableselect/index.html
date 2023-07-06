@@ -60,7 +60,7 @@
 		</div>
         <div class="container">
 			<div class="demo">
-				<table>
+				<table id="demo1">
 					<thead>
 						<tr>
 							<th width="15%">&nbsp;</th>
@@ -208,7 +208,7 @@
 			</div>
 			<div class="code">
 <pre>
-	$(".demo table").tableselect(function(api){
+	$("table#demo1").tableselect(function(api){
 		$('#mergeCells').on('click',function(){
 			var range = api.getSelectedRange();
 			if(range){
@@ -229,7 +229,7 @@
 </pre>
 			</div>
 			<script type="text/javascript">
-				$(".demo table").tableselect(function(api){
+				$("table#demo1").tableselect(function(api){
 					$('#mergeCells').on('click',function(){
 						var range = api.getSelectedRange();
 						if(range){
@@ -250,7 +250,7 @@
 			</script>
 
 			<div class="demo">
-				<table>
+				<table id="demo2">
 					<thead>
 						<tr>
 							<th width="15%">&nbsp;</th>
@@ -399,7 +399,7 @@
 			<p>限制选择范围，每2列可选</p>
 			<div class="code">
 <pre>
-	$(".demo table").tableselect({
+	$("table#demo2").tableselect({
 		'onSelecting':function(range){
 			var limit_count = 2;
 			var index = Math.ceil(range['from'][0]/limit_count);
@@ -414,7 +414,7 @@
 </pre>
 			</div>
 <script type="text/javascript">
-	$(".demo table").tableselect({
+	$("table#demo2").tableselect({
 		'onSelecting':function(range){
 			var limit_count = 2;
 			var index = Math.ceil(range['from'][0]/limit_count);
@@ -497,6 +497,10 @@
 						</tr>
 					</thead>
 					<tbody>
+						<tr>
+							<td>getSelectedCells()</td>
+							<td>获取当前已选择单元格</td>
+						</tr>
 						<tr>
 							<td>getSelectedRange()</td>
 							<td>获取当前已选择范围</td>
