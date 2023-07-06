@@ -152,30 +152,58 @@
                         'from':parent_range['from'],
                         'to':[left-1,top]
                     };
-                // 右上
-                }else if (parent_range['from'][0] < parent_range['to'][0] && parent_range['from'][1] < parent_range['to'][1]) {
-                    return {
-                        'from':parent_range['from'],
-                        'to':[left-1,bottom+1]
-                    };
-                // 左上
-                } else if (parent_range['from'][0] > parent_range['to'][0] && parent_range['from'][1] < parent_range['to'][1]) {
-                    return {
-                        'from':parent_range['from'],
-                        'to':[right+1,bottom+1]
-                    };
                 // 右下
-                } else if (parent_range['from'][0] < parent_range['to'][0] && parent_range['from'][1] > parent_range['to'][1]) {
+                }else if (parent_range['from'][0] < parent_range['to'][0] && parent_range['from'][1] < parent_range['to'][1]) {
+                    var x = Math.max(left-1,parent_range['from'][0]);
+                    var y = Math.max(top-1,parent_range['from'][1]);
+                    if(right==parent_range['to'][0]){
+                        y = parent_range['to'][1];
+                    }else if(bottom==parent_range['to'][1]){
+                        x = parent_range['to'][0];
+                    }
                     return {
                         'from':parent_range['from'],
-                        'to':[left-1,top-1]
-                    };
+                        'to':[x,y]
+                    }
                 // 左下
-                } else if (parent_range['from'][0] > parent_range['to'][0] && parent_range['from'][1] > parent_range['to'][1]) {
+                } else if (parent_range['from'][0] > parent_range['to'][0] && parent_range['from'][1] < parent_range['to'][1]) {
+                    var x = Math.min(right+1,parent_range['from'][0]);
+                    var y = Math.max(top-1,parent_range['from'][1]);
+                    if(left==parent_range['to'][0]){
+                        y = parent_range['to'][1];
+                    }else if(bottom==parent_range['to'][1]){
+                        x = parent_range['to'][0];
+                    }
                     return {
                         'from':parent_range['from'],
-                        'to':[right+1,top-1]
-                    };
+                        'to':[x,y]
+                    }
+                // 右上
+                } else if (parent_range['from'][0] < parent_range['to'][0] && parent_range['from'][1] > parent_range['to'][1]) {
+                    var x = Math.max(left-1,parent_range['from'][0]);
+                    var y = Math.min(bottom+1,parent_range['from'][1]);
+                    if(right==parent_range['to'][0]){
+                        y = parent_range['to'][1];
+                    }else if(top==parent_range['to'][1]){
+                        x = parent_range['to'][0];
+                    }
+                    return {
+                        'from':parent_range['from'],
+                        'to':[x,y]
+                    }
+                // 左上
+                } else if (parent_range['from'][0] > parent_range['to'][0] && parent_range['from'][1] > parent_range['to'][1]) {
+                    var x = Math.min(right+1,parent_range['from'][0]);
+                    var y = Math.min(bottom+1,parent_range['from'][1]);
+                    if(left==parent_range['to'][0]){
+                        y = parent_range['to'][1];
+                    }else if(top==parent_range['to'][1]){
+                        x = parent_range['to'][0];
+                    }
+                    return {
+                        'from':parent_range['from'],
+                        'to':[x,y]
+                    }
                 } else {
                     return null;
                 }
