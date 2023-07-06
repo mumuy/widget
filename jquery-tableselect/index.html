@@ -33,7 +33,7 @@
 				background-color: #fc9000;
 			}
 			.demo table td.disabled{
-				background-color: #f8f8f8;
+				background-color: #f5f5f5;
 			}
 			.demo table th, .demo table td.th{
 				background-color: #e3eef8;
@@ -158,7 +158,7 @@
 							<td></td>
 							<td></td>
 							<td></td>
-							<td class="disabled"></td>
+							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
@@ -248,6 +248,185 @@
 					});
 				});
 			</script>
+
+			<div class="demo">
+				<table>
+					<thead>
+						<tr>
+							<th width="15%">&nbsp;</th>
+							<th colspan="2">场地1</th>
+							<th colspan="2">场地2</th>
+							<th colspan="2">场地3</th>
+							<th colspan="2">场地4</th>
+							<th colspan="2">场地5</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="th disabled"><span>8:00-9:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="th disabled"><span>9:00-10:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="th disabled"><span>10:00-11:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="th disabled"><span>11:00-12:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="th disabled"><span>12:00-13:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="th disabled"><span>13:00-14:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="th disabled"><span>14:00-15:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td class="disabled"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="th disabled"><span>15:00-16:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="th disabled"><span>16:00-17:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="th disabled"><span>17:00-18:00</span></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				
+			</div>
+			<p>限制选择范围，每2列可选</p>
+			<div class="code">
+<pre>
+	$(".demo table").tableselect({
+		'onSelecting':function(range){
+			var limit_count = 2;
+			var index = Math.ceil(range['from'][0]/limit_count);
+			if(range['from'][0]<=range['to'][0]){
+				range['to'][0] = Math.min(range['to'][0],index*limit_count);
+			}else{
+				range['to'][0] = Math.max(range['to'][0],index*limit_count-1);
+			}
+			return range;
+		}
+	});
+</pre>
+			</div>
+<script type="text/javascript">
+	$(".demo table").tableselect({
+		'onSelecting':function(range){
+			var limit_count = 2;
+			var index = Math.ceil(range['from'][0]/limit_count);
+			if(range['from'][0]<=range['to'][0]){
+				range['to'][0] = Math.min(range['to'][0],index*limit_count);
+			}else{
+				range['to'][0] = Math.max(range['to'][0],index*limit_count-1);
+			}
+			return range;
+		}
+	});
+</script>
 			<div class="example">
 				<div class="call">
 					<h1>调用方法：</h1>
@@ -300,12 +479,12 @@
 							<td>选中范围后</td>
 						</tr>
 						<tr>
-							<td>onChange(range)</td>
+							<td>onSelecting(range)</td>
 							<td>
 								function(range){
 								}
 							</td>
-							<td>选中范围前</td>
+							<td>移动选择范围时，返回指定范围可限制用户选择</td>
 						</tr>
 					</tbody>
 				</table>

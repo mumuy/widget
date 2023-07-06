@@ -1,5 +1,5 @@
 /**
- * jquery.tableselect.js 1.0
+ * jquery.tableselect.js 1.1
  * http://jquerywidget.com
  */
 ; (function (factory) {
@@ -59,7 +59,7 @@
             },
             onSelectEnd: function () {       // 选中范围后
             },
-            onChange: function () {          // 选中变化时
+            onSelecting: function () {          // 选中变化时
             }
         };
         var options = $.extend({}, defaults, parameter);
@@ -90,11 +90,11 @@
                             break;
                         }
                     }
-                    $td.attr('data-from', (tr_index) + ':' + (m));
+                    $td.attr('data-from', (m) + ':' + (tr_index));
                     for (var i = 0; i < rowspan; i++) {
                         for (var j = 0; j < colspan; j++) {
                             tdMap[tr_index + i][m + j] = tr_index + ',' + th_index;
-                            $td.attr('data-to', (tr_index + i) + ':' + (m + j));
+                            $td.attr('data-to',  (m + j)+ ':' + (tr_index + i));
                         }
                     } 
                 });
@@ -173,6 +173,12 @@
                 var $disabledTds = $tds.filter(function () {
                     return $(this).hasClass(options.disabledCls);
                 });
+                // 动态判断限制范围
+                var limit_range = options.onSelecting(selected_range);
+                if(limit_range){
+                    selected_range = limit_range;
+                }
+                // 遇到不可选单元格的处理
                 $disabledTds.each(function(){
                     var $temp = $(this);
                     var t_fromKey = $temp.data('from');
@@ -184,6 +190,7 @@
                         selected_range = getRemainRange(child_range,selected_range);
                     }
                 });
+                // 遇到夸行或跨列单元格的处理
                 var getOuterRange = function (range) {
                     $abledTds.each(function () {
                         var $temp = $(this);
@@ -385,7 +392,7 @@
                             to: to,
                             className: options.selectingCls,
                             isRemove: true
-                        }, options.onChange);
+                        });
                     }
                 }
             });
