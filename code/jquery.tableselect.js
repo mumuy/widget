@@ -128,29 +128,61 @@
                 var top = Math.min(child_range['from'][1], child_range['to'][1]);
                 var right = Math.max(child_range['from'][0], child_range['to'][0]);
                 var bottom = Math.max(child_range['from'][1], child_range['to'][1]);
-                // 左上
-                if (parent_range['from'][0] <= parent_range['to'][0] && parent_range['from'][1] <= parent_range['to'][1]) {
+                // 上方
+                if (parent_range['from'][0] == parent_range['to'][0] && parent_range['from'][1] > parent_range['to'][1]) {
+                    console.log('[上方]');
                     return {
                         'from':parent_range['from'],
-                        'to':[left-1,top-1]
+                        'to':[left,buttom+1]
+                    };
+                // 下方
+                }else if (parent_range['from'][0] == parent_range['to'][0] && parent_range['from'][1] < parent_range['to'][1]) {
+                    console.log('[下方]');
+                    return {
+                        'from':parent_range['from'],
+                        'to':[left,top-1]
+                    };
+                // 左方
+                }else if (parent_range['from'][0] > parent_range['to'][0] && parent_range['from'][1] == parent_range['to'][1]) {
+                    console.log('[左方]');
+                    return {
+                        'from':parent_range['from'],
+                        'to':[right+1,top]
+                    };
+                // 右方
+                }else if (parent_range['from'][0] < parent_range['to'][0] && parent_range['from'][1] == parent_range['to'][1]) {
+                    console.log('[右方]');
+                    return {
+                        'from':parent_range['from'],
+                        'to':[left-1,top]
                     };
                 // 右上
-                } else if (parent_range['from'][0] >= parent_range['to'][0] && parent_range['from'][1] <= parent_range['to'][1]) {
-                    return {
-                        'from':parent_range['from'],
-                        'to':[right+1,top-1]
-                    };
-                // 左下
-                } else if (parent_range['from'][0] <= parent_range['to'][0] && parent_range['from'][1] >= parent_range['to'][1]) {
+                }else if (parent_range['from'][0] < parent_range['to'][0] && parent_range['from'][1] < parent_range['to'][1]) {
+                    console.log('[右上]');
                     return {
                         'from':parent_range['from'],
                         'to':[left-1,bottom+1]
                     };
-                // 右下
-                } else if (parent_range['from'][0] >= parent_range['to'][0] && parent_range['from'][1] >= parent_range['to'][1]) {
+                // 左上
+                } else if (parent_range['from'][0] > parent_range['to'][0] && parent_range['from'][1] < parent_range['to'][1]) {
+                    console.log('[左上]');
                     return {
                         'from':parent_range['from'],
                         'to':[right+1,bottom+1]
+                    };
+                // 右下
+                } else if (parent_range['from'][0] < parent_range['to'][0] && parent_range['from'][1] > parent_range['to'][1]) {
+                    console.log('[右下]');
+                    return {
+                        'from':parent_range['from'],
+                        'to':[left-1,top-1]
+                    };
+                // 左下
+                } else if (parent_range['from'][0] > parent_range['to'][0] && parent_range['from'][1] > parent_range['to'][1]) {
+                    console.log('[左下]');
+                    return {
+                        'from':parent_range['from'],
+                        'to':[right+1,top-1]
                     };
                 } else {
                     return null;
@@ -178,6 +210,7 @@
                 if(limit_range){
                     selected_range = limit_range;
                 }
+                console.log('[selected_range#a]',JSON.stringify(selected_range));
                 // 遇到不可选单元格的处理
                 $disabledTds.each(function(){
                     var $temp = $(this);
@@ -190,6 +223,7 @@
                         selected_range = getRemainRange(child_range,selected_range);
                     }
                 });
+                console.log('[selected_range#b]',JSON.stringify(selected_range));
                 // 遇到夸行或跨列单元格的处理
                 var getOuterRange = function (range) {
                     $abledTds.each(function () {
@@ -259,8 +293,8 @@
                         };
                         if (isInRange(child_range, parent_range)) {
                             if (!$itemList.length) {
-                                var rowspan = parent_range['to'][0] - parent_range['from'][0] + 1;
-                                var colspan = parent_range['to'][1] - parent_range['from'][1] + 1;
+                                var colspan = parent_range['to'][0] - parent_range['from'][0] + 1;
+                                var rowspan = parent_range['to'][1] - parent_range['from'][1] + 1;
                                 var className = $temp.attr('class');
                                 $itemList = $('<td class="' + className + '" rowspan="' + rowspan + '" colspan="' + colspan + '" data-from="' + parent_range['from'].join(':') + '" data-to="' + parent_range['to'].join(':') + '"></td>');
                                 $temp.before($itemList);
@@ -298,8 +332,8 @@
                                 var htmlStr = $temp.html();
                                 var className = $temp.attr('class');
                                 $trs.each(function (tr_index) {
-                                    if (tr_index >= child_range['from'][0] && tr_index <= child_range['to'][0]) {
-                                        var td_index_max = Math.max(child_range['from'][1], child_range['to'][1]);
+                                    if (tr_index >= child_range['from'][1] && tr_index <= child_range['to'][1]) {
+                                        var td_index_max = Math.max(child_range['from'][0], child_range['to'][0]);
                                         var isFirst = false;
                                         var $tr = $(this);
                                         $tr.find('td').each(function () {
@@ -308,10 +342,10 @@
                                             var td_toKey = $td.data('to');
                                             var td_from = td_fromKey.split(':').map(function (value) { return +value; });
                                             var td_to = td_toKey.split(':').map(function (value) { return +value; });
-                                            var td_index_min = Math.min(td_from[1], td_to[1]);
+                                            var td_index_min = Math.min(td_from[0], td_to[0]);
                                             if (td_index_max < td_index_min && !isFirst) {
                                                 isFirst = true;
-                                                for (var td_index = child_range['from'][1]; td_index <= child_range['to'][1]; td_index++) {
+                                                for (var td_index = child_range['from'][0]; td_index <= child_range['to'][0]; td_index++) {
                                                     var $newItem = $('<td class="' + className + '" data-from="' + (tr_index + ':' + td_index) + '" data-to="' + (tr_index + ':' + td_index) + '"></td>');
                                                     $td.before($newItem);
                                                     if (!$itemList.length) {
@@ -322,7 +356,7 @@
                                             }
                                         });
                                         if (!isFirst) {
-                                            for (var td_index = child_range['from'][1]; td_index <= child_range['to'][1]; td_index++) {
+                                            for (var td_index = child_range['from'][0]; td_index <= child_range['to'][0]; td_index++) {
                                                 var $newItem = $('<td class="' + className + '" data-from="' + (tr_index + ':' + td_index) + '" data-to="' + (tr_index + ':' + td_index) + '"></td>');
                                                 $tr.append($newItem);
                                                 if (!$itemList.length) {
