@@ -164,7 +164,7 @@
                     return {
                         'from':parent_range['from'],
                         'to':[x,y]
-                    }
+                    };
                 // 左下
                 } else if (parent_range['from'][0] > parent_range['to'][0] && parent_range['from'][1] < parent_range['to'][1]) {
                     var x = Math.min(right+1,parent_range['from'][0]);
@@ -177,7 +177,7 @@
                     return {
                         'from':parent_range['from'],
                         'to':[x,y]
-                    }
+                    };
                 // 右上
                 } else if (parent_range['from'][0] < parent_range['to'][0] && parent_range['from'][1] > parent_range['to'][1]) {
                     var x = Math.max(left-1,parent_range['from'][0]);
@@ -190,7 +190,7 @@
                     return {
                         'from':parent_range['from'],
                         'to':[x,y]
-                    }
+                    };
                 // 左上
                 } else if (parent_range['from'][0] > parent_range['to'][0] && parent_range['from'][1] > parent_range['to'][1]) {
                     var x = Math.min(right+1,parent_range['from'][0]);
@@ -203,7 +203,7 @@
                     return {
                         'from':parent_range['from'],
                         'to':[x,y]
-                    }
+                    };
                 } else {
                     return null;
                 }
@@ -313,7 +313,7 @@
                             if (!$itemList.length) {
                                 var colspan = parent_range['to'][0] - parent_range['from'][0] + 1;
                                 var rowspan = parent_range['to'][1] - parent_range['from'][1] + 1;
-                                var className = $temp.attr('class');
+                                var className = $temp.attr('class')||'';
                                 $itemList = $('<td class="' + className + '" rowspan="' + rowspan + '" colspan="' + colspan + '" data-from="' + parent_range['from'].join(':') + '" data-to="' + parent_range['to'].join(':') + '"></td>');
                                 $temp.before($itemList);
                             }
@@ -404,38 +404,37 @@
                 });
             };
             // 事件绑定
-            $tbody.on('click', 'td', function () {
+            $tbody.on('click', 'td', function (e) {
                 var $td = $(this);
-                if ($td.hasClass(options.disabledCls)) {
-                    return false;
-                }
-                var fromKey = $td.data('from') || '';
-                var toKey = $td.data('to') || '';
-                var from = fromKey.split(':').map(function (value) { return +value; });
-                var to = toKey.split(':').map(function (value) { return +value; });
-                _selectedRange = null;
-                if (!_range || !_range['isSelecting']) {
-                    _range = {
-                        from: from,
-                        to: to,
-                        isSelecting: true
-                    };
-                    $tds.removeClass(options.selectedCls);
-                    $td.addClass(options.selectingCls);
-                    options.onSelectStart(from, to);
-                } else {
-                    _range['to'] = to;
-                    _range['isSelecting'] = false;
-                    $tds.removeClass(options.selectingCls);
-                    selectRange({
-                        from: _range['from'],
-                        to: _range['to'],
-                        className: options.selectedCls,
-                        isRemove: false
-                    }, function(range){
-                        _selectedRange = range;
-                        options.onSelectEnd(range);
-                    });
+                if (!$td.hasClass(options.disabledCls)) {
+                    var fromKey = $td.data('from') || '';
+                    var toKey = $td.data('to') || '';
+                    var from = fromKey.split(':').map(function (value) { return +value; });
+                    var to = toKey.split(':').map(function (value) { return +value; });
+                    _selectedRange = null;
+                    if (!_range || !_range['isSelecting']) {
+                        _range = {
+                            from: from,
+                            to: to,
+                            isSelecting: true
+                        };
+                        $tds.removeClass(options.selectedCls);
+                        $td.addClass(options.selectingCls);
+                        options.onSelectStart(from, to);
+                    } else {
+                        _range['to'] = to;
+                        _range['isSelecting'] = false;
+                        $tds.removeClass(options.selectingCls);
+                        selectRange({
+                            from: _range['from'],
+                            to: _range['to'],
+                            className: options.selectedCls,
+                            isRemove: false
+                        }, function(range){
+                            _selectedRange = range;
+                            options.onSelectEnd(range);
+                        });
+                    }
                 }
             });
             $tbody.on('mouseenter', 'td', function () {
