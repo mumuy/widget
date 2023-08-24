@@ -219,6 +219,7 @@
                     to[1] = from[1];
                 }
                 var selected_range = { from: from, to: to };
+                $tds = $tbody.find('td');
                 var $abledTds = $tds.filter(function () {
                     return !$(this).hasClass(options.disabledCls);
                 });
@@ -456,4 +457,3 @@
         });
     };
 }));
-
