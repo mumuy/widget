@@ -356,7 +356,7 @@
                                             if (td_index_max < td_index_min && !isFirst) {
                                                 isFirst = true;
                                                 for (var td_index = child_range['from'][0]; td_index <= child_range['to'][0]; td_index++) {
-                                                    var $newItem = $('<td class="' + className + '" data-from="' + (tr_index + ':' + td_index) + '" data-to="' + (tr_index + ':' + td_index) + '"></td>');
+                                                    var $newItem = $('<td class="' + className + '" data-from="' + (td_index + ':' + tr_index) + '" data-to="' + (td_index + ':' + tr_index) + '"></td>');
                                                     $td.before($newItem);
                                                     if (!$itemList.length) {
                                                         $newItem.html(htmlStr);
@@ -367,7 +367,7 @@
                                         });
                                         if (!isFirst) {
                                             for (var td_index = child_range['from'][0]; td_index <= child_range['to'][0]; td_index++) {
-                                                var $newItem = $('<td class="' + className + '" data-from="' + (tr_index + ':' + td_index) + '" data-to="' + (tr_index + ':' + td_index) + '"></td>');
+                                                var $newItem = $('<td class="' + className + '" data-from="' + (td_index + ':' + tr_index) + '" data-to="' + (td_index + ':' + tr_index) + '"></td>');
                                                 $tr.append($newItem);
                                                 if (!$itemList.length) {
                                                     $newItem.html(htmlStr);
