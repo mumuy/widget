@@ -93,9 +93,9 @@
                         c = options.code%1e2 ? options.code : '';
                         options.district = c;
                     }else{
-                        options.province = ($province.val()||'').toString().replace(/\d{4}$/,'0000');
-                        options.city = ($city.val()||'').toString().replace(/\d{2}$/,'00');
-                        options.district = ($district.val()||'').toString();
+                        options.province = options.province||($province.val()||'').toString().replace(/\d{4}$/,'0000');
+                        options.city = options.city||($city.val()||'').toString().replace(/\d{2}$/,'00');
+                        options.district = options.district||($district.val()||'').toString();
                     }
                 };
                 var updateCode = function(){
