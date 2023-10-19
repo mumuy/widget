@@ -106,6 +106,7 @@
             });
             $suggestion.css({
                 'position':'absolute',
+                'z-index':'999',
                 'display':'none'
             });
             // 方法定义
@@ -261,7 +262,7 @@
                         success();
                     }
                     isShow = true;
-                },500);
+                },250);
                 return false;
             };
             // 隐藏表单项
@@ -272,15 +273,24 @@
                         $suggestion.hide();
                         isShow = false;
                     }
-                },200);
+                },250);
             };
             // 事件绑定
             $this.on('keydown',down);
-            $this.on('input propertychange focus',function(){
-               _api.show(); 
+            $this.on('focus',function(){
+                reset();
+                _api.show();
+                return false;
+            })
+            $this.on('input propertychange',function(){
+               _api.show();
+               return false;
             });
-            $document.on('click',function(){
-                _api.hide();
+            $document.on('click',function(e){
+                if(e.target!=_){
+                    _api.hide();
+                }
+                return false;
             });
             $list.on('click',options.triggerNode,function(){
                 var $trigger = $(this);
