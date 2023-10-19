@@ -280,17 +280,14 @@
             $this.on('focus',function(){
                 reset();
                 _api.show();
-                return false;
             })
             $this.on('input propertychange',function(){
                _api.show();
-               return false;
             });
             $document.on('click',function(e){
                 if(e.target!=_){
                     _api.hide();
                 }
-                return false;
             });
             $list.on('click',options.triggerNode,function(){
                 var $trigger = $(this);
