@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<title>表格排序-tablesort</title>
 		<link rel="shortcut icon" href="/public/image/favicon.png">
-		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css">
-		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
+		<link rel="stylesheet" type="text/css" href="../public/style/cssreset-min.css">
+		<link rel="stylesheet" type="text/css" href="../public/style/common.css">
 		<style type="text/css">
 			a{
 				color:#333;
@@ -74,8 +74,8 @@
 			    background: #f8efe3
 			}
 		</style>
-		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
-		<script type="text/javascript" src="/code/jquery.tablesort.js"></script>
+		<script type="text/javascript" src="../public/script/jquery.min.js"></script>
+		<script type="text/javascript" src="../code/jquery.tablesort.js"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -98,11 +98,12 @@
 					<thead>
 						<tr>
 							<th rowspan="2" class="sortabled">编号</th>
-							<th colspan="2">排序类型</th>
+							<th colspan="3">排序类型</th>
 						</tr>
 						<tr>
 							<th class="sortabled">数字</th>
 							<th class="sortabled">字母</th>
+							<th class="sortabled">日期</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -110,31 +111,37 @@
 							<td data-value="1"><span>1</span></td>
 							<td data-value="3"><span>3</span></td>
 							<td data-value="c"><span>c</span></td>
+							<td data-value="2022-10-01"><span>2022-10-01</span></td>
 						</tr>
 						<tr>
 							<td data-value="2"><span>2</span></td>
 							<td data-value="1"><span>1</span></td>
 							<td data-value="d"><span>d</span></td>
+							<td data-value="2022-05-01"><span>2022-05-01</span></td>
 						</tr>
 						<tr>
 							<td data-value="3"><span>3</span></td>
 							<td data-value="2"><span>2</span></td>
 							<td data-value="b"><span>b</span></td>
+							<td data-value="2023-10-01"><span>2023-10-01</span></td>
 						</tr>
 						<tr>
 							<td data-value="4"><span>4</span></td>
 							<td data-value="5"><span>5</span></td>
 							<td data-value="e"><span>e</span></td>
+							<td data-value="2022-10-30"><span>2022-10-30</span></td>
 						</tr>
 						<tr>
 							<td data-value="5"><span>5</span></td>
 							<td data-value="8"><span>8</span></td>
 							<td data-value="a"><span>a</span></td>
+							<td data-value="2022-07-15"><span>2022-07-15</span></td>
 						</tr>
 						<tr>
 							<td data-value="6"><span>6</span></td>
 							<td data-value="4"><span>4</span></td>
 							<td data-value="f"><span>f</span></td>
+							<td data-value="2022-08-15"><span>2022-08-15</span></td>
 						</tr>
 					</tbody>
 				</table>
