@@ -86,7 +86,6 @@
             });
             var sortTableByIndex = function(index,type){
                 var type = type||'up';
-                var $bd_thead = $table.find('thead');
                 var $bd_tbody = $table.find('tbody');
                 $bd_tbody.find('td').removeClass(options.activeCls).filter(':nth-child('+(index+1)+')').addClass(options.activeCls);
                 var $items = $bd_tbody.find('tr');
@@ -123,7 +122,7 @@
                     $this.replaceWith($temp);
                 });
             };
-            $table.on('click','th.'+options.sortCls,function(){
+            $table.on('click','thead th.'+options.sortCls,function(){
                 var $th = $(this);
                 var $tr = $th.parent();
                 var tr_index = $tr.index();
