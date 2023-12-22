@@ -431,6 +431,15 @@
                     position:'absolute',
                     top:0
                 });
+                if(options.direction=='x'){
+                    $list2.css({
+                        height:$list1.outerHeight()
+                    });
+                }else{
+                    $list2.css({
+                        width:$list1.outerWidth()
+                    });
+                }
             }
             $list1.css('position','relative');
             //节点添加
