@@ -60,7 +60,7 @@
         };
         var options = $.extend({}, defaults, parameter);
         var $window = $(window);
-        return this.each(function(index) {
+        return this.each(function() {
             var _ = this;
             var $this = $(this).css("overflow", "hidden");
             var _duration = options.duration;

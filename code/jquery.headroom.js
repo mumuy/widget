@@ -69,8 +69,6 @@
             var _top = $this.offset().top;
             var _scroll_top = 0;
             var _transition = 'all '+(options.duration/1e3)+'s ease';
-            var last_up = false;
-            var last_scroll_top = _scroll_top;
             var isFixed = false;
             var isAnimate = false;
             $this.wrap('<div></div>');
@@ -140,8 +138,6 @@
                         isFixed = false;
                     }
                 }
-                last_up = up;
-                last_scroll_top = scroll_top;
                 if(options.isScrollActive){                
                     var id='';
                     for(var i=0;i<$list.length;i++){
@@ -158,7 +154,6 @@
             };
             var resize = function(){
                 options.onResize(_api);
-                last_scroll_top = _scroll_top = 0;
                 _window_width = $document.width();
                 $outer.attr('style','');
                 _width = $outer.width();
