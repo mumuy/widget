@@ -1,5 +1,5 @@
 /**
- * jquery.dialog.js 1.0
+ * jquery.dialog.js 1.1
  * http://jquerywidget.com
  */
 ;(function (factory) {
@@ -126,7 +126,9 @@
 							'opacity': 0
 						}).stop().fadeTo(200,options.opacity);
 					}
-					$container.css("opacity",0).fadeTo(200, 1);
+					if(!_isOpen){
+                        $container.css("opacity",0).fadeTo(200, 1);
+                    }
 					_api.resize();
 					_isOpen = true;
 				}
