@@ -63,6 +63,7 @@
             //对象定义
             var $this = $(this);
             var $trigger = $this.find(options.trigger);
+            var $trigger_item = $trigger;
             var $node = $this.find(options.node).hide();
             //样式定义
             if($this.css('position')!='absolute'){
@@ -75,12 +76,12 @@
                     if(!isShow){
                         var _offset = $this.offset();
                         var _t = (function(){
-                            var offset = $trigger.offset();
+                            var offset = $trigger_item.offset();
                             return {
                                 'left':offset.left-_offset.left,
                                 'top':offset.top-_offset.top,
-                                'width':$trigger.outerWidth(),
-                                'height':$trigger.outerHeight()
+                                'width':$trigger_item.outerWidth(),
+                                'height':$trigger_item.outerHeight()
                             };
                         })();
                         var _n = {
@@ -121,17 +122,32 @@
             };
             //事件绑定
             if(options.triggerType === 'mouse'){
-                var o = $trigger.add($node).on({
+                $trigger.on({
+                    'mouseenter':function(){
+                        $trigger_item = $(this);
+                        _node.show();
+                    },
+                    'mouseleave':_node.hide
+                });
+                $node.on({
                     'mouseenter':_node.show,
                     'mouseleave':_node.hide
                 });
             }else{
-                $trigger.on('click',function(){
+                $trigger.on(options.triggerType,function(){
                     if(isShow){
                         _node.hide();
+                        if($trigger_item[0]!=this){
+                            $trigger_item = $(this);
+                            _node.show();
+                        }
                     }else{
+                        $trigger_item = $(this);
                         _node.show();
                     }
+                    return false;
+                });
+                $trigger.on('click',function(){
                     return false;
                 });
                 $document.on('click',function(e){
