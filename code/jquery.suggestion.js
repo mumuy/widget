@@ -86,7 +86,7 @@
             var $box = $this.parent();
             var $suggestion = $("<div class='"+options.suggestionCls+"'><ul></ul></div>").appendTo($box);
             var $list = $suggestion.find('ul');
-            var $item = $list.find('li');
+            var $items = $list.find('li');
             var _height = $this.outerHeight(false);
             var _width = $this.outerWidth(false);
             var _text = null;
@@ -209,8 +209,8 @@
             // 成功后的回调函数
             var success = function(data){
                 var list = options.onCallback.bind(_)(data);
+                $list.empty();
                 if(list&&list.length){
-                    $list.empty();
                     list.forEach(function(item){
                         $list.append('<li data-value="'+item['value']+'" data-name="'+item['name']+'">'+options.itemFormat(item)+'</li>');
                     });
