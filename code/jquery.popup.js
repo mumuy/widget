@@ -1,5 +1,5 @@
 /**
- * jquery.popup.js 1.0
+ * jquery.popup.js 1.1
  * http://jquerywidget.com
  */
 ;(function (factory) {
@@ -51,11 +51,12 @@
             getApi = getApi||function(){};
         }
         var defaults = {
-            triggerType:'mouse',        //触发事件类型
-            trigger:'',                 //触发的节点(选择器)
-            node: '',                   //弹出的节点(选择器)
-            offset:[0,0],               //偏移量
-            points:['cb','ct']          //弹出层与参考节点的对齐方式
+            triggerType:'mouse',        // 触发事件类型
+            trigger:'',                 // 触发的节点(选择器)
+            node: '',                   // 弹出的节点(选择器)
+            offset:[0,0],               // 偏移量
+            points:['cb','ct'],         // 弹出层与参考节点的对齐方式
+            onTrigger:function(){}
         };
         var options = $.extend({}, defaults, parameter);
         var $document = $(document);
@@ -71,7 +72,7 @@
             }
             var isShow = false;
             var _hander = null;
-            var _node = {
+            var _api = {
                 'show':function(){
                     if(!isShow){
                         var _offset = $this.offset();
@@ -125,25 +126,26 @@
                 $trigger.on({
                     'mouseenter':function(){
                         $trigger_item = $(this);
-                        _node.show();
+                        _api.show();
                     },
-                    'mouseleave':_node.hide
+                    'mouseleave':_api.hide
                 });
                 $node.on({
-                    'mouseenter':_node.show,
-                    'mouseleave':_node.hide
+                    'mouseenter':_api.show,
+                    'mouseleave':_api.hide
                 });
             }else{
                 $trigger.on(options.triggerType,function(){
+                    options.onTrigger.bind(this)(_api);
                     if(isShow){
-                        _node.hide();
+                        _api.hide();
                         if($trigger_item[0]!=this){
                             $trigger_item = $(this);
-                            _node.show();
+                            _api.show();
                         }
                     }else{
                         $trigger_item = $(this);
-                        _node.show();
+                        _api.show();
                     }
                     return false;
                 });
@@ -151,9 +153,9 @@
                     return false;
                 });
                 $document.on('click',function(e){
-                    if(!$.contains($node[0],e.target)){
+                    if($node.length&&!$.contains($node[0],e.target)){
                         if(isShow){
-                            _node.hide();
+                            _api.hide();
                         }
                     }
                 });
