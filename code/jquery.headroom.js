@@ -175,7 +175,7 @@
             $links.on('click',function(){
                 var $this = $(this);
                 var hash = $this.attr('href');
-                var $panel = $(hash);
+                var $panel = $(':visible').filter(hash);
                 if($panel.length){
                     var top = $panel.offset().top-options.scrollOffset;
                     $links.removeClass(options.activeCls);
