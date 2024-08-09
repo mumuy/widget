@@ -160,14 +160,16 @@
                 $fixed.css({
                     'width':_window_width==_width?'100%':_width
                 });
-                var heightAuto = function(){
-                    _height = $this.outerHeight();
-                    $outer.css({
-                        'height':_height
-                    });
-                };
-                heightAuto();
-                setTimeout(heightAuto,500);
+                if(options.autoFixed){
+                    var heightAuto = function(){
+                        _height = $this.outerHeight();
+                        $outer.css({
+                            'height':_height
+                        });
+                    };
+                    heightAuto();
+                    setTimeout(heightAuto,500);
+                }
             };
            
             $window.scroll(scroll);
