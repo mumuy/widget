@@ -57,7 +57,7 @@
                 'starttime': $this.text(),				//开始时间
                 'endtime': '',							//结束时间
                 'interval': 1000,						//多久倒计时一次 单位：ms
-                'disableBtnCls': 'disabled',
+                'disabledCls': 'disabled',
                 'auto': true,							//是否默认自动计数
                 'countEach': function (time) {			//每单位时间出发事件,传入一个对象，包含时间信息(month)和时间格式化输出(format)
                     $this.text(time['format']);
@@ -69,7 +69,7 @@
             var _hander = null;
             var _start = 0, _end = 0;
             var isTime = isNaN(options.starttime) || isNaN(options.endtime); //是否时间表达式
-            var getTime = function (timestamp) {
+            var getTime = function () {
                 var date, format;
                 var time = Math.max(_start, _end);
                 var diff = _start - _end;
@@ -102,25 +102,25 @@
                 if (_hander) {
                     clearInterval(_hander);
                 }
-                options.countEach(getTime(_start));
-                $this.addClass(options.disableBtnCls);
+                options.countEach(getTime());
+                $this.addClass(options.disabledCls);
                 var isReverse = _start > _end ? true : false;
                 _hander = setInterval(function () {
                     if (isReverse) {
                         _start -= options.interval;
-                        options.countEach(getTime(_start));
+                        options.countEach(getTime());
                         if (_start <= _end) {
                             clearInterval(_hander);
-                            $this.removeClass(options.disableBtnCls);
-                            options.countEnd(getTime(_end));
+                            $this.removeClass(options.disabledCls);
+                            options.countEnd(getTime());
                         }
                     } else {
                         _start += options.interval;
-                        options.countEach(getTime(_start));
+                        options.countEach(getTime());
                         if (_start >= _end) {
                             clearInterval(_hander);
-                            $this.removeClass(options.disableBtnCls);
-                            options.countEnd(getTime(_end));
+                            $this.removeClass(options.disabledCls);
+                            options.countEnd(getTime());
                         }
                     }
                 }, options.interval);

@@ -66,7 +66,6 @@
         var options = $.extend({}, defaults, parameter);
         var $window = $(window);
         var $body = $("body");
-        var isIE6 = navigator.appVersion.indexOf("MSIE 6") > -1; //IE6
         return this.each(function() {
             //全局变量
             var $this = $(this);
@@ -79,13 +78,12 @@
             var $wg_body = $('<div class="'+options.prefix+'-body"></div>').append($children);
             var $wg_foot = $('<div class="'+options.prefix+'-foot"></div>');
             var _api = {};  //对外接口
-            var _position = isIE6?'absolute':'fixed';
             var _isOpen = false; //是否是打开状态
             //结构修改
             $this.appendTo($body).empty();
             if(options.isModel){
                 $overlay = $('<div class="'+options.prefix+'-overlay"></div>').css({
-                    'position': _position,
+                    'position': 'fixed',
                     'z-index': '998',
                     'top': '0px',
                     'left': '0px',
@@ -97,7 +95,7 @@
             }
             $container.css({
                 'display':'none',
-                'position':_position,
+                'position':'fixed',
                 'z-index': '999'
             }).appendTo($this).append($wg_head).append($wg_body).append($wg_foot);
 

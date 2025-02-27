@@ -265,7 +265,6 @@
                 format(_data);
             });
             $this.on('click','td',function(){
-                var $this = $(this);
                 var index = $(this).data('id');
                 var day = _data[index];
                 if(day['status']!='disabled'){
