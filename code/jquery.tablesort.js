@@ -4,25 +4,25 @@
  */
 ;(function (factory) {
     if (typeof define === "function" && define.amd){
-		// AMD
+        // AMD
         if (typeof jQuery === 'undefined') {
-			define(['jquery'],factory);
+            define(['jquery'],factory);
         }else{
-	        define(function(){
-	            factory(jQuery);
-	        });
+            define(function(){
+                factory(jQuery);
+            });
         }
-	}else if (typeof define === "function" && define.cmd){
-		// CMD
+    }else if (typeof define === "function" && define.cmd){
+        // CMD
         if (typeof jQuery === 'undefined') {
-			define(function(require){
-				var jQuery = require('jquery');
-	            factory(jQuery);
-	        });
+            define(function(require){
+                var jQuery = require('jquery');
+                factory(jQuery);
+            });
         }else{
-	        define(function(){
-	            factory(jQuery);
-	        });
+            define(function(){
+                factory(jQuery);
+            });
         }
     } else if (typeof module === 'object' && module.exports) {
         // Node/CommonJS

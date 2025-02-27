@@ -280,7 +280,7 @@
             $this.on('focus',function(){
                 reset();
                 _api.show();
-            })
+            });
             $this.on('input propertychange',function(){
                _api.show();
             });
