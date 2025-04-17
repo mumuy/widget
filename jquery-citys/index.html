@@ -9,18 +9,31 @@
         <link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css">
         <link rel="stylesheet" type="text/css" href="/public/style/common.css">
         <style type="text/css">
-            .citys {
+            .box {
+                margin-bottom: 25px;
+            }
+            .box .recommend{
+                padding: 15px 20px;
+                margin-bottom: 10px;
+                background: #fff7ed;
+                border: 1px solid rgba(0,0,0,0.05);
+                border-radius: 6px;
+            }
+            .box .citys{
                 margin-bottom: 10px;
             }
-
-            .citys p {
+            .box p {
                 line-height: 28px;
             }
-
+            .box select{
+                height: 32px;
+                padding: 0 10px;
+                border: 1px solid #e8e8e8;
+                border-radius: 4px;
+            }
             .warning {
                 color: #c00;
             }
-
             .container a {
                 margin-right: 8px;
                 color: #369;
@@ -51,150 +64,168 @@
             </div>
         </div>
         <div class="container">
-            <div id="location" class="citys">
-                <p>您现在的位置：</p>
-                <p>
-                    <select name="province"></select>
-                    <select name="city"></select>
-                    <select name="district"></select>
-                </p>
+            <div class="box">
+                <div class="recommend">
+                    <p>基于Web Components的组件：<a href="https://passer-by.com/widget-region" target="_blank">行政区划选择器</a></p>
+                    <div>
+                        <widget-region value="浙江省杭州市钱塘区"></widget-region>
+                    </div>
+                </div>
             </div>
-            <div class="code">
-                <p>根据IP地址定位：<a href="https://passer-by.com/api/#docs/ip" target="_blank">IP接口文档</a></p>
-            </div>
-            <script type="text/javascript">
-                if (returnCitySN) {
-                    $('#location').citys({ code: returnCitySN['cid'] });
-                }
-            </script>
-            <div id="demo" class="citys">
-                <p>
-                    <select name="province"></select>
-                    <select name="city"></select>
-                    <select name="district"></select>
-                </p>
-            </div>
-            <div class="code">
-                <p>通过地区编码初始化设置</p>
-                <p>$('#demo').citys({code:350206});</p>
-            </div>
-            <script type="text/javascript">
-                $('#demo').citys({ code: 350206 });
-            </script>
-            <div id="demo1" class="citys">
-                <p>
-                    <select name="province"></select>
-                    <select name="city"></select>
-                    <select name="district"></select>
-                </p>
-            </div>
-            <div class="code">
-                <p>通过地区名称初始化设置，并且下拉框值为地区名称</p>
-                <p>$('#demo1').citys({valueType:'name',province:'福建',city:'厦门',district:'思明'});</p>
-            </div>
-            <script type="text/javascript">
-                $('#demo1').citys({ valueType: 'name', province: '福建', city: '厦门', district: '思明' });
-            </script>
-            <div id="demo2" class="citys">
-                <p>
-                    <select name="province"></select>
-                    <select name="city"></select>
-                    <select name="district"></select>
-                </p>
-                <p id="place">请选择地区</p>
-            </div>
-            <div class="code">
-                <p>事件处理</p>
-                <pre>
-    $('#demo2').citys({
-        required:false,
-        nodata:'disabled',
-        onChange:function(data){
-            var text = data['direct']?'(直辖市)':'';
-            $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['district']);
-        }
-    });
-    </pre>
-            </div>
-            <script type="text/javascript">
-                $('#demo2').citys({
-                    required: false,
-                    nodata: 'disabled',
-                    onChange: function (data) {
-                        var text = data['direct'] ? '(直辖市)' : '';
-                        $('#place').text('当前选中地区：' + data['province'] + text + ' ' + data['city'] + ' ' + data['district']);
+            <div class="box">
+                <div id="location" class="citys">
+                    <p>您现在的位置：</p>
+                    <p>
+                        <select name="province"></select>
+                        <select name="city"></select>
+                        <select name="district"></select>
+                    </p>
+                </div>
+                <div class="code">
+                    <p>根据IP地址定位：<a href="https://passer-by.com/api/#docs/ip" target="_blank">IP接口文档</a></p>
+                </div>
+                <script type="text/javascript">
+                    if (returnCitySN) {
+                        $('#location').citys({ code: returnCitySN['cid'] });
                     }
-                });
-            </script>
-            <div id="demo3" class="citys">
-                <p>
-                    <select name="province"></select>
-                    <select name="city"></select>
-                    <select name="district"></select>
-                    <select name="town"></select>
-                </p>
+                </script>
             </div>
-            <div class="code">
-                <p>扩展显示行政区划第四级(街道)信息：</p>
-                <pre>
-        var $town = $('#demo3 select[name="town"]');
-        var townFormat = function(info){
-        $town.hide().empty();
-        if(info['code']%1e4&&info['code']<7e6){	//是否为“区”且不是港澳台地区
-            $.ajax({
-                url:'https://passer-by.com/data_location/code/'+info['code']+'.json',
-                dataType:'json',
-                success:function(town){
-                    $town.show();
-                    for(i in town){
-                            $town.append('&lt;option value="'+i+'"&gt;'+town[i]+'&lt;/option&gt;');
-                    }
-                }
-            });
-        }
-        };
-        $('#demo3').citys({
-            province:'福建',
-            city:'厦门',
-            district:'思明',
-            onChange:function(info){
-                townFormat(info);
+            <div class="box">
+                <div id="demo" class="citys">
+                    <p>
+                        <select name="province"></select>
+                        <select name="city"></select>
+                        <select name="district"></select>
+                    </p>
+                </div>
+                <div class="code">
+                    <p>通过地区编码初始化设置</p>
+                    <p>$('#demo').citys({code:350206});</p>
+                </div>
+                <script type="text/javascript">
+                    $('#demo').citys({ code: 350206 });
+                </script>
+            </div>
+            <div class="box">
+                <div id="demo1" class="citys">
+                    <p>
+                        <select name="province"></select>
+                        <select name="city"></select>
+                        <select name="district"></select>
+                    </p>
+                </div>
+                <div class="code">
+                    <p>通过地区名称初始化设置，并且下拉框值为地区名称</p>
+                    <p>$('#demo1').citys({valueType:'name',province:'福建',city:'厦门',district:'思明'});</p>
+                </div>
+                <script type="text/javascript">
+                    $('#demo1').citys({ valueType: 'name', province: '福建', city: '厦门', district: '思明' });
+                </script>
+            </div>
+            <div class="box">
+                <div id="demo2" class="citys">
+                    <p>
+                        <select name="province"></select>
+                        <select name="city"></select>
+                        <select name="district"></select>
+                    </p>
+                    <p id="place">请选择地区</p>
+                </div>
+                <div class="code">
+                    <p>事件处理</p>
+                    <pre>
+        $('#demo2').citys({
+            required:false,
+            nodata:'disabled',
+            onChange:function(data){
+                var text = data['direct']?'(直辖市)':'';
+                $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['district']);
             }
-        },function(api){
-            var info = api.getInfo();
-            townFormat(info);
         });
-    </pre>
+        </pre>
+                </div>
+                <script type="text/javascript">
+                    $('#demo2').citys({
+                        required: false,
+                        nodata: 'disabled',
+                        onChange: function (data) {
+                            var text = data['direct'] ? '(直辖市)' : '';
+                            $('#place').text('当前选中地区：' + data['province'] + text + ' ' + data['city'] + ' ' + data['district']);
+                        }
+                    });
+                </script>
             </div>
-            <script type="text/javascript">
-                var $town = $('#demo3 select[name="town"]');
-                var townFormat = function (info) {
-                    $town.hide().empty();
-                    if (info['code'] % 1e4 && info['code'] < 7e5) {	//是否为“区”且不是港澳台地区
-                        $.ajax({
-                            url: 'https://passer-by.com/data_location/code/' + info['code'] + '.json',
-                            dataType: 'json',
-                            success: function (town) {
-                                $town.show();
-                                for (i in town) {
-                                    $town.append('<option value="' + i + '">' + town[i] + '</option>');
-                                }
-                            }
-                        });
+            <div class="box">
+                <div id="demo3" class="citys">
+                    <p>
+                        <select name="province"></select>
+                        <select name="city"></select>
+                        <select name="district"></select>
+                        <select name="town"></select>
+                    </p>
+                </div>
+                <div class="code">
+                    <p>扩展显示行政区划第四级(街道)信息：</p>
+                    <pre>
+            var $town = $('#demo3 select[name="town"]');
+            var townFormat = function(info){
+            $town.hide().empty();
+            if(info['code']%1e4&&info['code']<7e6){	//是否为“区”且不是港澳台地区
+                $.ajax({
+                    url:'https://passer-by.com/data_location/code/'+info['code']+'.json',
+                    dataType:'json',
+                    success:function(town){
+                        $town.show();
+                        for(i in town){
+                                $town.append('&lt;option value="'+i+'"&gt;'+town[i]+'&lt;/option&gt;');
+                        }
                     }
-                };
-                $('#demo3').citys({
-                    province: '福建',
-                    city: '厦门',
-                    district: '思明',
-                    onChange: function (info) {
-                        townFormat(info);
-                    }
-                }, function (api) {
-                    var info = api.getInfo();
-                    townFormat(info);
                 });
-            </script>
+            }
+            };
+            $('#demo3').citys({
+                province:'福建',
+                city:'厦门',
+                district:'思明',
+                onChange:function(info){
+                    townFormat(info);
+                }
+            },function(api){
+                var info = api.getInfo();
+                townFormat(info);
+            });
+        </pre>
+                </div>
+                <script type="text/javascript">
+                    var $town = $('#demo3 select[name="town"]');
+                    var townFormat = function (info) {
+                        $town.hide().empty();
+                        if (info['code'] % 1e4 && info['code'] < 7e5) {	//是否为“区”且不是港澳台地区
+                            $.ajax({
+                                url: 'https://passer-by.com/data_location/code/' + info['code'] + '.json',
+                                dataType: 'json',
+                                success: function (town) {
+                                    $town.show();
+                                    for (i in town) {
+                                        $town.append('<option value="' + i + '">' + town[i] + '</option>');
+                                    }
+                                }
+                            });
+                        }
+                    };
+                    $('#demo3').citys({
+                        province: '福建',
+                        city: '厦门',
+                        district: '思明',
+                        onChange: function (info) {
+                            townFormat(info);
+                        }
+                    }, function (api) {
+                        var info = api.getInfo();
+                        townFormat(info);
+                    });
+                </script>
+            </div>
             <div class="example">
                 <div class="call">
                     <h1>调用方法：</h1>
@@ -323,6 +354,7 @@
                 </table>
             </div>
         </div>
+        <script type="text/javascript" src="https://passer-by.com/widget-region/dist/widget-region.min.js"></script>
         <script type="text/javascript" src="https://passer-by.com/public/script/projects.js"></script>
         <script type="text/javascript" src="https://jquerywidget.com/public/script/stat.js"></script>
     </body>
