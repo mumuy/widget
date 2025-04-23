@@ -137,7 +137,7 @@
                             var result = options.onSelect(data);
                             if(result!=false){
                                 $this.val(result);
-                                $this.data('value',result);
+                                $this.data('value',data.value);
                             }
                         }
                         if(!options.autoSubmit){
@@ -203,7 +203,7 @@
                     var scroll_top = Math.max(top-outer_height/2+height/2,0);
                     $parent.scrollTop(scroll_top);
                     $this.val(result);
-                    $this.data('value',result);
+                    $this.data('value',data.value);
                 }
             };
             // 成功后的回调函数
@@ -299,7 +299,7 @@
                 var result = options.onSelect.bind(_)(data);
                 if(result!=false){
                     $this.val(result);
-                    $this.data('value',result);
+                    $this.data('value',data.value);
                 }
                 if(options.autoSubmit){
                     $form.submit();
