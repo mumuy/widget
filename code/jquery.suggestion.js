@@ -56,7 +56,7 @@
             activeCls:'active',              //列表项选中class
             triggerNode:'li',                //节点调整
             dynamic:true,                    //动态
-            FieldName:'word',                //当前input表单项在请求接口时的字段名
+            fieldName:'word',                //当前input表单项在请求接口时的字段名
             dataType:'jsonp',                //请求的格式
             parameter:{},                    //其他与接口有关参数
             jsonp:'callback',                //传递自定义回调函数
@@ -232,8 +232,8 @@
                     if(options.dynamic){
                         if(value != _text){ //缓存上次输入
                             _index = -1;
-                            if(options.FieldName){
-                                options.parameter[options.FieldName] = _text = value;
+                            if(options.fieldName){
+                                options.parameter[options.fieldName] = _text = value;
                             }
                             if(options.beforeSend(options.parameter)!=false){
                                 var param = {

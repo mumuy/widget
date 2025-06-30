@@ -42,8 +42,14 @@
         factory(jQuery);
     }
 }(function ($) {
-    $.fn.tablesort = function(parameter) {
-        parameter = parameter || {};
+    $.fn.tablesort = function(parameter,getApi) {
+        if(typeof parameter == 'function'){ //重载
+			getApi = parameter;
+            parameter = {};
+        }else{
+            parameter = parameter || {};
+            getApi = getApi||function(){};
+        }
         var defaults = {
             /* 节点绑定 */
             sortCls: 'sortabled',       // 排序的class
@@ -78,27 +84,38 @@
                             thMap[tr_index+i][m+j] = tr_index+','+th_index;
                             thHash[tr_index+','+th_index] = {
                                 'row':tr_index+i,
-                                'col':m+j
+                                'col':m+j,
+                                'item':$th
                             };
                         }
                     }
                 });
             });
-            var sortTableByIndex = function(index,type){
-                var type = type||'up';
+            var _api = {};
+            _api.sortByIndex = function(index,type){
+                var type = type||'asc';
                 var $bd_tbody = $table.find('tbody');
                 $bd_tbody.find('td').removeClass(options.activeCls).filter(':nth-child('+(index+1)+')').addClass(options.activeCls);
                 var $items = $bd_tbody.find('tr');
                 var $temps = $items.clone();
                 var list = $.map($items,function(item,i){
                     var $item = $(item);
-                    var value = $item.find('td').eq(index).data('value')||0;
+                    var value = $item.find('td').eq(index).attr('data-value')||0;
                     return {
                         'index':i,
                         'value':value
                     };
                 });
-                if(type=='up'){
+                var $th = null;
+                for(let key in thHash){
+                    let item = thHash[key];
+                    if(item['col']==index){
+                        $th = item['item'];
+                    }
+                }
+                $table.find('th').removeClass(options.descCls).removeClass(options.ascCls);
+                if(type=='asc'){
+                    $th.addClass(options.ascCls);
                     list.sort(function(item1,item2){
                         if(isNaN(item1['value'])||isNaN(item2['value'])){
                             return item1['value'].toString().localeCompare(item2['value'].toString());
@@ -107,6 +124,7 @@
                         }
                     });
                 }else{
+                    $th.addClass(options.descCls);
                     list.sort(function(item1,item2){
                         if(isNaN(item1['value'])||isNaN(item2['value'])){
                             return item2['value'].toString().localeCompare(item1['value'].toString());
@@ -134,17 +152,10 @@
                 }else if($th.hasClass(options.ascCls)){
                     type = 'desc';
                 }
-                if(type=='desc'){
-                    $table.find('th').removeClass(options.descCls).removeClass(options.ascCls);
-                    $th.addClass(options.descCls);
-                    sortTableByIndex(hash['col'],'down');
-                }else{
-                    $table.find('th').removeClass(options.descCls).removeClass(options.ascCls);
-                    $th.addClass(options.ascCls);
-                    sortTableByIndex(hash['col'],'up');
-                }
+                _api.sortByIndex(hash['col'],type);
                 options.onSortEnd(th_index,type);
             });
+            getApi(_api);
         });
     };
 }));
