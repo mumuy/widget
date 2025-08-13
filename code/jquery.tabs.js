@@ -76,7 +76,7 @@
             var $this = $(this);
             var $content = $this.find("." + options.contentCls);
             var $panels = $content.children();
-            var $triggers = $this.find("." + options.navCls + ">" + options.triggerCondition);
+            var $triggers = $this.find("." + options.navCls);
             //全局变量
             var _api = {};
             var _size = $panels.length;
@@ -84,11 +84,15 @@
             var _hander = null;
             options.triggerType += options.triggerType === "mouse" ? "enter" : "";  //使用mouseenter防止事件冒泡
             //样式
-            if(options.effect=='fade'){
-                $content.css('position','relative');
-                $panels.css('position','absolute');
-                options.delay += 500;
-            }
+            var reset = function(){
+                $panels = $content.children();
+                _size = $panels.length;
+                if(options.effect=='fade'){
+                    $content.css('position','relative');
+                    $panels.css('position','absolute');
+                    options.delay += 500;
+                }
+            };
             //上一个
             var prev = function(e){
                 var i = _index?_index-1:_size-1;
@@ -128,7 +132,8 @@
             };
             //选择某标签
             _api.setIndex = function(index){
-                $triggers.removeClass(options.activeCls).eq(index).addClass(options.activeCls);
+                reset();
+                $triggers.find('>'+options.triggerCondition).removeClass(options.activeCls).eq(index).addClass(options.activeCls);
                 switch(options.effect){
                     case 'fade':
                         $panels.stop().css('opacity',1);
@@ -167,8 +172,8 @@
             //事件绑定-导航
             $this.find('.'+options.prevBtnCls).click(prev);
             $this.find('.'+options.nextBtnCls).click(next);
-            $triggers.bind(options.triggerType, function(e) { //事件绑定
-                var i = $triggers.index($(this));
+            $triggers.on(options.triggerType, '>'+options.triggerCondition,function(e) { //事件绑定
+                var i = $triggers.find('>'+options.triggerCondition).index($(this));
                 var status = {
                     index: _index,
                     count: _size,
