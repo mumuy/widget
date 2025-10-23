@@ -1,0 +1,116 @@
+header {
+    height: 210px;
+    padding: 80px 0 20px;
+    color: #fff;
+    margin-bottom: 50px;
+}
+.mod-bg {
+    position: absolute;
+    width: 100%;
+    height: 740px;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    background: radial-gradient(95.74% 95.74% at 50% 116.49%, rgba(85, 144, 255, 0.15) 0%, rgba(85, 144, 255, 0) 100%), rgb(255, 255, 255);
+    transform: rotate(-180deg);
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    z-index: 99;
+}
+
+
+.mod-head {
+    margin-bottom: 35px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.mod-head h1 {
+    font-weight: bold;
+    line-height: 60px;
+    font-size: 45px;
+    color: #1a2b3b;
+}
+
+.mod-head p {
+    line-height: 30px;
+    font-size: 18px;
+    color: #1a2b3b;
+}
+
+.mod-list {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.mod-list li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.mod-list .btn {
+    display: block;
+    padding: 0 15px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    line-height: 36px;
+    font-size: 15px;
+    color: #666;
+    border-radius: 6px;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.mod-list .btn:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.mod-botton {
+    height: 32px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+.mod-content ul{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 8px;
+}
+.mod-content .item {
+    padding: 15px;
+    background: #f6f8fa;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #888;
+}
+.mod-content .item:hover {
+    background: #f4f6f9;
+}
+.mod-content a {
+    font-weight: bold;
+    color: #444;
+}
+.mod-content a.hot {
+    color: #cc0000;
+}
+.mod-content a:hover {
+    border-bottom: 1px dotted #666;
+}
+
+.mod-foot {
+    text-align: center;
+    padding: 0 30px;
+    color: #999;
+}
+
+.mod-foot a {
+    color: #999;
+}
+
+::selection {
+    background-color: rgba(255, 255, 255, 0.1);
+}
