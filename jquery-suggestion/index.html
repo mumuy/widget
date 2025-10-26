@@ -1,242 +1,292 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>搜索建议-suggestion</title>
-		<link rel="shortcut icon" href="/public/image/favicon.png">
-		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
-		<style type="text/css">
-			.search{
-				width:400px;
-				margin: 0 auto 25px;
-			}
-			.search .input-text{
-				width: 200px;
-				padding:4px 10px;
-				line-height: 20px;
-			}
-			.search .input-submit{
-				width:60px;
-				height: 30px;
-				line-height: 30px;
-			}
-			.suggestion{
-				background: #fff;
-			}
-			.suggestion ul{
-				border:1px solid #ebebeb;
-			}
-			.suggestion li{
-				padding:0 10px;
-				line-height: 24px;
-				cursor: pointer;
-			}
-			.suggestion .active{
-				background: #ccc;
-			}
-			.code {
-				border: 1px dashed #e2e2e2;
-				padding: 10px 5px;
-				margin-bottom: 25px;
-			}
-		</style>
-		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
-		<script type="text/javascript" src="/code/jquery.suggestion.js"></script>
-	</head>
-	<body>
-		<div class="header">
-			<div class="inner">
-				<div class="mod-head">
-					<div class="bd">
-						<a class="btn" href="https://github.com/mumuy/widget" rel="nofollow" target="_blank" title="Github">
-							<svg aria-hidden="true" class="octicon" height="20" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
-							<span>Github</span>
-						</a>
-						<a class="btn" href="https://passer-by.com/" target="_blank">个人网站</a>
-                        <a class="btn" href="/">返回首页</a>
-					</div>
-				</div>
-			</div>
-		</div>
-        <div class="container">
-			<div class="search">
-				<form action="https://www.baidu.com/sugrec" target="_blank">
-					<input class="input-text" type="text" name="word" value="" placeholder="输入想要搜索的关键词"/>
-					<input class="input-submit" type="submit" value="搜索">
-				</form>
-			</div>
-			<div class="code">
-				<p>百度搜索建议</p>
-<pre>
-$('.search input[type="text"]').suggestion({
-	url:'https://www.baidu.com/sugrec',
-	FieldName:'wd',
-	parameter:{
-		'ie':'utf-8',
-		'json':1,
-		'prod':'pc',
-		'from':'pc_web'
-	},
-	jsonp:'cb',
-	onCallback:function(data){
-		var result = [];
-		if(data['g']){
-			result = data['g'].map(function(item){
-				return {
-					'value':item['q'],
-					'name':item['q']
-				};
-			});
-		}
-		return result;
-	}
-});
-</pre>
-			</div>
-			<script type="text/javascript">
-				$('.search input[type="text"]').suggestion({
-					url:'https://www.baidu.com/sugrec',
-					FieldName:'wd',
-					parameter:{
-						'ie':'utf-8',
-						'json':1,
-						'prod':'pc',
-						'from':'pc_web'
-					},
-					jsonp:'cb',
-					onCallback:function(data){
-						var result = [];
-						if(data['g']){
-							result = data['g'].map(function(item){
-								return {
-									'value':item['q'],
-									'name':item['q']
-								};
-							});
-						}
-						return result;
-					}
-				});
-			</script>
-			<div class="example">
-				<div class="call">
-					<h1>调用方法：</h1>
-					<p>$(selector).suggestion(options,callback);</p>
-				</div>
-				<h2>options参数</h2>
-				<table>
-					<thead>
-						<tr>
-							<th width="150">参数</th>
-							<th width="120">默认值</th>
-							<th>说明</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>url</td>
-							<td>''</td>
-							<td>请求的接口地址</td>
-						</tr>
-						<tr>
-							<td>suggestionCls</td>
-							<td>'suggestion'</td>
-							<td>提示框的内容class</td>
-						</tr>
-						<tr>
-							<td>activeCls</td>
-							<td>'active'</td>
-							<td>列表项选中class</td>
-						</tr>
-						<tr>
-							<td>triggerNode</td>
-							<td>'li'</td>
-							<td>建议列表中触发选择的节点</td>
-						</tr>
-						<tr>
-							<td>itemFormat</td>
-							<td>function(data){return data['name'];}</td>
-							<td>建议列表节点样式</td>
-						</tr>
-						<tr>
-							<td>fieldName</td>
-							<td>'word'</td>
-							<td>当前input表单项在请求接口时的字段名</td>
-						</tr>
-						<tr>
-							<td>dynamic</td>
-							<td>true</td>
-							<td>是否需要异步请求数据</td>
-						</tr>
-						<tr>
-							<td>dataType</td>
-							<td>'jsonp'</td>
-							<td>请求的格式</td>
-						</tr>
-						<tr>
-							<td>parameter</td>
-							<td>{}</td>
-							<td>其他与接口有关参数</td>
-						</tr>
-						<tr>
-							<td>jsonp</td>
-							<td>'callback'</td>
-							<td>传递自定义回调函数</td>
-						</tr>
-						<tr>
-							<td>jsonpCallback</td>
-							<td>''</td>
-							<td>自定义回调函数</td>
-						</tr>
-						<tr>
-							<td>autoSubmit</td>
-							<td>true</td>
-							<td>点击确定是否自动提交表单</td>
-						</tr>
-						<tr>
-							<td>beforeSend()</td>
-							<td>[无]</td>
-							<td>发送前动作：传入准备提交的表单项目，返回false终止提交</td>
-						</tr>
-						<tr>
-							<td>onCallback(data)</td>
-							<td>[无]</td>
-							<td>data表示请求到的数据，返回[{'name':'','value':''},...]表示搜索列表项，其中name用于显示，value表示有效值</td>
-						</tr>
-						<tr>
-							<td>onChange(data)</td>
-							<td>function(data){return data['value'];}</td>
-							<td>用户按键盘切换时触发，data表示当前选中项的数据，返回false不自动填入值;</td>
-						</tr>
-						<tr>
-							<td>onSelect(data)</td>
-							<td>function(data){return data['value'];}</td>
-							<td>选中搜索建议列表项时触发，data表示当前选中项的数据，返回false不自动填入值;</td>
-						</tr>
-					</tbody>
-				</table>
-				<h2>callback(api)参数</h2>
-				<table>
-					<thead>
-						<tr>
-							<th width="200">方法</th>
-							<th>说明</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>show()</td>
-							<td>展示搜索建议面板</td>
-						</tr>
-						<tr>
-							<td>hide()</td>
-							<td>隐藏搜索建议面板</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
-		<script type="text/javascript" src="https://jquerywidget.com/public/script/stat.js"></script>
-	</body>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>搜索建议-suggestion</title>
+        <link rel="shortcut icon" href="../static/image/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../static/style/common.css">
+        <style type="text/css">
+            .mod-panel .search{
+                width:400px;
+                margin: 0 auto 25px;
+            }
+            .mod-panel .search .input-text{
+                width: 240px;
+                padding: 5px 12px;
+                border: 1px solid #e8e8e8;
+                border-radius: 3px;
+                line-height: 24px;
+                outline: none;
+            }
+            .mod-panel .search .input-submit{
+                width:60px;
+                height: 30px;
+                line-height: 30px;
+            }
+            .mod-panel .suggestion{
+                background: #fff;
+            }
+            .mod-panel .suggestion ul{
+                border:1px solid #ebebeb;
+            }
+            .mod-panel .suggestion li{
+                padding:0 10px;
+                line-height: 24px;
+                cursor: pointer;
+            }
+            .mod-panel .suggestion .active{
+                background: #ccc;
+            }
+            .mod-panel .code {
+                border: 1px dashed #e2e2e2;
+                padding: 10px 5px;
+                margin-bottom: 25px;
+            }
+        </style>
+        <script type="text/javascript" src="../static/script/jquery.min.js"></script>
+        <script type="text/javascript" src="../code/jquery.suggestion.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="mod-head">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="logo">
+                                <a href="/"><img src="../static/image/public/logo.png" width="180" height="64" alt="路人甲"></a>
+                            </div>
+                            <nav>
+                            </nav>
+                            <div class="operation">
+                                <a class="btn" href="https://passer-by.com" target="_blank">个人网站</a>
+                                <a class="btn" href="https://github.com/mumuy/widget/" rel="nofollow" target="_blank" title="Github">
+                                    <svg aria-hidden="true" class="octicon" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24" height="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+                                    <span>Github</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="container">
+                <div class="inner">
+                    <section class="mod-panel">
+                        <div class="hd">
+                            <h3 class="title">搜索建议-suggestion</h3>
+                        </div>
+                        <div class="bd">
+                            <div class="search">
+                                <form action="https://www.baidu.com/sugrec" target="_blank">
+                                    <input class="input-text" type="search" name="word" value="" placeholder="输入想要搜索的关键词"/>
+                                    <input class="btn" type="submit" value="搜索">
+                                </form>
+                            </div>
+                            <div class="code">
+                                <p>百度搜索建议</p>
+<code><pre>$('.search input[type="text"]').suggestion({
+    url:'https://www.baidu.com/sugrec',
+    FieldName:'wd',
+    parameter:{
+        'ie':'utf-8',
+        'json':1,
+        'prod':'pc',
+        'from':'pc_web'
+    },
+    jsonp:'cb',
+    onCallback:function(data){
+        var result = [];
+        if(data['g']){
+            result = data['g'].map(function(item){
+                return {
+                    'value':item['q'],
+                    'name':item['q']
+                };
+            });
+        }
+        return result;
+    }
+});</pre></code>
+                            </div>
+                            <script type="text/javascript">
+                                $('.search input[type="text"]').suggestion({
+                                    url:'https://www.baidu.com/sugrec',
+                                    FieldName:'wd',
+                                    parameter:{
+                                        'ie':'utf-8',
+                                        'json':1,
+                                        'prod':'pc',
+                                        'from':'pc_web'
+                                    },
+                                    jsonp:'cb',
+                                    onCallback:function(data){
+                                        var result = [];
+                                        if(data['g']){
+                                            result = data['g'].map(function(item){
+                                                return {
+                                                    'value':item['q'],
+                                                    'name':item['q']
+                                                };
+                                            });
+                                        }
+                                        return result;
+                                    }
+                                });
+                            </script>
+                            <div class="example">
+                                <div class="code">
+                                    <h1>调用方法：</h1>
+                                    <p>$(selector).suggestion(options,callback);</p>
+                                </div>
+                                <div class="table-outer">
+                                    <h2>options参数</h2>
+                                    <div class="table-inner">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th width="150">参数</th>
+                                                    <th width="120">默认值</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>url</td>
+                                                    <td>''</td>
+                                                    <td>请求的接口地址</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>suggestionCls</td>
+                                                    <td>'suggestion'</td>
+                                                    <td>提示框的内容class</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>activeCls</td>
+                                                    <td>'active'</td>
+                                                    <td>列表项选中class</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>triggerNode</td>
+                                                    <td>'li'</td>
+                                                    <td>建议列表中触发选择的节点</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>itemFormat</td>
+                                                    <td>function(data){return data['name'];}</td>
+                                                    <td>建议列表节点样式</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fieldName</td>
+                                                    <td>'word'</td>
+                                                    <td>当前input表单项在请求接口时的字段名</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>dynamic</td>
+                                                    <td>true</td>
+                                                    <td>是否需要异步请求数据</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>dataType</td>
+                                                    <td>'jsonp'</td>
+                                                    <td>请求的格式</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>parameter</td>
+                                                    <td>{}</td>
+                                                    <td>其他与接口有关参数</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>jsonp</td>
+                                                    <td>'callback'</td>
+                                                    <td>传递自定义回调函数</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>jsonpCallback</td>
+                                                    <td>''</td>
+                                                    <td>自定义回调函数</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>autoSubmit</td>
+                                                    <td>true</td>
+                                                    <td>点击确定是否自动提交表单</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>beforeSend()</td>
+                                                    <td>[无]</td>
+                                                    <td>发送前动作：传入准备提交的表单项目，返回false终止提交</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>onCallback(data)</td>
+                                                    <td>[无]</td>
+                                                    <td>data表示请求到的数据，返回[{'name':'','value':''},...]表示搜索列表项，其中name用于显示，value表示有效值</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>onChange(data)</td>
+                                                    <td>function(data){return data['value'];}</td>
+                                                    <td>用户按键盘切换时触发，data表示当前选中项的数据，返回false不自动填入值;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>onSelect(data)</td>
+                                                    <td>function(data){return data['value'];}</td>
+                                                    <td>选中搜索建议列表项时触发，data表示当前选中项的数据，返回false不自动填入值;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="table-outer">
+                                    <h2>callback(api)参数</h2>
+                                    <div class="table-inner">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th width="200">方法</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>show()</td>
+                                                    <td>展示搜索建议面板</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>hide()</td>
+                                                    <td>隐藏搜索建议面板</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
+                </div>
+            </div>
+            <footer>
+                <div class="mod-fixedbar">
+                    <div class="bd">
+                        <ul>
+                            <li>
+                                <a class="gotop" href="javascript:;" rel="nofollow">
+                                    <img src="../static/image/public/icon-gotop.png" width="24" height="24" alt="回到顶部">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mod-foot">
+                    <div class="bd">
+                        <p>
+                            <span>Copyright &copy; 2025</span>
+                            <a href="/">jquerywidget.com</a>
+                            <span>版权所有</span>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script type="text/javascript" src="../static/script/common.js"></script>
+        <script type="text/javascript" src="../static/script/stat.js"></script>
+    </body>
 <html>

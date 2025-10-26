@@ -1,198 +1,254 @@
 ﻿<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>滑动条-range</title>
-		<link rel="shortcut icon" href="/public/image/favicon.png">
-		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
-		<style type="text/css">
-			.panel{
-				margin-bottom:20px;
-			}
-			.range{
-				width:240px;
-				height:4px;
-				margin-bottom:15px;
-				border:1px solid #e2e2e2;
-			}
-			.range .value{
-				background:#0064cd;
-			}
-			.range .handle{
-				display:block;
-				top:-3px;
-				width:8px;
-				height:8px;
-				margin-left:-5px;
-				border:1px solid #e2e2e2;
-				background:#fff;
-				cursor:default;
-				outline:0;
-			}
-		</style>
-		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
-		<script type="text/javascript" src="/code/jquery.range.js"></script>
-	</head>
-	<body>
-		<div class="header">
-			<div class="inner">
-				<div class="mod-head">
-					<div class="bd">
-						<a class="btn" href="https://github.com/mumuy/widget" rel="nofollow" target="_blank" title="Github">
-							<svg aria-hidden="true" class="octicon" height="20" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
-							<span>Github</span>
-						</a>
-						<a class="btn" href="https://passer-by.com/" target="_blank">个人网站</a>
-                        <a class="btn" href="/">返回首页</a>
-					</div>
-				</div>
-			</div>
-		</div>
-        <div class="container">
-			<div class="panel">
-				<div class="range" id="range1"></div>
-				<p><input id="input1" type="text" readonly value=""/></p>
-			</div>
-			<div class="code">
-				<p>移动结束显示</p>
-				<p>
-<pre>$('#range1').range({
-	min:0,
-	max:50,
-	value:40,
-	steps:5,
-	onChange:function(status){
-		$('#input1').val(status.value);
-	}
-});</pre>
-				</p>
-			</div>
-			<script type="text/javascript">
-				$('#range1').range({
-					min:0,
-					max:50,
-					value:40,
-					steps:5,
-					onChange:function(status){
-						$('#input1').val(status.value);
-					}
-				});
-			</script>
-			<div class="panel">
-				<div class="range" id="range2"></div>
-				<p><input id="input2" type="text" readonly/></p>
-			</div>
-			<div class="code">
-				<p>移动过程中显示</p>
-				<p>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>滑动条-range</title>
+        <link rel="shortcut icon" href="../static/image/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../static/style/common.css">
+        <style type="text/css">
+            .mod-panel .demo{
+                margin-bottom:20px;
+            }
+            .mod-panel input[type="text"]{
+                width: 80px;
+                height: 24px;
+                padding: 5px 10px;
+                border: 1px solid #e8e8e8;
+                border-radius: 3px;
+            }
+            .mod-panel .range-container{
+                width:240px;
+                height:8px;
+                margin-bottom:15px;
+                border:1px solid #e2e2e2;
+            }
+            .mod-panel .range-container .value{
+                background:#0064cd;
+            }
+            .mod-panel .range-container .handle{
+                display:block;
+                top:-3px;
+                width:8px;
+                height:12px;
+                margin-left:-5px;
+                border:1px solid #e2e2e2;
+                background:#fff;
+                cursor:default;
+                outline:0;
+            }
+        </style>
+        <script type="text/javascript" src="../static/script/jquery.min.js"></script>
+        <script type="text/javascript" src="../code/jquery.range.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="mod-head">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="logo">
+                                <a href="/"><img src="../static/image/public/logo.png" width="180" height="64" alt="路人甲"></a>
+                            </div>
+                            <nav>
+                            </nav>
+                            <div class="operation">
+                                <a class="btn" href="https://passer-by.com" target="_blank">个人网站</a>
+                                <a class="btn" href="https://github.com/mumuy/widget/" rel="nofollow" target="_blank" title="Github">
+                                    <svg aria-hidden="true" class="octicon" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24" height="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+                                    <span>Github</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="container">
+                <div class="inner">
+                    <section class="mod-panel">
+                        <div class="hd">
+                            <h3 class="title">滑动条-range</h3>
+                        </div>
+                        <div class="bd">
+                            <div class="demo">
+                                <div class="range-container" id="range1"></div>
+                                <p><input id="input1" type="text" readonly value=""/></p>
+                            </div>
+                            <div class="code">
+                                <p>移动结束显示</p>
+                                <p>
+<code><pre>$('#range1').range({
+    min:0,
+    max:50,
+    value:40,
+    steps:5,
+    onChange:function(status){
+        $('#input1').val(status.value);
+    }
+});</pre></code>
+                                </p>
+                            </div>
+                            <script type="text/javascript">
+                                $('#range1').range({
+                                    min:0,
+                                    max:50,
+                                    value:40,
+                                    steps:5,
+                                    onChange:function(status){
+                                        $('#input1').val(status.value);
+                                    }
+                                });
+                            </script>
+                            <div class="demo">
+                                <div class="range-container" id="range2"></div>
+                                <p><input id="input2" type="text" readonly/></p>
+                            </div>
+                            <div class="code">
+                                <p>移动过程中显示</p>
+                                <p>
 <pre>
 $('#range2').range({
-	min:10,
-	max:62,
-	value:40,
-	steps:5,
-	onSlide:function(status){
-		$('#input2').val(status.value);
-	}
+    min:10,
+    max:62,
+    value:40,
+    steps:5,
+    onSlide:function(status){
+        $('#input2').val(status.value);
+    }
 });
 </pre>
-				</p>
-			</div>
-			<script type="text/javascript">
-				$('#range2').range({
-					min:10,
-					max:62,
-					value:40,
-					steps:5,
-					onSlide:function(status){
-						$('#input2').val(status.value);
-					}
-				});
-			</script>
-			<div class="example">
-				<div class="call">
-					<h1>调用方法：</h1>
-					<p>$(selector).range(options,callback(api));</p>
-				</div>
-				<h2>options参数</h2>
-				<table>
-					<thead>
-						<tr>
-							<th width="150">参数</th>
-							<th width="120">默认值</th>
-							<th>说明</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>valueCls</td>
-							<td>value</td>
-							<td>当前有效值范围显示class</td>
-						</tr>
-						<tr>
-							<td>handleCls</td>
-							<td>handle</td>
-							<td>拖动滑块class</td>
-						</tr>
-						<tr>
-							<td>min</td>
-							<td>0</td>
-							<td>变化范围的最小值</td>
-						</tr>
-						<tr>
-							<td>max</td>
-							<td>100</td>
-							<td>变化范围的最大值</td>
-						</tr>
-						<tr>
-							<td>value</td>
-							<td>1</td>
-							<td>默认显示的值</td>
-						</tr>
-						<tr>
-							<td>steps</td>
-							<td>1</td>
-							<td>每次移动的步长</td>
-						</tr>
-						<tr>
-							<td>type</td>
-							<td>'outer'</td>
-							<td>outer进度计算以进度条宽为准，inner进度计算需扣除条滑块宽</td>
-						</tr>
-						<tr>
-							<td>onSlide(obj)</td>
-							<td>[无]</td>
-							<td>当前值变化时触发的事件，传入对象:event为事件,value为当前值</td>
-						</tr>
-						<tr>
-							<td>onChange(obj)</td>
-							<td>[无]</td>
-							<td>当前值变化后触发的事件，传入对象:event为事件,value为当前值</td>
-						</tr>
-					</tbody>
-				</table>
-				<h2>callback(api)参数</h2>
-				<table>
-					<thead>
-						<tr>
-							<th width="200">方法</th>
-							<th>说明</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>setValue(value)</td>
-							<td>设置值</td>
-						</tr>
-						<tr>
-							<td>resize()</td>
-							<td>重置尺寸</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
-		<script type="text/javascript" src="https://jquerywidget.com/public/script/stat.js"></script>
-	</body>
+                                </p>
+                            </div>
+                            <script type="text/javascript">
+                                $('#range2').range({
+                                    min:10,
+                                    max:62,
+                                    value:40,
+                                    steps:5,
+                                    onSlide:function(status){
+                                        $('#input2').val(status.value);
+                                    }
+                                });
+                            </script>
+                            <div class="example">
+                                <div class="code">
+                                    <h1>调用方法：</h1>
+                                    <p>$(selector).range-container(options,callback(api));</p>
+                                </div>
+                                <div class="table-outer">
+                                    <h2>options参数</h2>
+                                    <div class="table-inner">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th width="150">参数</th>
+                                                    <th width="120">默认值</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>valueCls</td>
+                                                    <td>value</td>
+                                                    <td>当前有效值范围显示class</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>handleCls</td>
+                                                    <td>handle</td>
+                                                    <td>拖动滑块class</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>min</td>
+                                                    <td>0</td>
+                                                    <td>变化范围的最小值</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>max</td>
+                                                    <td>100</td>
+                                                    <td>变化范围的最大值</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>value</td>
+                                                    <td>1</td>
+                                                    <td>默认显示的值</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>steps</td>
+                                                    <td>1</td>
+                                                    <td>每次移动的步长</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>type</td>
+                                                    <td>'outer'</td>
+                                                    <td>outer进度计算以进度条宽为准，inner进度计算需扣除条滑块宽</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>onSlide(obj)</td>
+                                                    <td>[无]</td>
+                                                    <td>当前值变化时触发的事件，传入对象:event为事件,value为当前值</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>onChange(obj)</td>
+                                                    <td>[无]</td>
+                                                    <td>当前值变化后触发的事件，传入对象:event为事件,value为当前值</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="table-outer">
+                                    <h2>callback(api)参数</h2>
+                                    <div class="table-inner">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th width="200">方法</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>setValue(value)</td>
+                                                    <td>设置值</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>resize()</td>
+                                                    <td>重置尺寸</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
+                </div>
+            </div>
+            <footer>
+                <div class="mod-fixedbar">
+                    <div class="bd">
+                        <ul>
+                            <li>
+                                <a class="gotop" href="javascript:;" rel="nofollow">
+                                    <img src="../static/image/public/icon-gotop.png" width="24" height="24" alt="回到顶部">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mod-foot">
+                    <div class="bd">
+                        <p>
+                            <span>Copyright &copy; 2025</span>
+                            <a href="/">jquerywidget.com</a>
+                            <span>版权所有</span>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script type="text/javascript" src="../static/script/common.js"></script>
+        <script type="text/javascript" src="../static/script/stat.js"></script>
+    </body>
 <html>

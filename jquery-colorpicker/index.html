@@ -1,140 +1,173 @@
 ﻿<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>颜色选择器-colorpicker</title>
-		<link rel="shortcut icon" href="/public/image/favicon.png">
-		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
-		<style type="text/css">
-			.panel{
-				margin-bottom:20px;
-			}
-			.panel p{
-				line-height: 26px;
-				margin-bottom: 5px;
-			}
-			.range{
-				width:240px;
-				height:4px;
-				margin-bottom:15px;
-				border:1px solid #e2e2e2;
-			}
-			.range .value{
-				background:#0064cd;
-			}
-			.range .handle{
-				display:block;
-				top:-3px;
-				width:8px;
-				height:8px;
-				margin-left:-5px;
-				border:1px solid #e2e2e2;
-				background:#fff;
-				cursor:default;
-				outline:0;
-			}
-		</style>
-		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
-		<script type="text/javascript" src="/code/jquery.colorpicker.js"></script>
-	</head>
-	<body>
-		<div class="header">
-			<div class="inner">
-				<div class="mod-head">
-					<div class="bd">
-						<a class="btn" href="https://github.com/mumuy/widget" rel="nofollow" target="_blank" title="Github">
-							<svg aria-hidden="true" class="octicon" height="20" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
-							<span>Github</span>
-						</a>
-						<a class="btn" href="https://passer-by.com/" target="_blank">个人网站</a>
-                        <a class="btn" href="/">返回首页</a>
-					</div>
-				</div>
-			</div>
-		</div>
-        <div class="container">
-			<div class="panel">
-				<p>系统默认颜色选择扩展</p>
-				<p><input type="color" value="#fc0000"/></p>
-			</div>
-			<div class="code">
-				<p>悬浮时实时改变</p>
-				<p>
-<pre>$('input[type="color"]').colorpicker({hoverChange:true});</pre>
-				</p>
-			</div>
-			<script type="text/javascript">
-				$('input[type="color"]').colorpicker({hoverChange:true});
-			</script>
-			<div class="panel">
-				<p>文本输入框颜色选择扩展</p>
-				<p>
-					<input type="text" value="#00f000"/>
-					<span id="test"></span>
-				</p>
-			</div>
-			<div class="code">
-				<p>修改完成后触发事件</p>
-				<p>
-<pre>$('input[type="text"]').colorpicker({
-	'onSelect':function(color){
-		$('#test').text('颜色修改为：'+color);
-	}
-});</pre>
-				</p>
-			</div>
-			<script type="text/javascript">
-				$('input[type="text"]').colorpicker({
-					'onSelect':function(color){
-						$('#test').text('颜色修改为：'+color);
-					}
-				});
-			</script>
-			<div class="example">
-				<div class="call">
-					<h1>调用方法：</h1>
-					<p>$(selector).colorpicker(options);</p>
-				</div>
-				<h2>options参数</h2>
-				<table>
-					<thead>
-						<tr>
-							<th width="150">参数</th>
-							<th width="120">默认值</th>
-							<th>说明</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>id</td>
-							<td>'colorpicker'</td>
-							<td>颜色选择器的ID</td>
-						</tr>
-						<tr>
-							<td>size</td>
-							<td>'default'</td>
-							<td>选择器大小；default默认大小，small小号</td>
-						</tr>
-						<tr>
-							<td>hoverChange</td>
-							<td>false</td>
-							<td>悬浮于调色板时是否立即触发修改表单值</td>
-						</tr>
-						<tr>
-							<td>onChange</td>
-							<td>[空]</td>
-							<td>悬浮于调色板时触发</td>
-						</tr>
-						<tr>
-							<td>onSelect</td>
-							<td>[空]</td>
-							<td>选中调色板时触发</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
-		<script type="text/javascript" src="https://jquerywidget.com/public/script/stat.js"></script>
-	</body>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>颜色选择器 - colorpicker</title>
+        <link rel="shortcut icon" href="../static/image/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../static/style/common.css">
+        <style type="text/css">
+            .mod-panel .demo{
+                margin-bottom:20px;
+            }
+            .mod-panel .demo p{
+                line-height: 26px;
+                margin-bottom: 5px;
+            }
+            .mod-panel .input-text{
+                width: 240px;
+                padding: 5px 12px;
+                border: 1px solid #e8e8e8;
+                border-radius: 3px;
+                line-height: 24px;
+                outline: none;
+            }
+        </style>
+        <script type="text/javascript" src="../static/script/jquery.min.js"></script>
+        <script type="text/javascript" src="../code/jquery.colorpicker.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="mod-head">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="logo">
+                                <a href="/"><img src="../static/image/public/logo.png" width="180" height="64" alt="路人甲"></a>
+                            </div>
+                            <nav>
+                            </nav>
+                            <div class="operation">
+                                <a class="btn" href="https://passer-by.com" target="_blank">个人网站</a>
+                                <a class="btn" href="https://github.com/mumuy/widget/" rel="nofollow" target="_blank" title="Github">
+                                    <svg aria-hidden="true" class="octicon" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24" height="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+                                    <span>Github</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="container">
+                <div class="inner">
+                    <section class="mod-panel">
+                        <div class="hd">
+                            <h3 class="title">颜色选择器 - colorpicker</h3>
+                        </div>
+                        <div class="bd">
+                            <div class="demo">
+                                <p>系统默认颜色选择扩展</p>
+                                <p><input type="color" value="#fc0000"/></p>
+                            </div>
+                            <div class="code">
+                                <p>悬浮时实时改变</p>
+                                <p>
+                                    <code><pre>$('input[type="color"]').colorpicker({hoverChange:true});</pre></code>
+                                </p>
+                            </div>
+                            <script type="text/javascript">
+                                $('input[type="color"]').colorpicker({hoverChange:true});
+                            </script>
+                            <div class="demo">
+                                <p>文本输入框颜色选择扩展</p>
+                                <p>
+                                    <input class="input-text" type="text" value="#00f000"/>
+                                    <span id="test"></span>
+                                </p>
+                            </div>
+                            <div class="code">
+                                <p>修改完成后触发事件</p>
+                                <p>
+<code><pre>$('input[type="text"]').colorpicker({
+    'onSelect':function(color){
+        $('#test').text('颜色修改为：'+color);
+    }
+});</pre></code>
+                                </p>
+                            </div>
+                            <script type="text/javascript">
+                                $('input[type="text"]').colorpicker({
+                                    'onSelect':function(color){
+                                        $('#test').text('颜色修改为：'+color);
+                                    }
+                                });
+                            </script>
+                            <div class="example">
+                                <div class="code">
+                                    <h1>调用方法：</h1>
+                                    <p>$(selector).colorpicker(options);</p>
+                                </div>
+                                <div class="table-outer">
+                                    <h2>options参数</h2>
+                                    <div class="table-inner">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th width="150">参数</th>
+                                                    <th width="120">默认值</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>id</td>
+                                                    <td>'colorpicker'</td>
+                                                    <td>颜色选择器的ID</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>size</td>
+                                                    <td>'default'</td>
+                                                    <td>选择器大小；default默认大小，small小号</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>hoverChange</td>
+                                                    <td>false</td>
+                                                    <td>悬浮于调色板时是否立即触发修改表单值</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>onChange</td>
+                                                    <td>[空]</td>
+                                                    <td>悬浮于调色板时触发</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>onSelect</td>
+                                                    <td>[空]</td>
+                                                    <td>选中调色板时触发</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
+                </div>
+            </div>
+            <footer>
+                <div class="mod-fixedbar">
+                    <div class="bd">
+                        <ul>
+                            <li>
+                                <a class="gotop" href="javascript:;" rel="nofollow">
+                                    <img src="../static/image/public/icon-gotop.png" width="24" height="24" alt="回到顶部">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mod-foot">
+                    <div class="bd">
+                        <p>
+                            <span>Copyright &copy; 2025</span>
+                            <a href="/">jquerywidget.com</a>
+                            <span>版权所有</span>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script type="text/javascript" src="../static/script/common.js"></script>
+        <script type="text/javascript" src="../static/script/stat.js"></script>
+    </body>
 <html>

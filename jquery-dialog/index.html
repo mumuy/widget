@@ -1,218 +1,271 @@
 ﻿<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>对话框-dialog</title>
-		<link rel="shortcut icon" href="/public/image/favicon.png">
-		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
-		<style type="text/css">
-			button{
-				font-family: "Microsoft Yahei",Arial,Helvetica;
-			}
-			.button{
-				margin-bottom:20px;
-			}
-			.dialog .widget-container{
-				position:relative;
-				width:320px;
-				height:200px;
-				background:#fff;
-			}
-			.dialog .widget-head{
-				position: relative;
-				height:40px;
-				padding-left:8px;
-				background:#cee1ee;
-				line-height:40px;
-			}
-			.dialog .widget-head a{
-				position:absolute;
-				top:0;
-				right:0;
-				width:40px;
-				height:40px;
-				line-height:40px;
-				text-align:center;
-				cursor:pointer;
-			}
-			.dialog .widget-body{
-				height:100px;
-				padding:10px;
-				line-height:100px;
-				text-align:center;
-			}
-			.dialog .widget-foot{
-				height:40px;
-				padding:0 20px;
-				line-height:40px;
-				text-align:right;
-			}
-			.dialog .widget-foot button{
-				width:80px;
-				height:22px;
-				border:none;
-				line-height:22px;
-				background:#cee1ee;
-				outline:none;
-				cursor:pointer;
-			}
-		</style>
-		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
-		<script type="text/javascript" src="/code/jquery.dialog.js"></script>
-	</head>
-	<body>
-		<div class="header">
-			<div class="inner">
-				<div class="mod-head">
-					<div class="bd">
-						<a class="btn" href="https://github.com/mumuy/widget" rel="nofollow" target="_blank" title="Github">
-							<svg aria-hidden="true" class="octicon" height="20" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
-							<span>Github</span>
-						</a>
-						<a class="btn" href="https://passer-by.com/" target="_blank">个人网站</a>
-                        <a class="btn" href="/">返回首页</a>
-					</div>
-				</div>
-			</div>
-		</div>
-        <div class="container">
-			<button id="btn1" class="button">打开对话框</button>
-			<div class="dialog dialog1">你确定我够帅吗？</div>
-			<div class="code">
-				<p>
-				$(".dialog1").dialog({<br/>
-					'title':'警告',<br/>
-					'buttons':{<br/>
-						'确定':function(api){<br/>
-							api.close();<br/>
-						}<br/>
-					}<br/>
-				},function(api){<br/>
-					$('#btn1').click(function(){<br/>
-						api.open();<br/>
-					});<br/>
-				});
-				</p>
-			</div>
-			<script type="text/javascript">
-				$(".dialog1").dialog({
-					'title':'警告',
-					'buttons':{
-						'确定':function(api){
-							api.close();
-						}
-					}
-				},function(api){
-					$('#btn1').click(function(){
-						api.open();
-					});
-				});
-			</script>
-			<div class="example">
-				<div class="call">
-					<h1>调用方法：</h1>
-					<p>$(selector).dialog(options,callback(api));</p>
-				</div>
-				<h2>options参数</h2>
-				<table>
-					<thead>
-						<tr>
-							<th width="150">参数</th>
-							<th width="120">默认值</th>
-							<th>说明</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>content</td>
-							<td>空</td>
-							<td>对话框内容</td>
-						</tr>
-						<tr>
-							<td>title</td>
-							<td>空</td>
-							<td>对话框标题</td>
-						</tr>
-						<tr>
-							<td>opacity</td>
-							<td>0.5</td>
-							<td>对话框遮罩层透明度</td>
-						</tr>
-						<tr>
-							<td>autoOpen</td>
-							<td>false</td>
-							<td>是否自动开启对话框</td>
-						</tr>
-						<tr>
-							<td>isModel</td>
-							<td>true</td>
-							<td>是否为模式兑换</td>
-						</tr>
-						<tr>
-							<td>buttons</td>
-							<td>
-								空
-							</td>
-							<td>自定义按键</td>
-						</tr>
-						<tr>
-							<td>beforeOpen(api)</td>
-							<td>
-								[无]
-							</td>
-							<td>打开窗口前事件处理，api为方法接口</td>
-						</tr>
-						<tr>
-							<td>afterClose(api)</td>
-							<td>
-								[无]
-							</td>
-							<td>关闭窗口后事件处理，api为方法接口</td>
-						</tr>
-					</tbody>
-				</table>
-				<h2>callback(api)参数</h2>
-				<table>
-					<thead>
-						<tr>
-							<th width="200">方法</th>
-							<th>说明</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>open()</td>
-							<td>打开对话框</td>
-						</tr>
-						<tr>
-							<td>close()</td>
-							<td>关闭对话框</td>
-						</tr>
-						<tr>
-							<td>resize()</td>
-							<td>对话框形状自动调整</td>
-						</tr>
-						<tr>
-							<td>setTitle()</td>
-							<td>设置对话框标题</td>
-						</tr>
-						<tr>
-							<td>setContent()</td>
-							<td>设置对话框内容</td>
-						</tr>
-						<tr>
-							<td>getButtons()</td>
-							<td>获取按键对象</td>
-						</tr>
-						<tr>
-							<td>isOpen()</td>
-							<td>获取对话框是否打开状态</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
-		<script type="text/javascript" src="https://jquerywidget.com/public/script/stat.js"></script>
-	</body>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>对话框-dialog</title>
+        <link rel="shortcut icon" href="../static/image/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../static/style/common.css">
+        <style type="text/css">
+            .mod-panel button{
+                font-family: "Microsoft Yahei",Arial,Helvetica;
+            }
+            .mod-panel .demo{
+                margin-bottom:20px;
+            }
+            .dialog-container .widget-container{
+                position:relative;
+                width:360px;
+                height:240px;
+                background:#fff;
+                border-radius: 6px;
+                overflow: hidden;
+            }
+            .dialog-container .widget-head{
+                position: relative;
+                height:40px;
+                padding-left:8px;
+                background:#cee1ee;
+                line-height:40px;
+            }
+            .dialog-container .widget-head a{
+                position:absolute;
+                top:0;
+                right:0;
+                width:40px;
+                height:40px;
+                line-height:40px;
+                text-align:center;
+                cursor:pointer;
+            }
+            .dialog-container .widget-body{
+                height:100px;
+                padding:20px;
+                line-height:100px;
+                text-align:center;
+            }
+            .dialog-container .widget-foot{
+                height:40px;
+                padding:0 20px 20px;
+                line-height:40px;
+                text-align:right;
+            }
+            .dialog-container .widget-foot button{
+                width:90px;
+                height:36px;
+                border:none;
+                line-height:36px;
+                font-size: 16px;
+                background:#cee1ee;
+                border-radius: 4px;
+                outline:none;
+                cursor:pointer;
+            }
+        </style>
+        <script type="text/javascript" src="../static/script/jquery.min.js"></script>
+        <script type="text/javascript" src="../code/jquery.dialog.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="mod-head">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="logo">
+                                <a href="/"><img src="../static/image/public/logo.png" width="180" height="64" alt="路人甲"></a>
+                            </div>
+                            <nav>
+                            </nav>
+                            <div class="operation">
+                                <a class="btn" href="https://passer-by.com" target="_blank">个人网站</a>
+                                <a class="btn" href="https://github.com/mumuy/widget/" rel="nofollow" target="_blank" title="Github">
+                                    <svg aria-hidden="true" class="octicon" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24" height="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+                                    <span>Github</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="container">
+                <div class="inner">
+                    <section class="module mod-panel">
+                        <div class="hd">
+                            <h3 class="title">对话框-dialog</h3>
+                        </div>
+                        <div class="bd">
+                            <div class="demo">
+                                <button id="btn1" class="btn">打开对话框</button>
+                            </div>
+                            <div class="dialog-container dialog-container-1">你确定我够帅吗？</div>
+                            <div class="code">
+<code><pre>$(".dialog-container-1").dialog({
+    'title':'警告',
+    'buttons':{
+        '确定':function(api){
+            api.close();
+        }
+    }
+},function(api){
+    $('#btn1').click(function(){
+        api.open();
+    });
+});</pre></code>
+                            </div>
+                            <script type="text/javascript">
+                                $(".dialog-container-1").dialog({
+                                    'title':'警告',
+                                    'buttons':{
+                                        '确定':function(api){
+                                            api.close();
+                                        }
+                                    }
+                                },function(api){
+                                    $('#btn1').click(function(){
+                                        api.open();
+                                    });
+                                });
+                            </script>
+                            <div class="example">
+                                <div class="code">
+                                    <h1>调用方法：</h1>
+                                    <p>$(selector).dialog(options,callback(api));</p>
+                                </div>
+                                <div class="table-outer">
+                                    <h2>options参数</h2>
+                                    <div class="table-inner">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th width="150">参数</th>
+                                                    <th width="120">默认值</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>content</td>
+                                                    <td>空</td>
+                                                    <td>对话框内容</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>title</td>
+                                                    <td>空</td>
+                                                    <td>对话框标题</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>opacity</td>
+                                                    <td>0.5</td>
+                                                    <td>对话框遮罩层透明度</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>autoOpen</td>
+                                                    <td>false</td>
+                                                    <td>是否自动开启对话框</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>isModel</td>
+                                                    <td>true</td>
+                                                    <td>是否为模式兑换</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>buttons</td>
+                                                    <td>
+                                                        空
+                                                    </td>
+                                                    <td>自定义按键</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>beforeOpen(api)</td>
+                                                    <td>
+                                                        [无]
+                                                    </td>
+                                                    <td>打开窗口前事件处理，api为方法接口</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>afterClose(api)</td>
+                                                    <td>
+                                                        [无]
+                                                    </td>
+                                                    <td>关闭窗口后事件处理，api为方法接口</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="table-outer">
+                                    <h2>callback(api)参数</h2>
+                                    <div class="table-inner">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th width="200">方法</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>open()</td>
+                                                    <td>打开对话框</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>close()</td>
+                                                    <td>关闭对话框</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>resize()</td>
+                                                    <td>对话框形状自动调整</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>setTitle()</td>
+                                                    <td>设置对话框标题</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>setContent()</td>
+                                                    <td>设置对话框内容</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>getButtons()</td>
+                                                    <td>获取按键对象</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>isOpen()</td>
+                                                    <td>获取对话框是否打开状态</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
+                </div>
+            </div>
+            <footer>
+                <div class="mod-fixedbar">
+                    <div class="bd">
+                        <ul>
+                            <li>
+                                <a class="gotop" href="javascript:;" rel="nofollow">
+                                    <img src="../static/image/public/icon-gotop.png" width="24" height="24" alt="回到顶部">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mod-foot">
+                    <div class="bd">
+                        <p>
+                            <span>Copyright &copy; 2025</span>
+                            <a href="/">jquerywidget.com</a>
+                            <span>版权所有</span>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script type="text/javascript" src="../static/script/common.js"></script>
+        <script type="text/javascript" src="../static/script/stat.js"></script>
+    </body>
 <html>

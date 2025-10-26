@@ -1,0 +1,89 @@
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    z-index: 99;
+}
+
+
+.mod-poster {
+    padding: 90px 0;
+    text-align: center;
+}
+.mod-poster .bd{
+    margin-bottom: 40px;
+}
+.mod-poster .bd h1 {
+    font-weight: bold;
+    line-height: 60px;
+    font-family: Tahoma, Verdana, "Microsoft Yahei";
+    font-size: 45px;
+    color: var(--title-color);
+}
+.mod-poster .bd h1 strong{
+    font-weight: bold;
+    color: var(--active-color)
+}
+.mod-poster .bd p {
+    line-height: 30px;
+    font-size: 18px;
+    color: var(--text-color);
+}
+.mod-poster .buttons{
+    margin-bottom: 10px;
+}
+.mod-poster .button{
+    zoom: 1.2;
+}
+.mod-poster .btn {
+    display: inline-block;
+    padding: 0 15px;
+    height: 36px;
+    background: #ebf0f4;
+    border: 1px solid#d1d9e0;
+    border-radius: 3px;
+    line-height: 36px;
+    font-size: 15px;
+    color: #25292e;
+    border-radius: 6px;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+.mod-poster .btn svg,.mod-poster .btn span{
+    vertical-align: middle;
+}
+.mod-poster .btn:hover {
+    background: #e6eaef;
+}
+
+
+.mod-list{
+    margin-bottom: 60px;
+}
+.mod-list ul{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 8px;
+}
+.mod-list .item {
+    padding: 15px;
+    background: #f6f8fa;
+    border-radius: 8px;
+    line-height: 24px;
+    cursor: pointer;
+    color: #888;
+}
+.mod-list .item:hover {
+    background: #f4f6f9;
+}
+.mod-list a {
+    font-weight: bold;
+    color: #444;
+}
+.mod-list a.hot {
+    color: #cc0000;
+}
+.mod-list a:hover {
+    border-bottom: 1px dotted #666;
+}

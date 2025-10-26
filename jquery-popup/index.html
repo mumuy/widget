@@ -1,149 +1,194 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>弹出层-popup</title>
-		<link rel="shortcut icon" href="/public/image/favicon.png">
-		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
-		<style type="text/css">
-			.popup{
-				margin-bottom: 25px;
-			}
-			.style1 a{
-				text-decoration: none;
-			}
-			.style1 .trigger{
-				display: block;
-				width:80px;
-				height:30px;
-				background: #ccc;
-				line-height: 30px;
-				text-align: center;
-				color:#333;
-			}
-			.style1 ul{
-				width: 200px;
-				background: #aaa;
-			}
-			.style1 li{
-				line-height: 28px;
-				text-align: center;
-			}
-		</style>
-		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
-		<script type="text/javascript" src="/code/jquery.popup.js"></script>
-	</head>
-	<body>
-		<div class="header">
-			<div class="inner">
-				<div class="mod-head">
-					<div class="bd">
-						<a class="btn" href="https://github.com/mumuy/widget" rel="nofollow" target="_blank" title="Github">
-							<svg aria-hidden="true" class="octicon" height="20" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
-							<span>Github</span>
-						</a>
-						<a class="btn" href="https://passer-by.com/" target="_blank">个人网站</a>
-                        <a class="btn" href="/">返回首页</a>
-					</div>
-				</div>
-			</div>
-		</div>
-        <div class="container">
-			<div class="popup style1 popup1">
-				<div><a class="trigger" href="javascript:;">菜单</a></div>
-				<ul>
-					<li><span>菜单项1</span></li>
-					<li><span>菜单项2</span></li>
-					<li><span>菜单项3</span></li>
-					<li><span>菜单项4</span></li>
-					<li><span>菜单项5</span></li>
-				</ul>
-			</div>
-			<div class="code">
-				<p>触发点下边与弹出层上边水平居中对齐</p>
-				<p>$('.popup1').popup({trigger:'.trigger',triggerType:'mouse',node:'ul'});</p>
-			</div>
-			<script type="text/javascript">
-				$('.popup1').popup({trigger:'.trigger',triggerType:'mouse',node:'ul'});
-			</script>
-			<div class="popup style1 popup2">
-				<div><a class="trigger" href="javascript:;">菜单</a></div>
-				<ul>
-					<li><span>菜单项1</span></li>
-					<li><span>菜单项2</span></li>
-					<li><span>菜单项3</span></li>
-					<li><span>菜单项4</span></li>
-					<li><span>菜单项5</span></li>
-				</ul>
-			</div>
-			<div class="code">
-				<p>触发点右侧与弹出层左侧垂直居中对齐</p>
-				<p>$('.popup2').popup({trigger:'.trigger',triggerType:'click',node:'ul',points:['rc','lc']});</p>
-			</div>
-			<script type="text/javascript">
-				$('.popup2').popup({trigger:'.trigger',triggerType:'click',node:'ul',points:['rc','lc']});
-			</script>
-			<div class="popup popup3">
-				<img class="small" src="image/test.jpg" width="100" height="100"/>
-				<img class="big" src="image/test.jpg" width="180" height="180"/>
-			</div>
-			<div class="code">
-				<p>触发点与弹出层居中对齐</p>
-				<p>$('.popup3').popup({trigger:'.small',triggerType:'mouse',node:'.big',points:['cc','cc']});</p>
-			</div>
-			<script type="text/javascript">
-				$('.popup3').popup({trigger:'.small',triggerType:'mouse',node:'.big',points:['cc','cc']});
-			</script>
-			<div class="example">
-				<div class="call">
-					<h1>调用方法：</h1>
-					<p>$(selector).popup(options);</p>
-				</div>
-				<h2>options参数</h2>
-				<table>
-					<thead>
-						<tr>
-							<th width="150">参数</th>
-							<th width="120">默认值</th>
-							<th>说明</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>triggerType</td>
-							<td>'mouse'</td>
-							<td>触发事件类型</td>
-						</tr>
-						<tr>
-							<td>trigger</td>
-							<td>''</td>
-							<td>触发的节点(选择器)</td>
-						</tr>
-						<tr>
-							<td>node</td>
-							<td>''</td>
-							<td>弹出的节点(选择器)</td>
-						</tr>
-						<tr>
-							<td>points</td>
-							<td>['cb','ct']</td>
-							<td>弹出层与参考节点的对齐方式,t(top),b(bottom),c(center),l(left),r(right)</td>
-						</tr>
-						<tr>
-							<td>offset</td>
-							<td>[0,0]</td>
-							<td>有效值为 [n, m],points对齐后offset值,一般可用于微调,n和m分别表示对齐两个点在x,y坐标之间的偏移量</td>
-						</tr>
-						<tr>
-							<td>onTrigger</td>
-							<td>function(api){}</td>
-							<td>弹出时触发，api接口可以控制弹层的展示(show)及隐藏(hide)</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
-		<script type="text/javascript" src="https://jquerywidget.com/public/script/stat.js"></script>
-	</body>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>弹出层-popup</title>
+        <link rel="shortcut icon" href="../static/image/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../static/style/common.css">
+        <style type="text/css">
+            .popup-container{
+                margin-bottom: 25px;
+            }
+            .popup-style-1 a{
+                text-decoration: none;
+            }
+            .popup-style-1 .trigger{
+                display: block;
+                width:80px;
+                height:30px;
+                background: #ccc;
+                line-height: 30px;
+                text-align: center;
+                color:#333;
+            }
+            .popup-style-1 ul{
+                width: 200px;
+                background: #aaa;
+            }
+            .popup-style-1 li{
+                line-height: 28px;
+                text-align: center;
+            }
+        </style>
+        <script type="text/javascript" src="../static/script/jquery.min.js"></script>
+        <script type="text/javascript" src="../code/jquery.popup.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="mod-head">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="logo">
+                                <a href="/"><img src="../static/image/public/logo.png" width="180" height="64" alt="路人甲"></a>
+                            </div>
+                            <nav>
+                            </nav>
+                            <div class="operation">
+                                <a class="btn" href="https://passer-by.com" target="_blank">个人网站</a>
+                                <a class="btn" href="https://github.com/mumuy/widget/" rel="nofollow" target="_blank" title="Github">
+                                    <svg aria-hidden="true" class="octicon" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24" height="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+                                    <span>Github</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="container">
+                <div class="inner">
+                    <section class="mod-panel">
+                        <div class="hd">
+                            <h3 class="title">弹出层-popup</h3>
+                        </div>
+                        <div class="bd">
+                            <div class="popup-container popup-style-1 popup-container-1">
+                                <div><a class="trigger" href="javascript:;">菜单</a></div>
+                                <ul>
+                                    <li><span>菜单项1</span></li>
+                                    <li><span>菜单项2</span></li>
+                                    <li><span>菜单项3</span></li>
+                                    <li><span>菜单项4</span></li>
+                                    <li><span>菜单项5</span></li>
+                                </ul>
+                            </div>
+                            <div class="code">
+                                <p>触发点下边与弹出层上边水平居中对齐</p>
+                                <p>$('.popup-container-1').popup({trigger:'.trigger',triggerType:'mouse',node:'ul'});</p>
+                            </div>
+                            <script type="text/javascript">
+                                $('.popup-container-1').popup({trigger:'.trigger',triggerType:'mouse',node:'ul'});
+                            </script>
+                            <div class="popup-container popup-style-1 popup-container-2">
+                                <div><a class="trigger" href="javascript:;">菜单</a></div>
+                                <ul>
+                                    <li><span>菜单项1</span></li>
+                                    <li><span>菜单项2</span></li>
+                                    <li><span>菜单项3</span></li>
+                                    <li><span>菜单项4</span></li>
+                                    <li><span>菜单项5</span></li>
+                                </ul>
+                            </div>
+                            <div class="code">
+                                <p>触发点右侧与弹出层左侧垂直居中对齐</p>
+                                <p>$('.popup-container-2').popup({trigger:'.trigger',triggerType:'click',node:'ul',points:['rc','lc']});</p>
+                            </div>
+                            <script type="text/javascript">
+                                $('.popup-container-2').popup({trigger:'.trigger',triggerType:'click',node:'ul',points:['rc','lc']});
+                            </script>
+                            <div class="popup-container popup-container-3">
+                                <img class="small" src="image/test.jpg" width="100" height="100"/>
+                                <img class="big" src="image/test.jpg" width="180" height="180"/>
+                            </div>
+                            <div class="code">
+                                <p>触发点与弹出层居中对齐</p>
+                                <p>$('.popup-container-3').popup({trigger:'.small',triggerType:'mouse',node:'.big',points:['cc','cc']});</p>
+                            </div>
+                            <script type="text/javascript">
+                                $('.popup-container-3').popup({trigger:'.small',triggerType:'mouse',node:'.big',points:['cc','cc']});
+                            </script>
+                            <div class="example">
+                                <div class="code">
+                                    <h1>调用方法：</h1>
+                                    <p>$(selector).popup(options);</p>
+                                </div>
+                                <div class="table-outer">
+                                    <h2>options参数</h2>
+                                    <div class="table-inner">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th width="150">参数</th>
+                                                    <th width="120">默认值</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>triggerType</td>
+                                                    <td>'mouse'</td>
+                                                    <td>触发事件类型</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>trigger</td>
+                                                    <td>''</td>
+                                                    <td>触发的节点(选择器)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>node</td>
+                                                    <td>''</td>
+                                                    <td>弹出的节点(选择器)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>points</td>
+                                                    <td>['cb','ct']</td>
+                                                    <td>弹出层与参考节点的对齐方式,t(top),b(bottom),c(center),l(left),r(right)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>offset</td>
+                                                    <td>[0,0]</td>
+                                                    <td>有效值为 [n, m],points对齐后offset值,一般可用于微调,n和m分别表示对齐两个点在x,y坐标之间的偏移量</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>onTrigger</td>
+                                                    <td>function(api){}</td>
+                                                    <td>弹出时触发，api接口可以控制弹层的展示(show)及隐藏(hide)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </section>
+                    <script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
+                </div>
+            </div>
+            <footer>
+                <div class="mod-fixedbar">
+                    <div class="bd">
+                        <ul>
+                            <li>
+                                <a class="gotop" href="javascript:;" rel="nofollow">
+                                    <img src="../static/image/public/icon-gotop.png" width="24" height="24" alt="回到顶部">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mod-foot">
+                    <div class="bd">
+                        <p>
+                            <span>Copyright &copy; 2025</span>
+                            <a href="/">jquerywidget.com</a>
+                            <span>版权所有</span>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script type="text/javascript" src="../static/script/common.js"></script>
+        <script type="text/javascript" src="../static/script/stat.js"></script>
+    </body>
 <html>

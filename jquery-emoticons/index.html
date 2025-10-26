@@ -1,243 +1,289 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8"/>
-		<title>聊天表情-emoticons</title>
-		<link rel="shortcut icon" href="/public/image/favicon.png">
-		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
-		<style type="text/css">
-			.emoticons{
-				width: 525px;
-				margin-bottom:20px;
-			}
-			.emoticons .publisher{
-				padding-bottom: 10px;
-				margin-bottom: 10px;
-				border-bottom: 1px dotted #dbdbdb;
-			}
-			.emoticons .publisher textarea{
-				width: 500px;
-				height: 140px;
-				padding: 5px 10px;
-				border: 1px solid #dbdbdb;
-				resize: none;
-			}
-			.emoticons .publisher .trigger{
-				font-size: 24px;
-				font-weight: bold;
-				color: #666;
-			}
-			.emoticons .publisher .trigger-active{
-				color: #eb7350;
-			}
-			.emoticons .result{
-				padding: 10px 15px;
-				border: 1px dotted #dbdbdb;
-				margin-top: 10px;
-				height: 150px;
-				line-height: 24px;
-			}
-			.emoticons .result img{
-				vertical-align: middle;
-			}
-
-			.widget-layer{
-				position: relative;
-				width: 410px;
-				margin-top: 8px;
-				background: #fff;
-				border: 1px solid #dbdbdb;
-				border-radius: 2px;
-			}
-			.widget-layer:before{
-				position: absolute;
-				top: -16px;
-				left: 2px;
-				display: block;
-				content: '';
-				width: 0;
-				height: 0;
-				border: 8px solid transparent;
-				border-bottom-color: #dbdbdb;
-			}
-			.widget-layer:after{
-				position: absolute;
-				top: -15px;
-				left: 2px;
-				display: block;
-				content: '';
-				width: 0;
-				height: 0;
-				border: 8px solid transparent;
-				border-bottom-color: #f0f0f0;
-			}
-			.widget-layer .widget-tool{
-				height: 28px;
-				background: #f0f0f0;
-			}
-			.widget-layer .widget-close{
-				float: right;
-				width: 28px;
-				height: 28px;
-				line-height: 28px;
-				text-align: center;
-				font-family: Arial;
-			}
-			.widget-layer ul{
-				width: 372px;
-				margin: 0 auto;
-				padding: 15px 5px 20px;
-				overflow: hidden;
-			}
-			.widget-layer li{
-				position: relative;
-				z-index: 8;
-				float: left;
-				width: 22px;
-				height: 22px;
-				padding: 4px;
-				margin-left: -1px;
-				margin-top: -1px;
-				border: 1px solid #e8e8e8;
-				cursor: pointer;
-			}
-			.widget-layer li:hover{
-				z-index: 9;
-				border-color: #eb7350;
-			}
-		</style>
-		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
-		<script type="text/javascript" src="/code/jquery.emoticons.js"></script>
-	</head>
-	<body>
-		<div class="header">
-			<div class="inner">
-				<div class="mod-head">
-					<div class="bd">
-						<a class="btn" href="https://github.com/mumuy/widget" rel="nofollow" target="_blank" title="Github">
-							<svg aria-hidden="true" class="octicon" height="20" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
-							<span>Github</span>
-						</a>
-						<a class="btn" href="https://passer-by.com/" target="_blank">个人网站</a>
-                        <a class="btn" href="/">返回首页</a>
-					</div>
-				</div>
-			</div>
-		</div>
-        <div class="container">
-			<div class="emoticons">
-				<div class="publisher">
-					<p><textarea name="content"></textarea></p>
-					<p><a class="trigger" href="javascript:;">☺</a></p>
-				</div>
-				<div style="text-align:right;"><button id="format">解析</button></div>
-				<div id="result" class="result"></div>
-			</div>
-			<script>
-				$.emoticons({
-					'activeCls':'trigger-active'
-				},function(api){
-					var $content = $('textarea[name="content"]');
-					var $result = $('#result');
-					$('#format').click(function(){
-						$result.html(api.format($content.val()));
-					});
-				});
-			</script>
-			<div class="example">
-                <div class="call">
-                    <h1>调用方法：</h1>
-                    <p>$.emoticons(options,callback);</p>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>聊天表情 - emoticons</title>
+        <link rel="shortcut icon" href="../static/image/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../static/style/common.css">
+        <style type="text/css">
+            .mod-panel .emoticons{
+                margin-bottom:20px;
+            }
+            .mod-panel .emoticons .publisher{
+                padding-bottom: 10px;
+                margin-bottom: 10px;
+                border-bottom: 1px dotted #dbdbdb;
+            }
+            .mod-panel .emoticons .publisher textarea{
+                width: 100%;
+                height: 150px;
+                padding: 10px 15px;
+                border: 1px solid #dbdbdb;
+                border-radius: 8px;
+                box-sizing: border-box;
+                resize: none;
+                outline: none;
+            }
+            .mod-panel .emoticons .publisher .trigger{
+                display: inline-block;
+                width: 36px;
+                height: 36px;
+                line-height: 36px;
+                font-size: 32px;
+                font-weight: bold;
+                color: #666;
+            }
+            .mod-panel .emoticons .publisher .trigger-active{
+                color: #eb7350;
+            }
+            .mod-panel .emoticons .result{
+                padding: 10px 15px;
+                border: 1px dotted #dbdbdb;
+                margin-top: 10px;
+                height: 150px;
+                line-height: 24px;
+            }
+            .mod-panel .emoticons .result img{
+                vertical-align: middle;
+            }
+            .widget-layer{
+                position: relative;
+                width: 410px;
+                margin-top: 8px;
+                background: #fff;
+                border: 1px solid #dbdbdb;
+                border-radius: 2px;
+            }
+            .widget-layer:before{
+                position: absolute;
+                top: -16px;
+                left: 2px;
+                display: block;
+                content: '';
+                width: 0;
+                height: 0;
+                border: 8px solid transparent;
+                border-bottom-color: #dbdbdb;
+            }
+            .widget-layer:after{
+                position: absolute;
+                top: -15px;
+                left: 2px;
+                display: block;
+                content: '';
+                width: 0;
+                height: 0;
+                border: 8px solid transparent;
+                border-bottom-color: #f0f0f0;
+            }
+            .widget-layer .widget-tool{
+                height: 28px;
+                background: #f0f0f0;
+            }
+            .widget-layer .widget-close{
+                float: right;
+                width: 28px;
+                height: 28px;
+                line-height: 28px;
+                text-align: center;
+                font-family: Arial;
+            }
+            .widget-layer ul{
+                width: 372px;
+                margin: 0 auto;
+                padding: 15px 5px 20px;
+                overflow: hidden;
+            }
+            .widget-layer li{
+                position: relative;
+                z-index: 8;
+                float: left;
+                width: 22px;
+                height: 22px;
+                padding: 4px;
+                margin-left: -1px;
+                margin-top: -1px;
+                border: 1px solid #e8e8e8;
+                cursor: pointer;
+            }
+            .widget-layer li:hover{
+                z-index: 9;
+                border-color: #eb7350;
+            }
+        </style>
+        <script type="text/javascript" src="../static/script/jquery.min.js"></script>
+        <script type="text/javascript" src="../code/jquery.emoticons.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="mod-head">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="logo">
+                                <a href="/"><img src="../static/image/public/logo.png" width="180" height="64" alt="路人甲"></a>
+                            </div>
+                            <nav>
+                            </nav>
+                            <div class="operation">
+                                <a class="btn" href="https://passer-by.com" target="_blank">个人网站</a>
+                                <a class="btn" href="https://github.com/mumuy/widget/" rel="nofollow" target="_blank" title="Github">
+                                    <svg aria-hidden="true" class="octicon" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24" height="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+                                    <span>Github</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h2>options参数</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th width="150">参数</th>
-                            <th width="120">默认值</th>
-                            <th>说明</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>prefix</td>
-                            <td>'widget'</td>
-                            <td>自定义节点class的前缀</td>
-                        </tr>
-                        <tr>
-                            <td>publisherCls</td>
-                            <td>'publisher'</td>
-                            <td>发布框外层的class（动态绑定）</td>
-                        </tr>
-                        <tr>
-                            <td>triggerCls</td>
-                            <td>'trigger'</td>
-                            <td>表情触发点的class（动态绑定）</td>
-                        </tr>
-						<tr>
-                            <td>activeCls</td>
-                            <td>'active'</td>
-                            <td>表情触发点激活时的class</td>
-                        </tr>
-                        <tr>
-                            <td>path</td>
-                            <td>'public/image/'</td>
-                            <td>图片路径</td>
-                        </tr>
-                        <tr>
-                            <td>list</td>
-                            <td>[默认表情]</td>
-                            <td>表情配置的对象数组，title表示转义的文本，url表示图片名称</td>
-                        </tr>
-                        <tr>
-                            <td>left</td>
-                            <td>0</td>
-                            <td>表情选择框弹出位置与默认位置的水平偏移量</td>
-                        </tr>
-                        <tr>
-                            <td>top</td>
-                            <td>0</td>
-                            <td>表情选择框弹出位置与默认位置的垂直偏移量</td>
-                        </tr>
-                        <tr>
-                            <td>onShow()</td>
-                            <td>[无]</td>
-                            <td>表情选择框显示时执行</td>
-                        </tr>
-                        <tr>
-                            <td>onHide()</td>
-                            <td>[无]</td>
-                            <td>表情选择框隐藏时执行</td>
-                        </tr>
-                        <tr>
-                            <td>onSelect()</td>
-                            <td>[无]</td>
-                            <td>选中表情后执行</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <h2>callback(api)参数</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th width="200">方法</th>
-                            <th>说明</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	<tr>
-                            <td>getTextarea()</td>
-                            <td>获取当前激活状态下的输入框</td>
-                        </tr>
-                        <tr>
-                            <td>format(str)</td>
-                            <td>格式化表情输出</td>
-                        </tr>
-                    </tbody>
-                </table>
+            </header>
+            <div class="container">
+                <div class="inner">
+                    <section class="module mod-panel">
+                        <div class="hd">
+                            <h3 class="title">聊天表情 - emoticons</h3>
+                        </div>
+                        <div class="bd">
+                            <div class="emoticons">
+                                <div class="publisher">
+                                    <p><textarea name="content"></textarea></p>
+                                    <p><a class="trigger" href="javascript:;">☺</a></p>
+                                </div>
+                                <div style="text-align:right;"><button id="format" class="btn">解析</button></div>
+                                <div id="result" class="result"></div>
+                            </div>
+                            <script>
+                                $.emoticons({
+                                    'activeCls':'trigger-active'
+                                },function(api){
+                                    var $content = $('textarea[name="content"]');
+                                    var $result = $('#result');
+                                    $('#format').click(function(){
+                                        $result.html(api.format($content.val()));
+                                    });
+                                });
+                            </script>
+                            <div class="example">
+                                <div class="code">
+                                    <h1>调用方法：</h1>
+                                    <p>$.emoticons(options,callback);</p>
+                                </div>
+                                <h2>options参数</h2>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th width="150">参数</th>
+                                            <th width="120">默认值</th>
+                                            <th>说明</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>prefix</td>
+                                            <td>'widget'</td>
+                                            <td>自定义节点class的前缀</td>
+                                        </tr>
+                                        <tr>
+                                            <td>publisherCls</td>
+                                            <td>'publisher'</td>
+                                            <td>发布框外层的class（动态绑定）</td>
+                                        </tr>
+                                        <tr>
+                                            <td>triggerCls</td>
+                                            <td>'trigger'</td>
+                                            <td>表情触发点的class（动态绑定）</td>
+                                        </tr>
+                                        <tr>
+                                            <td>activeCls</td>
+                                            <td>'active'</td>
+                                            <td>表情触发点激活时的class</td>
+                                        </tr>
+                                        <tr>
+                                            <td>path</td>
+                                            <td>'public/image/'</td>
+                                            <td>图片路径</td>
+                                        </tr>
+                                        <tr>
+                                            <td>list</td>
+                                            <td>[默认表情]</td>
+                                            <td>表情配置的对象数组，title表示转义的文本，url表示图片名称</td>
+                                        </tr>
+                                        <tr>
+                                            <td>left</td>
+                                            <td>0</td>
+                                            <td>表情选择框弹出位置与默认位置的水平偏移量</td>
+                                        </tr>
+                                        <tr>
+                                            <td>top</td>
+                                            <td>0</td>
+                                            <td>表情选择框弹出位置与默认位置的垂直偏移量</td>
+                                        </tr>
+                                        <tr>
+                                            <td>onShow()</td>
+                                            <td>[无]</td>
+                                            <td>表情选择框显示时执行</td>
+                                        </tr>
+                                        <tr>
+                                            <td>onHide()</td>
+                                            <td>[无]</td>
+                                            <td>表情选择框隐藏时执行</td>
+                                        </tr>
+                                        <tr>
+                                            <td>onSelect()</td>
+                                            <td>[无]</td>
+                                            <td>选中表情后执行</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h2>callback(api)参数</h2>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th width="200">方法</th>
+                                            <th>说明</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>getTextarea()</td>
+                                            <td>获取当前激活状态下的输入框</td>
+                                        </tr>
+                                        <tr>
+                                            <td>format(str)</td>
+                                            <td>格式化表情输出</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                    <script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
+                </div>
             </div>
+            <footer>
+                <div class="mod-fixedbar">
+                    <div class="bd">
+                        <ul>
+                            <li>
+                                <a class="gotop" href="javascript:;" rel="nofollow">
+                                    <img src="../static/image/public/icon-gotop.png" width="24" height="24" alt="回到顶部">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mod-foot">
+                    <div class="bd">
+                        <p>
+                            <span>Copyright &copy; 2025</span>
+                            <a href="/">jquerywidget.com</a>
+                            <span>版权所有</span>
+                        </p>
+                    </div>
+                </div>
+            </footer>
         </div>
-		<script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
-		<script type="text/javascript" src="https://jquerywidget.com/public/script/stat.js"></script>
-	</body>
+        <script type="text/javascript" src="../static/script/common.js"></script>
+        <script type="text/javascript" src="../static/script/stat.js"></script>
+    </body>
 </html>

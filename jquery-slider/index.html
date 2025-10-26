@@ -1,492 +1,555 @@
 ﻿<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>轮播-silder</title>
-		<link rel="shortcut icon" href="/public/image/favicon.png">
-		<link rel="stylesheet" type="text/css" href="/public/style/common.css">
-		<style type="text/css">
-			.slider{
-				position: relative;
-				overflow: hidden;
-				margin:0 auto 10px;
-			}
-			.slider .prev,.slider .next{
-				display: block;
-				position: absolute;
-				width: 20px;
-				height: 118px;
-				background: #999;
-				border:1px solid #ccc;
-				text-align:center;
-				line-height:110px;
-				cursor:pointer;
-			}
-			.slider .prev{
-				left:0;
-			}
-			.slider .next{
-				right:0;
-			}
-			.slider .content li{
-				float: left;
-				width: 160px;
-				height: 120px;
-				background: #ccc;
-			}
-			.slider .nav{
-				margin: 3px 0;
-				text-align:center;
-			}
-			.slider .nav li{
-				display:inline-block;
-				width:24px;
-				height:24px;
-				background: #ccc;
-				margin:0 2px;
-				line-height: 24px;
-				cursor: pointer;
-			}
-			.slider .nav li.active{background:#ff0;}
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>轮播-silder</title>
+        <link rel="shortcut icon" href="/static/image/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../static/style/common.css">
+        <style type="text/css">
+            .mod-panel .slider-container{
+                position: relative;
+                overflow: hidden;
+                margin:0 auto 20px;
+            }
+            .mod-panel .slider-container .prev,.mod-panel .slider-container .next{
+                display: block;
+                position: absolute;
+                width: 32px;
+                height: 180px;
+                background: #e8e8e8;
+                border-radius: 3px;
+                text-align: center;
+                line-height: 180px;
+                cursor: pointer;
+            }
+            .mod-panel .slider-container .prev:hover,.slider-container .next:hover{
+                background: #dbdbdb;
+            }
+            .mod-panel .slider-container .prev{
+                left:0;
+            }
+            .mod-panel .slider-container .next{
+                right:0;
+            }
+            .mod-panel .slider-container .content li{
+                float: left;
+                width: 240px;
+                height: 180px;
+                background: #f4f4f4;
+                border-radius: 5px;
+                line-height: 36px;
+                align-content: center;
+                text-align: center;
+                font-size: 18px;
+                color: #333;
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+            }
+            .mod-panel .slider-container .nav{
+                margin: 5px 0;
+                text-align:center;
+            }
+            .mod-panel .slider-container .nav li{
+                display:inline-block;
+                width: 28px;
+                height: 28px;
+                background: #eee;
+                margin:0 2px;
+                line-height: 28px;
+                cursor: pointer;
+            }
+            .mod-panel .slider-container .nav li.active{
+                background:#fc9000;
+            }
+            .mod-panel .slider-style-1 .box{
+                height: 180px;
+                margin: 0 40px;
+                overflow: hidden;
+            }
+            .mod-panel .slider-style-1 .content li{
+                float: left;
+                margin: 0 10px;
+            }
+            .mod-panel .slider-style-1 .content li.w24{
+                width:240px;
+            }
+            .mod-panel .slider-style-2{
+                width:320px;
+            }
+            .mod-panel .slider-style-2 .box{
+                width: 240px;
+                height: 180px;
+                margin: 0 40px;
+                overflow: hidden;
+            }
+            .mod-panel .slider-container-4 .disable{
+                background:#fff;
+            }
 
-			.style1{
-				width:960px;
-			}
-			.style1 .box{
-				width: 900px;
-				height: 120px;
-				margin: 0 30px;
-				overflow: hidden;
-			}
-			.style1 .content li{
-				float: left;
-				margin: 0 10px;
-			}
-			.style1 .content li.w24{
-				width:240px;
-			}
-			.style2{
-				width:220px;
-			}
-			.style2 .box{
-				width: 160px;
-				height: 120px;
-				margin: 0 30px;
-				overflow: hidden;
-			}
-			.slider4 .disable{
-				background:#fff;
-			}
-		</style>
-		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
-		<script type="text/javascript" src="/code/jquery.slider.js"></script>
-	</head>
-	<body>
-		<div class="header">
-			<div class="inner">
-				<div class="mod-head">
-					<div class="bd">
-						<a class="btn" href="https://github.com/mumuy/widget" rel="nofollow" target="_blank" title="Github">
-							<svg aria-hidden="true" class="octicon" height="20" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
-							<span>Github</span>
-						</a>
-						<a class="btn" href="https://passer-by.com/" target="_blank">个人网站</a>
-                        <a class="btn" href="/">返回首页</a>
-					</div>
-				</div>
-			</div>
-		</div>
-        <div class="container">
-			<div class="slider style1 slider1">
-				<span class="prev">&lt;</span>
-				<span class="next">&gt;</span>
-				<div class="box">
-					<ul class="content">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
-						<li>4</li>
-						<li>5</li>
-						<li>6</li>
-						<li>7</li>
-						<li>8</li>
-					</ul>
-				</div>
-			</div>
-			<div class="code">
-				<p>
-					每次走两步，无缝循环
-				</p>
-				<p>$(".slider1").slider({inEndEffect:"cycle",steps:2,auto:true,duration:300,delay:5000});</p>
-			</div>
-			<script type="text/javascript">
-				$(".slider1").slider({inEndEffect:"cycle",steps:2,auto:true,duration:300,delay:5000});
-			</script>
-			<div class="slider style2 slider2">
-				<span class="prev">&lt;</span>
-				<span class="next">&gt;</span>
-				<div class="box">
-					<ul class="content">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
-						<li>4</li>
-						<li>5</li>
-					</ul>
-				</div>
-			</div>
-			<div class="code">
-				<p>
-					Y轴方向的轮播,从上往下
-				</p>
-				<p>$(".slider2").slider({direction:"y",reverse:true,auto:true,activeIndex:2});</p>
-			</div>
-			<script type="text/javascript">
-				$(".slider2").slider({direction:"y",reverse:true,auto:true,activeIndex:2});
-			</script>
-			<div class="slider style2 slider3">
-				<div class="box">
-					<ul class="content">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
-						<li>4</li>
-					</ul>
-				</div>
-				<ul class="nav">
-					<li>一</li>
-					<li>二</li>
-					<li>三</li>
-					<li>四</li>
-				</ul>
-			</div>
-			<div class="code">
-				<p>
-					无动画特效，等效于标签页切换
-				</p>
-				<p>$(".slider3").slider({animate:false,triggerType:"click"});</p>
-			</div>
-			<script type="text/javascript">
-				$(".slider3").slider({animate:false,triggerType:"click"});
-			</script>
-			<div class="slider style2 slider4">
-				<span class="prev">&lt;</span>
-				<span class="next">&gt;</span>
-				<div class="box">
-					<ul class="content">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
-						<li>4</li>
-						<li>5</li>
-					</ul>
-				</div>
-			</div>
-			<div class="code">
-				<p>按键盘左右键，切换幻灯片</p>
-				<p>$(".slider4").slider({easing:"backin",keyboardAble:true,hasTriggers:false,inEndEffect:"none"});</p>
-			</div>
-			<script type="text/javascript">
-				$(".slider4").slider({easing:"backin",keyboardAble:true,hasTriggers:false,inEndEffect:"none"});
-			</script>
-			<div class="slider style1 slider5">
-				<span class="prev">&lt;</span>
-				<span class="next">&gt;</span>
-				<div class="box">
-					<ul class="content">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
-						<li>4</li>
-						<li>5</li>
-						<li>6</li>
-						<li>7</li>
-						<li>8</li>
-						<li>9</li>
-						<li>10</li>
-						<li>11</li>
-						<li>12</li>
-					</ul>
-				</div>
-			</div>
-			<div class="code">
-				<p>滚动鼠标中轴，切换幻灯片</p>
-				<p>$(".slider5").slider({inEndEffect:"none",pointerType:"mouse",scrollable:true,hasTriggers:false,duration:1000});</p>
-			</div>
-			<script type="text/javascript">
-				$(".slider5").slider({inEndEffect:"none",pointerType:"mouse",scrollable:true,hasTriggers:false,duration:1000});
-			</script>
-			<div class="slider style1 slider6">
-				<span class="prev">&lt;</span>
-				<span class="next">&gt;</span>
-				<div class="box">
-					<ul class="content">
-						<li class="w24">1</li>
-						<li>2</li>
-						<li>3</li>
-						<li class="w24">4</li>
-						<li>5</li>
-						<li>6</li>
-						<li>7</li>
-						<li class="w24">8</li>
-						<li>9</li>
-						<li>10</li>
-						<li class="w24">11</li>
-						<li>12</li>
-					</ul>
-				</div>
-			</div>
-			<div class="code">
-				<p>不定大小的帧</p>
-				<p>$(".slider6").slider({hasTriggers:false,duration:1000,steps:'auto'});</p>
-			</div>
-			<script type="text/javascript">
-				$(".slider6").slider({hasTriggers:false,duration:1000,steps:'auto'});
-			</script>
-			<div class="slider style2 slider7">
-				<div class="box">
-					<ul class="content">
-						<li>新闻内容1</li>
-						<li>新闻内容2</li>
-						<li>新闻内容3</li>
-						<li>新闻内容4</li>
-						<li>新闻内容5</li>
-						<li>新闻内容6</li>
-						<li>新闻内容7</li>
-						<li>新闻内容8</li>
-						<li>新闻内容9</li>
-						<li>新闻内容10</li>
-						<li>新闻内容11</li>
-						<li>新闻内容12</li>
-					</ul>
-				</div>
-			</div>
-			<div class="code">
-				<p>跑马灯效果</p>
-				<p>$(".slider7").slider({inEndEffect:'cycle',hasTriggers:false,duration:3000,delay:0,direction:'y',auto:true,immediately:true});</p>
-			</div>
-			<script type="text/javascript">
-				$(".slider7").slider({inEndEffect:'cycle',hasTriggers:false,duration:3000,delay:0,direction:'y',auto:true,immediately:true});
-			</script>
-			<div class="example">
-				<div class="call">
-					<h1>调用方法：</h1>
-					<p>$(selector).slider(options,callback(api));</p>
-				</div>
-				<h2>options参数</h2>
-				<table>
-					<thead>
-						<tr>
-							<th width="150">参数</th>
-							<th width="120">默认值</th>
-							<th>说明</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>contentCls</td>
-							<td>'content'</td>
-							<td>轮播内容列表的class</td>
-						</tr>
-						<tr>
-							<td>navCls</td>
-							<td>'nav'</td>
-							<td>轮播导航列表的class</td>
-						</tr>
-						<tr>
-							<td>prevBtnCls</td>
-							<td>'prev'</td>
-							<td>向前一步的class</td>
-						</tr>
-						<tr>
-							<td>nextBtnCls</td>
-							<td>'next'</td>
-							<td>向后一步的class</td>
-						</tr>
-						<tr>
-							<td>activeTriggerCls</td>
-							<td>'active'</td>
-							<td>导航选中时的class</td>
-						</tr>
-						<tr>
-							<td>disabledBtnCls</td>
-							<td>'disabled'</td>
-							<td>按键不可用时的class</td>
-						</tr>
-						<tr>
-							<td>hoverCls</td>
-							<td>'hover'</td>
-							<td>当鼠标移至相应区域时获得的class</td>
-						</tr>
-						<tr>
-							<td>steps</td>
-							<td>1</td>
-							<td>移动帧数,'auto'为自动调整</td>
-						</tr>
-						<tr>
-							<td>direction</td>
-							<td>'x'</td>
-							<td>轮播的方向</td>
-						</tr>
-						<tr>
-							<td>reverse</td>
-							<td>false</td>
-							<td>是否反向自动播放</td>
-						</tr>
-						<tr>
-							<td>inEndEffect</td>
-							<td>'switch'</td>
-							<td>播放到最后一帧时的效果："switch"表示来回切换,"cycle"表示循环,"none"表示无效果</td>
-						</tr>
-						<tr>
-							<td>hasTriggers</td>
-							<td>true</td>
-							<td>是否含有导航触发点</td>
-						</tr>
-						<tr>
-							<td>triggerCondition</td>
-							<td>'*'</td>
-							<td>触发点的条件(有时需排除一些节点)</td>
-						</tr>
-						<tr>
-							<td>triggerType</td>
-							<td>'mouse'</td>
-							<td>导航触发事件类型:"mouse"表鼠标移入时触发,"click"表示鼠标点击时触发</td>
-						</tr>
-						<tr>
-							<td>activeIndex</td>
-							<td>0</td>
-							<td>默认选中帧的索引</td>
-						</tr>
-						<tr>
-							<td>pointerType</td>
-							<td>'click'</td>
-							<td>左右箭头的触发事件类型:"mouse"表鼠标移入时触发,"click"表示鼠标点击时触发</td>
-						</tr>
-						<tr>
-							<td>auto</td>
-							<td>false</td>
-							<td>是否自动播放</td>
-						</tr>
-						<tr>
-							<td>animate</td>
-							<td>true</td>
-							<td>是否使用动画滑动</td>
-						</tr>
-						<tr>
-							<td>delay</td>
-							<td>3000</td>
-							<td>自动播放时停顿的时间间隔</td>
-						</tr>
-						<tr>
-							<td>immediately</td>
-							<td>false</td>
-							<td>悬浮是否立即停止</td>
-						</tr>
-						<tr>
-							<td>duration</td>
-							<td>500</td>
-							<td>轮播的动画时长</td>
-						</tr>
-						<tr>
-							<td>easing</td>
-							<td>'easeIn'</td>
-							<td>切换时的动画效果,可选的动画函数包括:swing,easeIn,easeOut,expoin,expoout,expoinout,elasin,elasout,elasinout,backin,backout,backinout,bouncein,bounceout,bounceinout</td>
-						</tr>
-						<tr>
-							<td>keyboardAble</td>
-							<td>false</td>
-							<td>是否允许键盘按键控制</td>
-						</tr>
-						<tr>
-							<td>touchable</td>
-							<td>true</td>
-							<td>是否允许触碰</td>
-						</tr>
-						<tr>
-							<td>sensitivity</td>
-							<td>0.4</td>
-							<td>触摸屏的敏感度,滑动当前帧的百分比移动该帧，该值越小越敏感</td>
-						</tr>
-						<tr>
-							<td>scrollable</td>
-							<td>false</td>
-							<td>是否允许滚动滚动轴时换屏</td>
-						</tr>
-						<tr>
-							<td>onChangeStart(status)</td>
-							<td>[无]</td>
-							<td>移动前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination方向(prev向前,next向后,数字为相应的索引),event事件对象;</td>
-						</tr>
-						<tr>
-							<td>onChangeEnd(status)</td>
-							<td>[无]</td>
-							<td>移动后执行;传入一个对象,包含：index事件发生前索引,count帧长度,destination方向(prev向前,next向后,数字为相应的索引),event事件对象</td>
-						</tr>
-					</tbody>
-				</table>
-				<h2>callback(api)参数</h2>
-				<table>
-					<thead>
-						<tr>
-							<th width="200">方法</th>
-							<th>说明</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>prev()</td>
-							<td>向前一步</td>
-						</tr>
-						<tr>
-							<td>next()</td>
-							<td>向后一步</td>
-						</tr>
-						<tr>
-							<td>start()</td>
-							<td>开始播放</td>
-						</tr>
-						<tr>
-							<td>stop()</td>
-							<td>停止播放</td>
-						</tr>
-						<tr>
-							<td>reset()</td>
-							<td>重置幻灯片参数</td>
-						</tr>
-						<tr>
-							<td>setIndex(index,isAnimate)</td>
-							<td>设置当前帧</td>
-						</tr>
-						<tr>
-							<td>setSteps(steps)</td>
-							<td>设置移动帧数</td>
-						</tr>
-						<tr>
-							<td>setDelay(delay)</td>
-							<td>设置动画停顿时间间隔</td>
-						</tr>
-						<tr>
-							<td>setDuration(duration)</td>
-							<td>设置动画时长</td>
-						</tr>
-						<tr>
-							<td>getIndex()</td>
-							<td>获取当前帧</td>
-						</tr>
-						<tr>
-							<td>getSize()</td>
-							<td>获取帧数</td>
-						</tr>
-						<tr>
-							<td>getOptions()</td>
-							<td>获取组件当前参数值</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
-		<script type="text/javascript" src="https://jquerywidget.com/public/script/stat.js"></script>
-	</body>
+            @media screen and (max-width: 800px) {
+                .mod-panel .slider-container .content li{
+                    width: 100%;
+                    margin: 0;
+                }
+            }
+        </style>
+        <script type="text/javascript" src="../static/script/jquery.min.js"></script>
+        <script type="text/javascript" src="../code/jquery.slider.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="mod-head">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="logo">
+                                <a href="/"><img src="../static/image/public/logo.png" width="180" height="64" alt="路人甲"></a>
+                            </div>
+                            <nav>
+                            </nav>
+                            <div class="operation">
+                                <a class="btn" href="https://passer-by.com" target="_blank">个人网站</a>
+                                <a class="btn" href="https://github.com/mumuy/widget/" rel="nofollow" target="_blank" title="Github">
+                                    <svg aria-hidden="true" class="octicon" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24" height="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+                                    <span>Github</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="container">
+                <div class="inner">
+                    <section class="mod-panel">
+                        <div class="hd">
+                            <h3 class="title">轮播-silder</h3>
+                        </div>
+                        <div class="bd">
+                            <div class="slider-container slider-style-1 slider-container-1">
+                                <span class="prev">&lt;</span>
+                                <span class="next">&gt;</span>
+                                <div class="box">
+                                    <ul class="content">
+                                        <li>1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                        <li>4</li>
+                                        <li>5</li>
+                                        <li>6</li>
+                                        <li>7</li>
+                                        <li>8</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="code">
+                                <p>
+                                    每次走两步，无缝循环
+                                </p>
+                                <p>$(".slider-container-1").slider({inEndEffect:"cycle",steps:2,auto:true,duration:300,delay:5000});</p>
+                            </div>
+                            <script type="text/javascript">
+                                $(".slider-container-1").slider({inEndEffect:"cycle",steps:2,auto:true,duration:300,delay:5000});
+                            </script>
+                            <div class="slider-container slider-style-2 slider-container-2">
+                                <span class="prev">&lt;</span>
+                                <span class="next">&gt;</span>
+                                <div class="box">
+                                    <ul class="content">
+                                        <li>1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                        <li>4</li>
+                                        <li>5</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="code">
+                                <p>
+                                    Y轴方向的轮播,从上往下
+                                </p>
+                                <p>$(".slider-container-2").slider({direction:"y",reverse:true,auto:true,activeIndex:2});</p>
+                            </div>
+                            <script type="text/javascript">
+                                $(".slider-container-2").slider({direction:"y",reverse:true,auto:true,activeIndex:2});
+                            </script>
+                            <div class="slider-container slider-style-2 slider-container-3">
+                                <div class="box">
+                                    <ul class="content">
+                                        <li>1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                        <li>4</li>
+                                    </ul>
+                                </div>
+                                <ul class="nav">
+                                    <li>一</li>
+                                    <li>二</li>
+                                    <li>三</li>
+                                    <li>四</li>
+                                </ul>
+                            </div>
+                            <div class="code">
+                                <p>
+                                    无动画特效，等效于标签页切换
+                                </p>
+                                <p>$(".slider-container-3").slider({animate:false,triggerType:"click"});</p>
+                            </div>
+                            <script type="text/javascript">
+                                $(".slider-container-3").slider({animate:false,triggerType:"click"});
+                            </script>
+                            <div class="slider-container slider-style-2 slider-container-4">
+                                <span class="prev">&lt;</span>
+                                <span class="next">&gt;</span>
+                                <div class="box">
+                                    <ul class="content">
+                                        <li>1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                        <li>4</li>
+                                        <li>5</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="code">
+                                <p>按键盘左右键，切换幻灯片</p>
+                                <p>$(".slider-container-4").slider({easing:"backin",keyboardAble:true,hasTriggers:false,inEndEffect:"none"});</p>
+                            </div>
+                            <script type="text/javascript">
+                                $(".slider-container-4").slider({easing:"backin",keyboardAble:true,hasTriggers:false,inEndEffect:"none"});
+                            </script>
+                            <div class="slider-container slider-style-1 slider-container-5">
+                                <span class="prev">&lt;</span>
+                                <span class="next">&gt;</span>
+                                <div class="box">
+                                    <ul class="content">
+                                        <li>1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                        <li>4</li>
+                                        <li>5</li>
+                                        <li>6</li>
+                                        <li>7</li>
+                                        <li>8</li>
+                                        <li>9</li>
+                                        <li>10</li>
+                                        <li>11</li>
+                                        <li>12</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="code">
+                                <p>滚动鼠标中轴，切换幻灯片</p>
+                                <p>$(".slider-container-5").slider({inEndEffect:"none",pointerType:"mouse",scrollable:true,hasTriggers:false,duration:1000});</p>
+                            </div>
+                            <script type="text/javascript">
+                                $(".slider-container-5").slider({inEndEffect:"none",pointerType:"mouse",scrollable:true,hasTriggers:false,duration:1000});
+                            </script>
+                            <div class="slider-container slider-style-1 slider-container-6">
+                                <span class="prev">&lt;</span>
+                                <span class="next">&gt;</span>
+                                <div class="box">
+                                    <ul class="content">
+                                        <li class="w24">1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                        <li class="w24">4</li>
+                                        <li>5</li>
+                                        <li>6</li>
+                                        <li>7</li>
+                                        <li class="w24">8</li>
+                                        <li>9</li>
+                                        <li>10</li>
+                                        <li class="w24">11</li>
+                                        <li>12</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="code">
+                                <p>不定大小的帧</p>
+                                <p>$(".slider-container-6").slider({hasTriggers:false,duration:1000,steps:'auto'});</p>
+                            </div>
+                            <script type="text/javascript">
+                                $(".slider-container-6").slider({hasTriggers:false,duration:1000,steps:'auto'});
+                            </script>
+                            <div class="slider-container slider-style-2 slider-container-7">
+                                <div class="box">
+                                    <ul class="content">
+                                        <li>新闻内容1</li>
+                                        <li>新闻内容2</li>
+                                        <li>新闻内容3</li>
+                                        <li>新闻内容4</li>
+                                        <li>新闻内容5</li>
+                                        <li>新闻内容6</li>
+                                        <li>新闻内容7</li>
+                                        <li>新闻内容8</li>
+                                        <li>新闻内容9</li>
+                                        <li>新闻内容10</li>
+                                        <li>新闻内容11</li>
+                                        <li>新闻内容12</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="code">
+                                <p>跑马灯效果</p>
+                                <p>$(".slider-container-7").slider({inEndEffect:'cycle',hasTriggers:false,duration:3000,delay:0,direction:'y',auto:true,immediately:true});</p>
+                            </div>
+                            <script type="text/javascript">
+                                $(".slider-container-7").slider({inEndEffect:'cycle',hasTriggers:false,duration:3000,delay:0,direction:'y',auto:true,immediately:true});
+                            </script>
+                            <div class="example">
+                                <div class="code">
+                                    <h1>调用方法：</h1>
+                                    <p>$(selector).slider(options,callback(api));</p>
+                                </div>
+                                <div class="table-outer">
+                                    <h2>options参数</h2>
+                                    <div class="table-inner">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th width="150">参数</th>
+                                                    <th width="120">默认值</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>contentCls</td>
+                                                    <td>'content'</td>
+                                                    <td>轮播内容列表的class</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>navCls</td>
+                                                    <td>'nav'</td>
+                                                    <td>轮播导航列表的class</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>prevBtnCls</td>
+                                                    <td>'prev'</td>
+                                                    <td>向前一步的class</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>nextBtnCls</td>
+                                                    <td>'next'</td>
+                                                    <td>向后一步的class</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>activeTriggerCls</td>
+                                                    <td>'active'</td>
+                                                    <td>导航选中时的class</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>disabledBtnCls</td>
+                                                    <td>'disabled'</td>
+                                                    <td>按键不可用时的class</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>hoverCls</td>
+                                                    <td>'hover'</td>
+                                                    <td>当鼠标移至相应区域时获得的class</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>steps</td>
+                                                    <td>1</td>
+                                                    <td>移动帧数,'auto'为自动调整</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>direction</td>
+                                                    <td>'x'</td>
+                                                    <td>轮播的方向</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>reverse</td>
+                                                    <td>false</td>
+                                                    <td>是否反向自动播放</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>inEndEffect</td>
+                                                    <td>'switch'</td>
+                                                    <td>播放到最后一帧时的效果："switch"表示来回切换,"cycle"表示循环,"none"表示无效果</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>hasTriggers</td>
+                                                    <td>true</td>
+                                                    <td>是否含有导航触发点</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>triggerCondition</td>
+                                                    <td>'*'</td>
+                                                    <td>触发点的条件(有时需排除一些节点)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>triggerType</td>
+                                                    <td>'mouse'</td>
+                                                    <td>导航触发事件类型:"mouse"表鼠标移入时触发,"click"表示鼠标点击时触发</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>activeIndex</td>
+                                                    <td>0</td>
+                                                    <td>默认选中帧的索引</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>pointerType</td>
+                                                    <td>'click'</td>
+                                                    <td>左右箭头的触发事件类型:"mouse"表鼠标移入时触发,"click"表示鼠标点击时触发</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>auto</td>
+                                                    <td>false</td>
+                                                    <td>是否自动播放</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>animate</td>
+                                                    <td>true</td>
+                                                    <td>是否使用动画滑动</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>delay</td>
+                                                    <td>3000</td>
+                                                    <td>自动播放时停顿的时间间隔</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>immediately</td>
+                                                    <td>false</td>
+                                                    <td>悬浮是否立即停止</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>duration</td>
+                                                    <td>500</td>
+                                                    <td>轮播的动画时长</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>easing</td>
+                                                    <td>'easeIn'</td>
+                                                    <td>切换时的动画效果,可选的动画函数包括:swing,easeIn,easeOut,expoin,expoout,expoinout,elasin,elasout,elasinout,backin,backout,backinout,bouncein,bounceout,bounceinout</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>keyboardAble</td>
+                                                    <td>false</td>
+                                                    <td>是否允许键盘按键控制</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>touchable</td>
+                                                    <td>true</td>
+                                                    <td>是否允许触碰</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>sensitivity</td>
+                                                    <td>0.4</td>
+                                                    <td>触摸屏的敏感度,滑动当前帧的百分比移动该帧，该值越小越敏感</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>scrollable</td>
+                                                    <td>false</td>
+                                                    <td>是否允许滚动滚动轴时换屏</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>onChangeStart(status)</td>
+                                                    <td>[无]</td>
+                                                    <td>移动前执行,返回flase时不移动;传入一个对象,包含：index事件发生前索引,count帧长度,destination方向(prev向前,next向后,数字为相应的索引),event事件对象;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>onChangeEnd(status)</td>
+                                                    <td>[无]</td>
+                                                    <td>移动后执行;传入一个对象,包含：index事件发生前索引,count帧长度,destination方向(prev向前,next向后,数字为相应的索引),event事件对象</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="table-outer">
+                                    <h2>callback(api)参数</h2>
+                                    <div class="table-inner">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th width="200">方法</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>prev()</td>
+                                                    <td>向前一步</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>next()</td>
+                                                    <td>向后一步</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>start()</td>
+                                                    <td>开始播放</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>stop()</td>
+                                                    <td>停止播放</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>reset()</td>
+                                                    <td>重置幻灯片参数</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>setIndex(index,isAnimate)</td>
+                                                    <td>设置当前帧</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>setSteps(steps)</td>
+                                                    <td>设置移动帧数</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>setDelay(delay)</td>
+                                                    <td>设置动画停顿时间间隔</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>setDuration(duration)</td>
+                                                    <td>设置动画时长</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>getIndex()</td>
+                                                    <td>获取当前帧</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>getSize()</td>
+                                                    <td>获取帧数</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>getOptions()</td>
+                                                    <td>获取组件当前参数值</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
+                </div>
+            </div>
+            <footer>
+                <div class="mod-fixedbar">
+                    <div class="bd">
+                        <ul>
+                            <li>
+                                <a class="gotop" href="javascript:;" rel="nofollow">
+                                    <img src="../static/image/public/icon-gotop.png" width="24" height="24" alt="回到顶部">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mod-foot">
+                    <div class="bd">
+                        <p>
+                            <span>Copyright &copy; 2025</span>
+                            <a href="/">jquerywidget.com</a>
+                            <span>版权所有</span>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script type="text/javascript" src="../static/script/common.js"></script>
+        <script type="text/javascript" src="../static/script/stat.js"></script>
+    </body>
 <html>

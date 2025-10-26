@@ -2,190 +2,217 @@
 <html lang="zh-CN">
     <head>
         <meta charset="utf-8">
-        <title>我的组件库</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
         <meta name="description" content="简单实用的jQuery插件库，包含轮播（幻灯片）、标签页、弹出框、滚动条、城市三级联动等组件，极大地方便了前端开发">
         <meta name="keywords" content="jQuery插件,javascript,前端开发,轮播,组件">
         <meta name="author" content="木木阳,mumuy,passerby" />
-        <link rel="shortcut icon" href="/public/image/favicon.png">
-        <link rel="stylesheet" type="text/css" href="/public/style/common.css">
-        <link rel="stylesheet" type="text/css" href="/public/style/index.css">
+        <title>我的jQuery插件库</title>
+        <link rel="shortcut icon" href="./static/image/favicon.png">
+        <link rel="stylesheet" type="text/css" href="./static/style/common.css">
+        <link rel="stylesheet" type="text/css" href="./static/style/index.css">
     </head>
     <body>
         <div class="wrapper">
             <header>
-                <div class="mod-bg"></div>
                 <div class="mod-head">
                     <div class="inner">
-                        <h1>我的jQuery插件库</h1>
-                        <p>让前端开发快到飞起来～</p>
-                    </div>
-                </div>
-                <div class="mod-list">
-                    <div class="inner">
-                        <ul>
-                            <li><a class="btn" href="https://passer-by.com/" target="_blank">个人网站</a></li>
-                            <li><a class="btn" href="https://github.com/mumuy/widget" target="_blank">查看GitHub</a></li>
-                            <li><a class="btn" href="https://github.com/mumuy/widget/zipball/master" target="_blank">下载
-                                    .zip</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="mod-botton">
-                    <div class="inner">
-                        <a class="github-button" href="https://github.com/mumuy"
-                            data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large"
-                            aria-label="Follow @mumuy on GitHub">Follow @mumuy</a>
-                        <a class="github-button" href="https://github.com/mumuy/widget"
-                            data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star"
-                            data-size="large" data-show-count="true" aria-label="Star mumuy/widget on GitHub">Star</a>
+                        <div class="bd">
+                            <div class="logo">
+                                <a href="/"><img src="./static/image/public/logo.png" width="180" height="64" alt="路人甲"></a>
+                            </div>
+                            <nav>
+                            </nav>
+                            <div class="operation">
+                                <a class="btn" href="https://passer-by.com" target="_blank">个人网站</a>
+                                <a class="btn" href="https://github.com/mumuy/widget/" rel="nofollow" target="_blank" title="Github">
+                                    <svg aria-hidden="true" class="octicon" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24" height="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+                                    <span>Github</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
             <div class="container">
                 <div class="inner">
-                    <section class="mod-content">
-                        <ul class="clearfix">
-                            <li>
-                                <div class="item">
-                                    <p>
-                                        <a class="hot" href="/jquery-slider/" target="_blank">轮播</a>
-                                        <span>/</span>
-                                        <a href="/jquery-slider/subject.html" target="_blank">全屏轮播</a>
-                                    <p>
-                                    <p>$(selector).slider(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-tabs/" target="_blank">标签页</a></p>
-                                    <p>$(selector).tabs(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-scrollbar/" target="_blank">滚动条</a></p>
-                                    <p>$(selector).scrollbar(options,callback(api));</p>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-select/" target="_blank">下拉框</a></p>
-                                    <p>$(selector).select(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-range/" target="_blank">滑动条</a></p>
-                                    <p>$(selector).range(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-dialog/" target="_blank">对话框</a></p>
-                                    <p>$(selector).dialog(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-countdown/" target="_blank">倒计时</a></p>
-                                    <p>$(selector).countdown(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-imagezoom/" target="_blank">图片聚焦</a></p>
-                                    <p>$(selector).imagezoom(options);</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-magiczoom/" target="_blank">图片放大镜</a></p>
-                                    <p>$.magiczoom(options);</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-headroom/" target="_blank">浮动菜单</a></p>
-                                    <p>$(selector).headroom(options);</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p>
-                                        <a href="/jquery-calendar/" target="_blank">日历</a>
-                                        <span>/</span>
-                                        <a href="/jquery-calendar/slider.html" target="_blank">滑动日历(基于轮播)</a>
-                                    </p>
-                                    <p>$(selector).calendar(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-popup/" target="_blank">弹出层</a></p>
-                                    <p>$(selector).popup(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-suggestion/" target="_blank">搜索建议</a></p>
-                                    <p>$(selector).suggestion(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-citys/" target="_blank">城市三级联动</a></p>
-                                    <p>$(selector).citys(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-tablesort/" target="_blank">表格排序</a></p>
-                                    <p>$(selector).tablesort(options);</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-tablefixed/" target="_blank">表格浮动表头</a></p>
-                                    <p>$(selector).tablefixed(options);</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-tableselect/" target="_blank">表格单元格操作</a></p>
-                                    <p>$(selector).tableselect(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-inputFormat/" target="_blank">格式化输入框</a></p>
-                                    <p>$(selector).inputFormat(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-accordion/" target="_blank">手风琴</a></p>
-                                    <p>$(selector).accordion(options,callback(api));</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-colorpicker/" target="_blank">颜色选择器</a></p>
-                                    <p>$(selector).colorpicker(options);</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <p><a href="/jquery-emoticons/" target="_blank">聊天表情</a></p>
-                                    <p>$.emoticons(options,callback(api));</p>
-                                </div>
-                            </li>
-                        </ul>
+                    <section class="mod-poster">
+                        <div class="bd">
+                            <h1>我的<strong>jQuery</strong>插件库</h1>
+                            <p>让前端开发快到飞起来～</p>
+                        </div>
+                        <div class="ft">
+                            <div class="button">
+                                <a class="github-button" href="https://github.com/mumuy"
+                                data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large"
+                                aria-label="Follow @mumuy on GitHub">Follow @mumuy</a>
+                                <a class="github-button" href="https://github.com/mumuy/widget"
+                                data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star"
+                                data-size="large" data-show-count="true" aria-label="Star mumuy/widget on GitHub">Star</a>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="mod-list">
+                        <div class="bd">
+                            <ul>
+                                <li>
+                                    <div class="item">
+                                        <p>
+                                            <a class="hot" href="/jquery-slider/" target="_blank">轮播</a>
+                                            <span>/</span>
+                                            <a href="/jquery-slider/subject.html" target="_blank">全屏轮播</a>
+                                        <p>
+                                        <p>$(selector).slider(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-tabs/" target="_blank">标签页</a></p>
+                                        <p>$(selector).tabs(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-scrollbar/" target="_blank">滚动条</a></p>
+                                        <p>$(selector).scrollbar(options,callback(api));</p>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-select/" target="_blank">下拉框</a></p>
+                                        <p>$(selector).select(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-range/" target="_blank">滑动条</a></p>
+                                        <p>$(selector).range(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-dialog/" target="_blank">对话框</a></p>
+                                        <p>$(selector).dialog(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-countdown/" target="_blank">倒计时</a></p>
+                                        <p>$(selector).countdown(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-imagezoom/" target="_blank">图片聚焦</a></p>
+                                        <p>$(selector).imagezoom(options);</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-magiczoom/" target="_blank">图片放大镜</a></p>
+                                        <p>$.magiczoom(options);</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-headroom/" target="_blank">浮动菜单</a></p>
+                                        <p>$(selector).headroom(options);</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p>
+                                            <a href="/jquery-calendar/" target="_blank">日历</a>
+                                            <span>/</span>
+                                            <a href="/jquery-calendar/slider.html" target="_blank">滑动日历(基于轮播)</a>
+                                        </p>
+                                        <p>$(selector).calendar(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-popup/" target="_blank">弹出层</a></p>
+                                        <p>$(selector).popup(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-suggestion/" target="_blank">搜索建议</a></p>
+                                        <p>$(selector).suggestion(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-citys/" target="_blank">城市三级联动</a></p>
+                                        <p>$(selector).citys(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-tablesort/" target="_blank">表格排序</a></p>
+                                        <p>$(selector).tablesort(options);</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-tablefixed/" target="_blank">表格浮动表头</a></p>
+                                        <p>$(selector).tablefixed(options);</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-tableselect/" target="_blank">表格单元格操作</a></p>
+                                        <p>$(selector).tableselect(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-inputFormat/" target="_blank">格式化输入框</a></p>
+                                        <p>$(selector).inputFormat(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-accordion/" target="_blank">手风琴</a></p>
+                                        <p>$(selector).accordion(options,callback(api));</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-colorpicker/" target="_blank">颜色选择器</a></p>
+                                        <p>$(selector).colorpicker(options);</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item">
+                                        <p><a href="/jquery-emoticons/" target="_blank">聊天表情</a></p>
+                                        <p>$.emoticons(options,callback(api));</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </section>
                     <script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
                 </div>
             </div> 
             <footer>
+                <div class="mod-fixedbar">
+                    <div class="bd">
+                        <ul>
+                            <li>
+                                <a class="gotop" href="javascript:;" rel="nofollow">
+                                    <img src="./static/image/public/icon-gotop.png" width="24" height="24" alt="回到顶部">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="mod-foot">
-                    <p>Copyright &copy; <span>jquerywidget.com</span></p>
+                    <div class="bd">
+                        <p>
+                            <span>Copyright &copy; 2025</span>
+                            <a href="/">jquerywidget.com</a>
+                            <span>版权所有</span>
+                        </p>
+                    </div>
                 </div>
             </footer>
         </div>
@@ -214,6 +241,7 @@
             }
         </script>
         <script async defer src="https://buttons.github.io/buttons.js"></script>
-        <script type="text/javascript" src="https://jquerywidget.com/public/script/stat.js"></script>
+        <script type="text/javascript" src="./static/script/common.js"></script>
+        <script type="text/javascript" src="./static/script/stat.js"></script>
     </body>
 </html>
