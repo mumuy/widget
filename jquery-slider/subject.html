@@ -1,173 +1,174 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8"/>
-		<title>全屏滚动</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<link rel="shortcut icon" href="/public/image/favicon.png"/>
-		<link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css"/>
-		<link rel="stylesheet" type="text/css" href="/public/style/common.css"/>
-		<style type="text/css">
-			html,body{
-				height:100%;
-			}
-			.slider{
-				width:100%;
-				height:100%;
-				overflow:hidden;
-			}
-			.slider .content{
-				width:100%;
-			}
-			.slider .content > div{
-				position:relative;
-				height:1200px;
-			}
-			.slider .page1{
-				background:#ccc;
-			}
-			.slider .page2{
-				background:#c66;
-			}
-			.slider .page3{
-				background:#66c;
-			}
-			.slider .nav{
-				position:absolute;
-				top:50%;
-				left:40px;
-				height: 72px;
-				margin-top: -36px;
-			}
-			.slider .nav li{
-				width:16px;
-				height:16px;
-				margin-bottom:12px;
-				background:#fff;
-			}
-			.slider .nav li.active{
-				background:#ff0;
-			}
-			.slider .tag1{
-				position:absolute;
-				top:50%;
-				left:50%;
-				opacity: 0;
-				width: 250px;
-				height: 80px;
-				margin-top: -40px;
-				margin-left: -80px;
-				line-height: 40px;
-				font-size:28px;
-			}
-			.slider .active .tag1{
-				-webkit-animation: Xminus40 1000ms ease 500ms both;
-				-moz-animation: Xminus40 1000ms ease 500ms both;
-				-ms-animation: Xminus40 1000ms ease 500ms both;
-				-o-animation: Xminus40 1000ms ease 500ms both;
-				animation: Xminus40 1000ms ease 500ms both;
-			}
-			@-webkit-keyframes Xminus40{
-	0%{
-		opacity: 0;
-		-webkit-transform:translateX(-40px);
-	}
-	100%{
-		opacity: 1;
-		-webkit-transform:translateX(0);
-	}
+    <head>
+        <meta charset="UTF-8"/>
+        <title>全屏滚动</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="shortcut icon" href="/public/image/favicon.png"/>
+        <link rel="stylesheet" type="text/css" href="/public/style/cssreset-min.css"/>
+        <link rel="stylesheet" type="text/css" href="/public/style/common.css"/>
+        <style type="text/css">
+            html,body{
+                height:100%;
+            }
+            .slider{
+                width:100%;
+                height:100%;
+                overflow:hidden;
+            }
+            .slider .content{
+                width:100%;
+            }
+            .slider .content > div{
+                position:relative;
+                height:1200px;
+            }
+            .slider .page1{
+                background:#ccc;
+            }
+            .slider .page2{
+                background:#c66;
+            }
+            .slider .page3{
+                background:#66c;
+            }
+            .slider .nav{
+                position:absolute;
+                top:50%;
+                left:40px;
+                height: 72px;
+                margin-top: -36px;
+            }
+            .slider .nav li{
+                width:16px;
+                height:16px;
+                margin-bottom:12px;
+                background:#fff;
+            }
+            .slider .nav li.active{
+                background:#ff0;
+            }
+            .slider .tag1{
+                position:absolute;
+                top:50%;
+                left:50%;
+                opacity: 0;
+                width: 250px;
+                height: 80px;
+                margin-top: -40px;
+                margin-left: -80px;
+                line-height: 40px;
+                font-size:28px;
+            }
+            .slider .active .tag1{
+                -webkit-animation: Xminus40 1000ms ease 500ms both;
+                -moz-animation: Xminus40 1000ms ease 500ms both;
+                -ms-animation: Xminus40 1000ms ease 500ms both;
+                -o-animation: Xminus40 1000ms ease 500ms both;
+                animation: Xminus40 1000ms ease 500ms both;
+            }
+            @-webkit-keyframes Xminus40{
+    0%{
+        opacity: 0;
+        -webkit-transform:translateX(-40px);
+    }
+    100%{
+        opacity: 1;
+        -webkit-transform:translateX(0);
+    }
 }
 
-	@-moz-keyframes Xminus40{
-		0%{
-			opacity: 0;
-			-moz-transform:translateX(-40px);
-		}
-		100%{
-			opacity: 1;
-			-moz-transform:translateX(0);
-		}
-	}
+    @-moz-keyframes Xminus40{
+        0%{
+            opacity: 0;
+            -moz-transform:translateX(-40px);
+        }
+        100%{
+            opacity: 1;
+            -moz-transform:translateX(0);
+        }
+    }
 
-	@-ms-keyframes Xminus40{
-		0%{
-			opacity: 0;
-			-ms-transform:translateX(-40px);
-		}
-		100%{
-			opacity: 1;
-			-ms-transform:translateX(0);
-		}
-	}
+    @-ms-keyframes Xminus40{
+        0%{
+            opacity: 0;
+            -ms-transform:translateX(-40px);
+        }
+        100%{
+            opacity: 1;
+            -ms-transform:translateX(0);
+        }
+    }
 
-	@-o-keyframes Xminus40{
-		0%{
-			opacity: 0;
-			-o-transform:translateX(-40px);
-		}
-		100%{
-			opacity: 1;
-			-o-transform:translateX(0);
-		}
-	}
+    @-o-keyframes Xminus40{
+        0%{
+            opacity: 0;
+            -o-transform:translateX(-40px);
+        }
+        100%{
+            opacity: 1;
+            -o-transform:translateX(0);
+        }
+    }
 
-	@keyframes Xminus40{
-		0%{
-			opacity: 0;
-			transform:translateX(-100px);
-		}
-		100%{
-			opacity: 1;
-			transform:translateX(0);
-		}
-	}
-		</style>
-		<script type="text/javascript" src="/public/script/jquery.min.js"></script>
-		<script type="text/javascript" src="/code/jquery.slider.js"></script>
-	</head>
-	<body>
-		<div class="slider">
-			<div class="content">
-				<div class="page1">
-					<div class="tag1">
-						<p>分页一</p>
-						<p>效果怎么样？</p>
-					</div>
-				</div>
-				<div class="page2">
-					<div class="tag1">
-						<p>分页二</p>
-						<p>翻滚吧，少年！</p>
-					</div>
-				</div>
-				<div class="page3">
-					<div class="tag1">
-						<p>分页三</p>
-						<p>哎呦，不错哦~</p>
-					</div>
-				</div>
-			</div>
-			<ul class="nav">
-				<li></li>
-				<li></li>
-				<li></li>
-			</ul>
-		</div>
-		<script type="text/javascript">
-			(function(){
-				var $pages = $('.slider .content > div');
-				$('.slider').slider({
-					direction: "y",
-					scrollable:true,
-					inEndEffect:'none',
-					keyboardAble:true,
-					onChangeEnd:function(status){
-						$pages.eq(status.index).addClass('active').siblings().removeClass('active');
-					}
-				});
-			})();
-		</script>
-		<script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
-		<script type="text/javascript" src="https://jquerywidget.com/public/script/stat.js"></script>
-	</body>
+    @keyframes Xminus40{
+        0%{
+            opacity: 0;
+            transform:translateX(-100px);
+        }
+        100%{
+            opacity: 1;
+            transform:translateX(0);
+        }
+    }
+        </style>
+        <script type="text/javascript" src="/public/script/jquery.min.js"></script>
+        <script type="text/javascript" src="/code/jquery.slider.js"></script>
+    </head>
+    <body>
+        <div class="slider">
+            <div class="content">
+                <div class="page1">
+                    <div class="tag1">
+                        <p>分页一</p>
+                        <p>效果怎么样？</p>
+                    </div>
+                </div>
+                <div class="page2">
+                    <div class="tag1">
+                        <p>分页二</p>
+                        <p>翻滚吧，少年！</p>
+                    </div>
+                </div>
+                <div class="page3">
+                    <div class="tag1">
+                        <p>分页三</p>
+                        <p>哎呦，不错哦~</p>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav">
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <script type="text/javascript">
+            (function(){
+                var $pages = $('.slider .content > div');
+                $('.slider').slider({
+                    direction: "y",
+                    scrollable:true,
+                    inEndEffect:'none',
+                    keyboardAble:true,
+                    onChangeEnd:function(status){
+                        $pages.eq(status.index).addClass('active').siblings().removeClass('active');
+                    }
+                });
+            })();
+        </script>
+        <script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
+        <script type="text/javascript" src="../static/script/common.js"></script>
+        <script type="text/javascript" src="../static/script/stat.js"></script>
+    </body>
 </html>
