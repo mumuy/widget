@@ -16,7 +16,7 @@
         // CMD
         if (typeof jQuery === 'undefined') {
             define(function (require) {
-                var jQuery = require('jquery');
+                let jQuery = require('jquery');
                 factory(jQuery);
             });
         } else {
@@ -51,8 +51,8 @@
             getApi = getApi || function () { };
         }
         return this.each(function (i) {
-            var $this = $(this);
-            var defaults = {
+            let $this = $(this);
+            let defaults = {
                 'format': 'hh:mm:ss',					//格式
                 'starttime': $this.text(),				//开始时间
                 'endtime': '',							//结束时间
@@ -64,17 +64,17 @@
                 },
                 'countEnd': function (time) { }			//倒计时结束回调事件
             };
-            var options = $.extend({}, defaults, parameter);
-            var _api = {};              //对外的函数接口
-            var _hander = null;
-            var _start = 0, _end = 0;
-            var isTime = isNaN(options.starttime) || isNaN(options.endtime); //是否时间表达式
-            var getTime = function () {
-                var date, format;
-                var time = Math.max(_start, _end);
-                var diff = _start - _end;
-                var offset_GMT = new Date().getTimezoneOffset();
-                var diff_format;
+            let options = $.extend({}, defaults, parameter);
+            let _api = {};              //对外的函数接口
+            let _hander = null;
+            let _start = 0, _end = 0;
+            let isTime = isNaN(options.starttime) || isNaN(options.endtime); //是否时间表达式
+            let getTime = function () {
+                let date, format;
+                let time = _start;
+                let diff = _end - _start;
+                let offset_GMT = new Date().getTimezoneOffset();
+                let diff_format;
                 if (isTime) {
                     date = new Date(time);
                     format = timeFormat(options.format, time);
@@ -98,13 +98,13 @@
                     'timestamp': diff
                 };
             };
-            var count = function () {
+            let count = function () {
                 if (_hander) {
                     clearInterval(_hander);
                 }
                 options.countEach(getTime());
                 $this.addClass(options.disabledCls);
-                var isReverse = _start > _end ? true : false;
+                let isReverse = _start > _end ? true : false;
                 _hander = setInterval(function () {
                     if (isReverse) {
                         _start -= options.interval;
@@ -164,8 +164,8 @@
             return +new Date(str) || +new Date('1970/1/1 ' + str);
         }
         function timeFormat(fmt, timestamp) {
-            var date = new Date(timestamp);
-            var o = {
+            let date = new Date(timestamp);
+            let o = {
                 "M+": date.getMonth() + 1,                 //月份
                 "d+": date.getDate(),                    //日
                 "h+": date.getHours(),                   //小时
@@ -177,7 +177,7 @@
             if (/(y+)/.test(fmt)) {
                 fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
             }
-            for (var k in o) {
+            for (let k in o) {
                 if (new RegExp("(" + k + ")").test(fmt)) {
                     fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                 }
