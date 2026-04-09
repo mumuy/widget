@@ -44,21 +44,23 @@
                         </div>
                         <div class="bd">
                             <div class="countdown-container">
-                                <p>#例子1# 12:30:50到12:30:30</p>
+                                <p>【例子1】12:30:50到12:30:30</p>
                                 <p id="time1">12:30:50</p>
                             </div>
                             <div class="code">
-                                <p>$('#time1').countdown({'endtime':'12:30:30'});</p>
+                                <p> $('#time1').countdown({'endtime':'12:30:30'});</p>
                             </div>
+                            <script>
+                                $('#time1').countdown({'endtime':'12:30:30'});
+                            </script>
                             <div class="countdown-container">
-                                <p>#例子2# 60到5</p>
+                                <p>【例子2】 60到5</p>
                                 <p id="time2">60</p>
                             </div>
                             <div class="code">
                                 <p>$('#time2').countdown({'endtime':5,'countEnd':function(){alert('倒计时结束!');}});</p>
                             </div>
                             <script>
-                                $('#time1').countdown({'endtime':'12:30:30'});
                                 $('#time2').countdown({'endtime':5,'countEnd':function(){alert('倒计时结束!');}});
                             </script>
                             <div class="example">
@@ -81,7 +83,7 @@
                                                 <tr>
                                                     <td>format</td>
                                                     <td>'hh:mm:ss'</td>
-                                                    <td>格式化输出的时间格式，年(y)、月(M)、日(d)、小时(h)、分(m)、秒(s)、毫秒(S)、季度(q)</td>
+                                                    <td>格式化输出的时间格式，年(Y)、月(M)、日(D)、小时(H)、分(m)、秒(s)、毫秒(S)、季度(q)</td>
                                                 </tr>
                                                 <tr>
                                                     <td>starttime</td>
@@ -111,12 +113,12 @@
                                                 <tr>
                                                     <td>countEach(time)</td>
                                                     <td>[时间格式化输出]</td>
-                                                    <td>每计时单位执行,其中time包含时间信息：year年、quarter季度、month月、day日、hour小时、minute分钟、second秒、microsecond毫秒、format格式化输出</td>
+                                                    <td>每计时单位执行,距离结束时间：day天、hour小时、minute分钟、second秒、microsecond毫秒</td>
                                                 </tr>
                                                 <tr>
                                                     <td>countEnd(time)</td>
                                                     <td>[时间格式化输出]</td>
-                                                    <td>计时结束后执行,其中time包含时间信息：year年、quarter季度、month月、day日、hour小时、minute分钟、second秒、microsecond毫秒、format格式化输出</td>
+                                                    <td>计时结束后执行,距离结束时间：day天、hour小时、minute分钟、second秒、microsecond毫秒</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -170,7 +172,7 @@
                 <div class="mod-foot">
                     <div class="bd">
                         <p>
-                            <span>Copyright &copy; 2025</span>
+                            <span>Copyright &copy; 2026</span>
                             <a href="/">jquerywidget.com</a>
                             <span>版权所有</span>
                         </p>
