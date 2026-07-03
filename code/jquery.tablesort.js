@@ -106,11 +106,11 @@
                         'value':value
                     };
                 });
-                var $th = null;
+                var $th = $();
                 for(let key in thHash){
                     let item = thHash[key];
                     if(item['col']==index){
-                        $th = item['item'];
+                        $th = $th.add(item['item']);
                     }
                 }
                 $table.find('th').removeClass(options.descCls).removeClass(options.ascCls);
