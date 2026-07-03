@@ -31,7 +31,6 @@
                 top:-3px;
                 width:8px;
                 height:12px;
-                margin-left:-5px;
                 border:1px solid #e2e2e2;
                 background:#fff;
                 cursor:default;
@@ -130,6 +129,39 @@ $('#range2').range({
                                     }
                                 });
                             </script>
+                            <div class="demo">
+                                <div class="range-container" id="range3"></div>
+                                <p><input id="input3" type="text" readonly/></p>
+                            </div>
+                            <div class="code">
+                                <p>开始和结束同时拖动</p>
+                                <p>
+<pre>
+$('#range3').range({
+    isRange:true,
+    min:5,
+    max:95,
+    value:[20,30],
+    steps:1,
+    onSlide:function(status){
+        $('#input2').val(status.value);
+    }
+});
+</pre>
+                                </p>
+                            </div>
+                            <script type="text/javascript">
+                                $('#range3').range({
+                                    isRange:true,
+                                    min:5,
+                                    max:95,
+                                    value:[20,30],
+                                    steps:1,
+                                    onSlide:function(status){
+                                        $('#input3').val(status.value);
+                                    }
+                                });
+                            </script>
                             <div class="example">
                                 <div class="code">
                                     <h1>调用方法：</h1>
@@ -181,6 +213,11 @@ $('#range2').range({
                                                     <td>type</td>
                                                     <td>'outer'</td>
                                                     <td>outer进度计算以进度条宽为准，inner进度计算需扣除条滑块宽</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>isRange</td>
+                                                    <td>false</td>
+                                                    <td>是否为范围调整；如果为true，value值为数组[开始值,结束值]</td>
                                                 </tr>
                                                 <tr>
                                                     <td>onSlide(obj)</td>

@@ -1,5 +1,5 @@
 /**
- * jquery.range.js 1.0
+ * jquery.range.js 1.1
  * http://jquerywidget.com
  */
 ;(function (factory) {
@@ -16,7 +16,7 @@
         // CMD
         if (typeof jQuery === 'undefined') {
             define(function(require){
-                var jQuery = require('jquery');
+                let jQuery = require('jquery');
                 factory(jQuery);
             });
         }else{
@@ -50,154 +50,173 @@
             parameter = parameter || {};
             getApi = getApi||function(){};
         }
-        var defaults = {
-            valueCls: 'value',		//当前有效值范围显示class
-            handleCls: 'handle',	//拖动滑块class
-            min: 0,					//变化范围的最小值
-            max: 100,				//变化范围的最大值
-            value: 1,				//默认显示的值
-            steps: 1,				//每次移动的步长
-            type:'outer',           //outer进度计算以进度条宽为准，inner进度计算需扣除条滑块宽
-            onSlide: function(){},	//当前值变化时触发的事件，传入对象:event为事件,value为当前值,obj为当前对象
-            onChange: function(){}    //当前值变化后触发的事件，传入对象:event为事件,value为当前值,obj为当前对象
+        let defaults = {
+            valueCls: 'value',		    // 当前有效值范围显示class
+            handleCls: 'handle',	    // 拖动滑块class
+            min: 0,					    // 变化范围的最小值
+            max: 100,				    // 变化范围的最大值
+            value: 1,				    // 默认显示的值
+            steps: 1,				    // 每次移动的步长
+            isRange:false,              // 是否为范围选择，true为范围选择，false为单值选择 
+            type:'outer',               // outer进度计算以进度条宽为准，inner进度计算需扣除条滑块宽
+            onSlide: function(){},	    // 当前值变化时触发的事件，传入对象:event为事件,value为当前值,obj为当前对象
+            onChange: function(){}      // 当前值变化后触发的事件，传入对象:event为事件,value为当前值,obj为当前对象
         };
-        var options = $.extend({},defaults,parameter);
-        var $window = $(window);
-        var $document = $(document);
-        var $body = $("body");
+        let options = $.extend({},defaults,parameter);
+        let $window = $(window);
+        let $document = $(document);
+        let $body = $("body");
         return this.each(function() {
             //对象定义
-            var _self = this;
-            var $this = $(this);
-            var $value = $("<div class='"+options.valueCls+"'></div>").appendTo($this);
-            var $handle = $("<div class='"+options.handleCls+"'></div>").appendTo($this);
+            let _self = this;
+            let $this = $(this);
+            let $value = $(`<div class='${options.valueCls}'></div>`).appendTo($this);
+            let $startHandle = $(`<div class='${options.handleCls}'></div>`).appendTo($this);
+            let $endHandle = $(`<div class='${options.handleCls}'></div>`).appendTo($this);
+            if(!options.isRange){
+                $startHandle.hide();
+            }
             //全局变量
-            var _api = {};
-            var _value = options.value;
-            var _handle_width = $handle.width();
-            var _offset = 0;
-            var _width = options.type=='outer'?$this.width():$this.width()-_handle_width;
-            var _length = _width/(options.max - options.min); 	//单元宽度
-            var _cursor_position = $this.offset().left;			//鼠标位置
-            var isMouseDown = false;
+            let _api = {};
+            let _value = options.value;
+            let _startHandle_width = options.isRange?$startHandle.outerWidth():0;
+            let _endHandle_width = $endHandle.outerWidth();
+            let _offset = 0;
+            let _width = options.type=='outer'?$this.width():$this.width() - (_startHandle_width + _endHandle_width)/2;
+            let _length = _width/(options.max - options.min); 	//单元宽度
+            let _cursor_position = $this.offset().left;			//鼠标位置
+            let isMouseDown = '';
+
+            // 对值进行兼容校验
+            if(options.isRange){
+                if(typeof _value!='object'){
+                    _value = [options.min,options.max];
+                }
+            }else if(!options.isRange){
+                if(typeof _value!='number'){
+                    _value = options.max;
+                }
+            }
+
             //样式初始化
             $this.css({
                 'position':'relative'
             });
             $value.css({
+                'position':'absolute',
                 'height':'100%'
             });
-            $handle.css({
+            $startHandle.css({
                 'position':'absolute'
             });
+            $endHandle.css({
+                'position':'absolute'
+            });
+
             /****** 共有方法 ******/
             //移动到指定值
+            const formatValue = function(){
+                let start = options.min;
+                let end = options.max;
+                if(options.isRange){
+                    start = Math.min(_value[0],_value[1]);
+                    end = Math.max(_value[0],_value[1]);
+                    _value = [start,end];
+                }else{
+                    start = options.min;
+                    end = _value;
+                }
+                const left = _startHandle_width/2;
+                $value.css({
+                    'left':(start - options.min) * _length + left,
+                    'width':(end - start) * _length
+                });
+                $startHandle.css({
+                    'left':(start - options.min) * _length + left - (_startHandle_width/2)
+                });
+                $endHandle.css({
+                    'left':(end - options.min) * _length  + left - (_endHandle_width/2)
+                });
+            };
             _api.setValue = function(value){
                 _value = value||_value;
-                _value = Math.min(_value,options.max);
-                _value = Math.max(_value,options.min);
-                $value.css({
-                    'width':(_value-options.min)*_length
-                });
-                $handle.css({
-                    'left':(_value-options.min)*_length
-                });
+                formatValue();
                 options.onSlide({event:{},value:_value,obj:$this});
             };
-            //重置插件尺寸
+            // 重置插件尺寸
             _api.resize = function(){
-                _width = options.type=='outer'?$this.width():$this.width()-_handle_width;
+                _width = options.type=='outer'?$this.width():$this.width() - (_startHandle_width + _endHandle_width)/2;
                 _length = _width/(options.max - options.min);
-                _api.setValue();
+                formatValue();
             };
-            /*私有方法*/
-            var touchStart = function(e) {
-                isMouseDown = true;
-                _offset = $this.offset().left;
-                _cursor_position =e.changedTouches[0].pageX-_offset-$handle.position().left;
-            };
-            var touchMove = function(e){
-                stopBubble(e);
-                stopDefault(e);
+
+            /* 事件绑定 */
+            $this.on('mouseup touchend',function(e){
                 if(isMouseDown){
-                    var move = e.changedTouches[0].pageX - _offset;
-                    if(_cursor_position>0&&_cursor_position<_handle_width){   //鼠标在手柄中位置，对值的修正
+                    setSelectable($body,true);
+                    const pageX = e.type=='mouseup'?e.pageX:e.changedTouches[0].pageX;
+                    let move = pageX - _offset;
+                    if(_cursor_position>0&&_cursor_position<(isMouseDown=='start'?_startHandle_width:_endHandle_width)){   //鼠标在手柄中位置，对值的修正
+                        move -= _cursor_position;
+                    }
+                    const value = Math.round(move/(_length*options.steps))*options.steps + options.min;
+                    if(options.isRange){
+                        if(isMouseDown == 'start'){
+                            _value[0] = value;
+                        }else{
+                            _value[1] = value;
+                        }
+                    }else{
+                        _value = value;
+                    }
+                    formatValue();
+                    options.onSlide({event:e,value:_value,obj:$this});
+                    options.onChange({event:e,value:_value,obj:$this});
+                    isMouseDown = '';
+                }
+            });
+            $startHandle.on('mousedown touchstart',function(e){
+                isMouseDown = 'start';
+                _offset = $this.offset().left;
+                const pageX = e.type=='mousedown'?e.pageX:e.changedTouches[0].pageX;
+                _cursor_position = pageX - _offset-$startHandle.position().left;
+                setSelectable($body,false);
+            });
+            $endHandle.on('mousedown touchstart',function(e){
+                isMouseDown = 'end';
+                _offset = $this.offset().left;
+                const pageX = e.type=='mousedown'?e.pageX:e.changedTouches[0].pageX;
+                _cursor_position = pageX-_offset-$endHandle.position().left;
+                setSelectable($body,false);
+            });
+            $document.on('mousemove touchmove',function(e){
+                if(isMouseDown){
+                    const pageX = e.type=='mousemove'?e.pageX:e.changedTouches[0].pageX;
+                    let move = pageX - _offset;
+                    if(_cursor_position>0&&_cursor_position<(isMouseDown=='start'?_startHandle_width:_endHandle_width)){   //鼠标在手柄中位置，对值的修正
                         move -=_cursor_position;
                     }
                     move = Math.max(0,move);
                     move = Math.min(move,_width);
-                    $value.css({
-                        'width':move
-                    });
-                    $handle.css({
-                        'left':move
-                    });
-                    _value = Math.round(move/(_length*options.steps))*options.steps+options.min;
+                    const value = Math.round(move/(_length*options.steps))*options.steps + options.min;
+                    if(options.isRange){
+                        if(isMouseDown == 'start'){
+                            _value[0] = value;
+                        }else{
+                            _value[1] = value;
+                        }
+                    }else{
+                        _value = value;
+                    }
+                    formatValue();
                     options.onSlide({event:e,value:_value,obj:$this});
                 }
-            };
-            var touchEnd = function(e){
+            }).on('mouseup touchend',function(e){
                 if(isMouseDown){
-                    isMouseDown = false;
+                    isMouseDown = '';
                     setSelectable($body,true);
-                    _api.setValue();
+                    formatValue();
                     options.onChange({event:e,value:_value,obj:$this});
-                }
-            };
-            //事件绑定
-            if(_self.addEventListener){
-                _self.addEventListener("touchstart", touchStart);
-                _self.addEventListener("touchmove", touchMove);
-                _self.addEventListener("touchend", touchEnd);
-            }
-            $this.on({
-                mousedown:function(e){
-                    isMouseDown = true;
-                    _offset = $this.offset().left;
-                    _cursor_position = e.pageX-_offset-$handle.position().left;
-                    setSelectable($body,false);
-                },
-                mouseup:function(e){
-                    if(isMouseDown){
-                        isMouseDown = false;
-                        setSelectable($body,true);
-                        var move = e.pageX - _offset;
-                        if(_cursor_position>0&&_cursor_position<_handle_width){   //鼠标在手柄中位置，对值的修正
-                            move -=_cursor_position;
-                        }
-                        _value = Math.round(move/(_length*options.steps))*options.steps+options.min;
-                        _api.setValue();
-                        options.onSlide({event:e,value:_value,obj:$this});
-                        options.onChange({event:e,value:_value,obj:$this});
-                    }
-                }
-            });
-            $document.on({
-                mousemove:function(e){
-                    if(isMouseDown){
-                        var move = e.pageX - _offset;
-                        if(_cursor_position>0&&_cursor_position<_handle_width){   //鼠标在手柄中位置，对值的修正
-                            move -=_cursor_position;
-                        }
-                        move = Math.max(0,move);
-                        move = Math.min(move,_width);
-                        $value.css({
-                            'width':move
-                        });
-                        $handle.css({
-                            'left':move
-                        });
-                        _value = Math.round(move/(_length*options.steps))*options.steps+options.min;
-                        options.onSlide({event:e,value:_value,obj:$this});
-                    }
-                },
-                mouseup:function(e){
-                    if(isMouseDown){
-                        isMouseDown = false;
-                        setSelectable($body,true);
-                        _api.setValue();
-                        options.onChange({event:e,value:_value,obj:$this});
-                    }
                 }
             });
             $window.on('resize',_api.resize);
