@@ -228,7 +228,7 @@
             _api.show = function(){
                 _hander['show']&&clearTimeout(_hander['show']);
                 _hander['show'] = setTimeout(function(){
-                    var value = $.trim($this.val());
+                    var value = $this.val().trim();
                     if(options.dynamic){
                         if(value != _text){ //缓存上次输入
                             _index = -1;
