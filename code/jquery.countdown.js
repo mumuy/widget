@@ -62,7 +62,7 @@
                 'disableBtnCls': 'disabled',
                 'auto': true,							// 是否默认自动计数
                 'countEach': function (time) {			// 每单位时间出发事件,传入一个对象，包含时间信息(month)和时间格式化输出(format)
-                    $this.text(time['current']);
+                    $this.text(time['format']);
                 },
                 'countEnd': function (time) { }			// 倒计时结束回调事件
             };
