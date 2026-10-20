@@ -227,9 +227,8 @@
                 resize:_api.resize
             });
             if(document.addEventListener){
-                _self.addEventListener('DOMMouseScroll',scroll,false);
+                _self.addEventListener('mousewheel',scroll,false);
             }
-            _self.onmousewheel = scroll;
             if(_self.addEventListener&&options.touchable){
                 _self.addEventListener("touchstart", touchStart);
                 _self.addEventListener("touchmove", touchMove);
@@ -250,7 +249,7 @@
         if ( e && e.preventDefault ){
             e.preventDefault();
         }else{
-             window.event.returnValue = false;
+            window.event.returnValue = false;
         }
         return false;
     }

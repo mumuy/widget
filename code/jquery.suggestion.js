@@ -42,6 +42,9 @@
         factory(jQuery);
     }
 }(function ($) {
+    var escapeHtml = function(str){
+        return String(str==null?'':str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    };
     $.fn.suggestion = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -63,7 +66,7 @@
             jsonpCallback:'',                //自定义回调函数
             autoSubmit:true,                 //点击确定是否自动提交表单
             itemFormat:function(item){          //建议列表节点样式
-                return item['name'];
+                return escapeHtml(item['name']);
             },
             beforeSend:function(){},            //发送前动作：传入准备提交的表单项目，返回false终止提交
             onCallback:function(){},            //获得数据后触发：target表示被建议列表对象,data表示请求到的数据
@@ -215,7 +218,7 @@
                 $list.empty();
                 if(list&&list.length){
                     list.forEach(function(item){
-                        $list.append('<li data-value="'+item['value']+'" data-name="'+item['name']+'">'+options.itemFormat(item)+'</li>');
+                        $list.append($('<li>').attr('data-value', item['value']==null?'':item['value']).attr('data-name', item['name']==null?'':item['name']).html(options.itemFormat(item)));
                     });
                 }
                 $items = $suggestion.find('li');
@@ -287,11 +290,12 @@
             $this.on('input propertychange',function(){
                _api.show();
             });
-            $document.on('click',function(e){
+            var onDocumentClick = function(e){
                 if(e.target!=_){
                     _api.hide();
                 }
-            });
+            };
+            $document.on('click',onDocumentClick);
             $list.on('click',options.triggerNode,function(){
                 var $trigger = $(this);
                 var $target = $trigger.closest('li');
@@ -311,6 +315,13 @@
                 return false;
             }).on('mouseenter','li',hover);
             $window.resize(reset);
+            _api.destroy = function(){
+                $document.off('click',onDocumentClick);
+                $window.off('resize',reset);
+                $this.off('keydown',down).off('focus').off('input propertychange');
+                $list.off('click',options.triggerNode).off('mouseenter','li',hover);
+                $suggestion.remove();
+            };
             // 初始化
             reset();
             getApi(_api);

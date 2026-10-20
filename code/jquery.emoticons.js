@@ -141,7 +141,16 @@
         var _api = {};
         var $document = $(document);
         var $body = $('body');
-        var $layer = $('<div class="'+options.prefix+'-layer">').appendTo($body);
+        if(!$.emoticons._layers){
+            $.emoticons._layers = {};
+        }
+        var $layer = $.emoticons._layers[options.prefix];
+        if(!$layer){
+            $layer = $('<div class="'+options.prefix+'-layer">').appendTo($body);
+            $.emoticons._layers[options.prefix] = $layer;
+        }else{
+            $layer.empty();
+        }
         var $tool = $('<div class="'+options.prefix+'-tool"></div>').appendTo($layer);
         $('<a class="'+options.prefix+'-close" href="javascript:;" title="关闭">X</a>').appendTo($tool);
         var $panel = $('<div class="'+options.prefix+'-panel"></div>').appendTo($layer);
@@ -156,7 +165,9 @@
         });
         $.each(options.list,function(index,item){
             _hash[item.title] = options.path+item.url;
-            $list.append('<li title="'+item.title+'"><img data-src="'+_hash[item.title]+'"/></li>');
+            var $li = $('<li>').attr('title', item.title);
+            $('<img>').attr('data-src', _hash[item.title]).appendTo($li);
+            $list.append($li);
         });
         //接口处理
         _api.getTextarea = function(){
@@ -188,67 +199,61 @@
         };
         // 获取光标位置
         var getCursortPosition = function (textDom) {
-            var cursorPos = 0;
-            if (document.selection) {   // IE Support
-                textDom.focus ();
-                var selectRange = document.selection.createRange();
-                selectRange.moveStart ('character', -textDom.value.length);
-                cursorPos = selectRange.text.length;
-            }else if (textDom.selectionStart || textDom.selectionStart == '0') {    // Firefox support
-                cursorPos = textDom.selectionStart;
-            }
-            return cursorPos;
+            return textDom.selectionStart != null ? textDom.selectionStart : 0;
         };
         //事件绑定
-        $document.on('click','.'+options.triggerCls,function(){
-            $trigger = $(this);
-            var $publisher = $trigger.parents('.'+options.publisherCls);
-            $textarea = $publisher.find('textarea');
-            var offset = $trigger.offset();
-            var height = $trigger.outerHeight();
-            $trigger.addClass(options.activeCls);
-            $layer.find('img').each(function(){
-                var $this = $(this);
-                $this.attr('src',$this.data('src'));
+        if(!$.emoticons._eventBinded){
+            $document.on('click','.'+options.triggerCls,function(){
+                $trigger = $(this);
+                var $publisher = $trigger.parents('.'+options.publisherCls);
+                $textarea = $publisher.find('textarea');
+                var offset = $trigger.offset();
+                var height = $trigger.outerHeight();
+                $trigger.addClass(options.activeCls);
+                $layer.find('img').each(function(){
+                    var $this = $(this);
+                    $this.attr('src',$this.data('src'));
+                });
+                $layer.css({
+                    left: offset.left+options.left,
+                    top: offset.top+height+options.top
+                }).show();
+                options.onShow();
             });
-            $layer.css({
-                left: offset.left+options.left,
-                top: offset.top+height+options.top
-            }).show();
-            options.onShow();
-        });
-        $document.on('click',function(e){
-            var $target = $(e.target);
-            if(!$target.is('.'+options.triggerCls)&&!$target.closest('.'+options.prefix+'-layer').length){
-                closeLayer();
-            }
-        });
-        $layer.on('click','.'+options.prefix+'-close',closeLayer);
-        $layer.on('click','li',function(){
-            var $this = $(this);
-            var title = $this.attr('title');
-            if($textarea){
-                insertText($textarea[0],'['+title+']');
-            }
-            options.onSelect(_api);
-        });
-        $document.on('keydown','.'+options.publisherCls+' textarea',function(e){
-            var value = this.value;
-            var index = getCursortPosition(this);
-            if(index==value.length&&e.keyCode==8){
-                var m = this.value.match(/\[[^\[\]]+\]$/);
-                if(m){
-                    this.value = this.value.substring(0,m.index);
-                    return false;
+            $document.on('click',function(e){
+                var $target = $(e.target);
+                if(!$target.is('.'+options.triggerCls)&&!$target.closest('.'+options.prefix+'-layer').length){
+                    closeLayer();
                 }
-            }
-        });
-        //为了兼容insertText
-        $document.on('select click keyup','.'+options.publisherCls+' textarea',function(){
-            if (this.createTextRange){
-                this.caretPos = document.selection.createRange().duplicate();
-            }
-        });
+            });
+            $layer.on('click','.'+options.prefix+'-close',closeLayer);
+            $layer.on('click','li',function(){
+                var $this = $(this);
+                var title = $this.attr('title');
+                if($textarea){
+                    insertText($textarea[0],'['+title+']');
+                }
+                options.onSelect(_api);
+            });
+            $document.on('keydown','.'+options.publisherCls+' textarea',function(e){
+                var value = this.value;
+                var index = getCursortPosition(this);
+                if(index==value.length&&e.keyCode==8){
+                    var m = this.value.match(/\[[^\[\]]+\]$/);
+                    if(m){
+                        this.value = this.value.substring(0,m.index);
+                        return false;
+                    }
+                }
+            });
+            //为了兼容insertText
+            $document.on('select click keyup','.'+options.publisherCls+' textarea',function(){
+                if (this.createTextRange){
+                    this.caretPos = document.selection.createRange().duplicate();
+                }
+            });
+            $.emoticons._eventBinded = true;
+        }
         //初始化
         getApi(_api);
         return this;
@@ -256,11 +261,7 @@
 
     //插入文字
     function insertText(obj,str) {
-        if(document.all && obj.createTextRange && obj.caretPos){ 
-            var caretPos=obj.caretPos; 
-            caretPos.text = caretPos.text.charAt(caretPos.text.length-1) == '' ? 
-            str+'' : str; 
-        }else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+        if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
             var startPos = obj.selectionStart,
                 endPos = obj.selectionEnd,
                 cursorPos = startPos,

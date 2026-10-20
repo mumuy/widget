@@ -28,13 +28,7 @@
     //跨浏览器事件对象
     var EventUtil = { 
         addEvent:function(element,type,handler){ //添加绑定
-            if(element.addEventListener){ 
-                element.addEventListener(type,handler,false); 
-            }else if(element.attachEvent){ 
-                element.attachEvent('on'+type,handler); 
-            }else{ 
-                element['on'+type]=handler; 
-            } 
+            element.addEventListener(type,handler,false);
         }, 
         getEvent:function(event){ //返回事件对象引用 
             return event?event:window.event; 
@@ -50,11 +44,11 @@
             }
         },
         stoppropagation:function(event){ //阻止事件流 
-            if(event.stoppropagation){ 
-                event.stoppropagation(); 
-            }else{ 
-                event.canceBubble=false; 
-            } 
+            if(event.stopPropagation){
+                event.stopPropagation();
+            }else{
+                event.cancelBubble=true;
+            }
         }
     };
     //IE6~9兼容
@@ -63,7 +57,7 @@
         div.innerHTML = '<table>' + html + '</table>';
         tbody.parentNode.replaceChild(div.firstChild.firstChild, tbody);
     }
-    var isIE= navigator.appVersion.indexOf("MSIE")>-1;
+    var isIE= navigator.appVersion.indexOf("MSIE")>-1 || !!document.documentMode;
 
     var Calendar = function(id,parameter){
         parameter = parameter||{};

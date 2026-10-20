@@ -42,6 +42,10 @@
         factory(jQuery);
     }
 }(function ($) {
+    // HTML 转义, 防止 option 文本/值注入
+    var escapeHtml = function(str){
+        return String(str==null?'':str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    };
     $.fn.select = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -54,7 +58,7 @@
             prefix:'widget',
             hasTrigger:false,
             format:function(item){
-                return '<span>'+item['name']+'</span>';
+                return '<span>'+escapeHtml(item['name'])+'</span>';
             },
             onSelect:function(){}
         };
@@ -90,7 +94,7 @@
                     'value':$this.val(),
                     'name':$this.text()
                 };
-                $list.append('<li data-value="'+item['value']+'">'+options.format(item)+'</li>');
+                $list.append($('<li>').attr('data-value', item['value']==null?'':item['value']).html(options.format(item)));
             });
             var $items = $list.find('li');
             var _api = {};
@@ -172,7 +176,7 @@
                     isShow = false;
                 }
             });
-            $document.click(function(e){
+            var onDocumentClick = function(e){
                 if(e.target.tagName!='SELECT'){
                     var $outer = $(e.target).closest('.'+options.prefix+'-select');
                     if($outer.length){
@@ -189,10 +193,18 @@
                         }
                     }
                 }
-            });
+            };
+            $document.on('click',onDocumentClick);
             $window.on({
                 'keydown':down
             });
+            _api.destroy = function(){
+                $document.off('click',onDocumentClick);
+                $window.off('keydown',down);
+                $trigger.off('click');
+                $items.off('mouseenter click');
+                $select.remove();
+            };
             //初始化
             _api.setValue($this.val(),false);
             getApi(_api);

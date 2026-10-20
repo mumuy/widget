@@ -152,14 +152,25 @@
                 $trigger.on('click',function(){
                     return false;
                 });
-                $document.on('click',function(e){
+                var onDocumentClick = function(e){
                     if($node.length&&!$.contains($node[0],e.target)){
                         if(isShow){
                             _api.hide();
                         }
                     }
-                });
+                };
+                $document.on('click',onDocumentClick);
             }
+            _api.destroy = function(){
+                if(options.triggerType === 'mouse'){
+                    $trigger.off('mouseenter mouseleave');
+                    $node.off('mouseenter mouseleave');
+                }else{
+                    $trigger.off(options.triggerType+' click');
+                    $document.off('click',onDocumentClick);
+                }
+                $node.remove();
+            };
         });
     };
 }));

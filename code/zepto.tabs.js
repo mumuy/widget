@@ -39,7 +39,7 @@
             };
             //初始化
             _api.select(options.activeIndex);   //默认选中状态
-            $triggers.bind(options.triggerType, function(e) { //事件绑定
+            $triggers.on(options.triggerType, function(e) { //事件绑定
                 var i = $triggers.index($(this));
                 var status = {
                     target:$this,

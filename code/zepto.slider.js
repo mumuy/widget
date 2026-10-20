@@ -84,7 +84,7 @@
                     $this.append("<ul class='" + options.navCls + "'>" + list_str + "</ul>");
                 }
                 options.triggerType += options.triggerType === "mouse" ? "enter" : "";  //使用mouseenter防止事件冒泡
-                $nav_list = $this.find("." + options.navCls + " > "+options.triggerCondition).bind(options.triggerType, function(e) {
+                $nav_list = $this.find("." + options.navCls + " > "+options.triggerCondition).on(options.triggerType, function(e) {
                     var index = $nav_list.index(this);
                     if (options.inEndEffect === "cycle") {
                         _index = index;
@@ -358,12 +358,12 @@
             //事件绑定
             if (options.auto) {
                 _api.start();
-                $this.bind({
+                $this.on({
                     'mouseover':_api.stop,
                     'mouseout':_api.start
                 });
             }
-            $this.bind({
+            $this.on({
                 'mouseover':function(){
                     $(this).addClass("hover");
                 },
@@ -404,7 +404,7 @@
             $this.on('touchstart',touchStart);
             $this.on('touchmove',touchMove);
             $this.on('touchend',touchEnd);
-            window.onresize = _api.resize;
+            $(window).on('resize', _api.resize);
             //执行默认行为
             slide(false);
             _api.resize();

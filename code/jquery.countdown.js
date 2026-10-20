@@ -129,6 +129,9 @@
                 }, options.interval);
             };
             _api.reset = function () {
+                if (!options.starttime && !options.endtime) {
+                    return;
+                }
                 if(isTime){
                     _start = options.starttime ? (isNaN(options.starttime) ? getTimestamp(options.starttime) : options.starttime) : Date.now();
                     _end = isNaN(options.endtime) ? getTimestamp(options.endtime) : options.endtime;

@@ -557,9 +557,8 @@
             //鼠标中轴控制
             if(options.scrollable){
                 if(document.addEventListener){
-                    _.element.addEventListener('DOMMouseScroll',scroll,false);
+                    _.element.addEventListener('mousewheel',scroll,false);
                 }
-                _.element.onmousewheel = scroll;
             }
             _.reset();
         };

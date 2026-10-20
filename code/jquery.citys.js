@@ -42,7 +42,6 @@
         factory(jQuery);
     }
 }(function ($) {
-    $.support.cors = true;
     $.fn.citys = function (parameter, getApi) {
         if (typeof parameter == 'function') { //重载
             getApi = parameter;
@@ -172,10 +171,10 @@
                     province: function () {
                         $province.empty();
                         if (!options.required) {
-                            $province.append('<option value="">' + options.placeholder + '</option>');
+                            $province.append($('<option>').val('').text(options.placeholder));
                         }
                         for (var i in province) {
-                            $province.append('<option value="' + (options.valueType == 'code' ? i : province[i]) + '" data-code="' + i + '">' + province[i] + '</option>');
+                            $province.append($('<option>').val(options.valueType == 'code' ? i : province[i]).attr('data-code', i).text(province[i]));
                         }
                         if (options.province) {
                             var value = options.valueType == 'code' ? options.province : province[options.province];
@@ -190,7 +189,7 @@
                         } else {
                             $city.css('display', '');
                             if (!options.required) {
-                                $city.append('<option value="">' + options.placeholder + '</option>');
+                                $city.append($('<option>').val('').text(options.placeholder));
                             }
                             if (options.nodata == 'disabled') {
                                 $city.prop('disabled', $.isEmptyObject(city));
@@ -198,7 +197,7 @@
                                 $city.css('display', $.isEmptyObject(city) ? 'none' : '');
                             }
                             for (var i in city) {
-                                $city.append('<option value="' + (options.valueType == 'code' ? i : city[i]) + '" data-code="' + i + '">' + city[i] + '</option>');
+                                $city.append($('<option>').val(options.valueType == 'code' ? i : city[i]).attr('data-code', i).text(city[i]));
                             }
                             if (options.city) {
                                 var value = options.valueType == 'code' ? options.city : city[options.city];
@@ -213,7 +212,7 @@
                     district: function () {
                         $district.empty();
                         if (!options.required) {
-                            $district.append('<option value="">' + options.placeholder + '</option>');
+                            $district.append($('<option>').val('').text(options.placeholder));
                         }
                         if (options.nodata == 'disabled') {
                             $district.prop('disabled', $.isEmptyObject(district));
@@ -221,7 +220,7 @@
                             $district.css('display', $.isEmptyObject(district) ? 'none' : '');
                         }
                         for (var i in district) {
-                            $district.append('<option value="' + (options.valueType == 'code' ? i : district[i]) + '" data-code="' + i + '">' + district[i] + '</option>');
+                            $district.append($('<option>').val(options.valueType == 'code' ? i : district[i]).attr('data-code', i).text(district[i]));
                         }
                         if (options.district) {
                             var value = options.valueType == 'code' ? options.district : district[options.district];

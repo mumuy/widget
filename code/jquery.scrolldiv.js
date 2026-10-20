@@ -91,9 +91,8 @@
             //事件绑定
             //鼠标滚轴
             if (document.addEventListener) {
-                document.addEventListener('DOMMouseScroll', scroll, false);
+                document.addEventListener('mousewheel', scroll, false);
             }
-            window.onmousewheel = document.onmousewheel = scroll;
             //滚动条
             $window.scroll(function(){
                 slide();

@@ -43,7 +43,6 @@
         factory(jQuery);
     }
 }(function ($) {
-    $.support.cors = true;
     $.fn.citys = function(parameter,getApi) {
         if(typeof parameter == 'function'){ //重载
             getApi = parameter;
@@ -196,7 +195,7 @@
                     country:function(){
                         $country.empty();
                         if(!options.required){
-                            $country.append('<option value="">'+options.placeholder+'</option>');
+                            $country.append($('<option>').val('').text(options.placeholder));
                         }
                         var list = [];
                         for(var i in country){
@@ -209,7 +208,7 @@
                             return item1['name'].localeCompare(item2['name']);
                         });
                         list.forEach(function(item){
-                            $country.append('<option value="'+(options.valueType=='code'?item['code']:item['name'])+'" data-code="'+item['code']+'">'+item['name']+'</option>');
+                            $country.append($('<option>').val(options.valueType=='code'?item['code']:item['name']).attr('data-code',item['code']).text(item['name']));
                         });
                         if(options.country){
                             var value = options.valueType=='code'?options.country:country[options.country];
@@ -220,7 +219,7 @@
                     province:function(){
                         $province.empty();
                         if(!options.required){
-                            $province.append('<option value="">'+options.placeholder+'</option>');
+                            $province.append($('<option>').val('').text(options.placeholder));
                         }
                         var list = [];
                         for(var i in province){
@@ -233,7 +232,7 @@
                             return item1['name'].localeCompare(item2['name']);
                         });
                         list.forEach(function(item){
-                            $province.append('<option value="'+(options.valueType=='code'?item['code']:item['name'])+'" data-code="'+item['code']+'">'+item['name']+'</option>');
+                            $province.append($('<option>').val(options.valueType=='code'?item['code']:item['name']).attr('data-code',item['code']).text(item['name']));
                         });
                         if(options.province){
                             var value = options.valueType=='code'?options.province:province[options.province];
@@ -248,7 +247,7 @@
                         }else{
                             $city.css('display','');
                             if(!options.required){
-                                $city.append('<option value="">'+options.placeholder+'</option>');
+                                $city.append($('<option>').val('').text(options.placeholder));
                             }
                             if(options.nodata=='disabled'){
                                 $city.prop('disabled',$.isEmptyObject(city));
@@ -266,7 +265,7 @@
                                 return item1['name'].localeCompare(item2['name']);
                             });
                             list.forEach(function(item){
-                                $city.append('<option value="'+(options.valueType=='code'?item['code']:item['name'])+'" data-code="'+item['code']+'">'+item['name']+'</option>');
+                                $city.append($('<option>').val(options.valueType=='code'?item['code']:item['name']).attr('data-code',item['code']).text(item['name']));
                             });
                             if(options.city){
                                 var value = options.valueType=='code'?options.city:city[options.city];
@@ -281,7 +280,7 @@
                     district:function(){
                         $district.empty();
                         if(!options.required){
-                            $district.append('<option value="">'+options.placeholder+'</option>');
+                            $district.append($('<option>').val('').text(options.placeholder));
                         }
                         if(options.nodata=='disabled'){
                             $district.prop('disabled',$.isEmptyObject(district));
@@ -299,7 +298,7 @@
                             return item1['name'].localeCompare(item2['name']);
                         });
                         list.forEach(function(item){
-                            $district.append('<option value="'+(options.valueType=='code'?item['code']:item['name'])+'" data-code="'+item['code']+'">'+item['name']+'</option>');
+                            $district.append($('<option>').val(options.valueType=='code'?item['code']:item['name']).attr('data-code',item['code']).text(item['name']));
                         });
                         if(options.district){
                             var value = options.valueType=='code'?options.district:district[options.district];
