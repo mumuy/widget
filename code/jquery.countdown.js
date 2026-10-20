@@ -50,7 +50,7 @@
             parameter = parameter || {};
             getApi = getApi || function () { };
         }
-        return this.each(function (i) {
+        return this.each(function () {
             let $this = $(this);
             const text = $this.text().trim();
             const starttime = text.match(/((\d{4})[\/\-年](\d{2})[\/\-月](\d{2})[日]?\s+)?\d{2}:\d{2}(:\d{2})?|\d+/)?.[0]||'';
@@ -64,7 +64,7 @@
                 'countEach': function (time) {			// 每单位时间出发事件,传入一个对象，包含时间信息(month)和时间格式化输出(format)
                     $this.text(time['format']);
                 },
-                'countEnd': function (time) { }			// 倒计时结束回调事件
+                'countEnd': function () { }			// 倒计时结束回调事件
             };
             let options = $.extend({}, defaults, parameter);
             let _api = {};                              // 对外的函数接口

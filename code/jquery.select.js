@@ -61,7 +61,7 @@
         var options = $.extend({},defaults,parameter);
         var $window = $(window);
         var $document = $(document);
-        return this.each(function(i) {
+        return this.each(function() {
             //对象定义
             var _self = this;
             var $this = $(this);
