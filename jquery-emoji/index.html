@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>聊天表情 - emoji</title>
+        <link rel="shortcut icon" href="../static/image/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../static/style/common.css">
+        <style type="text/css">
+            .publish-container{
+                .publish-body{
+                    textarea{
+                        display: block;
+                        width: 100%;
+                        height: 120px;
+                        padding: 10px 15px;
+                        background: #fafafa;
+                        border: 1px solid #e8e8e8;
+                        border-radius: 12px;
+                        box-sizing: border-box;
+                        resize: none;
+                        outline: none;
+                        line-height: 24px;
+                        font-size: 16px;
+                        &:focus{
+                            border-color: #e2e2e2;
+                        }
+                    }
+                }
+                .publish-foot{
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px;
+                    gap: 20px;
+                }
+                .tool-list{
+                    button{
+                        width: 36px;
+                        height: 36px;
+                        border: none;
+                        background: none;
+                        line-height: 36px;
+                        font-size: 36px;
+                        overflow: hidden;
+                        cursor: pointer;
+                        &.active{
+                            color: #fc9000;
+                        }
+                    }
+                }
+            }
+            .widget-layer{
+                position: absolute;
+                border: 1px solid #f0f0f0;
+                border-radius: 8px;
+                width: min(360px, 100vw - 16px);
+                height: 360px;
+                box-shadow: 0 0 5px rgba(0,0,0,0.05);
+                margin: 0;
+                box-sizing: border-box;
+                .widget-container{
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                }
+                .widget-head{
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 10px;
+                    line-height: 32px;
+                    font-size: 18px;
+                    font-weight: bold;
+                    .widget-close{
+                        width: 32px;
+                        height: 32px;
+                        line-height: 32px;
+                        text-align: center;
+                        color: #888;
+                        &:hover{
+                            background: #f0f0f0;
+                            border-radius: 50%;
+                            color: #333;
+                        }
+                    }
+                }
+                .widget-body{
+                    flex: 1;
+                    min-height: 0;
+                    display: flex;
+                    flex-direction: column;
+                    .widget-menu{
+                        display: flex;
+                        justify-content: space-around;
+                        margin-bottom: 10px;
+                        padding: 2px;
+                        background: #edf2f7;
+                        border-radius: 25px;
+                        button{
+                            width: 36px;
+                            height: 36px;
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            line-height: 36px;
+                            font-size: 0;
+                            svg{
+                                width: 24px;
+                                height: 24px;
+                                vertical-align: middle;
+                            }
+                            &.active,&:hover{
+                                background: #ffffff;
+                                border-radius: 50%;
+                                color: #2876df;
+                                box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 2px;
+                            }
+                        }
+                    }
+                    .widget-panels{
+                    flex: 1;
+                    min-height: 0;
+                    }
+                    .widget-panel{
+                        display: none;
+                        height: 100%;
+                        overflow-y: auto;
+                    }
+                    .widget-grid{
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+                        gap: 3px;
+                        button{
+                            width: 36px;
+                            height: 36px;
+                            padding: 0;
+                            background: none;
+                            border: 1px solid transparent;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            line-height: 36px;
+                            font-size: 24px;
+                            &:hover{
+                                background: #e0ecff;
+                                border-color: #2876df;
+                            }
+                        }
+                    }
+                }
+            }
+        </style>
+        <script type="text/javascript" src="../static/script/jquery.min.js"></script>
+        <script type="text/javascript" src="../code/jquery.emoji.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="mod-head">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="logo">
+                                <a href="/"><img src="../static/image/public/logo.png" width="180" height="64" alt="路人甲"></a>
+                            </div>
+                            <nav>
+                            </nav>
+                            <div class="operation">
+                                <a class="btn" href="https://passer-by.com" target="_blank">个人网站</a>
+                                <a class="btn" href="https://github.com/mumuy/widget/" rel="nofollow" target="_blank" title="Github">
+                                    <svg aria-hidden="true" class="octicon" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24" height="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+                                    <span>Github</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="container">
+                <div class="inner">
+                    <section class="module mod-panel">
+                        <div class="hd">
+                            <h3 class="title">聊天表情 - emoji</h3>
+                        </div>
+                        <div class="bd">
+                            <div class="publish-container">
+                                <div class="publish-body">
+                                    <textarea name="content"></textarea>
+                                </div>
+                                <div class="publish-foot">
+                                    <div class="tool-list">
+                                        <button class="emoji">☺</button>
+                                    </div>
+                                    <button class="btn" type="button">发布评论</button>
+                                </div>
+                            </div>
+                            <script>
+                                $('.publish-container').emoji({
+                                    'triggerCls':'emoji'
+                                });
+                            </script>
+                            <div class="example">
+                                <div class="code">
+                                    <h1>调用方法：</h1>
+                                    <p>$(selector).emoji(options,callback());</p>
+                                </div>
+                                <h2>options参数</h2>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th width="150">参数</th>
+                                            <th width="120">默认值</th>
+                                            <th>说明</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>title</td>
+                                            <td>'选择表情'</td>
+                                            <td>自定义节点title</td>
+                                        </tr>
+                                        <tr>
+                                            <td>prefix</td>
+                                            <td>'widget'</td>
+                                            <td>自定义节点class的前缀</td>
+                                        </tr>
+                                        <tr>
+                                            <td>triggerCls</td>
+                                            <td>'trigger'</td>
+                                            <td>表情触发点的class（动态绑定）</td>
+                                        </tr>
+                                        <tr>
+                                            <td>activeCls</td>
+                                            <td>'active'</td>
+                                            <td>表情触发点激活时的class</td>
+                                        </tr>
+                                        <tr>
+                                            <td>onShow()</td>
+                                            <td>[无]</td>
+                                            <td>表情选择框显示时执行</td>
+                                        </tr>
+                                        <tr>
+                                            <td>onHide()</td>
+                                            <td>[无]</td>
+                                            <td>表情选择框隐藏时执行</td>
+                                        </tr>
+                                        <tr>
+                                            <td>onSelect()</td>
+                                            <td>[无]</td>
+                                            <td>选中表情后执行</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                    <script type="text/javascript" src="https://passer-by.com/static/script/projects.js"></script>
+                </div>
+            </div>
+            <footer>
+                <div class="mod-fixedbar">
+                    <div class="bd">
+                        <ul>
+                            <li>
+                                <a class="gotop" href="javascript:;" rel="nofollow">
+                                    <img src="../static/image/public/icon-gotop.png" width="24" height="24" alt="回到顶部">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mod-foot">
+                    <div class="bd">
+                        <p>
+                            <span>Copyright &copy; 2026</span>
+                            <a href="/">jquerywidget.com</a>
+                            <span>版权所有</span>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script type="text/javascript" src="../static/script/common.js"></script>
+        <script type="text/javascript" src="../static/script/stat.js"></script>
+    </body>
+</html>
